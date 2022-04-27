@@ -14,10 +14,10 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class MiPrimerControlador {
 
-                            // Lo que aparece en la url
+    // Lo que aparece en la url
     @RequestMapping(path = "/miprimerurl", method = RequestMethod.GET)
-                        // Nombre del metodo
-    public ModelAndView miPrimerVista(){
+    // Nombre del metodo
+    public ModelAndView miPrimerVista() {
 
 
         // El primer parametro es el nombre de la vista,
@@ -25,33 +25,33 @@ public class MiPrimerControlador {
     }
 
     @RequestMapping(path = "/segundavista", method = RequestMethod.GET)
-    public ModelAndView mostrarVistaDos(@RequestParam(value="n")String nombre,
-                                        @RequestParam(value="a")String apellido){
+    public ModelAndView mostrarVistaDos(@RequestParam(value = "n") String nombre,
+                                        @RequestParam(value = "a") String apellido) {
         // Esto es como hasmap
         ModelMap modelo = new ModelMap();
 
         modelo.put("nombre", nombre);
         modelo.put("apellido", apellido);
-                                                // Modelo que necesitamos que vamos a llevar a la vista
+        // Modelo que necesitamos que vamos a llevar a la vista
         return new ModelAndView("vista2", modelo);
     }
 
     @RequestMapping(path = "/segundavista/operando", method = RequestMethod.GET)
-    public ModelAndView mostrarVistaDos(@RequestParam(value="op1")Integer op1,
-                                        @RequestParam(value="op2")Integer op2){
+    public ModelAndView mostrarVistaDos(@RequestParam(value = "op1") Integer op1,
+                                        @RequestParam(value = "op2") Integer op2) {
         ModelMap modelo = new ModelMap();
 
         // Es encesario esto? -> Traermelo hasta aca -> NO
 //        modelo.put("op1", op1);
 //        modelo.put("op2", op2);
 
-        modelo.put("resultado", op1+op2);
+        modelo.put("resultado", op1 + op2);
 
         return new ModelAndView("vista2", modelo);
     }
 
     @RequestMapping(path = "/segundavista/categoria/{nombreCategoria}", method = RequestMethod.GET)
-    public ModelAndView mostrarVistaDos(@PathVariable(value = "nombreCategoria") String nombre){
+    public ModelAndView mostrarVistaDos(@PathVariable(value = "nombreCategoria") String nombre) {
         ModelMap modelo = new ModelMap();
 
         modelo.put("nombre", nombre);
