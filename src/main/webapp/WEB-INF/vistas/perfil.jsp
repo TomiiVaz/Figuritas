@@ -9,6 +9,7 @@
 <html>
 <head>
     <title>Figus - Perfil</title>
+    <p>prueba 4</p>
 </head>
 <body>
 	<h1>asdasdasda</h1>
