@@ -12,6 +12,7 @@
 </head>
 <body>
 <h1>Segunda vista</h1>
-<p>La suma de los operando es: ${resultado}</p>
+<%--<p>La suma de los operando es: ${resultado}</p>--%>
+<p>Lo que estas buscando es ${nombre}?</p>
 </body>
 </html>
