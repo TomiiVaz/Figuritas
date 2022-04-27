@@ -11,6 +11,6 @@
     <title>Figus - Perfil</title>
 </head>
 <body>
-
+	<h1>asdasdasda</h1>
 </body>
 </html>
