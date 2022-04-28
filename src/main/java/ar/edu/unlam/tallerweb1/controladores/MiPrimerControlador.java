@@ -58,4 +58,11 @@ public class MiPrimerControlador {
 
         return new ModelAndView("vista2", modelo);
     }
+
+    @RequestMapping(path = "/registrarse", method = RequestMethod.GET)
+    public ModelAndView registrarse() {
+
+        return new ModelAndView("registroUsuario");
+    }
+
 }
