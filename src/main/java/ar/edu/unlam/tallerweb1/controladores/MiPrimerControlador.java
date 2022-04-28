@@ -58,5 +58,4 @@ public class MiPrimerControlador {
 
         return new ModelAndView("vista2", modelo);
     }
-
 }
