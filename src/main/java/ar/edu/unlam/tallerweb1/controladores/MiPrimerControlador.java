@@ -58,5 +58,12 @@ public class MiPrimerControlador {
 
         return new ModelAndView("vista2", modelo);
     }
+    
+    @RequestMapping(path = "/paginaprincipal", method = RequestMethod.GET)
+    public ModelAndView paginaprincipal() {
+
+
+        return new ModelAndView("paginaprincipal");
+    }
 
 }
