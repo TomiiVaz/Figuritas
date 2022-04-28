@@ -52,6 +52,7 @@
 			</div>
 		</div>
 	</nav>
+	<!-- /NavBar-->
 
 </header>
 
