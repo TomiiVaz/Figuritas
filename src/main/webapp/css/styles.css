@@ -37,3 +37,12 @@
     color: #fff;
     text-align: center;
   }
+  
+  ul li svg{
+  	background-color: red;
+  	margin:0 .5em;
+  	width: 1.5em;
+  	border-radius: 3px;
+  }
+  
+  
