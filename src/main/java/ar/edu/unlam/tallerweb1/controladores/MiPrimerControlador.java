@@ -59,4 +59,18 @@ public class MiPrimerControlador {
         return new ModelAndView("vista2", modelo);
     }
 
+    /* Nos redirecciona a la vista registrate by: Tomas */
+    @RequestMapping(path = "/registrarse", method = RequestMethod.GET)
+    public ModelAndView registrarse() {
+
+        return new ModelAndView("registroUsuario");
+    }
+
+    /* Para poder visualizar el perfil, es de uso de prueba */
+    @RequestMapping(path = "/perfil", method = RequestMethod.GET)
+    public ModelAndView perfil() {
+
+        return new ModelAndView("perfil");
+    }
+
 }
