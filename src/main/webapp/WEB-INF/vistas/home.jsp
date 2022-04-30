@@ -42,7 +42,7 @@
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav ms-auto">
 					<li class="nav-item">
-						<a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#singupModal">Registrarse</a>
+						<a class="nav-link" href="registrarse">Registrarse</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#" id="logout">LogIn</a>
@@ -52,6 +52,7 @@
 			</div>
 		</div>
 	</nav>
+	<!-- /NavBar-->
 
 </header>
 
