@@ -73,4 +73,9 @@ public class MiPrimerControlador {
         return new ModelAndView("perfil");
     }
 
+    @RequestMapping(path = "/buscar", method = RequestMethod.GET)
+    public ModelAndView buscar(){
+
+        return new ModelAndView("buscarFiguritas");
+    }
 }
