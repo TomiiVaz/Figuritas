@@ -73,6 +73,14 @@ public class MiPrimerControlador {
         return new ModelAndView("perfil");
     }
 
+
+    @RequestMapping(path = "/nosotros", method = RequestMethod.GET)
+    public ModelAndView nosotros() {
+
+        return new ModelAndView("nosotros");
+    }
+
+
     @RequestMapping(path = "/buscar", method = RequestMethod.GET)
     public ModelAndView buscar(){
 
