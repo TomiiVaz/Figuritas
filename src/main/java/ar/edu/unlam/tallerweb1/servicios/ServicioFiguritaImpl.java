@@ -4,7 +4,11 @@ import ar.edu.unlam.tallerweb1.modelo.Figurita;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioFigurita;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+@Service("servicioFigurita")
+@Transactional
 public class ServicioFiguritaImpl implements ServicioFigurita{
 
     private RepositorioFigurita repoFigurita;
