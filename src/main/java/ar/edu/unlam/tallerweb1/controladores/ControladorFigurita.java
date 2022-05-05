@@ -25,8 +25,6 @@ public class ControladorFigurita {
     @RequestMapping(path = "/ver-figurita", method = RequestMethod.GET)
     public ModelAndView crear(){
 
-        servicioFigu.agregarFigurita(456);
-
         return new ModelAndView("figurita");
     }
 
