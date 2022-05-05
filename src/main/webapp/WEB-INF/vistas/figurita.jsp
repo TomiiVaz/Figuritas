@@ -11,6 +11,7 @@
     <title>Figus - Figurita</title>
 </head>
 <body>
+<%@include file="header.jsp" %>
 
 </body>
 </html>
