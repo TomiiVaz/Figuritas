@@ -25,8 +25,17 @@ public class ControladorFigurita {
     @RequestMapping(path = "/ver-figurita", method = RequestMethod.GET)
     public ModelAndView crear(){
 
+        //servicioFigu.agregarFigurita(54);
+
         return new ModelAndView("figurita");
     }
 
+    @RequestMapping(path = "/agregar-figurita", method = RequestMethod.POST)
+    public ModelAndView agregar(){
+
+        //servicioFigu.agregarFigurita(54);
+
+        return new ModelAndView("home");
+    }
 
 }
