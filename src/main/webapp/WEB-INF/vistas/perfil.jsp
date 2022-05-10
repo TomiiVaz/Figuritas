@@ -60,7 +60,7 @@
                             <div class="modal-body text-center">
                                 <form class="d-flex flex-column mb-2"
                                       method="post"
-                                      action="/agregar-figurita">
+                                      action="agregar-figurita">
                                     <label for="codigo" class="mb-1">Ingresar código</label>
                                     <input type="number" name="codigo" id="codigo">
                                     <button type="submit" class="btn btn-primary mt-3">Save changes</button>
@@ -98,7 +98,7 @@
                         <li class="list-group-item">Dorsal:</li>
                     </ul>
                     <div class="card-body">
-                        <a href="#" class="card-link">Ir a la carta</a>
+                        <a href="carta" class="card-link">Ir a la carta</a>
                         <a href="#" class="card-link">Guardar</a>
                     </div>
                 </div>
