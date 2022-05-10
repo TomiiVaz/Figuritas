@@ -1,9 +1,6 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Figurita {
@@ -15,6 +12,8 @@ public class Figurita {
     private String rareza;
     private String equipo;
 
+    @ManyToOne
+    private Album album;
     public Integer getId() {
         return id;
     }
@@ -45,5 +44,13 @@ public class Figurita {
 
     public void setEquipo(String equipo) {
         this.equipo = equipo;
+    }
+
+    public Album getAlbum() {
+        return album;
+    }
+
+    public void setAlbum(Album album) {
+        this.album = album;
     }
 }
