@@ -1,15 +1,14 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<header class="mb-5">
+<header class="bg-dark">
     <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3">
 
             <a href="home" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-                <%--                Logo app--%>
-                <span class="fs-4">Figus</span>
+                <img src="img/favicon.ico">
+                <span class="fs-4 text-white h3">Figus</span>
             </a>
 
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="#" class="nav-link px-2 link-dark">Nosotros</a></li>
+                <li><a href="nosotros" class="nav-link px-2 link-dark text-white h4">Nosotros</a></li>
             </ul>
 
             <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
@@ -17,7 +16,7 @@
             </form>
 
             <div class="dropdown text-end ">
-                <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+                <a href="" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
                    data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
                 </a>
@@ -32,4 +31,4 @@
         </div>
     </div>
 </header>
-</html>
+

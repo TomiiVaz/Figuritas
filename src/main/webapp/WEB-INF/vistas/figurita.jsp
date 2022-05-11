@@ -1,17 +1,64 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Tomas
-  Date: 27/4/2022
-  Time: 16:48
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Figus - Figurita</title>
+    <%--    Css Boostrap--%>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <%--    /Css Boostrap--%>
 </head>
 <body>
 <%@include file="header.jsp" %>
+<main class=".container-fluid text-center">
 
+    <!-- Parte Arriba -->
+    <div class="row align-items-center justify-content-center m-2 mb-5 mb-4">
+        <div class="col">
+            <h1 class="mb-4 mt-2">Lionel Messi</h1>
+            <div class="m-0">
+                <img src="img/messi1.jpg" alt="Foto Perfil" class="img-thumbnail img-fluid m-0">
+            </div>
+            <button class="btn btn-primary mb-5 mt-3">Editar</button>
+        </div>
+        <%--        Datos--%>
+        <div class="col m-2 d-flex align-items-center justify-content-around">
+            <div class="text-start">
+                <h4>Jugador:</h4>
+                <h4>Equipo:</h4>
+                <h4>Seleccion:</h4>
+                <h4>Posicion:</h4>
+                <h4>Dorsal:</h4>
+            </div>
+            <div class="d-flex flex-column text-start">
+                <h4>Lionel Andres Messi</h4>
+                <h4>Paris Saint German</h4>
+                <h4>Argentina</h4>
+                <h4>Delantero</h4>
+                <h4>30</h4>
+            </div>
+            <%--        /Datos--%>
+        </div>
+        <!-- /Parte Arriba -->
+
+        <%--        Parte comentarios--%>
+        <h2 class="mb-5">Comentarios</h2>
+        <div class="container w-75">
+            <div class="form-floating">
+                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
+                          style="height: 100px"></textarea>
+                <label for="floatingTextarea2" class="ms-2">Comments</label>
+            </div>
+        </div>
+        <%--        Parte comentarios--%>
+
+</main>
+
+<!-- Footer -->
+<%@include file="footer.jsp" %>
+
+<%--Script Boostrap--%>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+<%--/Script Boostrap--%>
 </body>
 </html>
