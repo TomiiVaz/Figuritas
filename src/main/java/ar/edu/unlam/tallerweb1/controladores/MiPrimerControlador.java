@@ -92,5 +92,4 @@ public class MiPrimerControlador {
 
         return new ModelAndView("figurita");
     }
-
 }
