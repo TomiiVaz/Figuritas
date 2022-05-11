@@ -8,39 +8,8 @@
     <%--    /Css Boostrap--%>
 </head>
 <body>
-<header class="mb-5">
-    <div class="container">
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3">
 
-            <a href="home" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-                <%--                Logo app--%>
-                <span class="fs-4">Figus</span>
-            </a>
-
-            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="#" class="nav-link px-2 link-dark">Nosotros</a></li>
-            </ul>
-
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-                <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
-            </form>
-
-            <div class="dropdown text-end ">
-                <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
-                   data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
-                </a>
-                <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="">
-                    <li><a class="dropdown-item" href="perfil">Profile</a></li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li><a class="dropdown-item" href="home">Sign out</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</header>
+<%@include file="header.jsp" %>
 
 <main class=".container-fluid text-center">
     <!-- Parte Arriba -->
@@ -77,7 +46,36 @@
         <div class="container-fluid">
             <h2 class="mb-3">Mi Album</h2>
             <div class="text-end container">
-                <button class="btn btn-primary mb-4">Agregar</button>
+                <%--                Agregar figurita form--%>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Agregar
+                </button>
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Agregar Figurita</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body text-center">
+                                <form class="d-flex flex-column mb-2"
+                                      method="post"
+                                      action="agregar-figurita">
+                                    <label for="codigo" class="mb-1">Ingresar código</label>
+                                    <input type="text" name="codigo" id="codigo" class="form-control mt-2">
+                                    <button type="submit" class="btn btn-primary mt-3">Save changes</button>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <%--                    El boton esta fuera del form, por lo cual no se donde me lo envia xd--%>
+                <%--                /Agregar figurita form--%>
                 <div class="mb-5 mt-2">
                     <select class="form-select form-select-sm" aria-label="Small select">
                         <option selected="">Selecciones</option>
@@ -95,14 +93,14 @@
                         <h5 class="card-title">Nombre Jugador</h5>
                         <p class="card-text">Tipo de Carta</p>
                     </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Equipo:</li>
-                        <li class="list-group-item">Posicion:</li>
-                        <li class="list-group-item">Pierna Hábil:</li>
-                        <li class="list-group-item">Dorsal:</li>
+                    <ul class="list-group list-group-flush text-start">
+                        <li class="list-group-item">Equipo: PSG</li>
+                        <li class="list-group-item">Posicion: Delantero</li>
+                        <li class="list-group-item">Pierna Hábil: Zurda</li>
+                        <li class="list-group-item">Dorsal: 30</li>
                     </ul>
                     <div class="card-body">
-                        <a href="#" class="card-link">Ir a la carta</a>
+                        <a href="carta" class="card-link">Ir a la carta</a>
                         <a href="#" class="card-link">Guardar</a>
                     </div>
                 </div>
@@ -218,6 +216,8 @@
         </div>
         <!-- /Parte Album -->
 </main>
+
+
 <%--Script Boostrap--%>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
