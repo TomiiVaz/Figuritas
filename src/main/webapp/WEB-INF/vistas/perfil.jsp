@@ -8,7 +8,9 @@
     <%--    /Css Boostrap--%>
 </head>
 <body>
+
 <%@include file="header.jsp" %>
+
 <main class=".container-fluid text-center">
     <!-- Parte Arriba -->
 
@@ -62,7 +64,7 @@
                                       method="post"
                                       action="agregar-figurita">
                                     <label for="codigo" class="mb-1">Ingresar código</label>
-                                    <input type="number" name="codigo" id="codigo">
+                                    <input type="text" name="codigo" id="codigo" class="form-control mt-2">
                                     <button type="submit" class="btn btn-primary mt-3">Save changes</button>
                                 </form>
                             </div>
@@ -91,11 +93,11 @@
                         <h5 class="card-title">Nombre Jugador</h5>
                         <p class="card-text">Tipo de Carta</p>
                     </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Equipo:</li>
-                        <li class="list-group-item">Posicion:</li>
-                        <li class="list-group-item">Pierna Hábil:</li>
-                        <li class="list-group-item">Dorsal:</li>
+                    <ul class="list-group list-group-flush text-start">
+                        <li class="list-group-item">Equipo: PSG</li>
+                        <li class="list-group-item">Posicion: Delantero</li>
+                        <li class="list-group-item">Pierna Hábil: Zurda</li>
+                        <li class="list-group-item">Dorsal: 30</li>
                     </ul>
                     <div class="card-body">
                         <a href="carta" class="card-link">Ir a la carta</a>
