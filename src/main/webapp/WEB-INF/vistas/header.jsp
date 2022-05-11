@@ -27,6 +27,7 @@
                     <li>
                         <hr class="dropdown-divider">
                     </li>
+
                     <li><a class="dropdown-item" href="home">Sign out</a></li>
                 </ul>
             </div>
