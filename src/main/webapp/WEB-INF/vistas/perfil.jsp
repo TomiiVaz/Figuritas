@@ -101,7 +101,6 @@
                     </ul>
                     <div class="card-body">
                         <a href="carta" class="card-link">Ir a la carta</a>
-                        <a href="#" class="card-link">Guardar</a>
                     </div>
                 </div>
 
@@ -119,7 +118,6 @@
                     </ul>
                     <div class="card-body">
                         <a href="#" class="card-link">Ir a la carta</a>
-                        <a href="#" class="card-link">Guardar</a>
                     </div>
                 </div>
 
@@ -137,7 +135,6 @@
                     </ul>
                     <div class="card-body">
                         <a href="#" class="card-link">Ir a la carta</a>
-                        <a href="#" class="card-link">Guardar</a>
                     </div>
                 </div>
 
@@ -155,7 +152,6 @@
                     </ul>
                     <div class="card-body">
                         <a href="#" class="card-link">Ir a la carta</a>
-                        <a href="#" class="card-link">Guardar</a>
                     </div>
                 </div>
 
@@ -173,7 +169,6 @@
                     </ul>
                     <div class="card-body">
                         <a href="#" class="card-link">Ir a la carta</a>
-                        <a href="#" class="card-link">Guardar</a>
                     </div>
                 </div>
 
@@ -191,7 +186,6 @@
                     </ul>
                     <div class="card-body">
                         <a href="#" class="card-link">Ir a la carta</a>
-                        <a href="#" class="card-link">Guardar</a>
                     </div>
                 </div>
 
@@ -209,7 +203,6 @@
                     </ul>
                     <div class="card-body">
                         <a href="#" class="card-link">Ir a la carta</a>
-                        <a href="#" class="card-link">Guardar</a>
                     </div>
                 </div>
             </div>
