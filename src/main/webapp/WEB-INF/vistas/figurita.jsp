@@ -6,7 +6,7 @@
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <%--    /Css Boostrap--%>
 </head>
-<body>
+<body class="bg-dark text-white">
 <%@include file="header.jsp" %>
 <main class=".container-fluid text-center">
 
@@ -48,9 +48,9 @@
         </div>
         <div class="container w-75">
             <div class="form-floating">
-                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
+                <h4 class="mb-4">Deja tu comentario aqui:</h4>
+                <textarea class="form-control bg-secondary" id="floatingTextarea2"
                           style="height: 100px"></textarea>
-                <label for="floatingTextarea2" class="ms-2">Comments</label>
             </div>
         </div>
         <%--        Parte comentarios--%>

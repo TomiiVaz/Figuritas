@@ -1,18 +1,20 @@
-<header class="bg-dark">
+<header class="bg-dark border-bottom border-white">
     <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3">
 
             <a href="home" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-                <img src="img/favicon.ico">
-                <span class="fs-4 text-white h3">Figus</span>
+                <img class="rounded-circle me-3" src="img/favicon.ico" style="width: 32px">
+                <span class="fs-4 text-white h2">FIGUS</span>
             </a>
 
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                 <li><a href="nosotros" class="nav-link px-2 link-dark text-white h4">Nosotros</a></li>
             </ul>
 
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-                <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" method="get" action="buscarfiguritas">
+                <label for="busq"></label>
+                <input type="text" id="busq" name="busq" placeholder="Buscar Figurita/s..." class="form-control" >
+                <button type="submit" class="invisible"></button>
             </form>
 
             <div class="dropdown text-end ">

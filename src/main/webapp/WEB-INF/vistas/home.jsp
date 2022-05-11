@@ -33,13 +33,13 @@
 			</div>
 			<div class="carousel-inner">
 				<div class="carousel-item active">
-					<img src="img/messi1.jpg" class="d-block w-100" alt="...">
+					<img style="height: 520px"  src="img/messi1.jpg" class="d-block w-100" alt="...">
 				</div>
 				<div class="carousel-item">
-					<img src="img/messi2.jpg" class="d-block w-100" alt="...">
+					<img style="height: 520px"  src="img/messi2.jpg" class="d-block w-100" alt="...">
 				</div>
 				<div class="carousel-item">
-					<img src="img/messi3.jpg" class="d-block w-100" alt="...">
+					<img style="height: 520px"  src="img/messi3.jpg" class="d-block w-100" alt="...">
 				</div>
 			</div>
 			<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -52,11 +52,89 @@
 			</button>
 		</div>
 	</section>
-	<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla veritatis suscipit neque amet voluptatum totam incidunt quisquam deleniti temporibus, ipsam labore voluptatibus ipsa eligendi dicta, explicabo minus mollitia quasi aliquid?</p>
+	<section>
+		<div>
+			<h2 class="text-white text-center mt-3">Econtra la figurita que te falta</h2>
+		</div>
+		<div class="container bg-dark">
+			<div class="row mt-4 bg-dark gx-2">
+				<div class="col-2 my-1">
+					<div class="figuritaEncontrada border rounded border-white">
+						<a href="#" class="btn">
+							<img src="img/messi-god-no.jpg" alt="foto1" width="100% " class="rounded m-auto d-block">
+							<div class="h4 text-center my-auto text-white">Messi</div>
+						</a>
+					</div>
+				</div>
 
-	<p>lorem100000
-	</p>
+				<div class="col-2 my-1">
+					<div class="figuritaEncontrada border rounded border-white">
+						<a href="#" class="btn">
+							<img src="img/messi-god-no.jpg" alt="foto1" width="100% " class="rounded m-auto d-block">
+							<div class="h4 text-center my-auto text-white">Messi</div>
+						</a>
+					</div>
+				</div>
+				<div class="col-2 my-1">
+					<div class="figuritaEncontrada border rounded border-white">
+						<a href="#" class="btn">
+							<img src="img/messi-god-no.jpg" alt="foto1" width="100% " class="rounded m-auto d-block">
+							<div class="h4 text-center my-auto text-white">Messi</div>
+						</a>
+					</div>
+				</div>
+				<div class="col-2 my-1">
+					<div class="figuritaEncontrada border rounded border-white">
+						<a href="#" class="btn">
+							<img src="img/messi-god-no.jpg" alt="foto1" width="100% " class="rounded m-auto d-block">
+							<div class="h4 text-center my-auto text-white">Messi</div>
+						</a>
+					</div>
+				</div>
+				<div class="col-2 my-1">
+					<div class="figuritaEncontrada border rounded border-white">
+						<a href="#" class="btn">
+							<img src="img/messi-god-no.jpg" alt="foto1" width="100% " class="rounded m-auto d-block">
+							<div class="h4 text-center my-auto text-white">Messi</div>
+						</a>
+					</div>
+				</div>
+				<div class="col-2 my-1">
+					<div class="figuritaEncontrada border rounded border-white">
+						<a href="#" class="btn">
+							<img src="img/messi-god-no.jpg" alt="foto1" width="100% " class="rounded m-auto d-block">
+							<div class="h4 text-center my-auto text-white">Messi</div>
+						</a>
+					</div>
+				</div>
+				<div class="col-2 my-1">
+					<div class="figuritaEncontrada border rounded border-white">
+						<a href="#" class="btn">
+							<img src="img/messi-god-no.jpg" alt="foto1" width="100% " class="rounded m-auto d-block">
+							<div class="h4 text-center my-auto text-white">Messi</div>
+						</a>
+					</div>
+				</div>
+				<div class="col-2 my-1">
+					<div class="figuritaEncontrada border rounded border-white">
+						<a href="#" class="btn">
+							<img src="img/messi-god-no.jpg" alt="foto1" width="100% " class="rounded m-auto d-block">
+							<div class="h4 text-center my-auto text-white">Messi</div>
+						</a>
+					</div>
+				</div>
+				<div class="col-2 my-1">
+					<div class="figuritaEncontrada border rounded border-white">
+						<a href="#" class="btn">
+							<img src="img/messi-god-no.jpg" alt="foto1" width="100% " class="rounded m-auto d-block">
+							<div class="h4 text-center my-auto text-white">Messi</div>
+						</a>
+					</div>
+				</div>
 
+			</div>
+		</div>
+	</section>
 
 </main>
 
