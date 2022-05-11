@@ -44,7 +44,36 @@
         <div class="container-fluid">
             <h2 class="mb-3">Mi Album</h2>
             <div class="text-end container">
-                <button class="btn btn-primary mb-4">Agregar</button>
+                <%--                Agregar figurita form--%>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Agregar
+                </button>
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Agregar Figurita</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body text-center">
+                                <form class="d-flex flex-column mb-2"
+                                      method="post"
+                                      action="agregar-figurita">
+                                    <label for="codigo" class="mb-1">Ingresar código</label>
+                                    <input type="number" name="codigo" id="codigo">
+                                    <button type="submit" class="btn btn-primary mt-3">Save changes</button>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <%--                    El boton esta fuera del form, por lo cual no se donde me lo envia xd--%>
+                <%--                /Agregar figurita form--%>
                 <div class="mb-5 mt-2">
                     <select class="form-select form-select-sm" aria-label="Small select">
                         <option selected="">Selecciones</option>
@@ -69,7 +98,7 @@
                         <li class="list-group-item">Dorsal:</li>
                     </ul>
                     <div class="card-body">
-                        <a href="#" class="card-link">Ir a la carta</a>
+                        <a href="carta" class="card-link">Ir a la carta</a>
                         <a href="#" class="card-link">Guardar</a>
                     </div>
                 </div>
