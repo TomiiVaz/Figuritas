@@ -92,10 +92,4 @@ public class MiPrimerControlador {
 
         return new ModelAndView("figurita");
     }
-
-    //@RequestMapping(path = "/home", method = RequestMethod.GET)
-    //public ModelAndView verHome(){
-    // return new ModelAndView("home");
-    //}
-
 }
