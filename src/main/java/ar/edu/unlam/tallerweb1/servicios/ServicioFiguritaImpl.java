@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service("servicioFigurita")
 @Transactional
 public class ServicioFiguritaImpl implements ServicioFigurita{
@@ -25,7 +27,20 @@ public class ServicioFiguritaImpl implements ServicioFigurita{
     }
 
     @Override
-    public Figurita buscarFigurita(String nombre, String equipo) {
+    public Figurita buscarFiguritaNombreEquipo(String nombre, String equipo) {
+        repoFigurita.findByNombreAndEquipo(nombre, equipo);
+        return null;
+    }
+
+    @Override
+    public Figurita buscarFiguritaPorNombre(String nombre) {
+        repoFigurita.findByNombre(nombre);
+        return null;
+    }
+
+    @Override
+    public List<Figurita> buscarFiguritasPorEquipo(Integer idEquipo) {
+        repoFigurita.findAllByIdEquipo(idEquipo);
         return null;
     }
 }

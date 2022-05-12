@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service("servicioAlbum")
 @Transactional
 public class ServicioAlbumImpl implements ServicioAlbum{
@@ -20,5 +22,23 @@ public class ServicioAlbumImpl implements ServicioAlbum{
     @Override
     public void pegarFigurita(Figurita figu) {
         repoAlbum.agregarFigurita(figu);
+    }
+
+    @Override
+    public Figurita buscarFiguritaPorCodigo(Integer codigo) {
+       repoAlbum.getFigurita(codigo);
+        return null;
+    }
+
+    @Override
+    public List<Figurita> buscarFigusPorNombre(String nombre) {
+       repoAlbum.findAllByNombre(nombre);
+        return null;
+    }
+
+    @Override
+    public List<Figurita> buscarFigusPorEquipo(Integer idEquipo) {
+        repoAlbum.findAllByEquipo(idEquipo);
+        return null;
     }
 }
