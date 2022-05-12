@@ -7,7 +7,6 @@
 
 <main class=".container-fluid text-center">
     <!-- Parte Arriba -->
-
     <div class="row align-items-center justify-content-center m-2">
         <div class="col">
             <h1 class="mb-4 mt-2 text-white">Tomas Vazquez</h1>
@@ -30,10 +29,8 @@
                 <h4 class="text-white">Argentina</h4>
                 <h4 class="text-white">TomasVazquez@gmail.com</h4>
             </div>
-
-            <%--        /Datos--%>
+            <%--       /Datos--%>
         </div>
-
         <!-- /Parte Arriba -->
 
         <!-- Parte Album -->
@@ -47,7 +44,7 @@
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                      aria-hidden="true">
                     <div class="modal-dialog">
-                        <div class="modal-content">
+                        <div class="modal-content bg-dark">
                             <div class="modal-header">
                                 <h5 class="modal-title text-white" id="exampleModalLabel">Agregar Figurita</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -57,8 +54,8 @@
                                 <form class="d-flex flex-column mb-2"
                                       method="post"
                                       action="agregar-figurita">
-                                    <label for="codigo" class="mb-1">Ingresar código</label>
-                                    <input type="text" name="codigo" id="codigo" class="form-control mt-2">
+                                    <label for="codigo" class="mb-1 text-white">Ingresar código</label>
+                                    <input type="text" name="codigo" id="codigo" class="form-control mt-2" placeholder="Ingrese codigo de carta">
                                     <button type="submit" class="btn btn-primary mt-3">Save changes</button>
                                 </form>
                             </div>
@@ -203,7 +200,6 @@
         </div>
         <!-- /Parte Album -->
 </main>
-
 <!-- Footer -->
 <%@include file="footer.jsp" %>
 

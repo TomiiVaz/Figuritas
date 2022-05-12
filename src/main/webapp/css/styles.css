@@ -1,15 +1,15 @@
 @charset "ISO-8859-1";
 
-*{
+* {
     padding: 0;
     margin: 0;
 }
 
-.fondoMain{
+.fondoMain {
     background: linear-gradient(180deg, #8735a0 20%, #1a0321 90%);
 }
 
-.copy{
+.copy {
     text-align: center;
 }
 
@@ -24,9 +24,9 @@
     transition: -webkit-transform 0.6s ease-in-out;
     transition: transform 0.6s ease-in-out;
     transition: transform 0.6s ease-in-out, -webkit-transform 0.6s ease-in-out;
-  }
-  
-  .carousel-caption {
+}
+
+.carousel-caption {
     position: absolute;
     right: 15%;
     bottom: 20px;
@@ -36,17 +36,17 @@
     padding-bottom: 20px;
     color: #fff;
     text-align: center;
-  }
-  
-  ul li svg{
-  	background-color: red;
-  	margin:0 .5em;
-  	width: 1.5em;
-  	border-radius: 3px;
-  }
- 
-  .error{
-  
+}
+
+ul li svg {
+    background-color: red;
+    margin: 0 .5em;
+    width: 1.5em;
+    border-radius: 3px;
+}
+
+.error {
+
     border-color: red;
 }
   
