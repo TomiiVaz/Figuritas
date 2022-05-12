@@ -5,6 +5,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository("repositorioFigurita")
 public class RepositorioFiguritaImpl implements RepositorioFigurita{
 
@@ -22,6 +24,18 @@ public class RepositorioFiguritaImpl implements RepositorioFigurita{
 
     @Override
     public Figurita findByNombreAndEquipo(String nombre, String equipo) {
+        return null;
+    }
+
+    @Override
+    public Figurita findByNombre(String nombre) {
+        // preguntar por metodo como findByNombre
+        return null;
+    }
+
+    @Override
+    public List<Figurita> findAllByIdEquipo(Integer idEquipo) {
+        // preguntar por metodo como findByAllByIdEquipo
         return null;
     }
 }
