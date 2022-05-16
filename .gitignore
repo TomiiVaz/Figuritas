@@ -27,3 +27,4 @@ resources/
 # Maven
 log/
 target/
+src/main/resources/hibernateContext.xml
