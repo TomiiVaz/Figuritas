@@ -38,4 +38,28 @@ public class ControladorFigurita {
         return new ModelAndView("home");
     }
 
+    @RequestMapping(path = "/buscar-figurita", method = RequestMethod.POST)
+    public ModelAndView buscar(){
+
+        //servicioFigu.buscarFiguritaPorNombre("messi");
+
+        return new ModelAndView("home");
+    }
+
+    @RequestMapping(path = "/buscar-figuritas-nombre-equipo", method = RequestMethod.POST)
+    public ModelAndView buscarNombreEquipo(){
+
+        //servicioFigu.buscarFiguritaNombreEquipo("messi","scaloneta");
+
+        return new ModelAndView("home");
+    }
+
+    @RequestMapping(path = "/buscar-figuritas-equipo", method = RequestMethod.POST)
+    public ModelAndView buscarEquipo(){
+
+        servicioFigu.buscarFiguritasPorEquipo(5);
+
+        return new ModelAndView("home");
+    }
+
 }

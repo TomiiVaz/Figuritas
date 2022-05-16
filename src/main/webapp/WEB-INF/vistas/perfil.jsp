@@ -1,22 +1,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<head>
-    <title>Figus - Perfil</title>
-    <%--    Css Boostrap--%>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <%--    /Css Boostrap--%>
-</head>
-<body>
+<%@include file="head.jsp" %>
+<body class="bg-dark">
 
 <%@include file="header.jsp" %>
 
 <main class=".container-fluid text-center">
     <!-- Parte Arriba -->
-
     <div class="row align-items-center justify-content-center m-2">
         <div class="col">
-            <h1 class="mb-4 mt-2">Tomas Vazquez</h1>
+            <h1 class="mb-4 mt-2 text-white">Tomas Vazquez</h1>
             <div class="m-0">
                 <img src="img/messi1.jpg" alt="Foto Perfil" class="img-thumbnail img-fluid m-0">
             </div>
@@ -25,26 +18,24 @@
         <%--        Datos--%>
         <div class="col m-2 d-flex align-items-center justify-content-around">
             <div class="text-start">
-                <h4>Nombre de Usuario</h4>
-                <h4>Equipo:</h4>
-                <h4>Seleccion:</h4>
-                <h4>Mail:</h4>
+                <h4 class="text-white">Nombre de Usuario</h4>
+                <h4 class="text-white">Equipo:</h4>
+                <h4 class="text-white">Seleccion:</h4>
+                <h4 class="text-white">Mail:</h4>
             </div>
             <div class="d-flex flex-column text-start">
-                <h4>TomiiVaz</h4>
-                <h4>Velez</h4>
-                <h4>Argentina</h4>
-                <h4>TomasVazquez@gmail.com</h4>
+                <h4 class="text-white">TomiiVaz</h4>
+                <h4 class="text-white">Velez</h4>
+                <h4 class="text-white">Argentina</h4>
+                <h4 class="text-white">TomasVazquez@gmail.com</h4>
             </div>
-
-            <%--        /Datos--%>
+            <%--       /Datos--%>
         </div>
-
         <!-- /Parte Arriba -->
 
         <!-- Parte Album -->
         <div class="container-fluid">
-            <h2 class="mb-3">Mi Album</h2>
+            <h2 class="mb-3 text-white">Mi Album</h2>
             <div class="text-end container">
                 <%--                Agregar figurita form--%>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -53,9 +44,9 @@
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                      aria-hidden="true">
                     <div class="modal-dialog">
-                        <div class="modal-content">
+                        <div class="modal-content bg-dark">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Agregar Figurita</h5>
+                                <h5 class="modal-title text-white" id="exampleModalLabel">Agregar Figurita</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                             </div>
@@ -63,8 +54,8 @@
                                 <form class="d-flex flex-column mb-2"
                                       method="post"
                                       action="agregar-figurita">
-                                    <label for="codigo" class="mb-1">Ingresar código</label>
-                                    <input type="text" name="codigo" id="codigo" class="form-control mt-2">
+                                    <label for="codigo" class="mb-1 text-white">Ingresar código</label>
+                                    <input type="text" name="codigo" id="codigo" class="form-control mt-2" placeholder="Ingrese codigo de carta">
                                     <button type="submit" class="btn btn-primary mt-3">Save changes</button>
                                 </form>
                             </div>
@@ -101,7 +92,6 @@
                     </ul>
                     <div class="card-body">
                         <a href="carta" class="card-link">Ir a la carta</a>
-                        <a href="#" class="card-link">Guardar</a>
                     </div>
                 </div>
 
@@ -119,7 +109,6 @@
                     </ul>
                     <div class="card-body">
                         <a href="#" class="card-link">Ir a la carta</a>
-                        <a href="#" class="card-link">Guardar</a>
                     </div>
                 </div>
 
@@ -137,12 +126,11 @@
                     </ul>
                     <div class="card-body">
                         <a href="#" class="card-link">Ir a la carta</a>
-                        <a href="#" class="card-link">Guardar</a>
                     </div>
                 </div>
 
                 <div class="card m-3" style="width: 18rem;">
-                    <img src="..." class="card-img-top" alt="...">
+                    <img src="img/messi1.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">Nombre Jugador</h5>
                         <p class="card-text">Tipo de Carta</p>
@@ -155,12 +143,11 @@
                     </ul>
                     <div class="card-body">
                         <a href="#" class="card-link">Ir a la carta</a>
-                        <a href="#" class="card-link">Guardar</a>
                     </div>
                 </div>
 
                 <div class="card m-3" style="width: 18rem;">
-                    <img src="..." class="card-img-top" alt="...">
+                    <img src="img/messi1.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">Nombre Jugador</h5>
                         <p class="card-text">Tipo de Carta</p>
@@ -173,12 +160,11 @@
                     </ul>
                     <div class="card-body">
                         <a href="#" class="card-link">Ir a la carta</a>
-                        <a href="#" class="card-link">Guardar</a>
                     </div>
                 </div>
 
                 <div class="card m-3" style="width: 18rem;">
-                    <img src="..." class="card-img-top" alt="...">
+                    <img src="img/messi1.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">Nombre Jugador</h5>
                         <p class="card-text">Tipo de Carta</p>
@@ -191,12 +177,11 @@
                     </ul>
                     <div class="card-body">
                         <a href="#" class="card-link">Ir a la carta</a>
-                        <a href="#" class="card-link">Guardar</a>
                     </div>
                 </div>
 
                 <div class="card m-3" style="width: 18rem;">
-                    <img src="..." class="card-img-top" alt="...">
+                    <img src="img/messi1.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">Nombre Jugador</h5>
                         <p class="card-text">Tipo de Carta</p>
@@ -209,14 +194,14 @@
                     </ul>
                     <div class="card-body">
                         <a href="#" class="card-link">Ir a la carta</a>
-                        <a href="#" class="card-link">Guardar</a>
                     </div>
                 </div>
             </div>
         </div>
         <!-- /Parte Album -->
 </main>
-
+<!-- Footer -->
+<%@include file="footer.jsp" %>
 
 <%--Script Boostrap--%>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"

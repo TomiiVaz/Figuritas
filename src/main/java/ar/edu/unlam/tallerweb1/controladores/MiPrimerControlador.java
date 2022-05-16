@@ -81,10 +81,14 @@ public class MiPrimerControlador {
     }
 
 
-    @RequestMapping(path = "/buscar", method = RequestMethod.GET)
-    public ModelAndView buscar(){
+    @RequestMapping(path = "/buscarfiguritas", method = RequestMethod.GET)
+    public ModelAndView buscarFiguritas(@RequestParam(value = "busq") String busq){
 
-        return new ModelAndView("buscarFiguritas");
+        ModelMap modelo = new ModelMap();
+
+        modelo.put("busq", busq);
+
+        return new ModelAndView("buscarFiguritas", modelo);
     }
 
     @RequestMapping(path = "/carta", method = RequestMethod.GET)
@@ -93,10 +97,5 @@ public class MiPrimerControlador {
         return new ModelAndView("figurita");
     }
 
-    @RequestMapping(path = "/home", method = RequestMethod.GET)
-    public ModelAndView verHome(){
-
-        return new ModelAndView("home");
-    }
 
 }

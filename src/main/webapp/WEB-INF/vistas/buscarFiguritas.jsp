@@ -7,23 +7,17 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<head>
-    <title>Buscar Figuritas</title>
+<!-- head -->
+<%@include file="head.jsp" %>
 
-    <%--    Css Boostrap--%>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <%--    /Css Boostrap--%>
 
-</head>
-
-<body>
+<body class="bg-dark">
 <%@include file="header.jsp" %>
 
 <main>
     <!--opciones de filtrado de cartas (por selección, nombre jugador, posición)-->
-    <div class="container">
-        <h4 class="mark">Filtros</h4>
+    <div class="container mt-3">
+        <h4 class="text-white">Filtros</h4>
         <form action="#" method="get">
             <div class="formSearchContainer">
                 <input type="text" placeholder="buscar por nombre"
@@ -56,206 +50,134 @@
     </div>
 
     <!--listado de figuritas-->
-    <div class="container">
-        <div class="row mt-4 bg-light gx-2">
+    <div class="container bg-dark">
+        <div class="row mt-4 bg-dark gx-2">
             <div class="col-2 my-1">
-                <div class="figuritaEncontrada border rounded border-primary">
-                    <a href="#" class="btn">
+                <div class="figuritaEncontrada border rounded border-white">
+                    <a href="carta" class="btn">
                         <img src="img/messi-god-no.jpg" alt="foto1" width="95% " class="rounded m-auto d-block">
-                        <div class="h4 text-center my-auto">Messi</div>
+                        <div class="h4 text-center my-auto text-white">Messi</div>
                     </a>
                 </div>
             </div>
 
             <div class="col-2 my-1">
-                <div class="figuritaEncontrada border rounded border-primary">
-                    <a href="#" class="btn">
+                <div class="figuritaEncontrada border rounded border-white">
+                    <a href="carta" class="btn">
                         <img src="img/messi-god-no.jpg" alt="foto1" width="95% " class="rounded m-auto d-block">
-                        <div class="h4 text-center my-auto">Messi</div>
+                        <div class="h4 text-center my-auto text-white">Messi</div>
                     </a>
                 </div>
             </div>
             <div class="col-2 my-1">
-                <div class="figuritaEncontrada border rounded border-primary">
-                    <a href="#" class="btn">
+                <div class="figuritaEncontrada border rounded border-white">
+                    <a href="carta" class="btn">
                         <img src="img/messi-god-no.jpg" alt="foto1" width="95% " class="rounded m-auto d-block">
-                        <div class="h4 text-center my-auto">Messi</div>
+                        <div class="h4 text-center my-auto text-white">Messi</div>
                     </a>
                 </div>
             </div>
             <div class="col-2 my-1">
-                <div class="figuritaEncontrada border rounded border-primary">
-                    <a href="#" class="btn">
+                <div class="figuritaEncontrada border rounded border-white">
+                    <a href="carta" class="btn">
                         <img src="img/messi-god-no.jpg" alt="foto1" width="95% " class="rounded m-auto d-block">
-                        <div class="h4 text-center my-auto">Messi</div>
+                        <div class="h4 text-center my-auto text-white">Messi</div>
                     </a>
                 </div>
             </div>
             <div class="col-2 my-1">
-                <div class="figuritaEncontrada border rounded border-primary">
-                    <a href="#" class="btn">
+                <div class="figuritaEncontrada border rounded border-white">
+                    <a href="carta" class="btn">
                         <img src="img/messi-god-no.jpg" alt="foto1" width="95% " class="rounded m-auto d-block">
-                        <div class="h4 text-center my-auto">Messi</div>
+                        <div class="h4 text-center my-auto text-white">Messi</div>
                     </a>
                 </div>
             </div>
             <div class="col-2 my-1">
-                <div class="figuritaEncontrada border rounded border-primary">
-                    <a href="#" class="btn">
+                <div class="figuritaEncontrada border rounded border-white">
+                    <a href="carta" class="btn">
                         <img src="img/messi-god-no.jpg" alt="foto1" width="95% " class="rounded m-auto d-block">
-                        <div class="h4 text-center my-auto">Messi</div>
-                    </a>
-                </div>
-            </div>
-            <div class="col-2 my-1">
-                <div class="figuritaEncontrada border rounded border-primary">
-                    <a href="#" class="btn">
-                        <img src="img/messi-god-no.jpg" alt="foto1" width="95% " class="rounded m-auto d-block">
-                        <div class="h4 text-center my-auto">Messi</div>
-                    </a>
-                </div>
-            </div>
-            <div class="col-2 my-1">
-                <div class="figuritaEncontrada border rounded border-primary">
-                    <a href="#" class="btn">
-                        <img src="img/messi-god-no.jpg" alt="foto1" width="95% " class="rounded m-auto d-block">
-                        <div class="h4 text-center my-auto">Messi</div>
-                    </a>
-                </div>
-            </div>
-
-
-            <div class="col-2 my-1">
-                <div class="figuritaEncontrada border rounded border-primary">
-                    <a href="#" class="btn">
-                        <img src="img/messi-god-no.jpg" alt="foto1" width="95% " class="rounded m-auto d-block">
-                        <div class="h4 text-center my-auto">Messi</div>
+                        <div class="h4 text-center my-auto text-white">Messi</div>
                     </a>
                 </div>
             </div>
 
             <div class="col-2 my-1">
-                <div class="figuritaEncontrada border rounded border-primary">
-                    <a href="#" class="btn">
+                <div class="figuritaEncontrada border rounded border-white">
+                    <a href="carta" class="btn">
                         <img src="img/messi-god-no.jpg" alt="foto1" width="95% " class="rounded m-auto d-block">
-                        <div class="h4 text-center my-auto">Messi</div>
+                        <div class="h4 text-center my-auto text-white">Messi</div>
                     </a>
                 </div>
             </div>
 
             <div class="col-2 my-1">
-                <div class="figuritaEncontrada border rounded border-primary">
-                    <a href="#" class="btn">
+                <div class="figuritaEncontrada border rounded border-white">
+                    <a href="carta" class="btn">
                         <img src="img/messi-god-no.jpg" alt="foto1" width="95% " class="rounded m-auto d-block">
-                        <div class="h4 text-center my-auto">Messi</div>
+                        <div class="h4 text-center my-auto text-white">Messi</div>
                     </a>
                 </div>
             </div>
 
             <div class="col-2 my-1">
-                <div class="figuritaEncontrada border rounded border-primary">
-                    <a href="#" class="btn">
+                <div class="figuritaEncontrada border rounded border-white">
+                    <a href="carta" class="btn">
                         <img src="img/messi-god-no.jpg" alt="foto1" width="95% " class="rounded m-auto d-block">
-                        <div class="h4 text-center my-auto">Messi</div>
+                        <div class="h4 text-center my-auto text-white">Messi</div>
                     </a>
                 </div>
             </div>
 
             <div class="col-2 my-1">
-                <div class="figuritaEncontrada border rounded border-primary">
-                    <a href="#" class="btn">
+                <div class="figuritaEncontrada border rounded border-white">
+                    <a href="carta" class="btn">
                         <img src="img/messi-god-no.jpg" alt="foto1" width="95% " class="rounded m-auto d-block">
-                        <div class="h4 text-center my-auto">Messi</div>
+                        <div class="h4 text-center my-auto text-white">Messi</div>
                     </a>
                 </div>
             </div>
 
             <div class="col-2 my-1">
-                <div class="figuritaEncontrada border rounded border-primary">
-                    <a href="#" class="btn">
+                <div class="figuritaEncontrada border rounded border-white">
+                    <a href="carta" class="btn">
                         <img src="img/messi-god-no.jpg" alt="foto1" width="95% " class="rounded m-auto d-block">
-                        <div class="h4 text-center my-auto">Messi</div>
+                        <div class="h4 text-center my-auto text-white">Messi</div>
                     </a>
                 </div>
             </div>
 
             <div class="col-2 my-1">
-                <div class="figuritaEncontrada border rounded border-primary">
-                    <a href="#" class="btn">
+                <div class="figuritaEncontrada border rounded border-white">
+                    <a href="carta" class="btn">
                         <img src="img/messi-god-no.jpg" alt="foto1" width="95% " class="rounded m-auto d-block">
-                        <div class="h4 text-center my-auto">Messi</div>
+                        <div class="h4 text-center my-auto text-white">Messi</div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-2 my-1">
+                <div class="figuritaEncontrada border rounded border-white">
+                    <a href="carta" class="btn">
+                        <img src="img/messi-god-no.jpg" alt="foto1" width="95% " class="rounded m-auto d-block">
+                        <div class="h4 text-center my-auto text-white">Messi</div>
                     </a>
                 </div>
             </div>
 
             <div class="col-2 my-1">
-                <div class="figuritaEncontrada border rounded border-primary">
-                    <a href="#" class="btn">
+                <div class="figuritaEncontrada border rounded border-white">
+                    <a href="carta" class="btn">
                         <img src="img/messi-god-no.jpg" alt="foto1" width="95% " class="rounded m-auto d-block">
-                        <div class="h4 text-center my-auto">Messi</div>
+                        <div class="h4 text-center my-auto text-white">Messi</div>
                     </a>
                 </div>
             </div>
 
             <div class="col-2 my-1">
-                <div class="figuritaEncontrada border rounded border-primary">
-                    <a href="#" class="btn">
+                <div class="figuritaEncontrada border rounded border-white">
+                    <a href="carta" class="btn">
                         <img src="img/messi-god-no.jpg" alt="foto1" width="95% " class="rounded m-auto d-block">
-                        <div class="h4 text-center my-auto">Messi</div>
-                    </a>
-                </div>
-            </div>
-
-            <div class="col-2 my-1">
-                <div class="figuritaEncontrada border rounded border-primary">
-                    <a href="#" class="btn">
-                        <img src="img/messi-god-no.jpg" alt="foto1" width="95% " class="rounded m-auto d-block">
-                        <div class="h4 text-center my-auto">Messi</div>
-                    </a>
-                </div>
-            </div>
-
-            <div class="col-2 my-1">
-                <div class="figuritaEncontrada border rounded border-primary">
-                    <a href="#" class="btn">
-                        <img src="img/messi-god-no.jpg" alt="foto1" width="95% " class="rounded m-auto d-block">
-                        <div class="h4 text-center my-auto">Messi</div>
-                    </a>
-                </div>
-            </div>
-
-            <div class="col-2 my-1">
-                <div class="figuritaEncontrada border rounded border-primary">
-                    <a href="#" class="btn">
-                        <img src="img/messi-god-no.jpg" alt="foto1" width="95% " class="rounded m-auto d-block">
-                        <div class="h4 text-center my-auto">Messi</div>
-                    </a>
-                </div>
-            </div>
-
-            <div class="col-2 my-1">
-                <div class="figuritaEncontrada border rounded border-primary">
-                    <a href="#" class="btn">
-                        <img src="img/messi-god-no.jpg" alt="foto1" width="95% " class="rounded m-auto d-block">
-                        <div class="h4 text-center my-auto">Messi</div>
-                    </a>
-                </div>
-            </div>
-
-            <div class="col-2 my-1">
-                <div class="figuritaEncontrada border rounded border-primary">
-                    <a href="#" class="btn">
-                        <img src="img/messi-god-no.jpg" alt="foto1" width="95% " class="rounded m-auto d-block">
-                        <div class="h4 text-center my-auto">Messi</div>
-                    </a>
-                </div>
-            </div>
-
-            <div class="col-2 my-1">
-                <div class="figuritaEncontrada border rounded border-primary">
-                    <a href="#" class="btn">
-                        <img src="img/messi-god-no.jpg" alt="foto1" width="95% " class="rounded m-auto d-block">
-                        <div class="h4 text-center my-auto">Messi</div>
+                        <div class="h4 text-center my-auto text-white">Messi</div>
                     </a>
                 </div>
             </div>
@@ -264,6 +186,10 @@
         </div>
     </div>
 </main>
+
+<!-- Footer -->
+<%@include file="footer.jsp" %>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
