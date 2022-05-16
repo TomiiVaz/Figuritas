@@ -47,7 +47,7 @@
         <div class="container w-75">
             <div class="form-floating">
                 <h4 class="mb-4">Deja tu comentario aqui:</h4>
-                <textarea class="form-control bg-secondary" id="floatingTextarea2"
+                <textarea class="form-control" id="floatingTextarea2"
                           style="height: 100px"></textarea>
             </div>
         </div>
