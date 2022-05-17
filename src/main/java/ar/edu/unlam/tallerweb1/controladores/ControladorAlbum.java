@@ -23,13 +23,31 @@ public class ControladorAlbum {
     @RequestMapping(path = "/ver-album", method = RequestMethod.GET)
     public ModelAndView verAlbum(){
 
-        servicioAl.pegarFigurita(new Figurita());
+        //servicioAl.pegarFigurita(new Figurita());
 
         return new ModelAndView("perfil");
     }
 
+    @RequestMapping(path = "/buscar-figurita-en-album", method = RequestMethod.GET)
+    public ModelAndView buscarFiguEnAlbum(){
 
+        //servicioAl.buscarFiguritaPorCodigo(555);
+        return new ModelAndView("perfil");
+    }
 
+    @RequestMapping(path = "/buscar-figurita-en-album-nombre", method = RequestMethod.GET)
+    public ModelAndView buscarFiguEnAlbumPorNombre(){
+
+        //servicioAl.buscarFigusPorNombre("Lionel 'D10S' Messi");
+        return new ModelAndView("perfil");
+    }
+
+    @RequestMapping(path = "/buscar-figuritas-en-album-equipo", method = RequestMethod.GET)
+    public ModelAndView buscarFigusEnAlbumPorEquipo(){
+
+        //servicioAl.buscarFigusPorEquipo(22);
+        return new ModelAndView("perfil");
+    }
 
 
 

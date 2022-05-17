@@ -1,12 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<head>
-    <%--    Css Boostrap--%>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <%--    /Css Boostrap--%>
-</head>
-<body>
+<!-- head -->
+<%@include file="head.jsp" %>
+
+<body class="bg-dark text-white">
 <%@include file="header.jsp" %>
 <main class=".container-fluid text-center">
 
@@ -41,16 +38,25 @@
 
         <%--        Parte comentarios--%>
         <h2 class="mb-5">Comentarios</h2>
+
+        <div class="container-fluid d-flex flex-row justify-content-start align-middle border border-primary p-2 m-5">
+            <a href="home" style="width: 10%"><img src="img/messi1.jpg" class="img-fluid rounded-circle"
+                                                   style="width: 40%"></a>
+            <div><p>Muy buena! La quiero</p></div>
+        </div>
         <div class="container w-75">
             <div class="form-floating">
-                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
+                <h4 class="mb-4">Deja tu comentario aqui:</h4>
+                <textarea class="form-control" id="floatingTextarea2"
                           style="height: 100px"></textarea>
-                <label for="floatingTextarea2" class="ms-2">Comments</label>
             </div>
         </div>
         <%--        Parte comentarios--%>
 
 </main>
+
+<!-- Footer -->
+<%@include file="footer.jsp" %>
 
 <%--Script Boostrap--%>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
