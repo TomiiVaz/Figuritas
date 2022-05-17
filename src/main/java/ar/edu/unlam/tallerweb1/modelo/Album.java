@@ -10,9 +10,12 @@ public class Album {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @OneToMany
+    private List<Seleccion> selecciones;
 
     public Integer getId() {
         return id;
     }
+
 
 }

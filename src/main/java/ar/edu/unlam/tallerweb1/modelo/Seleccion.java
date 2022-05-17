@@ -11,17 +11,9 @@ public class Seleccion {
 
     private String nombre;
 
-    @ManyToOne
-    private Album album;
-
-
 
     public Integer getId() {
         return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getNombre() {
@@ -30,13 +22,5 @@ public class Seleccion {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public Album getAlbum() {
-        return album;
-    }
-
-    public void setAlbum(Album album) {
-        this.album = album;
     }
 }
