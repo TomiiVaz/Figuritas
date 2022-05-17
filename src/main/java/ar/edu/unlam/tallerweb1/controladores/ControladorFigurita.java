@@ -33,11 +33,12 @@ public class ControladorFigurita {
     @RequestMapping(path = "/agregar-figurita", method = RequestMethod.POST)
     public ModelAndView agregar(){
 
-        //servicioFigu.agregarFigurita(54);
+        //servicioFigu.agregarFigurita(new Figurita());
 
         return new ModelAndView("home");
     }
 
+    //metodo listo para usar
     @RequestMapping(path = "/buscar-figurita", method = RequestMethod.POST)
     public ModelAndView buscar(){
 

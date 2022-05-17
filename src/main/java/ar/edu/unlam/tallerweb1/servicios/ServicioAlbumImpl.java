@@ -32,8 +32,8 @@ public class ServicioAlbumImpl implements ServicioAlbum{
 
     @Override
     public List<Figurita> buscarFigusPorNombre(String nombre) {
-       repoAlbum.findAllByNombre(nombre);
-        return null;
+
+        return repoAlbum.findAllByNombre(nombre);
     }
 
     @Override

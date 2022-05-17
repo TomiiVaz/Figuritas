@@ -11,7 +11,7 @@ public class Figurita {
     private String nombre;
     private String rareza;
     private String equipo;
-
+    //cambiar por seleccion????
     @ManyToOne
     private Album album;
     public Integer getId() {
