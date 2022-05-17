@@ -40,13 +40,14 @@
         <h2 class="mb-5">Comentarios</h2>
 
         <div class="container-fluid d-flex flex-row justify-content-start align-middle border border-primary p-2 m-5">
-            <a href="home" style="width: 10%"><img src="img/messi1.jpg" class="img-fluid rounded-circle" style="width: 40%" ></a>
+            <a href="home" style="width: 10%"><img src="img/messi1.jpg" class="img-fluid rounded-circle"
+                                                   style="width: 40%"></a>
             <div><p>Muy buena! La quiero</p></div>
         </div>
         <div class="container w-75">
             <div class="form-floating">
                 <h4 class="mb-4">Deja tu comentario aqui:</h4>
-                <textarea class="form-control bg-secondary" id="floatingTextarea2"
+                <textarea class="form-control" id="floatingTextarea2"
                           style="height: 100px"></textarea>
             </div>
         </div>
