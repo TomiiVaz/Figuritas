@@ -9,7 +9,7 @@ buildNumber.properties
 .mvn/timing.properties
 # https://github.com/takari/maven-wrapper#usage-without-binary-jar
 .mvn/wrapper/maven-wrapper.jar
-src/main/resources/hibernateContext.xml
+resources/
 
 # Eclipse
 .classpath
@@ -27,3 +27,4 @@ src/main/resources/hibernateContext.xml
 # Maven
 log/
 target/
+src/main/resources/hibernateContext.xml
