@@ -7,7 +7,7 @@ public class Intercambio {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     /*
     * usuario1 usuario2
@@ -28,11 +28,11 @@ public class Intercambio {
 
 
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
