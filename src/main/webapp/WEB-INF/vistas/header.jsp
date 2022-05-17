@@ -13,7 +13,7 @@
 
             <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" method="get" action="buscarfiguritas">
                 <label for="busq"></label>
-                <input type="text" id="busq" name="busq" placeholder="Buscar Figurita/s..." class="form-control" >
+                <input type="text" id="busq" name="busq" placeholder="Buscar Figurita/s..." class="form-control">
                 <button type="submit" class="invisible"></button>
             </form>
 
