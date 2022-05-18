@@ -12,7 +12,7 @@
         <%--    Seccion Figurita--%>
         <div class="text-center">
             <h3 class="text-white">Figuritas</h3>
-            <button type="button" class="btn btn-primary m-1">Agregar</button>
+            <button type="button" class="btn btn-primary m-1" data-bs-toggle="collapse" data-bs-target="#collapseAgregarFigu" aria-expanded="false" aria-controls="collapseAgregarFigu">Agregar</button>
             <button type="button" class="btn btn-primary m-1">Modificar</button>
             <button type="button" class="btn btn-primary m-1">Eliminar</button>
         </div>
@@ -51,7 +51,29 @@
     <div class="container container-fluid">
         <%--        Seccion Formularios--%>
         <%--                Form Figurita--%>
-
+            <div class="collapse bg-dark mt-5 mb-5" id="collapseAgregarFigu">
+                <div class="card card-body bg-dark border-0">
+                    <form class='text-center d-flex flex-column px-5 px-5 py-2 bg-dark border-0'
+                          method='post'
+                          action=''
+                          modelAtribute="figurita">
+                        <input class='my-2 form-control' type='text' name='nombre' id='nombre' placeholder='Ingrese el nombre del jugador'>
+                        <select name='rareza' class='form-control my-2'>
+                            <option value='Default' selected hidden>Seleccionar una rareza</option>
+                            <option value='comun'>Comun</option>
+                            <option value='rara'>Rara</option>
+                            <option value='epica'>Epica</option>
+                        </select>
+                        <select name='seleccion' class='form-control my-2'>
+                            <option value='Default' selected hidden>Seleccionar una seleccion</option>
+                            <option value='argentina'>Argetina</option>
+                            <option value='brazil'>Brazil</option>
+                            <option value='italia'>Italia</option>
+                        </select>
+                        <button type='submit' class='btn btn-success my-2'>Agregar</button>
+                    </form>
+                </div>
+            </div>
         <%--                /Form Figurita--%>
 
         <%--                Form Album--%>
