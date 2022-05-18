@@ -10,6 +10,8 @@ public class Album {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    private String Nombre;
+
     @OneToMany
     private List<Figurita> figuritas;
 
@@ -20,5 +22,11 @@ public class Album {
         return id;
     }
 
+    public String getNombre() {
+        return Nombre;
+    }
 
+    public void setNombre(String nombre) {
+        Nombre = nombre;
+    }
 }

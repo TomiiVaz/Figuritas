@@ -12,22 +12,11 @@
         <%--    Seccion Figurita--%>
         <div class="text-center">
             <h3 class="text-white">Figuritas</h3>
-            <button type="button" class="btn btn-primary m-1">Agregar</button>
+            <button type="button" class="btn btn-primary m-1" data-bs-toggle="collapse" data-bs-target="#collapseAgregarFigu" aria-expanded="false" aria-controls="collapseAgregarFigu">Agregar</button>
             <button type="button" class="btn btn-primary m-1">Modificar</button>
             <button type="button" class="btn btn-primary m-1">Eliminar</button>
         </div>
         <%--    /Seccion Figurita--%>
-
-        <%--    Seccion Almbum--%>
-        <div class="text-center">
-            <h3 class="text-white">Album</h3>
-            <button type="button" class="btn btn-primary m-1" data-bs-toggle="collapse"
-                    data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Agregar
-            </button>
-            <button type="button" class="btn btn-primary m-1">Modificar</button>
-            <button type="button" class="btn btn-primary m-1">Eliminar</button>
-        </div>
-        <%--    /Seccion Almbum--%>
 
         <%--    Seccion Seleccion--%>
         <div class="text-center">
@@ -37,6 +26,18 @@
             <button type="button" class="btn btn-primary m-1">Eliminar</button>
         </div>
         <%--    /Seccion Seleccion--%>
+
+        <%--    Seccion Almbum--%>
+        <div class="text-center">
+            <h3 class="text-white">Album</h3>
+            <button type="button" class="btn btn-primary m-1" data-bs-toggle="collapse"
+                    data-bs-target="#collapseNuevoAlbum" aria-expanded="false" aria-controls="collapseNuevoAlbum">
+                Agregar
+            </button>
+            <button type="button" class="btn btn-primary m-1">Modificar</button>
+            <button type="button" class="btn btn-primary m-1">Eliminar</button>
+        </div>
+        <%--    /Seccion Almbum--%>
 
         <%--    Seccion Usuario--%>
         <div class="text-center">
@@ -50,31 +51,45 @@
     <div class="container container-fluid">
         <%--        Seccion Formularios--%>
         <%--                Form Figurita--%>
-
+            <div class="collapse bg-dark mt-5 mb-5" id="collapseAgregarFigu">
+                <div class="card card-body bg-dark border-0">
+                    <form class='text-center d-flex flex-column px-5 px-5 py-2 bg-dark border-0'
+                          method='post'
+                          action=''
+                          modelAtribute="figurita">
+                        <input class='my-2 form-control' type='text' name='nombre' id='nombre' placeholder='Ingrese el nombre del jugador'>
+                        <select name='rareza' class='form-control my-2'>
+                            <option value='Default' selected hidden>Seleccionar una rareza</option>
+                            <option value='comun'>Comun</option>
+                            <option value='rara'>Rara</option>
+                            <option value='epica'>Epica</option>
+                        </select>
+                        <select name='seleccion' class='form-control my-2'>
+                            <option value='Default' selected hidden>Seleccionar una seleccion</option>
+                            <option value='argentina'>Argetina</option>
+                            <option value='brazil'>Brazil</option>
+                            <option value='italia'>Italia</option>
+                        </select>
+                        <button type='submit' class='btn btn-success my-2'>Agregar</button>
+                    </form>
+                </div>
+            </div>
         <%--                /Form Figurita--%>
 
         <%--                Form Album--%>
-        <div class="collapse" id="collapseExample">
-            <div class="card card-body">
+        <div class="collapse bg-dark mt-5 mb-5" id="collapseNuevoAlbum">
+            <div class="card card-body bg-dark border-0">
                 <form class='text-center d-flex flex-column px-5 px-5 py-2 bg-dark border-0'
                       method='post'
-                      action='alta.php'
-                      enctype='multipart/form-data'>
-                    <input class='my-2 form-control' type='text' name='nombreNuevo' id='nombreNuevo' placeholder='Ingrese el nombre de Pokemon'>
-                    <select name='tipoNuevo' class='form-control my-2'>
-                        <option value='Default' selected hidden>Seleccionar un tipo</option>
-                        <option value='Aire'>Aire</option>
-                        <option value='Fuego'>Fuego</option>
-                        <option value='Tierra'>Tierra</option>
-                        <option value='Viento'>Viento</option>
+                      action=''>
+                    <input class='my-2 form-control' type='text' name='nombreNuevoAlbum' id='nombreNuevoAlbum' placeholder='Ingrese el nombre sel album'>
+                    <select name='seleccionAgregada' class='form-control my-2'>
+                        <option value='Default' selected hidden>Seleccionar una seleccion</option>
+                        <option value='Argentina'>Argentina</option>
+                        <option value='Bolivia'>Bolivia</option>
+                        <option value='Uruguay'>Uruguay</option>
+                        <option value='Chile'>Chile</option>
                     </select>
-                    <input class='my-2 form-control' type='number' name='numeroNuevo' id='numeroNuevo' placeholder='Ingrese el numero de Pokemon'>
-                    <div class='my-2'>
-                        <input type='file' class='form-control' aria-label='file example' name='imagenNueva'>
-                        <div class='invalid-feedback'>Example invalid form file feedback</div>
-                    </div>
-                    <input class='my-2 form-control' type='text' name='nombreImagen' id='nombreImagen' placeholder='Ingrese nombre de la imagen'>
-                    <input class='my-2 form-control' type='text' name='nuevaDescripcion' id='nuevaDescripcion' placeholder='Ingrese descripcion del pokemon'>
                     <button type='submit' class='btn btn-success my-2'>Agregar</button>
                 </form>
             </div>
