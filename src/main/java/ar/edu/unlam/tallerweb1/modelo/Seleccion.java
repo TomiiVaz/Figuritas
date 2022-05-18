@@ -1,32 +1,26 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
 import javax.persistence.*;
-import java.util.*;
 
 @Entity
-public class Album {
+public class Seleccion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String Nombre;
+    private String nombre;
 
-    @OneToMany
-    private List<Figurita> figuritas;
-
-    @OneToMany
-    private List<Seleccion> selecciones;
 
     public Integer getId() {
         return id;
     }
 
     public String getNombre() {
-        return Nombre;
+        return nombre;
     }
 
     public void setNombre(String nombre) {
-        Nombre = nombre;
+        this.nombre = nombre;
     }
 }
