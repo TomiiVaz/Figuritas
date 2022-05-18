@@ -28,21 +28,12 @@ public class ControladorFigurita {
         return new ModelAndView("figurita");
     }
 
-    @RequestMapping(path="agregar-figurita", method = RequestMethod.GET)
-    public ModelAndView agregar(){
-
-        //servicioFigu.agregarFigurita(new Figurita());
-
-        return new ModelAndView("formNewFigurita");
-    }
-
-
     @RequestMapping(path = "/agregar-figurita", method = RequestMethod.POST)
     public ModelAndView agregar(@ModelAttribute("figurita") Figurita figurita){
 
-        servicioFigu.agregarFigurita(figurita);
+        //servicioFigu.agregarFigurita(figurita);
 
-        return new ModelAndView("redirect: /home");
+        return new ModelAndView("redirect:/home");
     }
 
     //metodo listo para usar
