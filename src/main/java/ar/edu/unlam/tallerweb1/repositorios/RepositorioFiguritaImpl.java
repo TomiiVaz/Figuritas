@@ -21,8 +21,8 @@ public class RepositorioFiguritaImpl implements RepositorioFigurita{
     }
     //metodo que va a usar el admin para guardar figuritas
     @Override
-    public void guardar(Figurita figu) {
-        sessionFactory.getCurrentSession().save(figu);
+    public void guardar(Figurita figurita) {
+        sessionFactory.getCurrentSession().save(figurita);
     }
 
     @Override

@@ -6,7 +6,7 @@ import java.util.*;
 
 public interface RepositorioFigurita {
 
-    void guardar(Figurita figu);
+    void guardar(Figurita figurita);
     Figurita findByNombreAndEquipo(String nombre, String equipo);
     Figurita findByNombre(String nombre);
     List<Figurita> findAllByIdEquipo(Integer idEquipo);

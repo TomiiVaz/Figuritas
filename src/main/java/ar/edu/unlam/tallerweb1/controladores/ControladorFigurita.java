@@ -1,14 +1,12 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import ar.edu.unlam.tallerweb1.modelo.Figurita;
 import ar.edu.unlam.tallerweb1.servicios.ServicioFigurita;
 import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -30,12 +28,21 @@ public class ControladorFigurita {
         return new ModelAndView("figurita");
     }
 
-    @RequestMapping(path = "/agregar-figurita", method = RequestMethod.POST)
+    @RequestMapping(path="agregar-figurita", method = RequestMethod.GET)
     public ModelAndView agregar(){
 
         //servicioFigu.agregarFigurita(new Figurita());
 
-        return new ModelAndView("home");
+        return new ModelAndView("formNewFigurita");
+    }
+
+
+    @RequestMapping(path = "/agregar-figurita", method = RequestMethod.POST)
+    public ModelAndView agregar(@ModelAttribute("figurita") Figurita figurita){
+
+        servicioFigu.agregarFigurita(figurita);
+
+        return new ModelAndView("redirect: /home");
     }
 
     //metodo listo para usar
@@ -58,7 +65,7 @@ public class ControladorFigurita {
     @RequestMapping(path = "/buscar-figuritas-equipo", method = RequestMethod.POST)
     public ModelAndView buscarEquipo(){
 
-        servicioFigu.buscarFiguritasPorEquipo(5);
+        //servicioFigu.buscarFiguritasPorEquipo(5);
 
         return new ModelAndView("home");
     }
