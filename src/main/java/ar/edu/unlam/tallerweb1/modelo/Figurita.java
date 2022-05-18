@@ -9,11 +9,30 @@ public class Figurita {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nombre;
-    private String rareza;
-    private String equipo;
 
-    @ManyToOne
-    private Album album;
+    private Short año;
+
+    private Rareza rareza;
+
+    @OneToOne
+    private Seleccion seleccion;
+
+    public Rareza getRareza() {
+        return rareza;
+    }
+
+    public void setRareza(Rareza rareza) {
+        this.rareza = rareza;
+    }
+
+    public Seleccion getSeleccion() {
+        return seleccion;
+    }
+
+    public void setSeleccion(Seleccion seleccion) {
+        this.seleccion = seleccion;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -30,27 +49,11 @@ public class Figurita {
         this.nombre = nombre;
     }
 
-    public String getRareza() {
-        return rareza;
+    public Short getAño() {
+        return año;
     }
 
-    public void setRareza(String rareza) {
-        this.rareza = rareza;
-    }
-
-    public String getEquipo() {
-        return equipo;
-    }
-
-    public void setEquipo(String equipo) {
-        this.equipo = equipo;
-    }
-
-    public Album getAlbum() {
-        return album;
-    }
-
-    public void setAlbum(Album album) {
-        this.album = album;
+    public void setAño(Short año) {
+        this.año = año;
     }
 }

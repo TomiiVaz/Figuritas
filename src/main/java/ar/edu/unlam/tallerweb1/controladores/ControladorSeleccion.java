@@ -21,6 +21,11 @@ public class ControladorSeleccion {
         this.servicioSelec = servicioSelec;
     }
 
+    @RequestMapping(path = "/configuracion", method = RequestMethod.GET)
+    public ModelAndView mostrarConfiguracion() {
+        return new ModelAndView("configuracion");
+    }
+
     @RequestMapping(path = "/crear-seleccion", method = RequestMethod.GET)
     public ModelAndView verFormulario() {
 
