@@ -91,6 +91,24 @@ public class MiPrimerControlador {
         return new ModelAndView("buscarFiguritas", modelo);
     }
 
+    @RequestMapping(path = "/buscarfiguritas", method = RequestMethod.GET)
+    public ModelAndView buscarFiguritas(@RequestParam(value = "busq") String busq,
+                                         @RequestParam(value = "selSeleccion") String selSeleccion,
+                                         @RequestParam(value = "selPosicionJugador") String selPosicionJugador){
+
+        ModelMap modelo = new ModelMap();
+        if(selSeleccion != "0"){
+            modelo.put("selSeleccion", selSeleccion);
+        }
+        if(selPosicionJugador != "0"){
+            modelo.put("selPosicionJugador", selPosicionJugador);
+        }
+
+        modelo.put("busq", busq);
+
+        return new ModelAndView("buscarFiguritas", modelo);
+    }
+
     @RequestMapping(path = "/carta", method = RequestMethod.GET)
     public ModelAndView verCarta(){
 
