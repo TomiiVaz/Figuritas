@@ -22,8 +22,8 @@ public class ServicioFiguritaImpl implements ServicioFigurita{
 
 
     @Override
-    public void agregarFigurita(Integer codigo) {
-        repoFigurita.guardar(codigo);
+    public void agregarFigurita(Figurita figurita) {
+        repoFigurita.guardar(figurita);
     }
 
     @Override

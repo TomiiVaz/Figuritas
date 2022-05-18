@@ -18,8 +18,8 @@ public class RepositorioFiguritaImpl implements RepositorioFigurita{
     }
 
     @Override
-    public void guardar(Integer codigo) {
-        sessionFactory.getCurrentSession().save(codigo);
+    public void guardar(Figurita figurita) {
+        sessionFactory.getCurrentSession().save(figurita);
     }
 
     @Override
