@@ -28,3 +28,4 @@ resources/
 log/
 target/
 src/main/resources/hibernateContext.xml
+src/main/resources/hibernateContext.xml

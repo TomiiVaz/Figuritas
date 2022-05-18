@@ -6,6 +6,7 @@ import java.util.*;
 
 public interface ServicioFigurita {
 
+
     void agregarFigurita(Figurita figurita);
     Figurita buscarFiguritaNombreEquipo(String nombre, String equipo);
     Figurita buscarFiguritaPorNombre(String nombre);
