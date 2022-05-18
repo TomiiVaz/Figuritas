@@ -11,6 +11,9 @@ public class Album {
     private Integer id;
 
     @OneToMany
+    private List<Figurita> figuritas;
+
+    @OneToMany
     private List<Seleccion> selecciones;
 
     public Integer getId() {

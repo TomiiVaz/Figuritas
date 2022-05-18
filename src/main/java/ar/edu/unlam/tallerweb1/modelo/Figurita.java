@@ -12,9 +12,6 @@ public class Figurita {
     
     private Rareza rareza;
 
-    @ManyToOne
-    private Album album;
-
     @OneToOne
     private Seleccion seleccion;
 
@@ -50,11 +47,4 @@ public class Figurita {
         this.nombre = nombre;
     }
 
-    public Album getAlbum() {
-        return album;
-    }
-
-    public void setAlbum(Album album) {
-        this.album = album;
-    }
 }
