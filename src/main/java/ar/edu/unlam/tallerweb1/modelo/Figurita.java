@@ -9,7 +9,9 @@ public class Figurita {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nombre;
-    
+
+    private Short año;
+
     private Rareza rareza;
 
     @OneToOne
@@ -47,4 +49,11 @@ public class Figurita {
         this.nombre = nombre;
     }
 
+    public Short getAño() {
+        return año;
+    }
+
+    public void setAño(Short año) {
+        this.año = año;
+    }
 }
