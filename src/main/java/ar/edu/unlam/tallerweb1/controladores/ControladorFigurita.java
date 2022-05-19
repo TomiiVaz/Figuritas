@@ -18,13 +18,13 @@ public class ControladorFigurita {
     private ServicioFigurita servicioFigu;
 
     @Autowired
-    public ControladorFigurita(ServicioFigurita servicioFigu){
+    public ControladorFigurita(ServicioFigurita servicioFigu) {
 
         this.servicioFigu = servicioFigu;
     }
 
     @RequestMapping(path = "/ver-figurita", method = RequestMethod.GET)
-    public ModelAndView crear(){
+    public ModelAndView crear() {
 
         //servicioFigu.agregarFigurita(54);
 
@@ -42,7 +42,7 @@ public class ControladorFigurita {
 
     //metodo listo para usar
     @RequestMapping(path = "/buscar-figurita", method = RequestMethod.POST)
-    public ModelAndView buscar(){
+    public ModelAndView buscar() {
 
         //servicioFigu.buscarFiguritaPorNombre("messi");
 
@@ -50,7 +50,7 @@ public class ControladorFigurita {
     }
 
     @RequestMapping(path = "/buscar-figuritas-nombre-equipo", method = RequestMethod.POST)
-    public ModelAndView buscarNombreEquipo(){
+    public ModelAndView buscarNombreEquipo() {
 
         //servicioFigu.buscarFiguritaNombreEquipo("messi","scaloneta");
 
@@ -58,11 +58,16 @@ public class ControladorFigurita {
     }
 
     @RequestMapping(path = "/buscar-figuritas-equipo", method = RequestMethod.POST)
-    public ModelAndView buscarEquipo(){
-        //preguntar como
+    public ModelAndView buscarEquipo() {
+
         //servicioFigu.buscarFiguritasPorEquipo(5);
 
         return new ModelAndView("home");
+    }
+
+    @RequestMapping(path = "/configuracion-figurita", method = RequestMethod.GET)
+    public ModelAndView verVistaFiguritaConfig() {
+        return new ModelAndView("configFigurita");
     }
 
 }

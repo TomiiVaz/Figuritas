@@ -33,4 +33,9 @@ public class ControladorGeneral {
         return new ModelAndView("configuracion", model);
     }
 
+    @RequestMapping(path = "/configuracion-usuario", method = RequestMethod.GET)
+    public ModelAndView verVistaUsuarioConfig() {
+        return new ModelAndView("configUsuario");
+    }
+
 }
