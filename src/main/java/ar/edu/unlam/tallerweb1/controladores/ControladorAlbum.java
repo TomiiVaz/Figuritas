@@ -15,13 +15,13 @@ public class ControladorAlbum {
     private ServicioAlbum servicioAl;
 
     @Autowired
-    public ControladorAlbum(ServicioAlbum serviciAl){
+    public ControladorAlbum(ServicioAlbum serviciAl) {
 
         this.servicioAl = servicioAl;
     }
 
     @RequestMapping(path = "/ver-album", method = RequestMethod.GET)
-    public ModelAndView verAlbum(){
+    public ModelAndView verAlbum() {
 
         //servicioAl.pegarFigurita(new Figurita());
 
@@ -29,26 +29,30 @@ public class ControladorAlbum {
     }
 
     @RequestMapping(path = "/buscar-figurita-en-album", method = RequestMethod.GET)
-    public ModelAndView buscarFiguEnAlbum(){
+    public ModelAndView buscarFiguEnAlbum() {
 
         //servicioAl.buscarFiguritaPorCodigo(555);
         return new ModelAndView("perfil");
     }
 
     @RequestMapping(path = "/buscar-figurita-en-album-nombre", method = RequestMethod.GET)
-    public ModelAndView buscarFiguEnAlbumPorNombre(){
+    public ModelAndView buscarFiguEnAlbumPorNombre() {
 
         //servicioAl.buscarFigusPorNombre("Lionel 'D10S' Messi");
         return new ModelAndView("perfil");
     }
 
     @RequestMapping(path = "/buscar-figuritas-en-album-equipo", method = RequestMethod.GET)
-    public ModelAndView buscarFigusEnAlbumPorEquipo(){
+    public ModelAndView buscarFigusEnAlbumPorEquipo() {
 
         //servicioAl.buscarFigusPorEquipo(22);
         return new ModelAndView("perfil");
     }
 
+    @RequestMapping(path = "/configuracion-album", method = RequestMethod.GET)
+    public ModelAndView verVistaAlbumConfig() {
+        return new ModelAndView("configAlbum");
+    }
 
 
 }
