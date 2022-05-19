@@ -10,6 +10,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 public class ControladorFigurita {
 
@@ -30,7 +32,8 @@ public class ControladorFigurita {
     }
 
     @RequestMapping(path = "/agregar-figurita", method = RequestMethod.POST)
-    public ModelAndView agregar(@ModelAttribute("figurita") Figurita figurita) {
+    public ModelAndView agregarFigurita(@ModelAttribute("figurita") Figurita figurita)
+    {
 
         servicioFigu.agregarFigurita(figurita);
 

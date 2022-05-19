@@ -53,27 +53,22 @@
     <div class="container container-fluid">
         <%--        Seccion Formularios--%>
         <%--                Form Figurita--%>
-        <div class="collapse bg-dark mt-5 mb-5" id="collapseAgregarFigu">
-            <div class="card card-body bg-dark border-0">
-                <form:form class='text-center d-flex flex-column px-5 px-5 py-2 bg-dark border-0'
-                           method='post'
-                           action='agregar-figurita'
-                           modelAtribute="figurita">
-                    <input class='my-2 form-control' type='text' path='nombre' id='nombre'
-                           placeholder="Ingresa el nombre"/>
-                    <select name='rareza' path="rareza" class='form-control my-2'>
-                        <option value='Default' selected hidden>Seleccionar una rareza</option>
-                        <option value='1'>Comun</option>
-                        <option value='2'>Rara</option>
-                        <option value='3'>Epica</option>
-                    </select>
-                    <!-- ver en el path si es pais o pais.id -->
-                    <select name='seleccion' path='seleccion' class='form-control my-2'>
-                        <c:forEach var="seleccion" items="${selecciones}">
-                            <!-- ver lo de pais.id y pais.nombre -->
-                            <option value='${seleccion.id}'>${seleccion.nombre}</option>
-                        </c:forEach>
-                    </select>
+
+            <div class="collapse bg-dark mt-5 mb-5" id="collapseAgregarFigu">
+                <div class="card card-body bg-dark border-0">
+                    <form:form class='text-center d-flex flex-column px-5 px-5 py-2 bg-dark border-0'
+                          method='post'
+                          action='agregar-figurita'
+                          modelAttribute="figurita">
+                        <input class='my-2 form-control' type='text' path='nombre' id='nombre' name='nombre' placeholder="Ingresa el nombre">
+
+                        <!-- ver en el path si es pais o pais.id -->
+                        <select path='seleccion.id' id='seleccion.id' name='seleccion.id' class='form-control my-2'>
+                            <c:forEach var="seleccion" items="${selecciones}">
+                                <!-- ver lo de pais.id y pais.nombre -->
+                                <option value='${seleccion.id}'>${seleccion.nombre}</option>
+                            </c:forEach>
+                        </select>
 
                     <button type='submit' class='btn btn-success my-2'>Agregar</button>
                 </form:form>

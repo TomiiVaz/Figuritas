@@ -44,9 +44,12 @@ public class RepositorioFiguritaImpl implements RepositorioFigurita{
                 .list(); // ¿para que traiga una lista?????
     }
 
-    @Override // en duda hasta que se vea lo de objeto selecicon
+    @Override
     public List<Figurita> findAllByIdEquipo(Integer idEquipo) {
-
-        return null;
+        final Session session = sessionFactory.getCurrentSession();
+        return (List<Figurita>) session.createCriteria(Figurita.class)
+                .createAlias("album", "album")
+                .add(Restrictions.eq("album.id", idEquipo))
+                .list();
     }
 }
