@@ -30,7 +30,8 @@ public class ControladorFigurita {
     }
 
     @RequestMapping(path = "/agregar-figurita", method = RequestMethod.POST)
-    public ModelAndView agregar(@ModelAttribute("figurita")Figurita figurita){
+    public ModelAndView agregarFigurita(@ModelAttribute("figurita") Figurita figurita)
+    {
 
         servicioFigu.agregarFigurita(figurita);
 
