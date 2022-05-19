@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <!-- head -->
@@ -53,25 +55,27 @@
         <%--                Form Figurita--%>
             <div class="collapse bg-dark mt-5 mb-5" id="collapseAgregarFigu">
                 <div class="card card-body bg-dark border-0">
-                    <form class='text-center d-flex flex-column px-5 px-5 py-2 bg-dark border-0'
+                    <form:form class='text-center d-flex flex-column px-5 px-5 py-2 bg-dark border-0'
                           method='post'
-                          action=''
+                          action='agregar-figurita'
                           modelAtribute="figurita">
-                        <input class='my-2 form-control' type='text' name='nombre' id='nombre' placeholder='Ingrese el nombre del jugador'>
-                        <select name='rareza' class='form-control my-2'>
+                        <input class='my-2 form-control' type='text' path='nombre' id='nombre' placeholder="Ingresa el nombre"/>
+                        <select name='rareza' path="rareza" class='form-control my-2'>
                             <option value='Default' selected hidden>Seleccionar una rareza</option>
-                            <option value='comun'>Comun</option>
-                            <option value='rara'>Rara</option>
-                            <option value='epica'>Epica</option>
+                            <option value='1'>Comun</option>
+                            <option value='2'>Rara</option>
+                            <option value='3'>Epica</option>
                         </select>
-                        <select name='seleccion' class='form-control my-2'>
-                            <option value='Default' selected hidden>Seleccionar una seleccion</option>
-                            <option value='argentina'>Argetina</option>
-                            <option value='brazil'>Brazil</option>
-                            <option value='italia'>Italia</option>
-                        </select>
+                        <!-- ver en el path si es pais o pais.id -->
+                            <select name='seleccion' path='seleccion' class='form-control my-2'>
+                                <c:forEach var="seleccion" items="${selecciones}">
+                                <!-- ver lo de pais.id y pais.nombre -->
+                                <option value='${seleccion.id}'>${seleccion.nombre}</option>
+                                </c:forEach>
+                            </select>
+
                         <button type='submit' class='btn btn-success my-2'>Agregar</button>
-                    </form>
+                    </form:form>
                 </div>
             </div>
         <%--                /Form Figurita--%>
