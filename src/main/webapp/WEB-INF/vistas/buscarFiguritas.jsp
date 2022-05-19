@@ -18,9 +18,9 @@
     <!--opciones de filtrado de cartas (por selección, nombre jugador, posición)-->
     <div class="container mt-3">
         <h4 class="text-white">Filtros</h4>
-        <form action="#" method="get">
+        <form action="buscarfiguritas" method="get">
             <div class="formSearchContainer">
-                <input type="text" placeholder="buscar por nombre"
+                <input type="text" id="busq" name="busq" placeholder="buscar por nombre"
                        class="form-control">
             </div>
             <div class="row gx-2 mt-2">

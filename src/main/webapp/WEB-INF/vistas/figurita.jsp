@@ -39,17 +39,25 @@
         <%--        Parte comentarios--%>
         <h2 class="mb-5">Comentarios</h2>
 
-        <div class="container-fluid d-flex flex-row justify-content-start align-middle border border-primary p-2 m-5">
-            <a href="home" style="width: 10%"><img src="img/messi1.jpg" class="img-fluid rounded-circle"
-                                                   style="width: 40%"></a>
-            <div><p>Muy buena! La quiero</p></div>
+        <div class="container-fluid text-start">
+            <div class="container d-flex flex-row align-baseline justify-content-start">
+                <div class="col-2 text-center">
+                    <img src="img/messi1.jpg" alt="Foto Perfil" class="rounded-circle" width="50%">
+                    <h6 class="m-1">Tomas</h6>
+                </div>
+                <div class="col-10 text-start">
+                    <p class="m-1 ms-s">Muy buena la quiero!</p>
+                </div>
+            </div>
         </div>
         <div class="container w-75">
-            <div class="form-floating">
-                <h4 class="mb-4">Deja tu comentario aqui:</h4>
-                <textarea class="form-control" id="floatingTextarea2"
-                          style="height: 100px"></textarea>
-            </div>
+            <h4 class="mb-4">Deja tu comentario aqui:</h4>
+            <form method="get"
+                  action="#">
+            <textarea class="form-control" id="floatingTextarea2"
+                      style="height: 100px"></textarea>
+                <button class="btn btn-primary mb-5 mt-3">Enviar</button>
+            </form>
         </div>
         <%--        Parte comentarios--%>
 

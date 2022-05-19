@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service("servicioSeleccion")
 @Transactional
 public class ServicioSeleccionImpl implements ServicioSeleccion {
@@ -21,5 +23,10 @@ public class ServicioSeleccionImpl implements ServicioSeleccion {
     public void crearSeleccion(Seleccion seleccion) {
 
         this.repoSelec.guardar(seleccion);
+    }
+
+    @Override
+    public List<Seleccion> traerSelecciones() {
+        return this.repoSelec.getSelecciones();
     }
 }

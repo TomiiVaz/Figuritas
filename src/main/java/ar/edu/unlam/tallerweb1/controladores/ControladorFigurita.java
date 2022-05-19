@@ -6,6 +6,7 @@ import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -29,9 +30,9 @@ public class ControladorFigurita {
     }
 
     @RequestMapping(path = "/agregar-figurita", method = RequestMethod.POST)
-    public ModelAndView agregar(@ModelAttribute("figurita") Figurita figurita){
+    public ModelAndView agregar(@ModelAttribute("figurita")Figurita figurita){
 
-        //servicioFigu.agregarFigurita(figurita);
+        servicioFigu.agregarFigurita(figurita);
 
         return new ModelAndView("redirect:/home");
     }

@@ -24,9 +24,10 @@
                 </a>
                 <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="">
                     <li><a class="dropdown-item" href="perfil">Profile</a></li>
-                    <c:if>
-                        <li><a class="dropdown-item" href="configuracion">Configuracion</a></li>
-                    </c:if>
+                    <!-- modificar para que lea un controlador y no sea un href -->
+
+                    <li><a class="dropdown-item" href="configuracion">Configuracion</a></li>
+
                     <li><a class="dropdown-item" href="home">Sign out</a></li>
                 </ul>
             </div>

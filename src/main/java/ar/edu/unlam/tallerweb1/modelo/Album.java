@@ -12,14 +12,15 @@ public class Album {
 
     private String Nombre;
 
-    @OneToMany
-    private List<Figurita> figuritas;
-
-    @OneToMany
-    private List<Seleccion> selecciones;
+    @ManyToOne
+    private Usuario usuario;
 
     public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getNombre() {
@@ -28,5 +29,13 @@ public class Album {
 
     public void setNombre(String nombre) {
         Nombre = nombre;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }
