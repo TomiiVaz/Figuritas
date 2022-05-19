@@ -10,6 +10,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 public class ControladorFigurita {
 
@@ -57,7 +59,7 @@ public class ControladorFigurita {
 
     @RequestMapping(path = "/buscar-figuritas-equipo", method = RequestMethod.POST)
     public ModelAndView buscarEquipo(){
-
+        //preguntar como
         //servicioFigu.buscarFiguritasPorEquipo(5);
 
         return new ModelAndView("home");
