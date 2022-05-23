@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import ar.edu.unlam.tallerweb1.modelo.Figurita;
 import ar.edu.unlam.tallerweb1.modelo.Seleccion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioSeleccion;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +26,16 @@ public class ControladorGeneral {
     public ModelAndView mostrarConfiguracion() {
         List<Seleccion> selecciones = this.servicioSelec.traerSelecciones();
 
+
         ModelMap model = new ModelMap();
         model.put("selecciones", selecciones);
+        model.put("figurita", new Figurita());
         return new ModelAndView("configuracion", model);
+    }
+
+    @RequestMapping(path = "/configuracion-usuario", method = RequestMethod.GET)
+    public ModelAndView verVistaUsuarioConfig() {
+        return new ModelAndView("configUsuario");
     }
 
 }

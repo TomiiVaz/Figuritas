@@ -10,19 +10,21 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 public class ControladorFigurita {
 
     private ServicioFigurita servicioFigu;
 
     @Autowired
-    public ControladorFigurita(ServicioFigurita servicioFigu){
+    public ControladorFigurita(ServicioFigurita servicioFigu) {
 
         this.servicioFigu = servicioFigu;
     }
 
     @RequestMapping(path = "/ver-figurita", method = RequestMethod.GET)
-    public ModelAndView crear(){
+    public ModelAndView crear() {
 
         //servicioFigu.agregarFigurita(54);
 
@@ -30,7 +32,8 @@ public class ControladorFigurita {
     }
 
     @RequestMapping(path = "/agregar-figurita", method = RequestMethod.POST)
-    public ModelAndView agregar(@ModelAttribute("figurita")Figurita figurita){
+    public ModelAndView agregarFigurita(@ModelAttribute("figurita") Figurita figurita)
+    {
 
         servicioFigu.agregarFigurita(figurita);
 
@@ -39,7 +42,7 @@ public class ControladorFigurita {
 
     //metodo listo para usar
     @RequestMapping(path = "/buscar-figurita", method = RequestMethod.POST)
-    public ModelAndView buscar(){
+    public ModelAndView buscar() {
 
         //servicioFigu.buscarFiguritaPorNombre("messi");
 
@@ -47,7 +50,7 @@ public class ControladorFigurita {
     }
 
     @RequestMapping(path = "/buscar-figuritas-nombre-equipo", method = RequestMethod.POST)
-    public ModelAndView buscarNombreEquipo(){
+    public ModelAndView buscarNombreEquipo() {
 
         //servicioFigu.buscarFiguritaNombreEquipo("messi","scaloneta");
 
@@ -55,11 +58,16 @@ public class ControladorFigurita {
     }
 
     @RequestMapping(path = "/buscar-figuritas-equipo", method = RequestMethod.POST)
-    public ModelAndView buscarEquipo(){
+    public ModelAndView buscarEquipo() {
 
         //servicioFigu.buscarFiguritasPorEquipo(5);
 
         return new ModelAndView("home");
+    }
+
+    @RequestMapping(path = "/configuracion-figurita", method = RequestMethod.GET)
+    public ModelAndView verVistaFiguritaConfig() {
+        return new ModelAndView("configFigurita");
     }
 
 }

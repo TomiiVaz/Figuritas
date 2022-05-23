@@ -7,7 +7,7 @@ public class Comentario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     private String descripcion;
 
     @OneToOne
@@ -16,7 +16,7 @@ public class Comentario {
     @OneToOne
     private Usuario usuario;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
