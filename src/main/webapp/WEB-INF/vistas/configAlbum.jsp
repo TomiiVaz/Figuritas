@@ -39,7 +39,7 @@
             <form:form class='text-center d-flex flex-column px-5 px-5 py-2 bg-dark border-0'
                        method='post'
                        action='agregar-album'
-                       modelAttribute="album">
+                       modelAttribute="albunes">
                 <input class='my-2 form-control' type='text' path="nombre" name='nombre' id='nombre'
                        placeholder='Ingrese el nombre del álbum'>
                 <button type='submit' class='btn btn-success my-2'>Agregar</button>
@@ -55,18 +55,19 @@
             <h2 class="text-white text-center">Formulario editar</h2>
             <form:form class='text-center d-flex flex-column px-5 px-5 py-2 bg-dark border-0'
                        method='post'
-                       action='ver-albunes'
-                       modelAttribute="album">
+                       action='editar-album'
+                       modelAttribute="albunes">
                 <select path='album.id' id='album.id' name='album.id' class='form-control my-2'>
                     <c:forEach var="album" items="${albunes}">
                         <option value='Default' selected hidden>Seleccionar un álbum</option>
                         <option value='${album.id}'>${album.nombre}</option>
                     </c:forEach>
                 </select>
-                <input class='my-2 form-control' type='text' path="nombreNuevoAlbum" name='nombreNuevoAlbum'
-                       id='nombreNuevoAlbum'
+                <input class='my-2 form-control' type='text' path="nombre" id='nombre'
                        placeholder='Ingrese el nuevo nombre'>
+
                 <button type='submit' class='btn btn-success my-2'>Editar</button>
+
             </form:form>
         </div>
     </div>
@@ -79,10 +80,13 @@
             <h2 class="text-white text-center">Formulario eliminar</h2>
             <form:form class='text-center d-flex flex-column px-5 px-5 py-2 bg-dark border-0'
                        method='post'
-                       action=''
-                       modelAttribute="">
-                <select name='tipoNuevo' class='form-control my-2'>
-                    <option value='Aire'>Mundial Qatar 2022</option>
+                       action='ver-albunes'
+                       modelAttribute="albunes">
+                <select path='album.id' id='album.id' name='album.id' class='form-control my-2'>
+                    <c:forEach var="album" items="${albunes}">
+                        <option value='Default' selected hidden>Seleccionar un álbum</option>
+                        <option value='${album.id}'>${album.nombre}</option>
+                    </c:forEach>
                 </select>
                 <button type='submit' class='btn btn-success my-2'>Eliminar</button>
             </form:form>
