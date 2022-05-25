@@ -27,6 +27,7 @@ public class ServicioSeleccionImpl implements ServicioSeleccion {
 
     @Override
     public List<Seleccion> traerSelecciones() {
-        return this.repoSelec.getSelecciones();
+        List<Seleccion> selecciones = repoSelec.getSelecciones();
+        return selecciones;
     }
 }
