@@ -15,7 +15,8 @@
                    method='post'
                    action='agregar-figurita'
                    modelAttribute='figurita'>
-            <input class='my-2 form-control' type='text' path='nombre' id='nombre' name='nombre' placeholder="Ingresa el nombre">
+            <input class='my-2 form-control' type='text' path='nombre' id='nombre' name='nombre'
+                   placeholder="Ingresa el nombre">
 
             <!-- ver en el path si es pais o pais.id -->
             <select path='seleccion.id' id='seleccion.id' name='seleccion.id' class='form-control my-2'>
