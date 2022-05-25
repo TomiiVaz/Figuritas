@@ -72,7 +72,6 @@
     <%--    /Formulario Editar--%>
 
     <%--    Formulario Borrar--%>
-<%--
     <div class="collapse mt-5 container-fluid" id="collapseEliminar">
         <div class="card card-body bg-dark border-0 container">
             <h2 class="text-white text-center">Formulario eliminar</h2>
@@ -82,15 +81,14 @@
                        modelAttribute="selecciones">
                 <select path='album.id' id='album.id' name='album.id' class='form-control my-2'>
                     <c:forEach var="seleccion" items="${selecciones}">
-                        <option value='Default' selected hidden>Seleccionar una seleccion</option>
-                        <option value='${selecciones.id}'>${selecciones.nombre}</option>
+                        <option value='Default' selected hidden>Seleccionar una selección a borrar</option>
+                        <option value='${seleccion.id}'>${seleccion.nombre}</option>
                     </c:forEach>
                 </select>
                 <button type='submit' class='btn btn-success my-2'>Eliminar</button>
             </form:form>
         </div>
     </div>
---%>
     <%--    /Formulario Borrar--%>
 
 </main>
