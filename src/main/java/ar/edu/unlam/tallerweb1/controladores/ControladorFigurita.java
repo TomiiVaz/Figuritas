@@ -1,28 +1,32 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.modelo.Figurita;
+import ar.edu.unlam.tallerweb1.modelo.Seleccion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioFigurita;
-import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
+import ar.edu.unlam.tallerweb1.servicios.ServicioSeleccion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 @Controller
 public class ControladorFigurita {
 
     private ServicioFigurita servicioFigu;
+    private ServicioSeleccion servicioSelec;
 
     @Autowired
-    public ControladorFigurita(ServicioFigurita servicioFigu){
+    public ControladorFigurita(ServicioFigurita servicioFigu, ServicioSeleccion servicioSelec) {
 
         this.servicioFigu = servicioFigu;
+        this.servicioSelec = servicioSelec;
     }
 
     @RequestMapping(path = "/ver-figurita", method = RequestMethod.GET)
-    public ModelAndView crear(){
+    public ModelAndView crear() {
 
         //servicioFigu.agregarFigurita(54);
 
@@ -30,7 +34,8 @@ public class ControladorFigurita {
     }
 
     @RequestMapping(path = "/agregar-figurita", method = RequestMethod.POST)
-    public ModelAndView agregar(@ModelAttribute("figurita")Figurita figurita){
+    public ModelAndView agregarFigurita(@ModelAttribute("figurita") Figurita figurita)
+    {
 
         servicioFigu.agregarFigurita(figurita);
 
@@ -39,7 +44,7 @@ public class ControladorFigurita {
 
     //metodo listo para usar
     @RequestMapping(path = "/buscar-figurita", method = RequestMethod.POST)
-    public ModelAndView buscar(){
+    public ModelAndView buscar() {
 
         //servicioFigu.buscarFiguritaPorNombre("messi");
 
@@ -47,7 +52,7 @@ public class ControladorFigurita {
     }
 
     @RequestMapping(path = "/buscar-figuritas-nombre-equipo", method = RequestMethod.POST)
-    public ModelAndView buscarNombreEquipo(){
+    public ModelAndView buscarNombreEquipo() {
 
         //servicioFigu.buscarFiguritaNombreEquipo("messi","scaloneta");
 
@@ -55,11 +60,21 @@ public class ControladorFigurita {
     }
 
     @RequestMapping(path = "/buscar-figuritas-equipo", method = RequestMethod.POST)
-    public ModelAndView buscarEquipo(){
+    public ModelAndView buscarEquipo() {
 
         //servicioFigu.buscarFiguritasPorEquipo(5);
 
         return new ModelAndView("home");
+    }
+
+    @RequestMapping(path = "/configuracion-figurita", method = RequestMethod.GET)
+    public ModelAndView verVistaFiguritaConfig() {
+        List<Seleccion> selecciones = this.servicioSelec.traerSelecciones();
+
+        ModelMap model = new ModelMap();
+        model.put("selecciones", selecciones);
+
+        return new ModelAndView("configFigurita", model);
     }
 
 }

@@ -36,4 +36,9 @@ public class ControladorSeleccion {
         return new ModelAndView("home");
     }
 
+    @RequestMapping(path = "/configuracion-seleccion", method = RequestMethod.GET)
+    public ModelAndView verVistaSeleccionConfig() {
+        return new ModelAndView("configSeleccion");
+    }
+
 }
