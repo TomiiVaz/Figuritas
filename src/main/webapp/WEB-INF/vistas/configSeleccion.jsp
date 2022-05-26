@@ -39,7 +39,7 @@
                        method='post'
                        action='crear-seleccion'
                        modelAttribute="selecciones">
-                <input class='my-2 form-control' type='text' path="nombre" name='nombre' id='nombre'
+                <input class='my-2 form-control' type='text' name='nombre' id='nombre'
                        placeholder='Ingrese el nombre de la seleccion'>
                 <button type='submit' class='btn btn-success my-2'>Agregar</button>
             </form:form>
@@ -53,15 +53,15 @@
             <h2 class="text-white text-center">Formulario editar</h2>
             <form:form class='text-center d-flex flex-column px-5 px-5 py-2 bg-dark border-0'
                        method='post'
-                       action='editar-seleccion'
+                       action='ver-selecciones'
                        modelAttribute="selecciones">
-                <select path='seleccion.id' id='seleccion.id' name='seleccion.id' class='form-control my-2'>
+                <select id='seleccionId' name='seleccionId' class='form-control my-2'>
                     <c:forEach var="seleccion" items="${selecciones}">
                         <option value='Default' selected hidden>Seleccionar una selección</option>
                         <option value='${seleccion.id}'>${seleccion.nombre}</option>
                     </c:forEach>
                 </select>
-                <input class='my-2 form-control' type='text' path="nombre" id='nombre'
+                <input class='my-2 form-control' type='text' id="nombreNuevo" name="nombreNuevo"
                        placeholder='Ingrese el nuevo nombre'>
 
                 <button type='submit' class='btn btn-success my-2'>Editar</button>
@@ -77,9 +77,9 @@
             <h2 class="text-white text-center">Formulario eliminar</h2>
             <form:form class='text-center d-flex flex-column px-5 px-5 py-2 bg-dark border-0'
                        method='post'
-                       action='ver-selecciones'
+                       action='del-seleccion'
                        modelAttribute="selecciones">
-                <select path='album.id' id='album.id' name='album.id' class='form-control my-2'>
+                <select path='seleccionId' id='seleccionId' name='seleccionId' class='form-control my-2'>
                     <c:forEach var="seleccion" items="${selecciones}">
                         <option value='Default' selected hidden>Seleccionar una selección a borrar</option>
                         <option value='${seleccion.id}'>${seleccion.nombre}</option>

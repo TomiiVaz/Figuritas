@@ -30,4 +30,14 @@ public class ServicioSeleccionImpl implements ServicioSeleccion {
         List<Seleccion> selecciones = repoSelec.getSelecciones();
         return selecciones;
     }
+
+    @Override
+    public void editarSeleccion(Long id, String nombreNuevo){
+        this.repoSelec.editarSeleccion(id, nombreNuevo);
+    }
+
+    @Override
+    public void eliminarSeleccion(Long id){
+        this.repoSelec.eliminarSeleccion(id);
+    }
 }

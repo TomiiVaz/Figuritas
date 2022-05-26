@@ -1,6 +1,5 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
-import ar.edu.unlam.tallerweb1.modelo.Figurita;
 import ar.edu.unlam.tallerweb1.modelo.Seleccion;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -33,4 +32,33 @@ public class RepositorioSeleccionImpl implements RepositorioSeleccion {
         return (List<Seleccion>) session.createCriteria(Seleccion.class)
                 .list();
     } // ?????????????????????
+
+    @Override
+    public void editarSeleccion(Long id, String nombreNuevo) {
+        final Session session = sessionFactory.getCurrentSession();
+
+
+        //Busco la seleccion con la id pasada
+        Seleccion seleccion = (Seleccion) session.createCriteria(Seleccion.class)
+                .add(Restrictions.eq("id",id))
+                .uniqueResult();
+
+        //Le cambio el nommbre
+        seleccion.setNombre(nombreNuevo);
+
+        //Lo pongo en la db
+        session.update(seleccion);
+    }
+
+    @Override
+    public void eliminarSeleccion(Long id) {
+        final Session session = sessionFactory.getCurrentSession();
+
+        Seleccion seleccion = (Seleccion) session.createCriteria(Seleccion.class)
+                .add(Restrictions.eq("id",id))
+                .uniqueResult();
+
+        session.delete(seleccion);
+
+    }
 }

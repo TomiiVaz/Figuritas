@@ -8,4 +8,8 @@ public interface ServicioSeleccion {
 
     void crearSeleccion(Seleccion seleccion);
     List<Seleccion> traerSelecciones();
+
+    void editarSeleccion(Long id, String nombreNuevo);
+
+    public void eliminarSeleccion(Long id);
 }
