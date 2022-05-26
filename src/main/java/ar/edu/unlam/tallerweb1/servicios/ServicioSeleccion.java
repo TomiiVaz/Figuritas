@@ -10,4 +10,6 @@ public interface ServicioSeleccion {
     List<Seleccion> traerSelecciones();
 
     void editarSeleccion(Long id, String nombreNuevo);
+
+    public void eliminarSeleccion(Long id);
 }
