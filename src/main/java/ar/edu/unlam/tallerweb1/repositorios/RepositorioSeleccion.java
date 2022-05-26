@@ -8,4 +8,6 @@ public interface RepositorioSeleccion {
 
     void guardar(Seleccion seleccion);
     List<Seleccion> getSelecciones();
+
+    void editarSeleccion(Long id, String nombreNuevo);
 }
