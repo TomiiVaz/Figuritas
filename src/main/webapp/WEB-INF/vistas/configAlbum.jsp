@@ -83,9 +83,9 @@
             <h2 class="text-white text-center">Formulario eliminar</h2>
             <form:form class='text-center d-flex flex-column px-5 px-5 py-2 bg-dark border-0'
                        method='post'
-                       action='ver-albunes'
+                       action='eliminar-album'
                        modelAttribute="albunes">
-                <select path='album.id' id='album.id' name='album.id' class='form-control my-2'>
+                <select path='albumId' id='albumId' name='albumId' class='form-control my-2'>
                     <c:forEach var="album" items="${albunes}">
                         <option value='Default' selected hidden>Seleccionar un álbum</option>
                         <option value='${album.id}'>${album.nombre}</option>

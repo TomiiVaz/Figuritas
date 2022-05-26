@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
 import ar.edu.unlam.tallerweb1.modelo.Album;
+import ar.edu.unlam.tallerweb1.modelo.Seleccion;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -47,6 +48,17 @@ public class RepositorioAlbumImpl implements RepositorioAlbum {
         //Lo pongo en la db
         session.update(album);
 
+    }
+
+    @Override
+    public void eliminarAlbum(long albumId) {
+        final Session session = sessionFactory.getCurrentSession();
+
+        Album album = (Album) session.createCriteria(Album.class)
+                .add(Restrictions.eq("id", albumId))
+                .uniqueResult();
+
+        session.delete(album);
     }
 
 }
