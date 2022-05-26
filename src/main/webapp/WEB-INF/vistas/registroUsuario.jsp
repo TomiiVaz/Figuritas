@@ -12,25 +12,27 @@
             <br>
 
             <label for="email" class="text-white mb-1">Email</label>
-            <input path="email" id="email" class="form-control mb-3" placeholder="Ingrese el mail"/>
+            <input path="email" id="email" name='email' class="form-control mb-3" placeholder="Ingrese el mail"/>
 
             <label for="equipo" class="text-white mb-1">Equipo</label>
-            <input path="equipo" type="password" id="equipo" class="form-control mb-3" placeholder="Ingrese su equipo"/>
+            <input path="equipo" type="text" id="equipo" name='equipo' class="form-control mb-3" placeholder="Ingrese su equipo"/>
 
-            <label for="seleccion" class="text-white mb-1">Seleccion</label>
-            <select name="seleccion" id="seleccion" class="form-control mb-3">
-                <option value="Default" selected hidden>Seleccione una seleccion</option>
-                <option value="Argentina">Argentina</option>
+            <label for='seleccion.id' class='text-white'>Seleccion</label>
+            <select path='seleccion.id' id='seleccion.id' name='seleccion.id' class='form-control my-2'>
+                <c:forEach var="seleccion" items="${selecciones}">
+                    <!-- ver lo de pais.id y pais.nombre -->
+                    <option value='${seleccion.id}'>${seleccion.nombre}</option>
+                </c:forEach>
             </select>
 
             <label for="nombre" class="text-white mb-1">Nombre</label>
-            <input path="nombre" type="password" id="nombre" class="form-control mb-3" placeholder="Ingrese su nombre"/>
+            <input path="nombre" type="text" id="nombre" name='nombre' class="form-control mb-3" placeholder="Ingrese su nombre"/>
 
-            <label for="clave" class="text-white mb-1">Clave</label>
-            <input path="clave" type="password" id="clave" class="form-control mb-3" placeholder="Ingrese su clave"/>
+            <label for="password" class="text-white mb-1">Clave</label>
+            <input path="password" type="password" id="password" name='password' class="form-control mb-3" placeholder="Ingrese su clave"/>
 
             <label for="claveConfirm" class="text-white mb-1">Confirmar clave</label>
-            <input path="claveConfirm" type="password" id="claveConfirm" class="form-control mb-3" placeholder="Confirme su clave"/>
+            <input path="claveConfirm" type="password" id="claveConfirm" name='claveConfirm' class="form-control mb-3" placeholder="Confirme su clave"/>
 
             <button id="btn-registrarme" class="btn btn-lg btn-primary btn-block mt-4 mb-5 mb-5 " Type="Submit"/>
             Registrarme</button>
