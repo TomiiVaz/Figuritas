@@ -7,7 +7,7 @@ public class Figurita {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     private String nombre;
 
     @Enumerated(EnumType.STRING)
@@ -28,11 +28,11 @@ public class Figurita {
     @ManyToOne
     private Album album;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

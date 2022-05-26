@@ -33,12 +33,18 @@ public class ControladorSeleccion {
     public ModelAndView crearSeleccion(@ModelAttribute("datosSeleccion") Seleccion seleccion, HttpServletRequest request) {
 
         this.servicioSelec.crearSeleccion(seleccion);
-        return new ModelAndView("home");
+
+        return new ModelAndView("redirect:/configuracion-seleccion");
     }
 
     @RequestMapping(path = "/configuracion-seleccion", method = RequestMethod.GET)
     public ModelAndView verVistaSeleccionConfig() {
-        return new ModelAndView("configSeleccion");
+        List<Seleccion> selecciones = this.servicioSelec.traerSelecciones();
+
+        ModelMap model = new ModelMap();
+        model.put("selecciones" , selecciones);
+
+        return new ModelAndView("configSeleccion", model);
     }
 
 }
