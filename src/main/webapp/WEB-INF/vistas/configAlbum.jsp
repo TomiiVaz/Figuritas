@@ -11,6 +11,9 @@
 <main>
 
     <div class="container-fluid text-center mt-5">
+        <a href="/figus/configuracion" class="text-decoration-none">
+            <button type='button' class='btn btn-warning my-2'>Volver</button>
+        </a>s
         <h1 class="text-white">Administrador de álbum</h1>
         <div class="mt-5">
             <button class="btn btn-primary me-3" type="button" data-bs-toggle="collapse"
@@ -80,9 +83,9 @@
             <h2 class="text-white text-center">Formulario eliminar</h2>
             <form:form class='text-center d-flex flex-column px-5 px-5 py-2 bg-dark border-0'
                        method='post'
-                       action='ver-albunes'
+                       action='eliminar-album'
                        modelAttribute="albunes">
-                <select path='album.id' id='album.id' name='album.id' class='form-control my-2'>
+                <select path='albumId' id='albumId' name='albumId' class='form-control my-2'>
                     <c:forEach var="album" items="${albunes}">
                         <option value='Default' selected hidden>Seleccionar un álbum</option>
                         <option value='${album.id}'>${album.nombre}</option>
