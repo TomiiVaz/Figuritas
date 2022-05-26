@@ -1,8 +1,6 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
 import ar.edu.unlam.tallerweb1.modelo.Album;
-import ar.edu.unlam.tallerweb1.modelo.Figurita;
-import ar.edu.unlam.tallerweb1.modelo.Seleccion;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -40,15 +38,15 @@ public class RepositorioAlbumImpl implements RepositorioAlbum {
 
 
         //Busco la seleccion con la id pasada
-        Seleccion seleccion = (Seleccion) session.createCriteria(Seleccion.class)
-                .add(Restrictions.eq("id",albumId))
+        Album album = (Album) session.createCriteria(Album.class)
+                .add(Restrictions.eq("id", albumId))
                 .uniqueResult();
 
         //Le cambio el nommbre
-        seleccion.setNombre(nombreNuevo);
+        album.setNombre(nombreNuevo);
 
         //Lo pongo en la db
-        session.update(seleccion);
+        session.update(album);
 
     }
 
