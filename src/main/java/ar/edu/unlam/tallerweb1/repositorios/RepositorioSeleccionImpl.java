@@ -33,4 +33,27 @@ public class RepositorioSeleccionImpl implements RepositorioSeleccion {
         return (List<Seleccion>) session.createCriteria(Seleccion.class)
                 .list();
     } // ?????????????????????
+
+    @Override
+    public void editarSeleccion(Long id, String nombreNuevo) {
+        final Session session = sessionFactory.getCurrentSession();
+
+
+        //Busco la seleccion con la id pasada
+        Seleccion seleccion = (Seleccion) session.createCriteria(Seleccion.class)
+                .add(Restrictions.eq("id",id))
+                .uniqueResult();
+
+        //Le cambio el nommbre
+        seleccion.setNombre(nombreNuevo);
+
+        //Lo pongo en la db
+        session.update(seleccion);
+
+        /*Seleccion seleccion2= (Seleccion) session.createCriteria(Seleccion.class)
+                .add(Restrictions.eq("nombre", seleccion.getNombre()))
+                        .uniqueResult();
+        seleccion2.setNombre("asdasds");
+        session.update(seleccion2);*/
+    }
 }
