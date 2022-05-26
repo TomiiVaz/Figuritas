@@ -13,7 +13,10 @@
 
             <label for="email" class="text-white mb-1">Email</label>
             <input path="email" id="email" name='email' class="form-control mb-3" placeholder="Ingrese el mail"/>
-
+            <c:if test="${not empty error}">
+                <p class="text-danger"><span>${error}</span></p>
+                <br>
+            </c:if>
             <label for="equipo" class="text-white mb-1">Equipo</label>
             <input path="equipo" type="text" id="equipo" name='equipo' class="form-control mb-3" placeholder="Ingrese su equipo"/>
 
@@ -37,11 +40,6 @@
             <button id="btn-registrarme" class="btn btn-lg btn-primary btn-block mt-4 mb-5 mb-5 " Type="Submit"/>
             Registrarme</button>
         </form:form>
-
-        <c:if test="${not empty error}">
-            <h4><span>${error}</span></h4>
-            <br>
-        </c:if>
     </div>
 </div>
 
