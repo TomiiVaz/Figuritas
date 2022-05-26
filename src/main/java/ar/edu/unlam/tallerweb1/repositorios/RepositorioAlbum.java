@@ -10,4 +10,6 @@ public interface RepositorioAlbum {
     void guardar(Album album);
 
     List<Album> traerAlbunes();
+
+    void editarAlbum(Long albumId, String nombreNuevo);
 }
