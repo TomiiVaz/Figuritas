@@ -23,15 +23,16 @@
             <label for="clave" class="text-white mb-1">Clave</label>
             <form:input path="password" type="password" id="password" class="form-control m-2" placeholder="Ingrese su clave"/>
 
+            <%--Bloque que es visible si el elemento error no esta vacio	--%>
+            <c:if test="${not empty error}">
+                <h4 class="text-white mb-2 mt-5"><span>${error}</span></h4>
+                <br>
+            </c:if>
             <button class="btn btn-lg btn-primary btn-block m-4" Type="Submit"/>
             Ingresar</button>
         </form:form>
         <a href="registrarse" class="m-2">Registrarme</a>
-        <%--Bloque que es visible si el elemento error no esta vacio	--%>
-        <c:if test="${not empty error}">
-            <h4><span>${error}</span></h4>
-            <br>
-        </c:if>
+
         ${msg}
     </div>
 </div>
