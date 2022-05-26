@@ -71,4 +71,10 @@ public class ControladorLogin {
 	public ModelAndView inicio() {
 		return new ModelAndView("redirect:/login");
 	}
+
+	@RequestMapping(path="/registrarse", method = RequestMethod.POST)
+	public ModelAndView guardarUsuario(@ModelAttribute("usuario") Usuario usuario){
+		//guardar usuario y ver de iniciar sesion una vez que se registra
+		return new ModelAndView("redirect:/home");
+	}
 }
