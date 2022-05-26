@@ -10,16 +10,16 @@ public class Figurita {
     private Long id;
     private String nombre;
 
-    @Enumerated(EnumType.STRING)
-    private Posicion posicion;
-
     private byte dorsal;
 
     private String equipo;
 
-    private Short año;
+    private int anio;
 
-    @Enumerated(EnumType.STRING)
+    @ManyToOne
+    private Posicion posicion;
+
+    @ManyToOne
     private Rareza rareza;
 
     @ManyToOne
@@ -68,12 +68,12 @@ public class Figurita {
         this.equipo = equipo;
     }
 
-    public Short getAño() {
-        return año;
+    public int getAño() {
+        return anio;
     }
 
-    public void setAño(Short año) {
-        this.año = año;
+    public void setAño(int anio) {
+        this.anio = anio;
     }
 
     public Rareza getRareza() {
