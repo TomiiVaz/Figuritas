@@ -11,6 +11,9 @@
 <main>
 
     <div class="container-fluid text-center mt-5">
+        <a href="/figus/configuracion" class="text-decoration-none">
+            <button type='button' class='btn btn-warning my-2'>Volver</button>
+        </a>s
         <h1 class="text-white">Administrador de álbum</h1>
         <div class="mt-5">
             <button class="btn btn-primary me-3" type="button" data-bs-toggle="collapse"
