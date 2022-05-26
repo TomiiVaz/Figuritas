@@ -57,13 +57,13 @@
                        method='post'
                        action='editar-album'
                        modelAttribute="albunes">
-                <select path='album.id' id='album.id' name='album.id' class='form-control my-2'>
+                <select path='albumId' id='albumId' name='albumId' class='form-control my-2'>
                     <c:forEach var="album" items="${albunes}">
                         <option value='Default' selected hidden>Seleccionar un álbum</option>
                         <option value='${album.id}'>${album.nombre}</option>
                     </c:forEach>
                 </select>
-                <input class='my-2 form-control' type='text' path="nombre" id='nombre'
+                <input class='my-2 form-control' type='text' path="nombreNuevo" id='nombreNuevo' name="nombreNuevo"
                        placeholder='Ingrese el nuevo nombre'>
 
                 <button type='submit' class='btn btn-success my-2'>Editar</button>
