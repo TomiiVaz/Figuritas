@@ -1,0 +1,5 @@
+insert into rareza(descripcion) values ('legendaria'),('rara'),('comun');
+select * from rareza;
+
+insert into posicion(descripcion) values ('arquero'),('defensor'),('mediocampista'), ('delantero');
+select * from posicion;
