@@ -15,11 +15,37 @@ public class Usuario {
     // para el resto de los atributo no se usan anotaciones entonces se usa el default de hibernate: la columna se llama igual que
     // el atributo, la misma admite nulos, y el tipo de dato se deduce del tipo de dato de java.
     private String email;
+    private String equipo;
+    @ManyToOne
+    private Seleccion seleccion;
+    private String nombre;
     private String password;
-    @OneToOne
-    private Rol rol;
-    
+    private String rol;
     private Boolean activo = false;
+
+    public String getEquipo() {
+        return equipo;
+    }
+
+    public void setEquipo(String equipo) {
+        this.equipo = equipo;
+    }
+
+    public Seleccion getSeleccion() {
+        return seleccion;
+    }
+
+    public void setSeleccion(Seleccion seleccion) {
+        this.seleccion = seleccion;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
     public Long getId() {
         return id;
@@ -45,11 +71,11 @@ public class Usuario {
         this.password = password;
     }
 
-    public Rol getRol() {
+    public String getRol() {
         return rol;
     }
 
-    public void setRol(Rol rol) {
+    public void setRol(String rol) {
         this.rol = rol;
     }
 
