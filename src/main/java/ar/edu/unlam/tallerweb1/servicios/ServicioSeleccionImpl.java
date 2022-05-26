@@ -35,4 +35,9 @@ public class ServicioSeleccionImpl implements ServicioSeleccion {
     public void editarSeleccion(Long id, String nombreNuevo){
         this.repoSelec.editarSeleccion(id, nombreNuevo);
     }
+
+    @Override
+    public void eliminarSeleccion(Long id){
+        this.repoSelec.eliminarSeleccion(id);
+    }
 }

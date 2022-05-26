@@ -1,6 +1,5 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
-import ar.edu.unlam.tallerweb1.modelo.Figurita;
 import ar.edu.unlam.tallerweb1.modelo.Seleccion;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -49,11 +48,17 @@ public class RepositorioSeleccionImpl implements RepositorioSeleccion {
 
         //Lo pongo en la db
         session.update(seleccion);
+    }
 
-        /*Seleccion seleccion2= (Seleccion) session.createCriteria(Seleccion.class)
-                .add(Restrictions.eq("nombre", seleccion.getNombre()))
-                        .uniqueResult();
-        seleccion2.setNombre("asdasds");
-        session.update(seleccion2);*/
+    @Override
+    public void eliminarSeleccion(Long id) {
+        final Session session = sessionFactory.getCurrentSession();
+
+        Seleccion seleccion = (Seleccion) session.createCriteria(Seleccion.class)
+                .add(Restrictions.eq("id",id))
+                .uniqueResult();
+
+        session.delete(seleccion);
+
     }
 }
