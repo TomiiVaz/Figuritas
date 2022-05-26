@@ -1,7 +1,7 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
 import ar.edu.unlam.tallerweb1.modelo.Album;
-import ar.edu.unlam.tallerweb1.modelo.Figurita;
+
 
 import java.util.*;
 
@@ -12,4 +12,6 @@ public interface RepositorioAlbum {
     List<Album> traerAlbunes();
 
     void editarAlbum(Long albumId, String nombreNuevo);
+
+    void eliminarAlbum(long albumId);
 }

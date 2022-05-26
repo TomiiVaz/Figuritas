@@ -1,7 +1,9 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import ar.edu.unlam.tallerweb1.modelo.Seleccion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
+import ar.edu.unlam.tallerweb1.servicios.ServicioSeleccion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 public class ControladorLogin {
@@ -21,10 +24,12 @@ public class ControladorLogin {
 	// dicha clase debe estar anotada como @Service o @Repository y debe estar en un paquete de los indicados en
 	// applicationContext.xml
 	private ServicioLogin servicioLogin;
+	private ServicioSeleccion servicioSeleccion;
 
 	@Autowired
-	public ControladorLogin(ServicioLogin servicioLogin){
+	public ControladorLogin(ServicioLogin servicioLogin, ServicioSeleccion servicioSeleccion){
 		this.servicioLogin = servicioLogin;
+		this.servicioSeleccion=servicioSeleccion;
 	}
 
 	// Este metodo escucha la URL localhost:8080/NOMBRE_APP/login si la misma es invocada por metodo http GET
@@ -70,5 +75,21 @@ public class ControladorLogin {
 	@RequestMapping(path = "/", method = RequestMethod.GET)
 	public ModelAndView inicio() {
 		return new ModelAndView("redirect:/login");
+	}
+
+	@RequestMapping(path = "/registrarse", method = RequestMethod.GET)
+	public ModelAndView registrarse() {
+		List<Seleccion> selecciones = this.servicioSeleccion.traerSelecciones();
+		ModelMap model = new ModelMap();
+		model.put("selecciones", selecciones);
+		return new ModelAndView("registroUsuario", model);
+	}
+
+	@RequestMapping(path="/registrarme", method = RequestMethod.POST)
+	public ModelAndView guardarUsuario(@ModelAttribute("usuario") Usuario usuario){
+
+		usuario.setRol("CLI");
+		servicioLogin.registrarUsuario(usuario);
+		return new ModelAndView("redirect:/home");
 	}
 }

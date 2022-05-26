@@ -50,55 +50,6 @@
     </div>
     <%--    /Seccion Cuadrados--%>
 
-    <div class="container container-fluid">
-        <%--        Seccion Formularios--%>
-        <%--                Form Figurita--%>
-
-            <div class="collapse bg-dark mt-5 mb-5" id="collapseAgregarFigu">
-                <div class="card card-body bg-dark border-0">
-                    <form:form class='text-center d-flex flex-column px-5 px-5 py-2 bg-dark border-0'
-                          method='post'
-                          action='agregar-figurita'
-                          modelAttribute="figurita">
-                        <input class='my-2 form-control' type='text' path='nombre' id='nombre' name='nombre' placeholder="Ingresa el nombre">
-
-                        <!-- ver en el path si es pais o pais.id -->
-                        <select path='seleccion.id' id='seleccion.id' name='seleccion.id' class='form-control my-2'>
-                            <c:forEach var="seleccion" items="${selecciones}">
-                                <!-- ver lo de pais.id y pais.nombre -->
-                                <option value='${seleccion.id}'>${seleccion.nombre}</option>
-                            </c:forEach>
-                        </select>
-
-                    <button type='submit' class='btn btn-success my-2'>Agregar</button>
-                </form:form>
-            </div>
-        </div>
-        <%--                /Form Figurita--%>
-
-        <%--                Form Album--%>
-        <div class="collapse bg-dark mt-5 mb-5" id="collapseNuevoAlbum">
-            <div class="card card-body bg-dark border-0">
-                <form class='text-center d-flex flex-column px-5 px-5 py-2 bg-dark border-0'
-                      method='post'
-                      action=''>
-                    <input class='my-2 form-control' type='text' name='nombreNuevoAlbum' id='nombreNuevoAlbum'
-                           placeholder='Ingrese el nombre sel album'>
-                    <select name='seleccionAgregada' class='form-control my-2'>
-                        <option value='Default' selected hidden>Seleccionar una seleccion</option>
-                        <option value='Argentina'>Argentina</option>
-                        <option value='Bolivia'>Bolivia</option>
-                        <option value='Uruguay'>Uruguay</option>
-                        <option value='Chile'>Chile</option>
-                    </select>
-                    <button type='submit' class='btn btn-success my-2'>Agregar</button>
-                </form>
-            </div>
-        </div>
-    </div>
-    <%--                /Form Album--%>
-
-    <%--        /Seccion Formularios--%>
 </main>
 <!-- Footer -->
 <%@include file="footer.jsp" %>
