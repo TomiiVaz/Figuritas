@@ -16,7 +16,7 @@ public class Usuario {
     // el atributo, la misma admite nulos, y el tipo de dato se deduce del tipo de dato de java.
     private String email;
     private String password;
-    @Enumerated(EnumType.STRING)
+    @OneToOne
     private Rol rol;
     
     private Boolean activo = false;
