@@ -1,6 +1,8 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
 import ar.edu.unlam.tallerweb1.modelo.Figurita;
+import ar.edu.unlam.tallerweb1.modelo.Posicion;
+import ar.edu.unlam.tallerweb1.modelo.Rareza;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -50,6 +52,20 @@ public class RepositorioFiguritaImpl implements RepositorioFigurita{
         return (List<Figurita>) session.createCriteria(Figurita.class)
                 .createAlias("album", "album")
                 .add(Restrictions.eq("album.id", idEquipo))
+                .list();
+    }
+
+    @Override
+    public List<Posicion> getPosiciones() {
+        final Session session = sessionFactory.getCurrentSession();
+        return (List<Posicion>)session.createCriteria(Posicion.class)
+                .list();
+    }
+
+    @Override
+    public List<Rareza> getRarezas() {
+        final Session session = sessionFactory.getCurrentSession();
+        return (List<Rareza>)session.createCriteria(Rareza.class)
                 .list();
     }
 }
