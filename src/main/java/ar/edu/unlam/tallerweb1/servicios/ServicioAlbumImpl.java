@@ -37,4 +37,9 @@ public class ServicioAlbumImpl implements ServicioAlbum {
         this.repoAlbum.editarAlbum(albumId, nombreNuevo);
     }
 
+    @Override
+    public void eliminarAlbum(long albumId) {
+        this.repoAlbum.eliminarAlbum(albumId);
+    }
+
 }

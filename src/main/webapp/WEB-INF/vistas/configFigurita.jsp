@@ -8,7 +8,10 @@
 <!-- header -->
 <%@include file="header.jsp" %>
 <!-- main -->
-<main>
+<main class="text-center">
+    <a href="/figus/configuracion" class="text-decoration-none">
+        <button type='button' class='btn btn-warning my-2'>Volver</button>
+    </a>s
     <h1 class="text-center text-white">Configuracion de figurita</h1>
     <div class="container">
         <form:form class='text-center d-flex flex-column px-5 px-5 py-2 bg-dark border-0'

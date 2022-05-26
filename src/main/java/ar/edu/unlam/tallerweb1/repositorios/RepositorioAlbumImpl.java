@@ -36,8 +36,7 @@ public class RepositorioAlbumImpl implements RepositorioAlbum {
     public void editarAlbum(Long albumId, String nombreNuevo) {
         final Session session = sessionFactory.getCurrentSession();
 
-
-        //Busco la seleccion con la id pasada
+        //Busco el album con la id pasada
         Album album = (Album) session.createCriteria(Album.class)
                 .add(Restrictions.eq("id", albumId))
                 .uniqueResult();
@@ -48,6 +47,17 @@ public class RepositorioAlbumImpl implements RepositorioAlbum {
         //Lo pongo en la db
         session.update(album);
 
+    }
+
+    @Override
+    public void eliminarAlbum(long albumId) {
+        final Session session = sessionFactory.getCurrentSession();
+
+        Album album = (Album) session.createCriteria(Album.class)
+                .add(Restrictions.eq("id", albumId))
+                .uniqueResult();
+
+        session.delete(album);
     }
 
 }
