@@ -10,4 +10,6 @@ public interface RepositorioSeleccion {
     List<Seleccion> getSelecciones();
 
     void editarSeleccion(Long id, String nombreNuevo);
+
+    void eliminarSeleccion(Long id);
 }

@@ -52,7 +52,15 @@ public class ControladorSeleccion {
     public ModelAndView verSelecciones(@RequestParam int seleccionId,
                                        @RequestParam String nombreNuevo){
 
-        this.servicioSelec.editarSeleccion((Long)(long)seleccionId, nombreNuevo);
+        this.servicioSelec.editarSeleccion((long)seleccionId, nombreNuevo);
+
+        return new ModelAndView("redirect:/configuracion-seleccion");
+    }
+
+    @RequestMapping(path = "/del-seleccion" , method = RequestMethod.POST, params = {"seleccionId"})
+    public ModelAndView delSelecciones(@RequestParam int seleccionId){
+
+        this.servicioSelec.eliminarSeleccion((long)seleccionId);
 
         return new ModelAndView("redirect:/configuracion-seleccion");
     }
