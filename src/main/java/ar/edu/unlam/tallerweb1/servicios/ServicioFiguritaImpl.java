@@ -1,6 +1,8 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.modelo.Figurita;
+import ar.edu.unlam.tallerweb1.modelo.Posicion;
+import ar.edu.unlam.tallerweb1.modelo.Rareza;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioFigurita;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,5 +45,15 @@ public class ServicioFiguritaImpl implements ServicioFigurita{
     public List<Figurita> buscarFiguritasPorEquipo(Integer idEquipo) {
         repoFigurita.findAllByIdEquipo(idEquipo);
         return null;
+    }
+
+    @Override
+    public List<Posicion> traerPosiciones() {
+        return this.repoFigurita.getPosiciones();
+    }
+
+    @Override
+    public List<Rareza> traerRarezas() {
+        return this.repoFigurita.getRarezas();
     }
 }

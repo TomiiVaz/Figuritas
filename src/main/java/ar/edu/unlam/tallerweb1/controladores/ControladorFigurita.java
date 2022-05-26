@@ -1,6 +1,8 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.modelo.Figurita;
+import ar.edu.unlam.tallerweb1.modelo.Posicion;
+import ar.edu.unlam.tallerweb1.modelo.Rareza;
 import ar.edu.unlam.tallerweb1.modelo.Seleccion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioFigurita;
 import ar.edu.unlam.tallerweb1.servicios.ServicioSeleccion;
@@ -70,11 +72,17 @@ public class ControladorFigurita {
     @RequestMapping(path = "/configuracion-figurita", method = RequestMethod.GET)
     public ModelAndView verVistaFiguritaConfig() {
         List<Seleccion> selecciones = this.servicioSelec.traerSelecciones();
+        List<Posicion> posiciones = this.servicioFigu.traerPosiciones();
+        List<Rareza> rarezas = this.servicioFigu.traerRarezas();
 
         ModelMap model = new ModelMap();
         model.put("selecciones", selecciones);
+        model.put("rarezas", rarezas);
+        model.put("posiciones", posiciones);
 
         return new ModelAndView("configFigurita", model);
     }
+
+
 
 }
