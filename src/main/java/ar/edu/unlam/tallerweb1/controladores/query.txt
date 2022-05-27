@@ -4,6 +4,14 @@ select * from rareza;
 insert into posicion(descripcion) values ('arquero'),('defensor'),('mediocampista'), ('delantero');
 select * from posicion;
 
+insert into album(nombre) values ('Mundial-Qatar-2022'),('Mundial-Rusia-2018'),('Mundial-Brasil-2014');
+select * from album;
+
+select * from figurita;
+
+select * from seleccion;
+insert into seleccion(nombre) values ('Argentina'),('Brasil'),('España');
+
 /*Queries*/
 
 /*Resetear DB*/

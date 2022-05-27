@@ -3,6 +3,7 @@ package ar.edu.unlam.tallerweb1.servicios;
 import ar.edu.unlam.tallerweb1.modelo.Figurita;
 import ar.edu.unlam.tallerweb1.modelo.Posicion;
 import ar.edu.unlam.tallerweb1.modelo.Rareza;
+import ar.edu.unlam.tallerweb1.modelo.Seleccion;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioFigurita;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,5 +56,28 @@ public class ServicioFiguritaImpl implements ServicioFigurita{
     @Override
     public List<Rareza> traerRarezas() {
         return this.repoFigurita.getRarezas();
+    }
+
+    @Override
+    public List<Figurita> traerFiguritas() {
+        List<Figurita> figuritas = repoFigurita.getFiguritas();
+        return figuritas;
+    }
+
+    @Override
+    public Figurita buscarFigurita(Long id) {
+        return repoFigurita.encontrarFigurita(id);
+    }
+
+    @Override
+    public void editarFigurita(long figuritaId, String figuritaNueva) {
+        this.repoFigurita.editarFigurita(figuritaId, figuritaNueva);
+    }
+
+    @Override
+    public void eliminarFigurita(long figuritaId) {
+
+        this.repoFigurita.eliminarFigurita(figuritaId);
+
     }
 }
