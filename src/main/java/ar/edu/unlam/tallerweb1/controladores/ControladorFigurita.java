@@ -12,6 +12,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -81,6 +82,19 @@ public class ControladorFigurita {
         model.put("posiciones", posiciones);
 
         return new ModelAndView("configFigurita", model);
+    }
+
+    @RequestMapping(path="/pegar-figurita", method = RequestMethod.POST)
+    public ModelAndView pegarFiguritaUsuario(Long codigoFigurita, HttpServletRequest request){
+        ModelMap model = new ModelMap();
+        Long idUsuarioLogueado = (Long) request.getSession().getAttribute("ID");
+
+        //Figurita figuPegar = servicioFigu.getFiguritaPorId(idFigurita);
+        //Album albumAPegar = servicioAlbum.getAlbumPorId(idAlbum);
+
+        //agregar figurita a la tabla FiguAlbumUsuario donde el figurita.album_id sea igual al
+        // idAlbum que llega y el usuario_id del album sea igual al id del usuario que llega
+        return new ModelAndView("perfil", model);
     }
 
 
