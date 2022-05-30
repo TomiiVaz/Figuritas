@@ -8,6 +8,11 @@ insert into album(nombre) values ('Mundial-Qatar-2022'),('Mundial-Rusia-2018'),(
 select * from album;
 
 select * from figurita;
+INSERT INTO figurita (dorsal, equipo, nombre, album_id, posicion_id, rareza_id, seleccion_id)
+values
+    (19, 'Boca', 'Batistuta', 1, 4, 3, 1),
+    (10, 'Juventus', 'Zidane', 2, 4, 3, 2),
+    (9, 'Inter', 'Ronaldo', 3, 4, 3, 3);
 
 select * from seleccion;
 insert into seleccion(nombre) values ('Argentina'),('Brasil'),('España');
