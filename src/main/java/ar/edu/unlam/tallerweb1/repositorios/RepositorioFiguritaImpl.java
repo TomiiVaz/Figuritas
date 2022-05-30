@@ -1,8 +1,6 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
-import ar.edu.unlam.tallerweb1.modelo.Figurita;
-import ar.edu.unlam.tallerweb1.modelo.Posicion;
-import ar.edu.unlam.tallerweb1.modelo.Rareza;
+import ar.edu.unlam.tallerweb1.modelo.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -67,5 +65,44 @@ public class RepositorioFiguritaImpl implements RepositorioFigurita{
         final Session session = sessionFactory.getCurrentSession();
         return (List<Rareza>)session.createCriteria(Rareza.class)
                 .list();
+    }
+
+    @Override
+    public List<Figurita> getFiguritas() {
+
+        final Session session = sessionFactory.getCurrentSession();
+        return (List<Figurita>) session.createCriteria(Figurita.class)
+                .list();
+    }
+
+    @Override
+    public void editarFigurita(long figuritaId, String figuritaNueva) {
+        final Session session = sessionFactory.getCurrentSession();
+
+
+
+    }
+
+    @Override
+    public void eliminarFigurita(long figuritaId) {
+        final Session session = sessionFactory.getCurrentSession();
+
+        Figurita figurita = (Figurita) session.createCriteria(Figurita.class)
+                .add(Restrictions.eq("id",figuritaId))
+                .uniqueResult();
+
+        session.delete(figurita);
+    }
+
+    @Override
+    public Figurita encontrarFigurita(Long id) {
+
+        final Session session = sessionFactory.getCurrentSession();
+
+        Figurita figurita = (Figurita) session.createCriteria(Figurita.class)
+                .add(Restrictions.eq("id",id))
+                .uniqueResult();
+
+        return figurita;
     }
 }

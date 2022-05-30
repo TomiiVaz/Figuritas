@@ -14,8 +14,6 @@ public class Figurita {
 
     private String equipo;
 
-    private int anio;
-
     @ManyToOne
     private Posicion posicion;
 
@@ -66,14 +64,6 @@ public class Figurita {
 
     public void setEquipo(String equipo) {
         this.equipo = equipo;
-    }
-
-    public int getAño() {
-        return anio;
-    }
-
-    public void setAño(int anio) {
-        this.anio = anio;
     }
 
     public Rareza getRareza() {

@@ -14,4 +14,12 @@ public interface RepositorioFigurita {
     List<Figurita> findAllByIdEquipo(Integer idEquipo);
     List<Posicion> getPosiciones();
     List<Rareza> getRarezas();
+
+    List<Figurita> getFiguritas();
+
+    void editarFigurita(long figuritaId, String figuritaNueva);
+
+    void eliminarFigurita(long figuritaId);
+
+    Figurita encontrarFigurita(Long id);
 }

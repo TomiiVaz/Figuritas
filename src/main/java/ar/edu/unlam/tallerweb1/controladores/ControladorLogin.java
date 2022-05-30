@@ -1,7 +1,9 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import ar.edu.unlam.tallerweb1.modelo.Figurita;
 import ar.edu.unlam.tallerweb1.modelo.Seleccion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.servicios.*;
 import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
 import ar.edu.unlam.tallerweb1.servicios.ServicioSeleccion;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +27,13 @@ public class ControladorLogin {
     // applicationContext.xml
     private ServicioLogin servicioLogin;
     private ServicioSeleccion servicioSeleccion;
+    private ServicioFigurita servicioFigu;
 
     @Autowired
-    public ControladorLogin(ServicioLogin servicioLogin, ServicioSeleccion servicioSeleccion) {
+    public ControladorLogin(ServicioLogin servicioLogin, ServicioSeleccion servicioSeleccion, ServicioFigurita servicioFigu) {
         this.servicioLogin = servicioLogin;
         this.servicioSeleccion = servicioSeleccion;
+        this.servicioFigu = servicioFigu;
     }
 
     // Este metodo escucha la URL localhost:8080/NOMBRE_APP/login si la misma es invocada por metodo http GET
@@ -57,6 +61,8 @@ public class ControladorLogin {
         Usuario usuarioBuscado = servicioLogin.consultarUsuario(datosLogin.getEmail(), datosLogin.getPassword());
         if (usuarioBuscado != null) {
             request.getSession().setAttribute("ROL", usuarioBuscado.getRol());
+            // para guardar el id del usuario que se loguea
+            request.getSession().setAttribute("ID", usuarioBuscado.getId());
             return new ModelAndView("redirect:/home");
         } else {
             // si el usuario no existe agrega un mensaje de error en el modelo.
@@ -68,7 +74,13 @@ public class ControladorLogin {
     // Escucha la URL /home por GET, y redirige a una vista.
     @RequestMapping(path = "/home", method = RequestMethod.GET)
     public ModelAndView irAHome() {
-        return new ModelAndView("home");
+
+        List<Figurita> figuritas = this.servicioFigu.traerFiguritas();
+
+        ModelMap model = new ModelMap();
+        model.put("figuritas", figuritas);
+
+        return new ModelAndView("home", model);
     }
 
     // Escucha la url /, y redirige a la URL /login, es lo mismo que si se invoca la url /login directamente.
