@@ -141,6 +141,28 @@ public class ControladorFigurita {
         return new ModelAndView("redirect:/configuracion-figurita");
     }
 
+    @RequestMapping(path = "/buscarfiguritas", method = RequestMethod.GET, params = {"busq","sel","pos"})
+    public ModelAndView buscarFiguritas(@RequestParam String busq,
+                                        @RequestParam String sel,
+                                        @RequestParam String pos){
+
+        ModelMap resBusqueda = new ModelMap();
+
+        resBusqueda.put("busq", busq);
+
+        return new ModelAndView("buscarFiguritas", resBusqueda);
+    }
+
+    @RequestMapping(path = "/buscarfiguritas", method = RequestMethod.GET, params = {"busq"})
+    public ModelAndView buscarFiguritas(@RequestParam String busq){
+
+        ModelMap modelo = new ModelMap();
+
+        modelo.put("busq", busq);
+
+        return new ModelAndView("buscarFiguritas", modelo);
+    }
+
 
 
 }
