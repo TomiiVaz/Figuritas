@@ -3,3 +3,175 @@ select * from rareza;
 
 insert into posicion(descripcion) values ('arquero'),('defensor'),('mediocampista'), ('delantero');
 select * from posicion;
+
+insert into album(nombre) values ('Mundial-Qatar-2022'),('Mundial-Rusia-2018'),('Mundial-Brasil-2014');
+select * from album;
+
+select * from figurita;
+INSERT INTO figurita (dorsal, equipo, nombre, album_id, posicion_id, rareza_id, seleccion_id)
+values
+    (19, 'Boca', 'Batistuta', 1, 4, 3, 1),
+    (10, 'Juventus', 'Zidane', 2, 4, 3, 2),
+    (9, 'Inter', 'Ronaldo', 3, 4, 3, 3);
+
+select * from seleccion;
+insert into seleccion(nombre) values ('Argentina'),('Brasil'),('España');
+
+/*Queries*/
+
+/*Resetear DB*/
+drop schema if exists db;
+
+create schema if not exists db;
+
+use db;
+/*************/
+
+/*Inserts*/
+
+	/*USUARIO*/
+	insert into usuario (activo, rol, email, contraseña) values (true, 'admin', 'bhonsch0@marketwatch.com', 'GHueg90jFO');
+	insert into usuario (activo, rol, email, contraseña) values (true, 'admin', 'dgentsch1@indiegogo.com', 'h5GBtJrl');
+	insert into usuario (activo, rol, email, contraseña) values (true, 'user', 'adarycott2@baidu.com', 'tOOpB8w7xkV');
+	insert into usuario (activo, rol, email, contraseña) values (false, 'user', 'kmatschek3@imageshack.us', 'BdKsNE');
+	insert into usuario (activo, rol, email, contraseña) values (true, 'user', 'dlowerson4@sphinn.com', 'soPncqXx4n');
+	insert into usuario (activo, rol, email, contraseña) values (true, 'user', 'qlorkins5@berkeley.edu', 'ctPsbjw');
+	insert into usuario (activo, rol, email, contraseña) values (false, 'user', 'lwybrew6@blinklist.com', 'fTK5sgWyXZf');
+	insert into usuario (activo, rol, email, contraseña) values (true, 'user', 'gmardy7@4shared.com', 'A6z7gAOmjcl');
+	insert into usuario (activo, rol, email, contraseña) values (false, 'user', 'bjills8@telegraph.co.uk', '2WKdKtf');
+	insert into usuario (activo, rol, email, contraseña) values (false, 'admin', 'lgill9@google.it', 'GGrsaw4KGl');
+	insert into usuario (activo, rol, email, contraseña) values (false, 'admin', 'sgilfoylea@yale.edu', 'yhnViupW');
+	insert into usuario (activo, rol, email, contraseña) values (true, 'user', 'opeyeb@prnewswire.com', '4baOB0vQYF0p');
+	insert into usuario (activo, rol, email, contraseña) values (false, 'user', 'zoshevlinc@washington.edu', 'r2iFzLaz1TdF');
+	insert into usuario (activo, rol, email, contraseña) values (false, 'user', 'dpollackd@amazonaws.com', 'L7smVg');
+	insert into usuario (activo, rol, email, contraseña) values (true, 'admin', 'gklause@cdbaby.com', 'dwjfiRI7ae2T');
+	insert into usuario (activo, rol, email, contraseña) values (true, 'admin', 'mmcgraylef@timesonline.co.uk', '2jvGNW');
+	insert into usuario (activo, rol, email, contraseña) values (false, 'admin', 'jpetrellog@bloomberg.com', 'c4JJBV0KzP2');
+	insert into usuario (activo, rol, email, contraseña) values (false, 'user', 'mparkh@smh.com.au', 'UNCvRcE88');
+	insert into usuario (activo, rol, email, contraseña) values (false, 'user', 'ngerritzeni@newyorker.com', 'uSmCrNP');
+	insert into usuario (activo, rol, email, contraseña) values (false, 'admin', 'rgabbitusj@princeton.edu', 'UkajDXA5bGJw');
+	insert into usuario (activo, rol, email, contraseña) values (true, 'admin', 'mscuphamk@forbes.com', 'X6ytvmsk5I');
+	insert into usuario (activo, rol, email, contraseña) values (true, 'admin', 'ksimonatol@howstuffworks.com', 'e6fys3i');
+	insert into usuario (activo, rol, email, contraseña) values (false, 'admin', 'ftedmanm@joomla.org', 'looXdvFwmSn');
+	insert into usuario (activo, rol, email, contraseña) values (true, 'admin', 'ceadenn@sitemeter.com', '9C1IIzSkFgL');
+	insert into usuario (activo, rol, email, contraseña) values (true, 'admin', 'rskeermoro@printfriendly.com', 'Yq1WaQK7Z2yc');
+	/****/
+
+
+	/*ÁLBUM*/
+    insert into album (nombre, usuario_id) values ('Ventosanzap', 22);
+	insert into album (nombre, usuario_id) values ('Span', 25);
+	insert into album (nombre, usuario_id) values ('Redhold', 20);
+	insert into album (nombre, usuario_id) values ('Home Ing', 25);
+	insert into album (nombre, usuario_id) values ('Lotlux', 8);
+	insert into album (nombre, usuario_id) values ('Andalax', 21);
+	insert into album (nombre, usuario_id) values ('Temp', 25);
+	insert into album (nombre, usuario_id) values ('Voyatouch', 15);
+	insert into album (nombre, usuario_id) values ('Lotstring', 14);
+	insert into album (nombre, usuario_id) values ('Bigtax', 23);
+	insert into album (nombre, usuario_id) values ('Duobam', 21);
+	insert into album (nombre, usuario_id) values ('Daltfresh', 12);
+	insert into album (nombre, usuario_id) values ('Opela', 11);
+	insert into album (nombre, usuario_id) values ('Bamity', 4);
+	insert into album (nombre, usuario_id) values ('Prodder', 21);
+	insert into album (nombre, usuario_id) values ('Treeflex', 12);
+	insert into album (nombre, usuario_id) values ('Latlux', 1);
+	insert into album (nombre, usuario_id) values ('Zaam-Dox', 25);
+	insert into album (nombre, usuario_id) values ('Rank', 19);
+	insert into album (nombre, usuario_id) values ('Alpha', 20);
+	insert into album (nombre, usuario_id) values ('Transcof', 19);
+	insert into album (nombre, usuario_id) values ('Voyatouch', 17);
+	insert into album (nombre, usuario_id) values ('Andalax', 14);
+	insert into album (nombre, usuario_id) values ('Greenlam', 23);
+	insert into album (nombre, usuario_id) values ('Mat Lam Tam', 12);
+    /******/
+
+	/*SELECCIÓN*/
+    insert into album (nombre, album_id) values ('Indonesia', 20);
+	insert into album (nombre, album_id) values ('Peru', 19);
+	insert into album (nombre, album_id) values ('Peru', 23);
+	insert into album (nombre, album_id) values ('Portugal', 4);
+	insert into album (nombre, album_id) values ('Philippines', 6);
+	insert into album (nombre, album_id) values ('Honduras', 4);
+	insert into album (nombre, album_id) values ('Albania', 10);
+	insert into album (nombre, album_id) values ('Thailand', 3);
+	insert into album (nombre, album_id) values ('Syria', 8);
+	insert into album (nombre, album_id) values ('Cameroon', 5);
+	insert into album (nombre, album_id) values ('Ukraine', 5);
+	insert into album (nombre, album_id) values ('France', 2);
+	insert into album (nombre, album_id) values ('Portugal', 17);
+	insert into album (nombre, album_id) values ('Myanmar', 18);
+	insert into album (nombre, album_id) values ('Colombia', 23);
+	insert into album (nombre, album_id) values ('Portugal', 25);
+	insert into album (nombre, album_id) values ('Indonesia', 14);
+	insert into album (nombre, album_id) values ('Indonesia', 14);
+	insert into album (nombre, album_id) values ('Philippines', 5);
+	insert into album (nombre, album_id) values ('Portugal', 19);
+	insert into album (nombre, album_id) values ('Indonesia', 19);
+	insert into album (nombre, album_id) values ('Dominican Republic', 11);
+	insert into album (nombre, album_id) values ('China', 11);
+	insert into album (nombre, album_id) values ('Brazil', 21);
+	insert into album (nombre, album_id) values ('Spain', 22);
+	insert into album (nombre, album_id) values ('France', 16);
+	insert into album (nombre, album_id) values ('Hungary', 21);
+	insert into album (nombre, album_id) values ('China', 7);
+	insert into album (nombre, album_id) values ('Vietnam', 22);
+	insert into album (nombre, album_id) values ('China', 2);
+	insert into album (nombre, album_id) values ('Russia', 20);
+	insert into album (nombre, album_id) values ('China', 9);
+    /*****/
+
+    /*FIGURITA*/
+
+	/*****/
+/*insert into figurita
+()
+values();
+
+insert into intercambio
+()
+values();
+
+insert into posicion
+()
+values();
+
+insert into rareza
+()
+values();
+
+insert into rol
+()
+values
+	();
+
+insert into comentario
+()
+values
+	();
+    */
+
+/*************/
+
+/*Consultas*/
+select *
+from usuario
+where email = 'manu';
+
+select *
+from album
+where id = 1;
+
+select *
+from seleccion;
+/***********/
+
+
+/*Borrar tablas*/
+delete
+from album
+where Nombre = 'inserte nombre';
+
+delete
+from usuario
+where email = 'inserte mail';

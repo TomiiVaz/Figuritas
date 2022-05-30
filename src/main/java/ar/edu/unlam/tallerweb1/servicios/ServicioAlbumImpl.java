@@ -1,7 +1,6 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.modelo.Album;
-import ar.edu.unlam.tallerweb1.modelo.Figurita;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioAlbum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +30,16 @@ public class ServicioAlbumImpl implements ServicioAlbum {
     public List<Album> traerAlbunes() {
         List<Album> albunes = repoAlbum.traerAlbunes();
         return albunes;
+    }
+
+    @Override
+    public void editarAlbum(Long albumId, String nombreNuevo) {
+        this.repoAlbum.editarAlbum(albumId, nombreNuevo);
+    }
+
+    @Override
+    public void eliminarAlbum(long albumId) {
+        this.repoAlbum.eliminarAlbum(albumId);
     }
 
 }

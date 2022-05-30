@@ -3,9 +3,10 @@ package ar.edu.unlam.tallerweb1.servicios;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioUsuario;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
+
+import java.util.List;
 
 // Implelemtacion del Servicio de usuarios, la anotacion @Service indica a Spring que esta clase es un componente que debe
 // ser manejado por el framework, debe indicarse en applicationContext que busque en el paquete ar.edu.unlam.tallerweb1.servicios
@@ -17,16 +18,32 @@ import ar.edu.unlam.tallerweb1.modelo.Usuario;
 @Transactional
 public class ServicioLoginImpl implements ServicioLogin {
 
-	private RepositorioUsuario servicioLoginDao;
+    private RepositorioUsuario repoUsuaio;
 
-	@Autowired
-	public ServicioLoginImpl(RepositorioUsuario servicioLoginDao){
-		this.servicioLoginDao = servicioLoginDao;
-	}
+    @Autowired
+    public ServicioLoginImpl(RepositorioUsuario servicioLoginDao) {
+        this.repoUsuaio = servicioLoginDao;
+    }
 
-	@Override
-	public Usuario consultarUsuario (String email, String password) {
-		return servicioLoginDao.buscarUsuario(email, password);
-	}
+    @Override
+    public Usuario consultarUsuario(String email, String password) {
+        return repoUsuaio.buscarUsuario(email, password);
+    }
+
+    @Override
+    public void registrarUsuario(Usuario usuario) {
+        repoUsuaio.guardar(usuario);
+    }
+
+    @Override
+    public Boolean verificarMail(String mail) {
+        List<String> mails = repoUsuaio.getMailUsuario();
+        for (String mailDeI : mails) {
+            if (mailDeI.equals(mail)) {
+                return false;
+            }
+        }
+        return true;
+    }
 
 }
