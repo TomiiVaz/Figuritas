@@ -23,9 +23,13 @@
             <div class="m-0">
                 <img src="img/${figurita.nombre}.jpg" alt="Foto Perfil" class="img-thumbnail img-fluid m-0">
             </div>
-            <a href="configuracion-figurita">
-                <button class="btn btn-primary mb-5 mt-3">Configuracion</button>
-            </a>
+
+            <!-- Muestro si esta logueado -->
+            <c:if test="${id!=null}">
+                <a href="configuracion-figurita">
+                    <button class="btn btn-primary mb-5 mt-3">Configuracion</button>
+                </a>
+            </c:if>
 
         </div>
         <%--        Datos--%>

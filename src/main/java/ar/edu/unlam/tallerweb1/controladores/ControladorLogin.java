@@ -79,10 +79,10 @@ public class ControladorLogin {
         String rol = (String)request.getSession().getAttribute("ROL");
         Long id = (Long)request.getSession().getAttribute("ID");
         Usuario userLogueado = servicioLogin.agarrarUsuarioId(id);
+
         ModelMap model = new ModelMap();
         model.put("usuario", userLogueado);
         model.put("id",id);
-        System.out.println(id);
         model.put("rol",rol);
         model.put("figuritas", figuritas);
 
