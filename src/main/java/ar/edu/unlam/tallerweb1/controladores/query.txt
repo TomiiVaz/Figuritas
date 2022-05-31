@@ -1,11 +1,16 @@
-insert into rareza(descripcion) values ('legendaria'),('rara'),('comun');
+insert into rareza(descripcion) values ('Legendaria'),('Rara'),('Comun');
 select * from rareza;
 
-insert into posicion(descripcion) values ('arquero'),('defensor'),('mediocampista'), ('delantero');
+insert into posicion(descripcion) values ('Arquero'),('Defensor'),('Mediocampista'), ('Delantero');
 select * from posicion;
 
 insert into album(nombre) values ('Mundial-Qatar-2022'),('Mundial-Rusia-2018'),('Mundial-Brasil-2014');
 select * from album;
+
+select * from usuario;
+INSERT INTO usuario(activo, email, equipo, nombre, password, rol, seleccion_id)
+values
+    (true, 'a@a.com', 'Boca', 'a', 'a', 'ADM',1);
 
 select * from figurita;
 INSERT INTO figurita (dorsal, equipo, nombre, album_id, posicion_id, rareza_id, seleccion_id)

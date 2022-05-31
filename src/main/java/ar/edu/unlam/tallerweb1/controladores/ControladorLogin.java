@@ -25,9 +25,9 @@ public class ControladorLogin {
     // el bean correspondiente, en este caso, un objeto de una clase que implemente la interface ServicioLogin,
     // dicha clase debe estar anotada como @Service o @Repository y debe estar en un paquete de los indicados en
     // applicationContext.xml
-    private ServicioLogin servicioLogin;
-    private ServicioSeleccion servicioSeleccion;
-    private ServicioFigurita servicioFigu;
+    private final ServicioLogin servicioLogin;
+    private final ServicioSeleccion servicioSeleccion;
+    private final ServicioFigurita servicioFigu;
 
     @Autowired
     public ControladorLogin(ServicioLogin servicioLogin, ServicioSeleccion servicioSeleccion, ServicioFigurita servicioFigu) {
@@ -73,11 +73,17 @@ public class ControladorLogin {
 
     // Escucha la URL /home por GET, y redirige a una vista.
     @RequestMapping(path = "/home", method = RequestMethod.GET)
-    public ModelAndView irAHome() {
+    public ModelAndView irAHome(HttpServletRequest request) {
 
         List<Figurita> figuritas = this.servicioFigu.traerFiguritas();
+        String rol = (String)request.getSession().getAttribute("ROL");
+        Long id = (Long)request.getSession().getAttribute("ID");
+        Usuario userLogueado = servicioLogin.agarrarUsuarioId(id);
 
         ModelMap model = new ModelMap();
+        model.put("usuario", userLogueado);
+        model.put("id",id);
+        model.put("rol",rol);
         model.put("figuritas", figuritas);
 
         return new ModelAndView("home", model);
@@ -108,5 +114,11 @@ public class ControladorLogin {
             model.put("error","Mail ya existente");
             return new ModelAndView("registroUsuario", model);
         }
+    }
+
+    @RequestMapping(path = "/logout", method = RequestMethod.GET)
+    public ModelAndView guardarUsuario(HttpServletRequest request) {
+        request.getSession().invalidate();
+        return new ModelAndView("redirect:/home");
     }
 }

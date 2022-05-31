@@ -46,4 +46,9 @@ public class ServicioLoginImpl implements ServicioLogin {
         return true;
     }
 
+    @Override
+    public Usuario agarrarUsuarioId(Long id) {
+        return repoUsuaio.getUsuarioId(id);
+    }
+
 }

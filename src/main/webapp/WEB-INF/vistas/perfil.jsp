@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <%@include file="head.jsp" %>
@@ -39,7 +40,7 @@
             <div class="text-end container">
                 <%--                Agregar figurita form--%>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    Agregar
+                    Agregar Figurita
                 </button>
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                      aria-hidden="true">
@@ -55,7 +56,8 @@
                                       method="post"
                                       action="agregar-figurita">
                                     <label for="codigo" class="mb-1 text-white">Ingresar código</label>
-                                    <input type="text" name="codigo" id="codigo" class="form-control mt-2" placeholder="Ingrese codigo de carta">
+                                    <input type="text" name="codigo" id="codigo" class="form-control mt-2"
+                                           placeholder="Ingrese codigo de carta">
                                     <button type="submit" class="btn btn-primary mt-3">Save changes</button>
                                 </form>
                             </div>
@@ -67,15 +69,27 @@
                 </div>
                 <%--                    El boton esta fuera del form, por lo cual no se donde me lo envia xd--%>
                 <%--                /Agregar figurita form--%>
-                <div class="mb-5 mt-2">
-                    <select class="form-select form-select-sm" aria-label="Small select">
-                        <option selected="">Selecciones</option>
-                        <option value="1">Qatar</option>
-                        <option value="2">Alemania</option>
-                        <option value="3">Dinamarca</option>
-                        <option value="4">Argentina</option>
+
+                <%--                    Albunes--%>
+                <div class="mb-1 mt-2">
+                    <select path='albumId' id='albumId' name='albumId' class='form-control my-2'>
+                        <c:forEach var="album" items="${albunes}">
+                            <option value='Default' selected hidden>Seleccionar un álbum</option>
+                            <option value='${album.id}'>${album.nombre}</option>
+                        </c:forEach>
                     </select>
                 </div>
+                <%--                    Albunes--%>
+                <%--Selecciones--%>
+                <div class="mb-5 mt-2">
+                    <select id='seleccionId' name='seleccionId' class='form-control my-2'>
+                        <c:forEach var="seleccion" items="${selecciones}">
+                            <option value='Default' selected hidden>Seleccionar una selección</option>
+                            <option value='${seleccion.id}'>${seleccion.nombre}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <%--Selecciones--%>
             </div>
             <div class="d-flex flex-wrap justify-content-center">
                 <div class="card m-3" style="width: 18rem;">
@@ -92,108 +106,6 @@
                     </ul>
                     <div class="card-body">
                         <a href="carta" class="card-link">Ir a la carta</a>
-                    </div>
-                </div>
-
-                <div class="card m-3" style="width: 18rem;">
-                    <img src="img/messi2.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Nombre Jugador</h5>
-                        <p class="card-text">Tipo de Carta</p>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Equipo:</li>
-                        <li class="list-group-item">Posicion:</li>
-                        <li class="list-group-item">Pierna Hábil:</li>
-                        <li class="list-group-item">Dorsal:</li>
-                    </ul>
-                    <div class="card-body">
-                        <a href="#" class="card-link">Ir a la carta</a>
-                    </div>
-                </div>
-
-                <div class="card m-3" style="width: 18rem;">
-                    <img src="img/messi3.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Nombre Jugador</h5>
-                        <p class="card-text">Tipo de Carta</p>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Equipo:</li>
-                        <li class="list-group-item">Posicion:</li>
-                        <li class="list-group-item">Pierna Hábil:</li>
-                        <li class="list-group-item">Dorsal:</li>
-                    </ul>
-                    <div class="card-body">
-                        <a href="#" class="card-link">Ir a la carta</a>
-                    </div>
-                </div>
-
-                <div class="card m-3" style="width: 18rem;">
-                    <img src="img/messi1.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Nombre Jugador</h5>
-                        <p class="card-text">Tipo de Carta</p>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Equipo:</li>
-                        <li class="list-group-item">Posicion:</li>
-                        <li class="list-group-item">Pierna Hábil:</li>
-                        <li class="list-group-item">Dorsal:</li>
-                    </ul>
-                    <div class="card-body">
-                        <a href="#" class="card-link">Ir a la carta</a>
-                    </div>
-                </div>
-
-                <div class="card m-3" style="width: 18rem;">
-                    <img src="img/messi1.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Nombre Jugador</h5>
-                        <p class="card-text">Tipo de Carta</p>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Equipo:</li>
-                        <li class="list-group-item">Posicion:</li>
-                        <li class="list-group-item">Pierna Hábil:</li>
-                        <li class="list-group-item">Dorsal:</li>
-                    </ul>
-                    <div class="card-body">
-                        <a href="#" class="card-link">Ir a la carta</a>
-                    </div>
-                </div>
-
-                <div class="card m-3" style="width: 18rem;">
-                    <img src="img/messi1.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Nombre Jugador</h5>
-                        <p class="card-text">Tipo de Carta</p>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Equipo:</li>
-                        <li class="list-group-item">Posicion:</li>
-                        <li class="list-group-item">Pierna Hábil:</li>
-                        <li class="list-group-item">Dorsal:</li>
-                    </ul>
-                    <div class="card-body">
-                        <a href="#" class="card-link">Ir a la carta</a>
-                    </div>
-                </div>
-
-                <div class="card m-3" style="width: 18rem;">
-                    <img src="img/messi1.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Nombre Jugador</h5>
-                        <p class="card-text">Tipo de Carta</p>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Equipo:</li>
-                        <li class="list-group-item">Posicion:</li>
-                        <li class="list-group-item">Pierna Hábil:</li>
-                        <li class="list-group-item">Dorsal:</li>
-                    </ul>
-                    <div class="card-body">
-                        <a href="#" class="card-link">Ir a la carta</a>
                     </div>
                 </div>
             </div>

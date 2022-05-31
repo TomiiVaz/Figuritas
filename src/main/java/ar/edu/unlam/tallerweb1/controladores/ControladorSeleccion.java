@@ -1,6 +1,8 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import ar.edu.unlam.tallerweb1.modelo.Album;
 import ar.edu.unlam.tallerweb1.modelo.Seleccion;
+import ar.edu.unlam.tallerweb1.servicios.ServicioAlbum;
 import ar.edu.unlam.tallerweb1.servicios.ServicioSeleccion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,29 +12,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
 public class ControladorSeleccion {
 
-    private ServicioSeleccion servicioSelec;
+    private final ServicioSeleccion servicioSelec;
+    private final ServicioAlbum servicioAlbum;
 
     @Autowired
-    public ControladorSeleccion(ServicioSeleccion servicioSelec) {
+    public ControladorSeleccion(ServicioSeleccion servicioSelec, ServicioAlbum servicioAlbum) {
         this.servicioSelec = servicioSelec;
-    }
-
-    @RequestMapping(path = "/crear-seleccion", method = RequestMethod.GET)
-    public ModelAndView verFormulario() {
-
-        return new ModelAndView("formSeleccion");
+        this.servicioAlbum = servicioAlbum;
     }
 
     @RequestMapping(path = "/crear-seleccion", method = RequestMethod.POST)
-    public ModelAndView crearSeleccion(@ModelAttribute("selecciones") Seleccion seleccion, HttpServletRequest request) {
-
+    public ModelAndView crearSeleccion(@ModelAttribute("selecciones") Seleccion seleccion) {
         this.servicioSelec.crearSeleccion(seleccion);
 
         return new ModelAndView("redirect:/configuracion-seleccion");
@@ -41,8 +36,10 @@ public class ControladorSeleccion {
     @RequestMapping(path = "/configuracion-seleccion", method = RequestMethod.GET)
     public ModelAndView verVistaSeleccionConfig() {
         List<Seleccion> selecciones = this.servicioSelec.traerSelecciones();
+        List<Album> albunes = this.servicioAlbum.traerAlbunes();
 
         ModelMap model = new ModelMap();
+        model.put("albunes", albunes);
         model.put("selecciones" , selecciones);
 
         return new ModelAndView("configSeleccion", model);
