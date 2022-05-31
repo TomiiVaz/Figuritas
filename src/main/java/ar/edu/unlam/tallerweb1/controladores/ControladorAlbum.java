@@ -4,7 +4,6 @@ import ar.edu.unlam.tallerweb1.modelo.Album;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlbum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +16,7 @@ import java.util.List;
 @Controller
 public class ControladorAlbum {
 
-    private ServicioAlbum servicioAl;
+    private final ServicioAlbum servicioAl;
 
     @Autowired
     public ControladorAlbum(ServicioAlbum serviciAl) {
@@ -57,7 +56,7 @@ public class ControladorAlbum {
     public ModelAndView editarAlbunes(@RequestParam int albumId,
                                       @RequestParam String nombreNuevo) {
 
-        this.servicioAl.editarAlbum((Long) (long) albumId, nombreNuevo);
+        this.servicioAl.editarAlbum((long) albumId, nombreNuevo);
 
         return new ModelAndView("redirect:/configuracion-album");
     }
@@ -65,7 +64,7 @@ public class ControladorAlbum {
     @RequestMapping(path = "/eliminar-album", method = RequestMethod.POST, params = {"albumId"})
     public ModelAndView eliminarAlbum(@RequestParam int albumId) {
 
-        this.servicioAl.eliminarAlbum((long) albumId);
+        this.servicioAl.eliminarAlbum( albumId);
 
         return new ModelAndView("redirect:/configuracion-album");
     }
