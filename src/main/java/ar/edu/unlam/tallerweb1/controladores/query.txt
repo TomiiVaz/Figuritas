@@ -59,66 +59,39 @@ use db;
 
 
 	/*ÁLBUM*/
-    insert into album (nombre, usuario_id) values ('Ventosanzap', 22);
-	insert into album (nombre, usuario_id) values ('Span', 25);
-	insert into album (nombre, usuario_id) values ('Redhold', 20);
-	insert into album (nombre, usuario_id) values ('Home Ing', 25);
-	insert into album (nombre, usuario_id) values ('Lotlux', 8);
-	insert into album (nombre, usuario_id) values ('Andalax', 21);
-	insert into album (nombre, usuario_id) values ('Temp', 25);
-	insert into album (nombre, usuario_id) values ('Voyatouch', 15);
-	insert into album (nombre, usuario_id) values ('Lotstring', 14);
-	insert into album (nombre, usuario_id) values ('Bigtax', 23);
-	insert into album (nombre, usuario_id) values ('Duobam', 21);
-	insert into album (nombre, usuario_id) values ('Daltfresh', 12);
-	insert into album (nombre, usuario_id) values ('Opela', 11);
-	insert into album (nombre, usuario_id) values ('Bamity', 4);
-	insert into album (nombre, usuario_id) values ('Prodder', 21);
-	insert into album (nombre, usuario_id) values ('Treeflex', 12);
-	insert into album (nombre, usuario_id) values ('Latlux', 1);
-	insert into album (nombre, usuario_id) values ('Zaam-Dox', 25);
-	insert into album (nombre, usuario_id) values ('Rank', 19);
-	insert into album (nombre, usuario_id) values ('Alpha', 20);
-	insert into album (nombre, usuario_id) values ('Transcof', 19);
-	insert into album (nombre, usuario_id) values ('Voyatouch', 17);
-	insert into album (nombre, usuario_id) values ('Andalax', 14);
-	insert into album (nombre, usuario_id) values ('Greenlam', 23);
-	insert into album (nombre, usuario_id) values ('Mat Lam Tam', 12);
+    insert into Album (nombre, usuario_id) values ('Gabvine', 1);
+    insert into Album (nombre, usuario_id) values ('Rhyzio', 2);
+    insert into Album (nombre, usuario_id) values ('Edgeblab', 3);
+    insert into Album (nombre, usuario_id) values ('Twitterbeat', 4);
+    insert into Album (nombre, usuario_id) values ('Jabbersphere', 5);
+    insert into Album (nombre, usuario_id) values ('Yozio', 6);
+    insert into Album (nombre, usuario_id) values ('Topicstorm', 7);
+    insert into Album (nombre, usuario_id) values ('Skajo', 8);
+    insert into Album (nombre, usuario_id) values ('BlogXS', 9);
+    insert into Album (nombre, usuario_id) values ('Voonte', 10);
+    insert into Album (nombre, usuario_id) values ('Tazzy', 11);
+    insert into Album (nombre, usuario_id) values ('Tagcat', 12);
+    insert into Album (nombre, usuario_id) values ('Skipfire', 13);
+    insert into Album (nombre, usuario_id) values ('Jazzy', 14);
+    insert into Album (nombre, usuario_id) values ('Mudo', 15);
     /******/
 
 	/*SELECCIÓN*/
-    insert into album (nombre, album_id) values ('Indonesia', 20);
-	insert into album (nombre, album_id) values ('Peru', 19);
-	insert into album (nombre, album_id) values ('Peru', 23);
-	insert into album (nombre, album_id) values ('Portugal', 4);
-	insert into album (nombre, album_id) values ('Philippines', 6);
-	insert into album (nombre, album_id) values ('Honduras', 4);
-	insert into album (nombre, album_id) values ('Albania', 10);
-	insert into album (nombre, album_id) values ('Thailand', 3);
-	insert into album (nombre, album_id) values ('Syria', 8);
-	insert into album (nombre, album_id) values ('Cameroon', 5);
-	insert into album (nombre, album_id) values ('Ukraine', 5);
-	insert into album (nombre, album_id) values ('France', 2);
-	insert into album (nombre, album_id) values ('Portugal', 17);
-	insert into album (nombre, album_id) values ('Myanmar', 18);
-	insert into album (nombre, album_id) values ('Colombia', 23);
-	insert into album (nombre, album_id) values ('Portugal', 25);
-	insert into album (nombre, album_id) values ('Indonesia', 14);
-	insert into album (nombre, album_id) values ('Indonesia', 14);
-	insert into album (nombre, album_id) values ('Philippines', 5);
-	insert into album (nombre, album_id) values ('Portugal', 19);
-	insert into album (nombre, album_id) values ('Indonesia', 19);
-	insert into album (nombre, album_id) values ('Dominican Republic', 11);
-	insert into album (nombre, album_id) values ('China', 11);
-	insert into album (nombre, album_id) values ('Brazil', 21);
-	insert into album (nombre, album_id) values ('Spain', 22);
-	insert into album (nombre, album_id) values ('France', 16);
-	insert into album (nombre, album_id) values ('Hungary', 21);
-	insert into album (nombre, album_id) values ('China', 7);
-	insert into album (nombre, album_id) values ('Vietnam', 22);
-	insert into album (nombre, album_id) values ('China', 2);
-	insert into album (nombre, album_id) values ('Russia', 20);
-	insert into album (nombre, album_id) values ('China', 9);
+    insert into Seleccion (album_id, nombre) values (1, 'China');
+    insert into Seleccion (album_id, nombre) values (2, 'Czech Republic');
+    insert into Seleccion (album_id, nombre) values (3, 'Luxembourg');
+    insert into Seleccion (album_id, nombre) values (4, 'China');
+    insert into Seleccion (album_id, nombre) values (5, 'Netherlands');
+    insert into Seleccion (album_id, nombre) values (6, 'China');
+    insert into Seleccion (album_id, nombre) values (7, 'China');
+    insert into Seleccion (album_id, nombre) values (8, 'Thailand');
+    insert into Seleccion (album_id, nombre) values (9, 'Philippines');
+    insert into Seleccion (album_id, nombre) values (10, 'China');
+    insert into Seleccion (album_id, nombre) values (11, 'Afghanistan');
+    insert into Seleccion (album_id, nombre) values (12, 'Thailand');
+    insert into Seleccion (album_id, nombre) values (13, 'Democratic Republic of the Congo');
+    insert into Seleccion (album_id, nombre) values (14, 'China');
+    insert into Seleccion (album_id, nombre) values (15, 'Philippines');
     /*****/
 
     /*FIGURITA*/

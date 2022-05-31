@@ -10,7 +10,7 @@ public interface RepositorioFigurita {
 
     void guardar(Figurita figurita);
     Figurita findByNombreAndEquipo(String nombre, String equipo);
-    Figurita findByNombre(String nombre);
+    List<Figurita> findByNombre(String nombre);
     List<Figurita> findAllByIdEquipo(Integer idEquipo);
     List<Posicion> getPosiciones();
     List<Rareza> getRarezas();

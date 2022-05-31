@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -141,6 +142,30 @@ public class ControladorFigurita {
         return new ModelAndView("redirect:/configuracion-figurita");
     }
 
+    /*@RequestMapping(path = "/buscarfiguritas", method = RequestMethod.GET, params = {"busq","sel","pos"})
+    public ModelAndView buscarFiguritas(@RequestParam String busq,
+                                        @RequestParam String sel,
+                                        @RequestParam String pos){
+        ModelMap resBusqueda = new ModelMap();
+
+        List<Figurita> figuritasEncontradas = new ArrayList<>();
+
+        figuritasEncontradas.add(servicioFigu.buscarFiguritaPorNombre(busq));
+
+        resBusqueda.put("figEncontradas",figuritasEncontradas);
+
+        return new ModelAndView("buscarFiguritas", resBusqueda);
+    }*/
 
 
+    @RequestMapping(path = "/buscarfiguritas", method = RequestMethod.GET, params = {"busq"})
+    public ModelAndView buscarFiguritas(@RequestParam String busq){
+
+        ModelMap resBusqueda = new ModelMap();
+
+        List<Figurita> figs = servicioFigu.buscarFiguritaPorNombre(busq);
+        resBusqueda.put("figEncontradas", figs);
+
+        return new ModelAndView("buscarFiguritas", resBusqueda);
+    }
 }

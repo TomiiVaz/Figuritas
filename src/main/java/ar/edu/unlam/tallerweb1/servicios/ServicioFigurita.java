@@ -12,7 +12,7 @@ public interface ServicioFigurita {
 
     void agregarFigurita(Figurita figurita);
     Figurita buscarFiguritaNombreEquipo(String nombre, String equipo);
-    Figurita buscarFiguritaPorNombre(String nombre);
+    List<Figurita> buscarFiguritaPorNombre(String nombre);
     List<Figurita> buscarFiguritasPorEquipo(Integer idEquipo);
 
     List<Posicion> traerPosiciones();
