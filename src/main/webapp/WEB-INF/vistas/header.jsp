@@ -17,20 +17,30 @@
                 <button type="submit" class="invisible"></button>
             </form>
 
-            <div class="dropdown text-end ">
-                <a href="" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
-                   data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="img/messi1.jpg" alt="mdo" width="32" height="32" class="rounded-circle">
-                </a>
-                <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="">
-                    <li><a class="dropdown-item" href="perfil">Profile</a></li>
-                    <!-- modificar para que lea un controlador y no sea un href -->
+            <c:choose>
+                <c:when test="${id!=null}">
+                    <div class="dropdown text-end ">
+                        <a href="" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="img/messi1.jpg" alt="mdo" width="32" height="32" class="rounded-circle">
+                        </a>
+                        <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="">
+                            <li><a class="dropdown-item" href="perfil">Profile</a></li>
+                            <!-- modificar para que lea un controlador y no sea un href -->
+                            <c:if test="${rol.equals('ADM')}">
+                                <li><a class="dropdown-item" href="configuracion">Configuracion</a></li>
+                            </c:if>
 
-                    <li><a class="dropdown-item" href="configuracion">Configuracion</a></li>
+                            <li><a class="dropdown-item" href="logout">Salir</a></li>
+                        </ul>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <a href="login"><button class="btn btn-primary btn-block m-2">Ingresar</button></a>
+                </c:otherwise>
+            </c:choose>
 
-                    <li><a class="dropdown-item" href="home">Sign out</a></li>
-                </ul>
-            </div>
+
         </div>
     </div>
 </header>

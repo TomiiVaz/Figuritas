@@ -167,8 +167,8 @@ public class ControladorFigurita {
     }
 
 
-    @RequestMapping(path = "/buscarfiguritas2", method = RequestMethod.GET, params = {"busq"})
-    public ModelAndView buscarFiguritas2(@RequestParam String busq) {
+    @RequestMapping(path = "/buscarfiguritas", method = RequestMethod.GET, params = {"busq"})
+    public ModelAndView buscarFiguritas(@RequestParam String busq) {
 
         ModelMap resBusqueda = new ModelMap();
 
