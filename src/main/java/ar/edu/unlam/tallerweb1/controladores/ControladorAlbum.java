@@ -4,6 +4,7 @@ import ar.edu.unlam.tallerweb1.modelo.Album;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlbum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,10 +29,16 @@ public class ControladorAlbum {
     //    Para poder agregar un album a la base de datos
     @RequestMapping(path = "/agregar-album", method = RequestMethod.POST)
     public ModelAndView agregarAlbum(@ModelAttribute("album") Album album) {
-
-        servicioAl.agregarAlbum(album);
-
-        return new ModelAndView("redirect:/configuracion-album");
+        if (servicioAl.verificarAlbum(album.getNombre())) {
+            servicioAl.agregarAlbum(album);
+            return new ModelAndView("redirect:/configuracion-album");
+        } else {
+            ModelMap model = new ModelMap();
+            List<Album> albunes = this.servicioAl.traerAlbunes();
+            model.put("albunes", albunes);
+            model.put("error", "Album ya existente");
+            return new ModelAndView("configAlbum", model);
+        }
     }
 
 
