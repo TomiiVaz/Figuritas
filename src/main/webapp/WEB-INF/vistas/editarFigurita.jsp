@@ -15,7 +15,7 @@
         <a href="/figus/configuracion" class="text-decoration-none">
             <button type='button' class='btn btn-warning my-2'>Volver</button>
         </a>
-
+    </div>
 
     <%--    Formulario editar figurita--%>
     <div class="mt-5 container-fluid">
@@ -27,7 +27,7 @@
                        modelAttribute="figurita">
 
                 <label for='nombre' class='text-white'>Nombre</label>
-                <input class='my-2 form-control' type='text' path='nombre' id='nombre' name='nombre' value="${figuritaEncontrada.nombre}"> // no me anda cambiar el nombre
+                <input class='my-2 form-control' type='text' path='nombre' id='nombre' name='nombre' value="${figuritaEncontrada.nombre}">
 
                 <label for='seleccion.id' class='text-white'>Seleccion</label>
                 <select path='seleccion.id' id='seleccion.id' name='seleccion.id' class='form-control my-2'>

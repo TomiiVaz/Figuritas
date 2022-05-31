@@ -147,8 +147,9 @@ public class ControladorFigurita {
                                         @RequestParam String sel,
                                         @RequestParam String pos){
         ModelMap resBusqueda = new ModelMap();
-
+        
         List<Figurita> figuritasEncontradas = new ArrayList<>();
+
 
         figuritasEncontradas.add(servicioFigu.buscarFiguritaPorNombre(busq));
 
@@ -156,6 +157,17 @@ public class ControladorFigurita {
 
         return new ModelAndView("buscarFiguritas", resBusqueda);
     }*/
+  
+  @RequestMapping(path = "/carta", method = RequestMethod.POST)
+    public ModelAndView verCarta(@RequestParam int id, HttpServletRequest request){
+
+        Figurita figurita=this.servicioFigu.buscarFigurita((long)id);
+
+        ModelMap model = new ModelMap();
+        model.put("figurita", figurita);
+
+        return new ModelAndView("figurita", model);
+    }
 
 
     @RequestMapping(path = "/buscarfiguritas", method = RequestMethod.GET, params = {"busq"})

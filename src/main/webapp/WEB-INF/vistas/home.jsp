@@ -57,26 +57,25 @@
         <div class="container bg-dark">
             <div class="row mt-4 bg-dark gx-2">
 
-                <!-- Este Messi esta hardcodeado -->
-                <div class="col-2 my-1">
-                    <div class="figuritaEncontrada border rounded border-white">
-                        <a href="#" class="btn">
-                            <img src="img/messi-god-no.jpg" alt="foto1" width="100% " class="rounded m-auto d-block">
-                            <div class="h4 text-center my-auto text-white">Messi</div>
-                        </a>
-                    </div>
-                </div>
-
+                <!-- recorro todas las figuritas que esten guardas en la BBDD -->
                 <c:forEach var="figuritas" items="${figuritas}">
 
+                    <div class="col-2 my-1 m-3">
+                        <div class="border border-white">
+                            <form:form class='text-center d-flex flex-column px-3 bg-dark border-0'
+                                       method='post'
+                                       action='carta'
+                                       modelAttribute="figurita">
+                                <button type='submit' class='btn my-2'>
 
-                    <div class="col-2 my-1">
-                        <div class="border rounded border-white">
-                            <a href="#" class="btn">
                                 <img src="img/${figuritas.nombre}.jpg" alt="foto1" class="rounded img-fluid m-auto d-block">
                                 <div class="h4 text-center my-auto text-white">${figuritas.nombre}</div>
                                 <p class="text-white">Seleccion: ${figuritas.seleccion.nombre}</p>
-                            </a>
+                                    <%--    input invisible paso el id de la figurita--%>
+                                <input class='d-none' type="text"  path='id' id='id' name='id' value="${figuritas.id}">
+
+                                </button>
+                            </form:form>
                         </div>
                     </div>
 
