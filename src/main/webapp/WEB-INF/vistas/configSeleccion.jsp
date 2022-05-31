@@ -44,6 +44,12 @@
                        modelAttribute="selecciones">
                 <input class='my-2 form-control' type='text' name='nombre' id='nombre'
                        placeholder='Ingrese el nombre de la seleccion'>
+                <select path='album.id' id='album.id' name='album.id' class='form-control my-2'>
+                    <c:forEach var="album" items="${albunes}">
+                        <option value='Default' selected hidden>Asigná un álbum</option>
+                        <option value='${album.id}'>${album.nombre}</option>
+                    </c:forEach>
+                </select>
                 <button type='submit' class='btn btn-success my-2'>Agregar</button>
             </form:form>
         </div>
