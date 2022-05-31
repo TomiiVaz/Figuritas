@@ -93,10 +93,7 @@ public class MiPrimerControlador {
         return new ModelAndView("buscarFiguritas", modelo);
     }
 
-    @RequestMapping(path = "/carta", method = RequestMethod.GET)
-    public ModelAndView verCarta(){
-
-
 
 
 }
+
