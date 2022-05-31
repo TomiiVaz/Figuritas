@@ -69,11 +69,31 @@ public class MiPrimerControlador {
         return new ModelAndView("nosotros");
     }
 
-    @RequestMapping(path = "/carta", method = RequestMethod.GET)
-    public ModelAndView verCarta(){
 
-        return new ModelAndView("figurita");
+
+    @RequestMapping(path = "/buscarfiguritas", method = RequestMethod.GET, params = {"busq","sel","pos"})
+    public ModelAndView buscarFiguritas(@RequestParam String busq,
+                                        @RequestParam String sel,
+                                        @RequestParam String pos){
+
+        ModelMap modelo = new ModelMap();
+
+        modelo.put("busq", busq);
+
+        return new ModelAndView("buscarFiguritas", modelo);
+    }
+
+    @RequestMapping(path = "/buscarfiguritas", method = RequestMethod.GET, params = {"busq"})
+    public ModelAndView buscarFiguritas(@RequestParam String busq){
+
+        ModelMap modelo = new ModelMap();
+
+        modelo.put("busq", busq);
+
+        return new ModelAndView("buscarFiguritas", modelo);
     }
 
 
+
 }
+
