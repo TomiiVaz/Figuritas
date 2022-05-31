@@ -37,9 +37,9 @@ public class ServicioFiguritaImpl implements ServicioFigurita{
     }
 
     @Override
-    public Figurita buscarFiguritaPorNombre(String nombre) {
-        repoFigurita.findByNombre(nombre);
-        return null;
+    public List<Figurita> buscarFiguritaPorNombre(String nombre) {
+
+        return repoFigurita.findByNombre(nombre);
     }
 
     @Override

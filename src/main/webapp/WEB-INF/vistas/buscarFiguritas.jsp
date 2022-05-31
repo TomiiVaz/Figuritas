@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Tomas
@@ -53,6 +54,8 @@
     <!--listado de figuritas-->
     <div class="container bg-dark">
         <div class="row mt-4 bg-dark gx-2">
+
+            <%-- Plantilla --%>
             <div class="col-2 my-1">
                 <div class="figuritaEncontrada border rounded border-white">
                     <a href="carta" class="btn">
@@ -62,127 +65,19 @@
                 </div>
             </div>
 
-            <div class="col-2 my-1">
-                <div class="figuritaEncontrada border rounded border-white">
-                    <a href="carta" class="btn">
-                        <img src="img/messi-god-no.jpg" alt="foto1" width="95% " class="rounded m-auto d-block">
-                        <div class="h4 text-center my-auto text-white">Messi</div>
-                    </a>
-                </div>
-            </div>
-            <div class="col-2 my-1">
-                <div class="figuritaEncontrada border rounded border-white">
-                    <a href="carta" class="btn">
-                        <img src="img/messi-god-no.jpg" alt="foto1" width="95% " class="rounded m-auto d-block">
-                        <div class="h4 text-center my-auto text-white">Messi</div>
-                    </a>
-                </div>
-            </div>
-            <div class="col-2 my-1">
-                <div class="figuritaEncontrada border rounded border-white">
-                    <a href="carta" class="btn">
-                        <img src="img/messi-god-no.jpg" alt="foto1" width="95% " class="rounded m-auto d-block">
-                        <div class="h4 text-center my-auto text-white">Messi</div>
-                    </a>
-                </div>
-            </div>
-            <div class="col-2 my-1">
-                <div class="figuritaEncontrada border rounded border-white">
-                    <a href="carta" class="btn">
-                        <img src="img/messi-god-no.jpg" alt="foto1" width="95% " class="rounded m-auto d-block">
-                        <div class="h4 text-center my-auto text-white">Messi</div>
-                    </a>
-                </div>
-            </div>
-            <div class="col-2 my-1">
-                <div class="figuritaEncontrada border rounded border-white">
-                    <a href="carta" class="btn">
-                        <img src="img/messi-god-no.jpg" alt="foto1" width="95% " class="rounded m-auto d-block">
-                        <div class="h4 text-center my-auto text-white">Messi</div>
-                    </a>
-                </div>
-            </div>
 
-            <div class="col-2 my-1">
-                <div class="figuritaEncontrada border rounded border-white">
-                    <a href="carta" class="btn">
-                        <img src="img/messi-god-no.jpg" alt="foto1" width="95% " class="rounded m-auto d-block">
-                        <div class="h4 text-center my-auto text-white">Messi</div>
-                    </a>
-                </div>
-            </div>
 
-            <div class="col-2 my-1">
-                <div class="figuritaEncontrada border rounded border-white">
-                    <a href="carta" class="btn">
-                        <img src="img/messi-god-no.jpg" alt="foto1" width="95% " class="rounded m-auto d-block">
-                        <div class="h4 text-center my-auto text-white">Messi</div>
-                    </a>
+            <c:forEach var="item" items="${figEncontradas}">
+                <div class="col-2 my-1">
+                    <div class="figuritaEncontrada border rounded border-white">
+                        <a href="carta" class="btn">
+                            <img src="img/${item.nombre}.jpg" alt="foto1" width="95% " class="rounded m-auto d-block">
+                            <div class="h4 text-center my-auto text-white">${item.nombre}</div>
+                        </a>
+                    </div>
                 </div>
-            </div>
 
-            <div class="col-2 my-1">
-                <div class="figuritaEncontrada border rounded border-white">
-                    <a href="carta" class="btn">
-                        <img src="img/messi-god-no.jpg" alt="foto1" width="95% " class="rounded m-auto d-block">
-                        <div class="h4 text-center my-auto text-white">Messi</div>
-                    </a>
-                </div>
-            </div>
-
-            <div class="col-2 my-1">
-                <div class="figuritaEncontrada border rounded border-white">
-                    <a href="carta" class="btn">
-                        <img src="img/messi-god-no.jpg" alt="foto1" width="95% " class="rounded m-auto d-block">
-                        <div class="h4 text-center my-auto text-white">Messi</div>
-                    </a>
-                </div>
-            </div>
-
-            <div class="col-2 my-1">
-                <div class="figuritaEncontrada border rounded border-white">
-                    <a href="carta" class="btn">
-                        <img src="img/messi-god-no.jpg" alt="foto1" width="95% " class="rounded m-auto d-block">
-                        <div class="h4 text-center my-auto text-white">Messi</div>
-                    </a>
-                </div>
-            </div>
-
-            <div class="col-2 my-1">
-                <div class="figuritaEncontrada border rounded border-white">
-                    <a href="carta" class="btn">
-                        <img src="img/messi-god-no.jpg" alt="foto1" width="95% " class="rounded m-auto d-block">
-                        <div class="h4 text-center my-auto text-white">Messi</div>
-                    </a>
-                </div>
-            </div>
-            <div class="col-2 my-1">
-                <div class="figuritaEncontrada border rounded border-white">
-                    <a href="carta" class="btn">
-                        <img src="img/messi-god-no.jpg" alt="foto1" width="95% " class="rounded m-auto d-block">
-                        <div class="h4 text-center my-auto text-white">Messi</div>
-                    </a>
-                </div>
-            </div>
-
-            <div class="col-2 my-1">
-                <div class="figuritaEncontrada border rounded border-white">
-                    <a href="carta" class="btn">
-                        <img src="img/messi-god-no.jpg" alt="foto1" width="95% " class="rounded m-auto d-block">
-                        <div class="h4 text-center my-auto text-white">Messi</div>
-                    </a>
-                </div>
-            </div>
-
-            <div class="col-2 my-1">
-                <div class="figuritaEncontrada border rounded border-white">
-                    <a href="carta" class="btn">
-                        <img src="img/messi-god-no.jpg" alt="foto1" width="95% " class="rounded m-auto d-block">
-                        <div class="h4 text-center my-auto text-white">Messi</div>
-                    </a>
-                </div>
-            </div>
-
+            </c:forEach>
 
         </div>
     </div>
