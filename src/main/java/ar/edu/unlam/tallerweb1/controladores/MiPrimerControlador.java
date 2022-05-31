@@ -60,11 +60,7 @@ public class MiPrimerControlador {
     }
 
     /* Para poder visualizar el perfil, es de uso de prueba */
-    @RequestMapping(path = "/perfil", method = RequestMethod.GET)
-    public ModelAndView perfil() {
 
-        return new ModelAndView("perfil");
-    }
 
 
     @RequestMapping(path = "/nosotros", method = RequestMethod.GET)
