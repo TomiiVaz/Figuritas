@@ -25,6 +25,19 @@ public class ServicioAlbumImpl implements ServicioAlbum {
         repoAlbum.guardar(album);
     }
 
+    @Override
+    public Boolean verificarAlbum(String nombre) {
+        List<Album> albunesList = traerAlbunes();
+        for (Album albun : albunesList) {
+            if (albun.getNombre().equals(nombre)) {
+                return false;
+            }
+        }
+        return true;
+
+    }
+
+
     //    Le pide al repo que le de los albunes
     @Override
     public List<Album> traerAlbunes() {

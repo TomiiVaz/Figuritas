@@ -16,7 +16,7 @@ import java.util.List;
 @Controller
 public class ControladorAlbum {
 
-    private ServicioAlbum servicioAl;
+    private final ServicioAlbum servicioAl;
 
     @Autowired
     public ControladorAlbum(ServicioAlbum serviciAl) {
@@ -28,10 +28,16 @@ public class ControladorAlbum {
     //    Para poder agregar un album a la base de datos
     @RequestMapping(path = "/agregar-album", method = RequestMethod.POST)
     public ModelAndView agregarAlbum(@ModelAttribute("album") Album album) {
-
-        servicioAl.agregarAlbum(album);
-
-        return new ModelAndView("redirect:/configuracion-album");
+        if (servicioAl.verificarAlbum(album.getNombre())) {
+            servicioAl.agregarAlbum(album);
+            return new ModelAndView("redirect:/configuracion-album");
+        } else {
+            ModelMap model = new ModelMap();
+            List<Album> albunes = this.servicioAl.traerAlbunes();
+            model.put("albunes", albunes);
+            model.put("error", "Album ya existente");
+            return new ModelAndView("configAlbum", model);
+        }
     }
 
 
@@ -50,7 +56,7 @@ public class ControladorAlbum {
     public ModelAndView editarAlbunes(@RequestParam int albumId,
                                       @RequestParam String nombreNuevo) {
 
-        this.servicioAl.editarAlbum((Long) (long) albumId, nombreNuevo);
+        this.servicioAl.editarAlbum((long) albumId, nombreNuevo);
 
         return new ModelAndView("redirect:/configuracion-album");
     }
@@ -58,7 +64,7 @@ public class ControladorAlbum {
     @RequestMapping(path = "/eliminar-album", method = RequestMethod.POST, params = {"albumId"})
     public ModelAndView eliminarAlbum(@RequestParam int albumId) {
 
-        this.servicioAl.eliminarAlbum((long) albumId);
+        this.servicioAl.eliminarAlbum( albumId);
 
         return new ModelAndView("redirect:/configuracion-album");
     }

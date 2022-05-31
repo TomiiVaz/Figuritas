@@ -36,10 +36,10 @@ public class RepositorioFiguritaImpl implements RepositorioFigurita{
     }
 
     @Override
-    public Figurita findByNombre(String nombre) {
+    public List<Figurita> findByNombre(String nombre) {
         final Session session = sessionFactory.getCurrentSession();
 
-        return (Figurita) session.createCriteria(Figurita.class)
+        return (List<Figurita>) session.createCriteria(Figurita.class)
                 .add(Restrictions.eq("nombre", nombre))
                 .list(); // ¿para que traiga una lista?????
     }
@@ -105,4 +105,6 @@ public class RepositorioFiguritaImpl implements RepositorioFigurita{
 
         return figurita;
     }
+
+
 }

@@ -32,6 +32,10 @@
                 Eliminar
             </button>
         </div>
+        <c:if test="${not empty error}">
+            <p class="text-danger"><span>${error}</span></p>
+            <br>
+        </c:if>
     </div>
 
 

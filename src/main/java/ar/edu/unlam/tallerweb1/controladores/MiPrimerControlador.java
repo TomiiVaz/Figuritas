@@ -60,11 +60,7 @@ public class MiPrimerControlador {
     }
 
     /* Para poder visualizar el perfil, es de uso de prueba */
-    @RequestMapping(path = "/perfil", method = RequestMethod.GET)
-    public ModelAndView perfil() {
 
-        return new ModelAndView("perfil");
-    }
 
 
     @RequestMapping(path = "/nosotros", method = RequestMethod.GET)
@@ -72,6 +68,7 @@ public class MiPrimerControlador {
 
         return new ModelAndView("nosotros");
     }
+
 
 
     @RequestMapping(path = "/buscarfiguritas", method = RequestMethod.GET, params = {"busq","sel","pos"})
@@ -96,7 +93,8 @@ public class MiPrimerControlador {
         return new ModelAndView("buscarFiguritas", modelo);
     }
 
-
+    @RequestMapping(path = "/carta", method = RequestMethod.GET)
+    public ModelAndView verCarta(){
 
 
 
