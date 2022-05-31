@@ -142,5 +142,17 @@ public class ControladorFigurita {
     }
 
 
+    @RequestMapping(path = "/carta", method = RequestMethod.POST)
+    public ModelAndView verCarta(@RequestParam int id, HttpServletRequest request){
+
+        Figurita figurita=this.servicioFigu.buscarFigurita((long)id);
+
+        ModelMap model = new ModelMap();
+        model.put("figurita", figurita);
+
+        return new ModelAndView("figurita", model);
+    }
+
+
 
 }
