@@ -10,16 +10,14 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class ControladorFigurita {
 
-    private ServicioFigurita servicioFigu;
-    private ServicioSeleccion servicioSelec;
-    private ServicioAlbum servicioAlbum;
+    private final ServicioFigurita servicioFigu;
+    private final ServicioSeleccion servicioSelec;
+    private final ServicioAlbum servicioAlbum;
 
     @Autowired
     public ControladorFigurita(ServicioFigurita servicioFigu, ServicioSeleccion servicioSelec, ServicioAlbum servicioAlbum) {
@@ -38,8 +36,7 @@ public class ControladorFigurita {
     }
 
     @RequestMapping(path = "/agregar-figurita", method = RequestMethod.POST)
-    public ModelAndView agregarFigurita(@ModelAttribute("figurita") Figurita figurita)
-    {
+    public ModelAndView agregarFigurita(@ModelAttribute("figurita") Figurita figurita) {
 
         servicioFigu.agregarFigurita(figurita);
 
@@ -90,10 +87,10 @@ public class ControladorFigurita {
     }
 
     @RequestMapping(path = "/editar-figurita", method = RequestMethod.POST)
-    public ModelAndView editarFigurita(@RequestParam("figuritaId") Long figuritaId, HttpServletRequest request) {
+    public ModelAndView editarFigurita(@RequestParam("figuritaId") Long figuritaId) {
 
         //buscarfigurita y mandar al model map
-        Figurita figuritaEncontrada=this.servicioFigu.buscarFigurita(figuritaId);
+        Figurita figuritaEncontrada = this.servicioFigu.buscarFigurita(figuritaId);
         List<Seleccion> selecciones = this.servicioSelec.traerSelecciones();
         List<Posicion> posiciones = this.servicioFigu.traerPosiciones();
         List<Rareza> rarezas = this.servicioFigu.traerRarezas();
@@ -110,7 +107,7 @@ public class ControladorFigurita {
     }
 
     @RequestMapping(path = "/crear-figurita", method = RequestMethod.POST)
-    public ModelAndView crearFigurita(@ModelAttribute("figurita") Figurita figurita, HttpServletRequest request) {
+    public ModelAndView crearFigurita(@ModelAttribute("figurita") Figurita figurita) {
 
         this.servicioFigu.agregarFigurita(figurita);
 
@@ -118,26 +115,26 @@ public class ControladorFigurita {
     }
 
     @RequestMapping(path = "/updateFalso-figurita", method = RequestMethod.POST)
-    public ModelAndView crearFigurita(@ModelAttribute("figurita") Figurita figurita, @RequestParam int id, HttpServletRequest request) {
-        this.servicioFigu.eliminarFigurita((long)id);
+    public ModelAndView crearFigurita(@ModelAttribute("figurita") Figurita figurita, @RequestParam int id) {
+        this.servicioFigu.eliminarFigurita(id);
         this.servicioFigu.agregarFigurita(figurita);
 
         return new ModelAndView("redirect:/configuracion-figurita");
     }
 
-    @RequestMapping(path = "/ver-figurita" , method = RequestMethod.POST, params = {"figuritaId","figuritaNueva"})
+    @RequestMapping(path = "/ver-figurita", method = RequestMethod.POST, params = {"figuritaId", "figuritaNueva"})
     public ModelAndView verFigurita(@RequestParam int figuritaId,
-                                    @ModelAttribute Figurita figurita){
-        figurita.setId((long)figuritaId);
+                                    @ModelAttribute Figurita figurita) {
+        figurita.setId((long) figuritaId);
         this.servicioFigu.agregarFigurita(figurita);
 
         return new ModelAndView("redirect:/configuracion-figurita");
     }
 
-    @RequestMapping(path = "/del-figurita" , method = RequestMethod.POST, params = {"figuritaId"})
-    public ModelAndView delFigurita(@RequestParam int figuritaId){
+    @RequestMapping(path = "/del-figurita", method = RequestMethod.POST, params = {"figuritaId"})
+    public ModelAndView delFigurita(@RequestParam int figuritaId) {
 
-        this.servicioFigu.eliminarFigurita((long)figuritaId);
+        this.servicioFigu.eliminarFigurita(figuritaId);
 
         return new ModelAndView("redirect:/configuracion-figurita");
     }
@@ -157,11 +154,11 @@ public class ControladorFigurita {
 
         return new ModelAndView("buscarFiguritas", resBusqueda);
     }*/
-  
-  @RequestMapping(path = "/carta", method = RequestMethod.POST)
-    public ModelAndView verCarta(@RequestParam int id, HttpServletRequest request){
 
-        Figurita figurita=this.servicioFigu.buscarFigurita((long)id);
+    @RequestMapping(path = "/carta", method = RequestMethod.POST)
+    public ModelAndView verCarta(@RequestParam int id) {
+
+        Figurita figurita = this.servicioFigu.buscarFigurita((long) id);
 
         ModelMap model = new ModelMap();
         model.put("figurita", figurita);
@@ -171,7 +168,7 @@ public class ControladorFigurita {
 
 
     @RequestMapping(path = "/buscarfiguritas2", method = RequestMethod.GET, params = {"busq"})
-    public ModelAndView buscarFiguritas2(@RequestParam String busq){
+    public ModelAndView buscarFiguritas2(@RequestParam String busq) {
 
         ModelMap resBusqueda = new ModelMap();
 
