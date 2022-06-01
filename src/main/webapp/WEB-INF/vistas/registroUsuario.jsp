@@ -12,7 +12,7 @@
             <br>
 
             <label for="email" class="text-white mb-1">Email</label>
-            <input path="email" id="email" name='email' class="form-control mb-3" placeholder="Ingrese el mail" required />
+            <input value="${usuario.email}" path="email" id="email" name='email' class="form-control mb-3" placeholder="Ingrese el mail" required />
             <c:if test="${not empty error}">
                 <p class="text-danger"><span>${error}</span></p>
                 <br>
@@ -22,6 +22,7 @@
 
             <label for='seleccion.id' class='text-white'>Seleccion</label>
             <select path='seleccion.id' id='seleccion.id' name='seleccion.id' class='form-control my-2'>
+                <option value="${usuario.seleccion.id}" selected>${usuario.seleccion.nombre}</option>
                 <c:forEach var="seleccion" items="${selecciones}">
                     <!-- ver lo de pais.id y pais.nombre -->
                     <option value='${seleccion.id}'>${seleccion.nombre}</option>
@@ -29,7 +30,7 @@
             </select>
 
             <label for="nombre" class="text-white mb-1">Nombre</label>
-            <input path="nombre" type="text" id="nombre" name='nombre' class="form-control mb-3" placeholder="Ingrese su nombre" required />
+            <input value='${usuario.nombre}' path="nombre" type="text" id="nombre" name='nombre' class="form-control mb-3" placeholder="Ingrese su nombre" required />
 
             <label for="password" class="text-white mb-1">Clave</label>
             <input path="password" type="password" id="password" name='password' class="form-control mb-3" placeholder="Ingrese su clave" required />

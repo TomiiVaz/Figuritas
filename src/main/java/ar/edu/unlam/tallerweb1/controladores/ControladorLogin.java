@@ -113,6 +113,7 @@ public class ControladorLogin {
             ModelMap model = new ModelMap();
             model.put("error","Mail ya existente");
             model.put("usuario", usuario);
+            model.put("selecciones", servicioSeleccion.traerSelecciones());
             return new ModelAndView("registroUsuario", model);
         }
     }
