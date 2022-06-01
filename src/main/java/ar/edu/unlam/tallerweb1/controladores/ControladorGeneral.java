@@ -30,11 +30,16 @@ public class ControladorGeneral {
     }
 
     @RequestMapping(path = "/configuracion", method = RequestMethod.GET)
-    public ModelAndView mostrarConfiguracion() {
+    public ModelAndView mostrarConfiguracion(HttpServletRequest request) {
         List<Seleccion> selecciones = this.servicioSelec.traerSelecciones();
-
-
+        String rol = (String)request.getSession().getAttribute("ROL");
+        Long id = (Long)request.getSession().getAttribute("ID");
+        Usuario userLogueado = (Usuario)request.getSession().getAttribute("USUARIO");
         ModelMap model = new ModelMap();
+
+        model.put("usuario", userLogueado);
+        model.put("id",id);
+        model.put("rol",rol);
         model.put("selecciones", selecciones);
         model.put("figurita", new Figurita());
         return new ModelAndView("configuracion", model);
@@ -50,11 +55,30 @@ public class ControladorGeneral {
         ModelMap model = new ModelMap();
         List<Album> albunes = servicioAlbum.traerAlbunes();
         List<Seleccion> selecciones = servicioSelec.traerSelecciones();
+        String rol = (String)request.getSession().getAttribute("ROL");
+        Long id = (Long)request.getSession().getAttribute("ID");
         Usuario usuarioLogueado = (Usuario)request.getSession().getAttribute("USUARIO");
+        model.put("id",id);
+        model.put("rol",rol);
         model.put("usuario",usuarioLogueado);
         model.put("selecciones", selecciones);
         model.put("albunes", albunes);
 
         return new ModelAndView("perfil", model);
+    }
+
+    @RequestMapping(path = "/nosotros", method = RequestMethod.GET)
+    public ModelAndView nosotros(HttpServletRequest request) {
+
+        String rol = (String)request.getSession().getAttribute("ROL");
+        Long id = (Long)request.getSession().getAttribute("ID");
+        Usuario userLogueado = (Usuario)request.getSession().getAttribute("USUARIO");
+        ModelMap model = new ModelMap();
+
+        model.put("usuario", userLogueado);
+        model.put("id",id);
+        model.put("rol",rol);
+
+        return new ModelAndView("nosotros");
     }
 }

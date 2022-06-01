@@ -40,7 +40,8 @@
                 </c:otherwise>
             </c:choose>
 
-
+            <!-- hacer que quede bien centrado (funciona pero le falta eso) -->
+            <!--<p class="d-flex justify-content-center text-white">Hola ${usuario.nombre}</p> -->
         </div>
     </div>
 </header>

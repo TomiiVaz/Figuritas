@@ -80,7 +80,7 @@ public class ControladorLogin {
         List<Figurita> figuritas = this.servicioFigu.traerFiguritas();
         String rol = (String)request.getSession().getAttribute("ROL");
         Long id = (Long)request.getSession().getAttribute("ID");
-        Usuario userLogueado = servicioLogin.agarrarUsuarioId(id);
+        Usuario userLogueado = (Usuario)request.getSession().getAttribute("USUARIO");
 
         ModelMap model = new ModelMap();
         model.put("usuario", userLogueado);
