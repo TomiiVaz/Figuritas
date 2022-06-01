@@ -25,11 +25,11 @@
             </div>
 
             <!-- Muestro si esta logueado -->
-            <c:if test="${id!=null}">
+                <c:if test="${rol.equals('ADM')}">
                 <a href="configuracion-figurita">
                     <button class="btn btn-primary mb-5 mt-3">Configuracion</button>
                 </a>
-            </c:if>
+                </c:if>
 
         </div>
         <%--        Datos--%>
