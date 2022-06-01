@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 import java.util.List;
 
 @Controller
@@ -73,14 +74,20 @@ public class ControladorFigurita {
     }
 
     @RequestMapping(path = "/configuracion-figurita", method = RequestMethod.GET)
-    public ModelAndView verVistaFiguritaConfig() {
+    public ModelAndView verVistaFiguritaConfig(HttpServletRequest request) {
         List<Seleccion> selecciones = this.servicioSelec.traerSelecciones();
         List<Posicion> posiciones = this.servicioFigu.traerPosiciones();
         List<Rareza> rarezas = this.servicioFigu.traerRarezas();
         List<Album> albunes = this.servicioAlbum.traerAlbunes();
         List<Figurita> figuritas = this.servicioFigu.traerFiguritas();
+        String rol = (String)request.getSession().getAttribute("ROL");
+        Long id = (Long)request.getSession().getAttribute("ID");
+        Usuario userLogueado = (Usuario)request.getSession().getAttribute("USUARIO");
 
         ModelMap model = new ModelMap();
+        model.put("usuario", userLogueado);
+        model.put("id",id);
+        model.put("rol",rol);
         model.put("selecciones", selecciones);
         model.put("rarezas", rarezas);
         model.put("posiciones", posiciones);

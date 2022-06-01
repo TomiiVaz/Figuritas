@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.modelo.Album;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlbum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -43,12 +45,17 @@ public class ControladorAlbum {
 
     //    Para que me traiga todos los albunes de la base de datos
     @RequestMapping(path = "/configuracion-album", method = RequestMethod.GET)
-    public ModelAndView verAlbum() {
+    public ModelAndView verAlbum(HttpServletRequest request) {
         List<Album> albunes = this.servicioAl.traerAlbunes();
+        String rol = (String)request.getSession().getAttribute("ROL");
+        Long id = (Long)request.getSession().getAttribute("ID");
+        Usuario userLogueado = (Usuario)request.getSession().getAttribute("USUARIO");
 
         ModelMap model = new ModelMap();
         model.put("albunes", albunes);
-
+        model.put("usuario", userLogueado);
+        model.put("id",id);
+        model.put("rol",rol);
         return new ModelAndView("configAlbum", model);
     }
 

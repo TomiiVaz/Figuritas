@@ -46,7 +46,16 @@ public class ControladorGeneral {
     }
 
     @RequestMapping(path = "/configuracion-usuario", method = RequestMethod.GET)
-    public ModelAndView verVistaUsuarioConfig() {
+    public ModelAndView verVistaUsuarioConfig(HttpServletRequest request) {
+
+        String rol = (String)request.getSession().getAttribute("ROL");
+        Long id = (Long)request.getSession().getAttribute("ID");
+        Usuario userLogueado = (Usuario)request.getSession().getAttribute("USUARIO");
+        ModelMap model = new ModelMap();
+        model.put("usuario", userLogueado);
+        model.put("id",id);
+        model.put("rol",rol);
+
         return new ModelAndView("configUsuario");
     }
 
