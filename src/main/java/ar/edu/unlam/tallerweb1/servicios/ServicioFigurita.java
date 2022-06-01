@@ -23,7 +23,11 @@ public interface ServicioFigurita {
 
     Figurita buscarFigurita(Long id);
 
+    List<Figurita> buscarFiguritaPorFiltros(String nombre, Long seleccion, Long posicion);
+
     void editarFigurita(long figuritaId, String figuritaNueva);
 
     void eliminarFigurita(long figuritaId);
+
+
 }

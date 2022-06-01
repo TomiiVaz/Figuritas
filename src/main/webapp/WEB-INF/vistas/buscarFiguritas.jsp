@@ -19,6 +19,7 @@
     <!--opciones de filtrado de cartas (por selección, nombre jugador, posición)-->
     <div class="container mt-3">
         <h4 class="text-white">Filtros</h4>
+        <p>${seleccionElegida}</p>
         <form action="buscarfiguritas" method="get">
             <div class="row d-flex justify-content-center">
 
@@ -26,23 +27,24 @@
                     <input type="text" id="busq" name="busq" placeholder="Buscar por nombre"
                            class="form-control">
                 </div>
+
                 <div class="col-6 mb-2">
                     <select name="selSeleccion" id="selSeleccion" class="form-select">
-                        <option value="0">--Elige una selección--</option>
-                        <option value="1">Argentina</option>
-                        <option value="2">Brasil</option>
-                        <option value="3">Qatar</option>
-                        <option value="4">Francia</option>
+                        <option value="0" >--Elige una selección--</option>
+                        <c:forEach var="item" items="${todasSelecciones}">
+                            <option value="${item.id}">${item.nombre}</option>
+                        </c:forEach>
                     </select>
                 </div>
 
                 <div class="col-6 mb-2">
                     <select name="selPosicionJugador" id="selPosicionJugador" class="form-select">
-                        <option value="0">--Elije una posición de jugador--</option>
-                        <option value="1">Arquero</option>
-                        <option value="2">Defensor</option>
-                        <option value="3">Mediocampista</option>
-                        <option value="4">Delantero</option>
+                        <option value= "0" >--Elije una posición de jugador--</option>
+
+                        <c:forEach var="item" items="${todasPosiciones}">
+                            <option value="${item.id}">${item.descripcion}</option>
+                        </c:forEach>
+
                     </select>
                 </div>
                 <button type="submit" class="btn btn-primary col-3 mb-2 ">Buscar</button>

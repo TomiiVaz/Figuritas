@@ -150,21 +150,6 @@ public class ControladorFigurita {
         return new ModelAndView("redirect:/configuracion-figurita");
     }
 
-    /*@RequestMapping(path = "/buscarfiguritas", method = RequestMethod.GET, params = {"busq","sel","pos"})
-    public ModelAndView buscarFiguritas(@RequestParam String busq,
-                                        @RequestParam String sel,
-                                        @RequestParam String pos){
-        ModelMap resBusqueda = new ModelMap();
-        
-        List<Figurita> figuritasEncontradas = new ArrayList<>();
-
-
-        figuritasEncontradas.add(servicioFigu.buscarFiguritaPorNombre(busq));
-
-        resBusqueda.put("figEncontradas",figuritasEncontradas);
-
-        return new ModelAndView("buscarFiguritas", resBusqueda);
-    }*/
 
     @RequestMapping(path = "/carta", method = RequestMethod.POST)
     public ModelAndView verCarta(@RequestParam int id, HttpServletRequest request) {
@@ -184,13 +169,31 @@ public class ControladorFigurita {
         return new ModelAndView("figurita", model);
     }
 
-
+/*
     @RequestMapping(path = "/buscarfiguritas", method = RequestMethod.GET, params = {"busq"})
     public ModelAndView buscarFiguritas(@RequestParam String busq) {
 
         ModelMap resBusqueda = new ModelMap();
 
         List<Figurita> figs = servicioFigu.buscarFiguritaPorNombre(busq);
+        resBusqueda.put("figEncontradas", figs);
+
+        return new ModelAndView("buscarFiguritas", resBusqueda);
+    }*/
+
+    @RequestMapping(path = "/buscarfiguritas", method = RequestMethod.GET, params = {"busq"})
+    public ModelAndView buscarFiguritas(@RequestParam (value = "busq") String busq,
+                                        @RequestParam (value = "selSeleccion", required = false) Long sel,
+                                        @RequestParam (value = "selPosicionJugador", required = false) Long pos){
+
+        ModelMap resBusqueda = new ModelMap();
+
+        List<Seleccion> selecciones = servicioSelec.traerSelecciones();
+        List<Posicion> posiciones = servicioFigu.traerPosiciones();
+        List<Figurita> figs = servicioFigu.buscarFiguritaPorFiltros(busq,sel,pos);
+
+        resBusqueda.put("todasSelecciones", selecciones);
+        resBusqueda.put("todasPosiciones", posiciones);
         resBusqueda.put("figEncontradas", figs);
 
         return new ModelAndView("buscarFiguritas", resBusqueda);
