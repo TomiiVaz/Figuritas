@@ -49,24 +49,36 @@
         <h2 class="mb-5">Comentarios</h2>
 
         <div class="container-fluid text-start">
-            <div class="container d-flex flex-row align-baseline justify-content-start">
+            <div class="container d-flex flex-row align-baseline justify-content-start flex-wrap">
+                <c:forEach var="comentarios" items="${comentarios}">
                 <div class="col-2 text-center">
                     <img src="img/usuarioBlanco.png" alt="Foto Perfil" class="rounded-circle" width="50%">
                     <h6 class="m-1">Tomas</h6>
                 </div>
                 <div class="col-10 text-start">
-                    <p class="m-1 ms-s">Muy buena la quiero!</p>
+                    <p class="text-white">${comentarios.descripcion}</p>
                 </div>
+                </c:forEach>
             </div>
         </div>
+
         <div class="container w-75">
             <h4 class="mb-4">Deja tu comentario aqui:</h4>
-            <form method="get"
-                  action="#">
-            <textarea class="form-control" id="floatingTextarea2"
-                      style="height: 100px"></textarea>
-                <button class="btn btn-primary mb-5 mt-3">Enviar</button>
-            </form>
+
+            <form:form class='text-center d-flex flex-column px-5 py-2 bg-dark border-0'
+                       method='post'
+                       action='agregar-comentario'
+                       modelAttribute="comentario">
+
+
+                <input class='my-2 form-control' type='text' path='descripcion' id='descripcion' name='descripcion' required>
+
+
+
+                <button type='submit' class='btn btn-success'>Enviar</button>
+            </form:form>
+
+
         </div>
         <%--        Parte comentarios--%>
 
