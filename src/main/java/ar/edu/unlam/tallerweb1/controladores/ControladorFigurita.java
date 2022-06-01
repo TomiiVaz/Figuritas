@@ -19,14 +19,16 @@ public class ControladorFigurita {
     private final ServicioAlbum servicioAlbum;
 
     private final ServicioLogin servicioLogin;
+    private final ServicioRegistroPegada servicioRegistroPegada;
 
     @Autowired
-    public ControladorFigurita(ServicioFigurita servicioFigu, ServicioSeleccion servicioSelec, ServicioAlbum servicioAlbum, ServicioLogin servicioLogin) {
+    public ControladorFigurita(ServicioFigurita servicioFigu, ServicioSeleccion servicioSelec, ServicioAlbum servicioAlbum, ServicioLogin servicioLogin, ServicioRegistroPegada servicioRegistroPegada) {
 
         this.servicioFigu = servicioFigu;
         this.servicioSelec = servicioSelec;
         this.servicioAlbum = servicioAlbum;
         this.servicioLogin = servicioLogin;
+        this.servicioRegistroPegada = servicioRegistroPegada;
     }
 
     @RequestMapping(path = "/ver-figurita", method = RequestMethod.GET)
@@ -185,5 +187,22 @@ public class ControladorFigurita {
         resBusqueda.put("figEncontradas", figs);
 
         return new ModelAndView("buscarFiguritas", resBusqueda);
+    }
+
+    @RequestMapping(path="/pegar", method = RequestMethod.POST)
+    public ModelAndView pegarFigu(@RequestParam Long albumIdd, @RequestParam Long id, HttpServletRequest request){
+        // buscar album, buscar figurita, agarrar usuario
+        Usuario usuarioPegar = (Usuario)request.getSession().getAttribute("USUARIO");
+        Figurita figuritaPegar = servicioFigu.buscarFigurita(id);
+        Album albumPegar = servicioAlbum.agarrarAlbum(albumIdd);
+        RegistroPegada rp = new RegistroPegada();
+
+        rp.setFigurita(figuritaPegar);
+        rp.setAlbum(albumPegar);
+        rp.setUsuario(usuarioPegar);
+
+        servicioRegistroPegada.pegarRegistro(rp);
+
+        return new ModelAndView("redirect:/perfil");
     }
 }

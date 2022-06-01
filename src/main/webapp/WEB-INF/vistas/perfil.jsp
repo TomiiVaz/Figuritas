@@ -54,10 +54,17 @@
                             <div class="modal-body text-center">
                                 <form class="d-flex flex-column mb-2"
                                       method="post"
-                                      action="agregar-figurita">
-                                    <label for="codigo" class="mb-1 text-white">Ingresar código</label>
-                                    <input type="text" name="codigo" id="codigo" class="form-control mt-2"
-                                           placeholder="Ingrese codigo de carta">
+                                      action="pegar">
+
+                                    <label for="albumIdd">Seleccione el album</label>
+                                    <select path='albumIdd' id='albumIdd' name='albumIdd' class='form-control my-2'>
+                                        <c:forEach var="album" items="${albunes}">
+                                            <option value='${album.id}'>${album.nombre}</option>
+                                        </c:forEach>
+                                    </select>
+
+                                    <label for="id" class="mb-1 text-white">Ingresar código</label>
+                                    <input type="text" path="id" name="id" id="id" class="form-control mt-2">
                                     <button type="submit" class="btn btn-primary mt-3">Save changes</button>
                                 </form>
                             </div>

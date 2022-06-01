@@ -15,4 +15,6 @@ public interface ServicioAlbum {
     void editarAlbum(Long albumId, String nombreNuevo);
 
     void eliminarAlbum(long albumId);
+
+    Album agarrarAlbum(Long id);
 }

@@ -60,4 +60,12 @@ public class RepositorioAlbumImpl implements RepositorioAlbum {
         session.delete(album);
     }
 
+    @Override
+    public Album getAlgum(Long id) {
+        final Session session = sessionFactory.getCurrentSession();
+        return (Album) session.createCriteria(Album.class)
+                .add(Restrictions.eq("id", id))
+                .uniqueResult();
+    }
+
 }
