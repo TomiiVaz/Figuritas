@@ -153,21 +153,6 @@ public class ControladorFigurita {
         return new ModelAndView("redirect:/configuracion-figurita");
     }
 
-    /*@RequestMapping(path = "/buscarfiguritas", method = RequestMethod.GET, params = {"busq","sel","pos"})
-    public ModelAndView buscarFiguritas(@RequestParam String busq,
-                                        @RequestParam String sel,
-                                        @RequestParam String pos){
-        ModelMap resBusqueda = new ModelMap();
-        
-        List<Figurita> figuritasEncontradas = new ArrayList<>();
-
-
-        figuritasEncontradas.add(servicioFigu.buscarFiguritaPorNombre(busq));
-
-        resBusqueda.put("figEncontradas",figuritasEncontradas);
-
-        return new ModelAndView("buscarFiguritas", resBusqueda);
-    }*/
 
     @RequestMapping(path = "/carta", method = RequestMethod.POST)
     public ModelAndView verCarta(@RequestParam int id, HttpServletRequest request) {
@@ -189,7 +174,7 @@ public class ControladorFigurita {
         return new ModelAndView("figurita", model);
     }
 
-
+/*
     @RequestMapping(path = "/buscarfiguritas", method = RequestMethod.GET, params = {"busq"})
     public ModelAndView buscarFiguritas(@RequestParam String busq) {
 
@@ -199,6 +184,31 @@ public class ControladorFigurita {
         resBusqueda.put("figEncontradas", figs);
 
         return new ModelAndView("buscarFiguritas", resBusqueda);
+    }*/
+
+    @RequestMapping(path = "/buscarfiguritas", method = RequestMethod.GET, params = {"busq"})
+    public ModelAndView buscarFiguritas(@RequestParam (value = "busq") String busq,
+                                        @RequestParam (value = "selSeleccion", required = false) Long sel,
+                                        @RequestParam (value = "selPosicionJugador", required = false) Long pos,
+                                        HttpServletRequest request){
+
+        ModelMap model = new ModelMap();
+
+        List<Seleccion> selecciones = servicioSelec.traerSelecciones();
+        List<Posicion> posiciones = servicioFigu.traerPosiciones();
+        List<Figurita> figs = servicioFigu.buscarFiguritaPorFiltros(busq,sel,pos);
+        String rol = (String)request.getSession().getAttribute("ROL");
+        Long id = (Long)request.getSession().getAttribute("ID");
+        Usuario userLogueado = (Usuario)request.getSession().getAttribute("USUARIO");
+
+        model.put("usuario", userLogueado);
+        model.put("id",id);
+        model.put("rol",rol);
+        model.put("todasSelecciones", selecciones);
+        model.put("todasPosiciones", posiciones);
+        model.put("figEncontradas", figs);
+
+        return new ModelAndView("buscarFiguritas", model);
     }
 
     @RequestMapping(path="/pegar", method = RequestMethod.POST)
