@@ -3,6 +3,7 @@ package ar.edu.unlam.tallerweb1.controladores;
 import ar.edu.unlam.tallerweb1.modelo.Album;
 import ar.edu.unlam.tallerweb1.modelo.Figurita;
 import ar.edu.unlam.tallerweb1.modelo.Seleccion;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlbum;
 import ar.edu.unlam.tallerweb1.servicios.ServicioSeleccion;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -44,10 +46,12 @@ public class ControladorGeneral {
     }
 
     @RequestMapping(path = "/perfil", method = RequestMethod.GET)
-    public ModelAndView perfil() {
+    public ModelAndView perfil(HttpServletRequest request) {
         ModelMap model = new ModelMap();
         List<Album> albunes = servicioAlbum.traerAlbunes();
         List<Seleccion> selecciones = servicioSelec.traerSelecciones();
+        Usuario usuarioLogueado = (Usuario)request.getSession().getAttribute("USUARIO");
+        model.put("usuario",usuarioLogueado);
         model.put("selecciones", selecciones);
         model.put("albunes", albunes);
 
