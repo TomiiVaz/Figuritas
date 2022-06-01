@@ -63,6 +63,8 @@ public class ControladorLogin {
             request.getSession().setAttribute("ROL", usuarioBuscado.getRol());
             // para guardar el id del usuario que se loguea
             request.getSession().setAttribute("ID", usuarioBuscado.getId());
+            // para guardar el objeto usario
+            request.getSession().setAttribute("USUARIO", usuarioBuscado);
             return new ModelAndView("redirect:/home");
         } else {
             // si el usuario no existe agrega un mensaje de error en el modelo.
@@ -78,7 +80,7 @@ public class ControladorLogin {
         List<Figurita> figuritas = this.servicioFigu.traerFiguritas();
         String rol = (String)request.getSession().getAttribute("ROL");
         Long id = (Long)request.getSession().getAttribute("ID");
-        Usuario userLogueado = servicioLogin.agarrarUsuarioId(id);
+        Usuario userLogueado = (Usuario)request.getSession().getAttribute("USUARIO");
 
         ModelMap model = new ModelMap();
         model.put("usuario", userLogueado);
@@ -112,6 +114,8 @@ public class ControladorLogin {
         } else {
             ModelMap model = new ModelMap();
             model.put("error","Mail ya existente");
+            model.put("usuario", usuario);
+            model.put("selecciones", servicioSeleccion.traerSelecciones());
             return new ModelAndView("registroUsuario", model);
         }
     }

@@ -10,7 +10,7 @@
     <!-- Parte Arriba -->
     <div class="row align-items-center justify-content-center m-2">
         <div class="col">
-            <h1 class="mb-4 mt-2 text-white">Tomas Vazquez</h1>
+            <h1 class="mb-4 mt-2 text-white">${usuario.nombre}</h1>
             <div class="m-0">
                 <img src="img/messi1.jpg" alt="Foto Perfil" class="img-thumbnail img-fluid m-0">
             </div>
@@ -25,10 +25,10 @@
                 <h4 class="text-white">Mail:</h4>
             </div>
             <div class="d-flex flex-column text-start">
-                <h4 class="text-white">TomiiVaz</h4>
-                <h4 class="text-white">Velez</h4>
-                <h4 class="text-white">Argentina</h4>
-                <h4 class="text-white">TomasVazquez@gmail.com</h4>
+                <h4 class="text-white">${usuario.nombre}</h4>
+                <h4 class="text-white">${usuario.equipo}</h4>
+                <h4 class="text-white">${usuario.seleccion.nombre}</h4>
+                <h4 class="text-white">${usuario.email}</h4>
             </div>
             <%--       /Datos--%>
         </div>
@@ -54,10 +54,17 @@
                             <div class="modal-body text-center">
                                 <form class="d-flex flex-column mb-2"
                                       method="post"
-                                      action="agregar-figurita">
-                                    <label for="codigo" class="mb-1 text-white">Ingresar código</label>
-                                    <input type="text" name="codigo" id="codigo" class="form-control mt-2"
-                                           placeholder="Ingrese codigo de carta">
+                                      action="pegar">
+
+                                    <label for="albumIdd">Seleccione el album</label>
+                                    <select path='albumIdd' id='albumIdd' name='albumIdd' class='form-control my-2'>
+                                        <c:forEach var="album" items="${albunes}">
+                                            <option value='${album.id}'>${album.nombre}</option>
+                                        </c:forEach>
+                                    </select>
+
+                                    <label for="id" class="mb-1 text-white">Ingresar código</label>
+                                    <input type="text" path="id" name="id" id="id" class="form-control mt-2">
                                     <button type="submit" class="btn btn-primary mt-3">Save changes</button>
                                 </form>
                             </div>

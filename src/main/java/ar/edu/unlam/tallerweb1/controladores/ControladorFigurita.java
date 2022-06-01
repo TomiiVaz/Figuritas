@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 import java.util.List;
 
 @Controller
@@ -19,14 +20,16 @@ public class ControladorFigurita {
     private final ServicioAlbum servicioAlbum;
 
     private final ServicioLogin servicioLogin;
+    private final ServicioRegistroPegada servicioRegistroPegada;
 
     @Autowired
-    public ControladorFigurita(ServicioFigurita servicioFigu, ServicioSeleccion servicioSelec, ServicioAlbum servicioAlbum, ServicioLogin servicioLogin) {
+    public ControladorFigurita(ServicioFigurita servicioFigu, ServicioSeleccion servicioSelec, ServicioAlbum servicioAlbum, ServicioLogin servicioLogin, ServicioRegistroPegada servicioRegistroPegada) {
 
         this.servicioFigu = servicioFigu;
         this.servicioSelec = servicioSelec;
         this.servicioAlbum = servicioAlbum;
         this.servicioLogin = servicioLogin;
+        this.servicioRegistroPegada = servicioRegistroPegada;
     }
 
     @RequestMapping(path = "/ver-figurita", method = RequestMethod.GET)
@@ -71,14 +74,20 @@ public class ControladorFigurita {
     }
 
     @RequestMapping(path = "/configuracion-figurita", method = RequestMethod.GET)
-    public ModelAndView verVistaFiguritaConfig() {
+    public ModelAndView verVistaFiguritaConfig(HttpServletRequest request) {
         List<Seleccion> selecciones = this.servicioSelec.traerSelecciones();
         List<Posicion> posiciones = this.servicioFigu.traerPosiciones();
         List<Rareza> rarezas = this.servicioFigu.traerRarezas();
         List<Album> albunes = this.servicioAlbum.traerAlbunes();
         List<Figurita> figuritas = this.servicioFigu.traerFiguritas();
+        String rol = (String)request.getSession().getAttribute("ROL");
+        Long id = (Long)request.getSession().getAttribute("ID");
+        Usuario userLogueado = (Usuario)request.getSession().getAttribute("USUARIO");
 
         ModelMap model = new ModelMap();
+        model.put("usuario", userLogueado);
+        model.put("id",id);
+        model.put("rol",rol);
         model.put("selecciones", selecciones);
         model.put("rarezas", rarezas);
         model.put("posiciones", posiciones);
@@ -185,5 +194,22 @@ public class ControladorFigurita {
         resBusqueda.put("figEncontradas", figs);
 
         return new ModelAndView("buscarFiguritas", resBusqueda);
+    }
+
+    @RequestMapping(path="/pegar", method = RequestMethod.POST)
+    public ModelAndView pegarFigu(@RequestParam Long albumIdd, @RequestParam Long id, HttpServletRequest request){
+        // buscar album, buscar figurita, agarrar usuario
+        Usuario usuarioPegar = (Usuario)request.getSession().getAttribute("USUARIO");
+        Figurita figuritaPegar = servicioFigu.buscarFigurita(id);
+        Album albumPegar = servicioAlbum.agarrarAlbum(albumIdd);
+        RegistroPegada rp = new RegistroPegada();
+
+        rp.setFigurita(figuritaPegar);
+        rp.setAlbum(albumPegar);
+        rp.setUsuario(usuarioPegar);
+
+        servicioRegistroPegada.pegarRegistro(rp);
+
+        return new ModelAndView("redirect:/perfil");
     }
 }

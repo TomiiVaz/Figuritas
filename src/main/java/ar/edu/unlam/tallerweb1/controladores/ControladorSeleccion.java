@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.modelo.Album;
 import ar.edu.unlam.tallerweb1.modelo.Seleccion;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlbum;
 import ar.edu.unlam.tallerweb1.servicios.ServicioSeleccion;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -34,11 +37,17 @@ public class ControladorSeleccion {
     }
 
     @RequestMapping(path = "/configuracion-seleccion", method = RequestMethod.GET)
-    public ModelAndView verVistaSeleccionConfig() {
+    public ModelAndView verVistaSeleccionConfig(HttpServletRequest request) {
         List<Seleccion> selecciones = this.servicioSelec.traerSelecciones();
         List<Album> albunes = this.servicioAlbum.traerAlbunes();
+        String rol = (String)request.getSession().getAttribute("ROL");
+        Long id = (Long)request.getSession().getAttribute("ID");
+        Usuario userLogueado = (Usuario)request.getSession().getAttribute("USUARIO");
 
         ModelMap model = new ModelMap();
+        model.put("usuario", userLogueado);
+        model.put("id",id);
+        model.put("rol",rol);
         model.put("albunes", albunes);
         model.put("selecciones" , selecciones);
 

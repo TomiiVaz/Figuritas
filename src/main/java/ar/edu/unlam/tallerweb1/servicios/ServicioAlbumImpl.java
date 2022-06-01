@@ -55,4 +55,9 @@ public class ServicioAlbumImpl implements ServicioAlbum {
         this.repoAlbum.eliminarAlbum(albumId);
     }
 
+    @Override
+    public Album agarrarAlbum(Long id) {
+        return repoAlbum.getAlgum(id);
+    }
+
 }
