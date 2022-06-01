@@ -184,19 +184,26 @@ public class ControladorFigurita {
     @RequestMapping(path = "/buscarfiguritas", method = RequestMethod.GET, params = {"busq"})
     public ModelAndView buscarFiguritas(@RequestParam (value = "busq") String busq,
                                         @RequestParam (value = "selSeleccion", required = false) Long sel,
-                                        @RequestParam (value = "selPosicionJugador", required = false) Long pos){
+                                        @RequestParam (value = "selPosicionJugador", required = false) Long pos,
+                                        HttpServletRequest request){
 
-        ModelMap resBusqueda = new ModelMap();
+        ModelMap model = new ModelMap();
 
         List<Seleccion> selecciones = servicioSelec.traerSelecciones();
         List<Posicion> posiciones = servicioFigu.traerPosiciones();
         List<Figurita> figs = servicioFigu.buscarFiguritaPorFiltros(busq,sel,pos);
+        String rol = (String)request.getSession().getAttribute("ROL");
+        Long id = (Long)request.getSession().getAttribute("ID");
+        Usuario userLogueado = (Usuario)request.getSession().getAttribute("USUARIO");
 
-        resBusqueda.put("todasSelecciones", selecciones);
-        resBusqueda.put("todasPosiciones", posiciones);
-        resBusqueda.put("figEncontradas", figs);
+        model.put("usuario", userLogueado);
+        model.put("id",id);
+        model.put("rol",rol);
+        model.put("todasSelecciones", selecciones);
+        model.put("todasPosiciones", posiciones);
+        model.put("figEncontradas", figs);
 
-        return new ModelAndView("buscarFiguritas", resBusqueda);
+        return new ModelAndView("buscarFiguritas", model);
     }
 
     @RequestMapping(path="/pegar", method = RequestMethod.POST)
