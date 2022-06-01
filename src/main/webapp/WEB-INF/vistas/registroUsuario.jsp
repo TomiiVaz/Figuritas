@@ -18,7 +18,7 @@
                 <br>
             </c:if>
             <label for="equipo" class="text-white mb-1">Equipo</label>
-            <input path="equipo" type="text" id="equipo" name='equipo' class="form-control mb-3" placeholder="Ingrese su equipo" required />
+            <input value="${usuario.equipo}" path="equipo" type="text" id="equipo" name='equipo' class="form-control mb-3" placeholder="Ingrese su equipo" required />
 
             <label for='seleccion.id' class='text-white'>Seleccion</label>
             <select path='seleccion.id' id='seleccion.id' name='seleccion.id' class='form-control my-2'>

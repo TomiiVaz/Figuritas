@@ -112,6 +112,7 @@ public class ControladorLogin {
         } else {
             ModelMap model = new ModelMap();
             model.put("error","Mail ya existente");
+            model.put("usuario", usuario);
             return new ModelAndView("registroUsuario", model);
         }
     }
