@@ -1,15 +1,14 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.modelo.*;
-import ar.edu.unlam.tallerweb1.servicios.ServicioAlbum;
-import ar.edu.unlam.tallerweb1.servicios.ServicioFigurita;
-import ar.edu.unlam.tallerweb1.servicios.ServicioSeleccion;
+import ar.edu.unlam.tallerweb1.servicios.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -19,12 +18,15 @@ public class ControladorFigurita {
     private final ServicioSeleccion servicioSelec;
     private final ServicioAlbum servicioAlbum;
 
+    private final ServicioLogin servicioLogin;
+
     @Autowired
-    public ControladorFigurita(ServicioFigurita servicioFigu, ServicioSeleccion servicioSelec, ServicioAlbum servicioAlbum) {
+    public ControladorFigurita(ServicioFigurita servicioFigu, ServicioSeleccion servicioSelec, ServicioAlbum servicioAlbum, ServicioLogin servicioLogin) {
 
         this.servicioFigu = servicioFigu;
         this.servicioSelec = servicioSelec;
         this.servicioAlbum = servicioAlbum;
+        this.servicioLogin = servicioLogin;
     }
 
     @RequestMapping(path = "/ver-figurita", method = RequestMethod.GET)
@@ -156,12 +158,19 @@ public class ControladorFigurita {
     }*/
 
     @RequestMapping(path = "/carta", method = RequestMethod.POST)
-    public ModelAndView verCarta(@RequestParam int id) {
+    public ModelAndView verCarta(@RequestParam int id, HttpServletRequest request) {
 
         Figurita figurita = this.servicioFigu.buscarFigurita((long) id);
+        String rol = (String)request.getSession().getAttribute("ROL");
+        Long idLogueado = (Long)request.getSession().getAttribute("ID");
+
+        Usuario userLogueado = servicioLogin.agarrarUsuarioId((long)id);
 
         ModelMap model = new ModelMap();
         model.put("figurita", figurita);
+        model.put("id",idLogueado);
+        model.put("rol",rol);
+        model.put("usuario", userLogueado);
 
         return new ModelAndView("figurita", model);
     }
