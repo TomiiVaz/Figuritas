@@ -22,14 +22,17 @@ public class ControladorFigurita {
     private final ServicioLogin servicioLogin;
     private final ServicioRegistroPegada servicioRegistroPegada;
 
+    private final ServicioComentario servicioComent;
+
     @Autowired
-    public ControladorFigurita(ServicioFigurita servicioFigu, ServicioSeleccion servicioSelec, ServicioAlbum servicioAlbum, ServicioLogin servicioLogin, ServicioRegistroPegada servicioRegistroPegada) {
+    public ControladorFigurita(ServicioFigurita servicioFigu, ServicioSeleccion servicioSelec, ServicioAlbum servicioAlbum, ServicioLogin servicioLogin, ServicioRegistroPegada servicioRegistroPegada, ServicioComentario servicioComent) {
 
         this.servicioFigu = servicioFigu;
         this.servicioSelec = servicioSelec;
         this.servicioAlbum = servicioAlbum;
         this.servicioLogin = servicioLogin;
         this.servicioRegistroPegada = servicioRegistroPegada;
+        this.servicioComent = servicioComent;
     }
 
     @RequestMapping(path = "/ver-figurita", method = RequestMethod.GET)
@@ -157,6 +160,7 @@ public class ControladorFigurita {
         Figurita figurita = this.servicioFigu.buscarFigurita((long) id);
         String rol = (String)request.getSession().getAttribute("ROL");
         Long idLogueado = (Long)request.getSession().getAttribute("ID");
+        List<Comentario> comentarios= this.servicioComent.traerComentarios();
 
         Usuario userLogueado = servicioLogin.agarrarUsuarioId((long)id);
 
@@ -165,6 +169,7 @@ public class ControladorFigurita {
         model.put("id",idLogueado);
         model.put("rol",rol);
         model.put("usuario", userLogueado);
+        model.put("comentarios", comentarios);
 
         return new ModelAndView("figurita", model);
     }
