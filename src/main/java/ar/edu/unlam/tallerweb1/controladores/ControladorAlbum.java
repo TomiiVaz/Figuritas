@@ -1,10 +1,13 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import ar.edu.unlam.tallerweb1.excepciones.AlbumNullDeletedException;
 import ar.edu.unlam.tallerweb1.excepciones.AlbumRepetidoException;
 import ar.edu.unlam.tallerweb1.modelo.Album;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlbum;
+import net.bytebuddy.implementation.bytecode.constant.DefaultValue;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.Console;
 import java.util.List;
 
 @Controller
@@ -23,12 +27,24 @@ public class ControladorAlbum {
 
     @Autowired
     public ControladorAlbum(ServicioAlbum serviciAl) {
-
         this.servicioAl = serviciAl;
     }
 
+    @RequestMapping(path = "/configuracion-album", method = RequestMethod.GET)
+    public ModelAndView verAlbum(HttpServletRequest request) {
+        List<Album> albunes = this.servicioAl.traerAlbunes();
+        String rol = (String) request.getSession().getAttribute("ROL");
+        Long id = (Long) request.getSession().getAttribute("ID");
+        Usuario userLogueado = (Usuario) request.getSession().getAttribute("USUARIO");
 
-    //    Para poder agregar un album a la base de datos
+        ModelMap model = new ModelMap();
+        model.put("usuario", userLogueado);
+        model.put("id", id);
+        model.put("rol", rol);
+        model.put("albunes", albunes);
+        return new ModelAndView("configAlbum", model);
+    }
+
     @RequestMapping(path = "/agregar-album", method = RequestMethod.POST)
     public ModelAndView agregarAlbum(@ModelAttribute("album") Album album) {
         try {
@@ -42,23 +58,6 @@ public class ControladorAlbum {
             model.put("error", albumRepetidoException.getMessage());
             return new ModelAndView("configAlbum", model);
         }
-    }
-
-
-    //    Para que me traiga todos los albunes de la base de datos
-    @RequestMapping(path = "/configuracion-album", method = RequestMethod.GET)
-    public ModelAndView verAlbum(HttpServletRequest request) {
-        List<Album> albunes = this.servicioAl.traerAlbunes();
-        String rol = (String) request.getSession().getAttribute("ROL");
-        Long id = (Long) request.getSession().getAttribute("ID");
-        Usuario userLogueado = (Usuario) request.getSession().getAttribute("USUARIO");
-
-        ModelMap model = new ModelMap();
-        model.put("albunes", albunes);
-        model.put("usuario", userLogueado);
-        model.put("id", id);
-        model.put("rol", rol);
-        return new ModelAndView("configAlbum", model);
     }
 
     @RequestMapping(path = "/editar-album", method = RequestMethod.POST)
@@ -78,11 +77,19 @@ public class ControladorAlbum {
     }
 
     @RequestMapping(path = "/eliminar-album", method = RequestMethod.POST)
-    public ModelAndView eliminarAlbum(@RequestParam int albumId) {
+    public ModelAndView eliminarAlbum(@RequestParam long albumId) {
+        System.out.println(albumId);
+        try {
+            this.servicioAl.eliminarAlbum(albumId);
+            return new ModelAndView("redirect:/configuracion-album");
+        } catch (AlbumNullDeletedException albumNullDeletedException) {
+            ModelMap model = new ModelMap();
+            List<Album> albunes = this.servicioAl.traerAlbunes();
+            model.put("albunes", albunes);
+            model.put("error", albumNullDeletedException.getMessage());
+            return new ModelAndView("configAlbum", model);
+        }
 
-        this.servicioAl.eliminarAlbum(albumId);
-
-        return new ModelAndView("redirect:/configuracion-album");
     }
 
 }
