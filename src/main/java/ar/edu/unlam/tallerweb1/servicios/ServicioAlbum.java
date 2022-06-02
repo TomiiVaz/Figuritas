@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import ar.edu.unlam.tallerweb1.excepciones.albumRepetidoException;
 import ar.edu.unlam.tallerweb1.modelo.Album;
 
 import java.util.*;
@@ -8,7 +9,7 @@ public interface ServicioAlbum {
 
     void agregarAlbum(Album album);
 
-    Boolean verificarAlbum(String nombre);
+    Boolean verificarAlbum(String nombre) throws albumRepetidoException;
 
     List<Album> traerAlbunes();
 

@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import ar.edu.unlam.tallerweb1.excepciones.albumRepetidoException;
 import ar.edu.unlam.tallerweb1.modelo.Album;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioAlbum;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,14 +27,10 @@ public class ServicioAlbumImpl implements ServicioAlbum {
     }
 
     @Override
-    public Boolean verificarAlbum(String nombre) {
-        List<Album> albunesList = traerAlbunes();
-        for (Album albun : albunesList) {
-            if (albun.getNombre().equals(nombre)) {
-                return false;
-            }
-        }
-        return true;
+    public Boolean verificarAlbum(String nombre) throws albumRepetidoException {
+        if (this.repoAlbum.getAlbum(nombre) != null) {
+            return true;
+        } else throw new albumRepetidoException("El nombre del album está en uso");
 
     }
 
@@ -57,7 +54,7 @@ public class ServicioAlbumImpl implements ServicioAlbum {
 
     @Override
     public Album agarrarAlbum(Long id) {
-        return repoAlbum.getAlgum(id);
+        return repoAlbum.getAlbum(id);
     }
 
 }
