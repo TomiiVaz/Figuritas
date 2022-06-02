@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import ar.edu.unlam.tallerweb1.excepciones.AlbumRepetidoException;
 import ar.edu.unlam.tallerweb1.modelo.Album;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlbum;
@@ -30,14 +31,15 @@ public class ControladorAlbum {
     //    Para poder agregar un album a la base de datos
     @RequestMapping(path = "/agregar-album", method = RequestMethod.POST)
     public ModelAndView agregarAlbum(@ModelAttribute("album") Album album) {
-        if (servicioAl.verificarAlbum(album.getNombre())) {
+        try {
+            servicioAl.verificarAlbum(album.getNombre());
             servicioAl.agregarAlbum(album);
             return new ModelAndView("redirect:/configuracion-album");
-        } else {
+        } catch (AlbumRepetidoException albumRepetidoException) {
             ModelMap model = new ModelMap();
             List<Album> albunes = this.servicioAl.traerAlbunes();
             model.put("albunes", albunes);
-            model.put("error", "Album ya existente");
+            model.put("error", albumRepetidoException.getMessage());
             return new ModelAndView("configAlbum", model);
         }
     }
@@ -47,15 +49,15 @@ public class ControladorAlbum {
     @RequestMapping(path = "/configuracion-album", method = RequestMethod.GET)
     public ModelAndView verAlbum(HttpServletRequest request) {
         List<Album> albunes = this.servicioAl.traerAlbunes();
-        String rol = (String)request.getSession().getAttribute("ROL");
-        Long id = (Long)request.getSession().getAttribute("ID");
-        Usuario userLogueado = (Usuario)request.getSession().getAttribute("USUARIO");
+        String rol = (String) request.getSession().getAttribute("ROL");
+        Long id = (Long) request.getSession().getAttribute("ID");
+        Usuario userLogueado = (Usuario) request.getSession().getAttribute("USUARIO");
 
         ModelMap model = new ModelMap();
         model.put("albunes", albunes);
         model.put("usuario", userLogueado);
-        model.put("id",id);
-        model.put("rol",rol);
+        model.put("id", id);
+        model.put("rol", rol);
         return new ModelAndView("configAlbum", model);
     }
 
@@ -71,7 +73,7 @@ public class ControladorAlbum {
     @RequestMapping(path = "/eliminar-album", method = RequestMethod.POST, params = {"album.id"})
     public ModelAndView eliminarAlbum(@RequestParam int albumId) {
 
-        this.servicioAl.eliminarAlbum( albumId);
+        this.servicioAl.eliminarAlbum(albumId);
 
         return new ModelAndView("redirect:/configuracion-album");
     }
