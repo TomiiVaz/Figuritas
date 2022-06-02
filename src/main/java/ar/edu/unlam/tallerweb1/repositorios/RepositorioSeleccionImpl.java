@@ -31,7 +31,7 @@ public class RepositorioSeleccionImpl implements RepositorioSeleccion {
         final Session session = sessionFactory.getCurrentSession();
         return (List<Seleccion>) session.createCriteria(Seleccion.class)
                 .list();
-    } // ?????????????????????
+    }
 
     @Override
     public void editarSeleccion(Long id, String nombreNuevo) {

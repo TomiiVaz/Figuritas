@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import ar.edu.unlam.tallerweb1.excepciones.UsuarioMailExistenteException;
 import ar.edu.unlam.tallerweb1.modelo.Figurita;
 import ar.edu.unlam.tallerweb1.modelo.Seleccion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
@@ -78,14 +79,14 @@ public class ControladorLogin {
     public ModelAndView irAHome(HttpServletRequest request) {
 
         List<Figurita> figuritas = this.servicioFigu.traerFiguritas();
-        String rol = (String)request.getSession().getAttribute("ROL");
-        Long id = (Long)request.getSession().getAttribute("ID");
-        Usuario userLogueado = (Usuario)request.getSession().getAttribute("USUARIO");
+        String rol = (String) request.getSession().getAttribute("ROL");
+        Long id = (Long) request.getSession().getAttribute("ID");
+        Usuario userLogueado = (Usuario) request.getSession().getAttribute("USUARIO");
 
         ModelMap model = new ModelMap();
         model.put("usuario", userLogueado);
-        model.put("id",id);
-        model.put("rol",rol);
+        model.put("id", id);
+        model.put("rol", rol);
         model.put("figuritas", figuritas);
 
         return new ModelAndView("home", model);
@@ -107,13 +108,14 @@ public class ControladorLogin {
 
     @RequestMapping(path = "/registrarme", method = RequestMethod.POST)
     public ModelAndView guardarUsuario(@ModelAttribute("usuario") Usuario usuario) {
-        if (servicioLogin.verificarMail(usuario.getEmail())) {
+        try {
+            servicioLogin.verificarMail(usuario.getEmail());
             usuario.setRol("CLI");
             servicioLogin.registrarUsuario(usuario);
             return new ModelAndView("redirect:/home");
-        } else {
+        } catch (UsuarioMailExistenteException usuarioMailExistenteException) {
             ModelMap model = new ModelMap();
-            model.put("error","Mail ya existente");
+            model.put("error", usuarioMailExistenteException.getMessage());
             model.put("usuario", usuario);
             model.put("selecciones", servicioSeleccion.traerSelecciones());
             return new ModelAndView("registroUsuario", model);
