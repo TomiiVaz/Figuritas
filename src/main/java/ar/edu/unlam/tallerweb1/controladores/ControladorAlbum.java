@@ -1,6 +1,6 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
-import ar.edu.unlam.tallerweb1.excepciones.albumRepetidoException;
+import ar.edu.unlam.tallerweb1.excepciones.AlbumRepetidoException;
 import ar.edu.unlam.tallerweb1.modelo.Album;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlbum;
@@ -30,12 +30,12 @@ public class ControladorAlbum {
 
     //    Para poder agregar un album a la base de datos
     @RequestMapping(path = "/agregar-album", method = RequestMethod.POST)
-    public ModelAndView agregarAlbum(@ModelAttribute("album") Album album) throws albumRepetidoException {
+    public ModelAndView agregarAlbum(@ModelAttribute("album") Album album) throws AlbumRepetidoException {
         try {
             servicioAl.verificarAlbum(album.getNombre());
             servicioAl.agregarAlbum(album);
             return new ModelAndView("redirect:/configuracion-album");
-        } catch (albumRepetidoException albumRepetidoException) {
+        } catch (AlbumRepetidoException albumRepetidoException) {
             ModelMap model = new ModelMap();
             List<Album> albunes = this.servicioAl.traerAlbunes();
             model.put("albunes", albunes);
