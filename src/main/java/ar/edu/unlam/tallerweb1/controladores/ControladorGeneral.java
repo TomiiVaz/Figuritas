@@ -88,6 +88,6 @@ public class ControladorGeneral {
         model.put("id",id);
         model.put("rol",rol);
 
-        return new ModelAndView("nosotros");
+        return new ModelAndView("nosotros", model);
     }
 }

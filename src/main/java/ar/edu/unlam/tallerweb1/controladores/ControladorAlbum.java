@@ -64,10 +64,17 @@ public class ControladorAlbum {
     @RequestMapping(path = "/editar-album", method = RequestMethod.POST)
     public ModelAndView editarAlbunes(@RequestParam int albumId,
                                       @RequestParam String nombreNuevo) {
+        try {
+            this.servicioAl.editarAlbum((long) albumId, nombreNuevo);
+            return new ModelAndView("redirect:/configuracion-album");
+        } catch (AlbumRepetidoException albumRepetidoException) {
+            ModelMap model = new ModelMap();
+            List<Album> albunes = this.servicioAl.traerAlbunes();
+            model.put("albunes", albunes);
+            model.put("error", albumRepetidoException.getMessage());
+            return new ModelAndView("configAlbum", model);
+        }
 
-        this.servicioAl.editarAlbum((long) albumId, nombreNuevo);
-
-        return new ModelAndView("redirect:/configuracion-album");
     }
 
     @RequestMapping(path = "/eliminar-album", method = RequestMethod.POST)

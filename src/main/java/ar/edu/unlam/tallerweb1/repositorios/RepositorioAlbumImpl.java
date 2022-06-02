@@ -46,7 +46,6 @@ public class RepositorioAlbumImpl implements RepositorioAlbum {
 
         //Lo pongo en la db
         session.update(album);
-
     }
 
     @Override
