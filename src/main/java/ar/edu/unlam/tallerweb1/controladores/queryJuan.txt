@@ -1,0 +1,21 @@
+use db;
+
+insert into seleccion(nombre) values('Argentina'), ('Brazil'), ('Italia'), ('Francia');
+
+insert into rareza(descripcion) values ('Legendaria'),('Rara'),('Comun');
+
+insert into posicion(descripcion) values ('Arquero'),('Defensor'),('Mediocampista'), ('Delantero');
+
+insert into album(nombre) values ('Mundial-Qatar-2022'),('Mundial-Rusia-2018'),('Mundial-Brasil-2014');
+
+INSERT INTO figurita (dorsal, equipo, nombre, album_id, posicion_id, rareza_id, seleccion_id)
+values
+    (19, 'Boca', 'Batistuta', 1, 4, 3, 1),
+    (10, 'Juventus', 'Zidane', 2, 4, 3, 4),
+    (9, 'Inter', 'Ronaldo', 3, 4, 3, 2);
+
+insert into usuario(activo, email, equipo, nombre, password, rol, seleccion_id)
+                values(true,'admin@gmail.com', 'Boquita', 'Admin', '123','ADM',1);
+
+insert into usuario(activo, email, equipo, nombre, password, rol, seleccion_id)
+                values(true,'dami@gmail.com', 'Boca', 'Damian', '123','ADM',2);
