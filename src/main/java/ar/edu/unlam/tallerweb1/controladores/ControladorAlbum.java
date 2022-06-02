@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
-public class ControladorAlbum {
+public class ControladorAlbum{
 
     private final ServicioAlbum servicioAl;
 
@@ -30,7 +30,7 @@ public class ControladorAlbum {
 
     //    Para poder agregar un album a la base de datos
     @RequestMapping(path = "/agregar-album", method = RequestMethod.POST)
-    public ModelAndView agregarAlbum(@ModelAttribute("album") Album album) throws AlbumRepetidoException {
+    public ModelAndView agregarAlbum(@ModelAttribute("album") Album album){
         try {
             servicioAl.verificarAlbum(album.getNombre());
             servicioAl.agregarAlbum(album);
