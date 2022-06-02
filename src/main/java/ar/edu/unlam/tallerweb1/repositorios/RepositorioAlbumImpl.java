@@ -72,7 +72,7 @@ public class RepositorioAlbumImpl implements RepositorioAlbum {
     public Album getAlbum(String nombre) {
         final Session session = sessionFactory.getCurrentSession();
         return (Album) session.createCriteria(Album.class)
-                .add(Restrictions.eq("nombre", nombre))
+                .add(Restrictions.eq("Nombre", nombre))
                 .uniqueResult();
     }
 
