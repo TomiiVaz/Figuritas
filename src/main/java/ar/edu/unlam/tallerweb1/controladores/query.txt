@@ -13,7 +13,8 @@ select * from album;
 select * from usuario;
 INSERT INTO usuario(activo, email, equipo, nombre, password, rol, seleccion_id)
 values
-    (true, 'a@a.com', 'Boca', 'a', 'a', 'ADM',1);
+    (true, 'a@a.com', 'Boca', 'Jeff', 'a', 'ADM',1),
+    (true, 'b@b.com', 'Barza', 'Elon', 'b', 'ADM',2);
 
 
 
@@ -36,7 +37,14 @@ INSERT INTO comentario(descripcion, figurita_id, usuario_id)
 values
     ('La mejor figurita del mundo mundial!!!', 3 , 1),
     ('La mejor de todas lejos!!!', 2 , 1),
-    ('Esta la reeee quiero!', 1 , 1);
+    ('Esta la reeee quiero!', 1 , 1),
+    ('Cabeceador epico!!!', 4 , 1),
+    ('Of fenomeno!!!', 5 , 1),
+    ('El mejor delantero del mundo!', 5 , 1),
+    ('Que crack el gordo Ronaldo!', 5 , 2);
+
+
+
 
 /*Queries*/
 
