@@ -47,7 +47,7 @@
                        method='post'
                        action='agregar-album'
                        modelAttribute="albunes">
-                <input class='my-2 form-control' type='text' path="nombre" name='nombre' id='nombre'
+                <input class='my-2 form-control' type='text' name='nombre' id='nombre'
                        placeholder='Ingrese el nombre del álbum'>
                 <button type='submit' class='btn btn-success my-2'>Agregar</button>
             </form:form>
@@ -64,7 +64,7 @@
                        method='post'
                        action='editar-album'
                        modelAttribute="albunes">
-                <select path='albumId' id='albumId' name='albumId' class='form-control my-2'>
+                <select id='album.id' name='album.id' class='form-control my-2'>
                     <c:forEach var="album" items="${albunes}">
                         <option value='Default' selected hidden>Seleccionar un álbum</option>
                         <option value='${album.id}'>${album.nombre}</option>
