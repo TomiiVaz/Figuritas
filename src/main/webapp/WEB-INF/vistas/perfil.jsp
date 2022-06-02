@@ -12,7 +12,7 @@
         <div class="col">
             <h1 class="mb-4 mt-2 text-white">${usuario.nombre}</h1>
             <div class="m-0">
-                <img src="img/messi1.jpg" alt="Foto Perfil" class="img-thumbnail img-fluid m-0">
+                <img src="img/${usuario.nombre}.jpg" alt="Foto Perfil" class="img-thumbnail img-fluid m-0">
             </div>
             <button class="btn btn-primary mb-5 mt-3">Editar</button>
         </div>
