@@ -28,7 +28,7 @@ public class Album {
     }
 
     public void setNombre(String Nombre) {
-        Nombre = Nombre;
+        this.Nombre = Nombre;
     }
 
     public Usuario getUsuario() {
