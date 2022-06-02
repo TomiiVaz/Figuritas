@@ -9,7 +9,7 @@ public interface ServicioAlbum {
 
     void agregarAlbum(Album album);
 
-    Boolean verificarAlbum(String nombre) throws AlbumRepetidoException;
+    void verificarAlbum(String nombre);
 
     List<Album> traerAlbunes();
 

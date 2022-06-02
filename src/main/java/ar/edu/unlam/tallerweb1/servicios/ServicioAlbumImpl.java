@@ -27,11 +27,10 @@ public class ServicioAlbumImpl implements ServicioAlbum {
     }
 
     @Override
-    public Boolean verificarAlbum(String nombre) throws AlbumRepetidoException {
-        if (this.repoAlbum.getAlbum(nombre) != null) {
-            return true;
-        } else throw new AlbumRepetidoException("El nombre del album está en uso");
-
+    public void verificarAlbum(String nombre) {
+        if (this.repoAlbum.getAlbum(nombre) == null) {
+            throw new AlbumRepetidoException("El nombre del album está en uso");
+        }
     }
 
 
