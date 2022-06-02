@@ -76,15 +76,13 @@
                 <input class='my-2 form-control' type='text' path='descripcion' id='descripcion' name='descripcion' required>
 
                 <%--    input invisible paso el id de la figurita para darselo al comentario--%>
-                <input class='d-none' type="text"  path='figurita.id' id='figurita.id' name='figurita.id' value="${figurita.id}">
+                <input class='d-none' type="text" id='figurita.id' name='figurita.id' value="${figurita.id}">
 
                 <%--    input invisible paso el id de la usuario para darselo al comentario--%>
-                <input class='d-none' type="text"  path='usuario.id' id='usuario.id' name='usuario.id' value="${usuario.id}">
+                <input class='d-none' type="text" id='usuario.id' name='usuario.id' value="${id}">
 
                 <button type='submit' class='btn btn-success'>Enviar</button>
             </form:form>
-
-
             </c:if>
 
         </div>
