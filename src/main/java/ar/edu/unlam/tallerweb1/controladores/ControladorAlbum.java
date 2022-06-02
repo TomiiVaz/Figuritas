@@ -61,7 +61,7 @@ public class ControladorAlbum {
         return new ModelAndView("configAlbum", model);
     }
 
-    @RequestMapping(path = "/editar-album", method = RequestMethod.POST, params = {"album.id", "nombreNuevo"})
+    @RequestMapping(path = "/editar-album", method = RequestMethod.POST)
     public ModelAndView editarAlbunes(@RequestParam int albumId,
                                       @RequestParam String nombreNuevo) {
 
@@ -70,7 +70,7 @@ public class ControladorAlbum {
         return new ModelAndView("redirect:/configuracion-album");
     }
 
-    @RequestMapping(path = "/eliminar-album", method = RequestMethod.POST, params = {"album.id"})
+    @RequestMapping(path = "/eliminar-album", method = RequestMethod.POST)
     public ModelAndView eliminarAlbum(@RequestParam int albumId) {
 
         this.servicioAl.eliminarAlbum(albumId);

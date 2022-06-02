@@ -64,7 +64,7 @@
                        method='post'
                        action='editar-album'
                        modelAttribute="albunes">
-                <select id='album.id' name='album.id' class='form-control my-2'>
+                <select path="albumId" id='albumId' name='albumId' class='form-control my-2'>
                     <c:forEach var="album" items="${albunes}">
                         <option value='Default' selected hidden>Seleccionar un álbum</option>
                         <option value='${album.id}'>${album.nombre}</option>
