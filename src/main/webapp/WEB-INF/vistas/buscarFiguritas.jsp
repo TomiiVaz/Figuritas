@@ -56,19 +56,7 @@
     <!--listado de figuritas-->
     <div class="container bg-dark">
         <div class="row mt-4 bg-dark gx-2">
-
-            <%-- Plantilla --%>
-            <div class="col-2 my-1">
-                <div class="figuritaEncontrada border rounded border-white">
-                    <a href="carta" class="btn">
-                        <img src="img/messi-god-no.jpg" alt="foto1" width="95% " class="rounded m-auto d-block">
-                        <div class="h4 text-center my-auto text-white">Messi</div>
-                    </a>
-                </div>
-            </div>
-
-
-
+            <!-- preguntar o ver que onda porque del home se llama post y desde aca como get -->
             <c:forEach var="item" items="${figEncontradas}">
                 <div class="col-2 my-1">
                     <div class="figuritaEncontrada border rounded border-white">
