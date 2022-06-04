@@ -9,15 +9,24 @@
 <main class=".container-fluid text-center">
     <!-- Parte Arriba -->
     <div class="row align-items-center justify-content-center m-2">
-        <div class="col">
+        <div class="container-fluid text-center mt-5">
+            <a href="home" class="text-decoration-none">
+                <button type='button' class='btn btn-warning my-2'>Volver</button>
+            </a>
+        </div>
+        <div class="col mt-5">
             <h1 class="mb-4 mt-2 text-white">${usuario.nombre}</h1>
             <div class="m-0">
                 <img src="img/${usuario.nombre}.jpg" alt="Foto Perfil" class="img-thumbnail img-fluid m-0">
             </div>
-            <button class="btn btn-primary mb-5 mt-3">Editar</button>
+            <button class="btn btn-primary mt-4" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseEditar"
+                    aria-expanded="false" aria-controls="collapseEditar">
+                Editar
+            </button>
         </div>
         <%--        Datos--%>
-        <div class="col m-2 d-flex align-items-center justify-content-around">
+        <div class="col mt-5 m-2 d-flex align-items-center justify-content-around">
             <div class="text-start">
                 <h4 class="text-white">Nombre de Usuario</h4>
                 <h4 class="text-white">Equipo:</h4>
@@ -34,8 +43,34 @@
         </div>
         <!-- /Parte Arriba -->
 
+        <%--        Parte editar--%>
+        <div class="collapse mt-5 mb-5 container-fluid" id="collapseEditar">
+            <div class="card card-body bg-dark border-0 container">
+                <h2 class="text-white text-center">Formulario editar</h2>
+                <form:form class='text-center d-flex flex-column px-5 px-5 py-2 bg-dark border-0'
+                           method='post'
+                           action='perfil-editar'
+                           modelAttribute="albunes">
+                    <input class='form-control my-2' type='text' name='nombre' id='nombre'
+                           placeholder='Nombre'>
+                    <input class='form-control my-2' type='text' name='email' id='email'
+                           placeholder='Email'>
+                    <input class='form-control my-2' type='text' name='equipo' id='equipo'
+                           placeholder='Equipo'>
+                    <select id='seleccionId' name='seleccionId' class='form-control my-2'>
+                        <c:forEach var="seleccion" items="${selecciones}">
+                            <option value='Default' selected hidden>Seleccionar una selección</option>
+                            <option value='${seleccion.id}'>${seleccion.nombre}</option>
+                        </c:forEach>
+                    </select>
+                    <button type='submit' class='btn btn-success mt-1'>Editar</button>
+                </form:form>
+            </div>
+        </div>
+        <%--        /Parte editar--%>
+
         <!-- Parte Album -->
-        <div class="container-fluid">
+        <div class="container-fluid mt-5">
             <h2 class="mb-3 text-white">Mi Album</h2>
             <div class="text-end container">
                 <%--                Agregar figurita form--%>

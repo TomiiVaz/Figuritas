@@ -56,7 +56,7 @@ public class ControladorGeneral {
         model.put("id",id);
         model.put("rol",rol);
 
-        return new ModelAndView("configUsuario");
+        return new ModelAndView("configUsuario", model);
     }
 
     @RequestMapping(path = "/perfil", method = RequestMethod.GET)
@@ -88,6 +88,6 @@ public class ControladorGeneral {
         model.put("id",id);
         model.put("rol",rol);
 
-        return new ModelAndView("nosotros");
+        return new ModelAndView("nosotros", model);
     }
 }

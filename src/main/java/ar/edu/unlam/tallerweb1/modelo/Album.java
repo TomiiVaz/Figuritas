@@ -10,7 +10,7 @@ public class Album {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String Nombre;
+    private String nombre;
 
     @ManyToOne
     private Usuario usuario;
@@ -24,11 +24,12 @@ public class Album {
     }
 
     public String getNombre() {
-        return Nombre;
+        return nombre;
     }
 
-    public void setNombre(String Nombre) {
-        this.Nombre = Nombre;
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public Usuario getUsuario() {

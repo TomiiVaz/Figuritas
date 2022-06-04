@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import ar.edu.unlam.tallerweb1.excepciones.UsuarioMailExistenteException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +19,7 @@ import java.util.List;
 @Transactional
 public class ServicioLoginImpl implements ServicioLogin {
 
-    private RepositorioUsuario repoUsuaio;
+    private final RepositorioUsuario repoUsuaio;
 
     @Autowired
     public ServicioLoginImpl(RepositorioUsuario servicioLoginDao) {
@@ -36,19 +37,15 @@ public class ServicioLoginImpl implements ServicioLogin {
     }
 
     @Override
-    public Boolean verificarMail(String mail) {
-        List<String> mails = repoUsuaio.getMailUsuario();
-        for (String mailDeI : mails) {
-            if (mailDeI.equals(mail)) {
-                return false;
-            }
+    public void verificarMail(String mail) {
+        if (this.repoUsuaio.getUsuario(mail) != null) {
+                throw new UsuarioMailExistenteException("Mail ya registrado");
         }
-        return true;
     }
 
     @Override
     public Usuario agarrarUsuarioId(Long id) {
-        return repoUsuaio.getUsuarioId(id);
+        return repoUsuaio.getUsuario(id);
     }
 
 }

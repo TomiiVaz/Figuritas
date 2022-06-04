@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -217,7 +216,7 @@ public class ControladorFigurita {
         // buscar album, buscar figurita, agarrar usuario
         Usuario usuarioPegar = (Usuario)request.getSession().getAttribute("USUARIO");
         Figurita figuritaPegar = servicioFigu.buscarFigurita(id);
-        Album albumPegar = servicioAlbum.agarrarAlbum(albumIdd);
+        Album albumPegar = servicioAlbum.getAlbum(albumIdd);
         RegistroPegada rp = new RegistroPegada();
 
         rp.setFigurita(figuritaPegar);

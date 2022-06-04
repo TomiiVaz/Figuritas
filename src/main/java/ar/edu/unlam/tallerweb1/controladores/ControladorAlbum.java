@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import ar.edu.unlam.tallerweb1.excepciones.AlbumNullDeletedException;
 import ar.edu.unlam.tallerweb1.excepciones.AlbumRepetidoException;
 import ar.edu.unlam.tallerweb1.modelo.Album;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
@@ -23,12 +24,24 @@ public class ControladorAlbum {
 
     @Autowired
     public ControladorAlbum(ServicioAlbum serviciAl) {
-
         this.servicioAl = serviciAl;
     }
 
+    @RequestMapping(path = "/configuracion-album", method = RequestMethod.GET)
+    public ModelAndView verAlbum(HttpServletRequest request) {
+        List<Album> albunes = this.servicioAl.traerAlbunes();
+        String rol = (String) request.getSession().getAttribute("ROL");
+        Long id = (Long) request.getSession().getAttribute("ID");
+        Usuario userLogueado = (Usuario) request.getSession().getAttribute("USUARIO");
 
-    //    Para poder agregar un album a la base de datos
+        ModelMap model = new ModelMap();
+        model.put("usuario", userLogueado);
+        model.put("id", id);
+        model.put("rol", rol);
+        model.put("albunes", albunes);
+        return new ModelAndView("configAlbum", model);
+    }
+
     @RequestMapping(path = "/agregar-album", method = RequestMethod.POST)
     public ModelAndView agregarAlbum(@ModelAttribute("album") Album album) {
         try {
@@ -44,38 +57,36 @@ public class ControladorAlbum {
         }
     }
 
-
-    //    Para que me traiga todos los albunes de la base de datos
-    @RequestMapping(path = "/configuracion-album", method = RequestMethod.GET)
-    public ModelAndView verAlbum(HttpServletRequest request) {
-        List<Album> albunes = this.servicioAl.traerAlbunes();
-        String rol = (String) request.getSession().getAttribute("ROL");
-        Long id = (Long) request.getSession().getAttribute("ID");
-        Usuario userLogueado = (Usuario) request.getSession().getAttribute("USUARIO");
-
-        ModelMap model = new ModelMap();
-        model.put("albunes", albunes);
-        model.put("usuario", userLogueado);
-        model.put("id", id);
-        model.put("rol", rol);
-        return new ModelAndView("configAlbum", model);
-    }
-
-    @RequestMapping(path = "/editar-album", method = RequestMethod.POST, params = {"album.id", "nombreNuevo"})
+    @RequestMapping(path = "/editar-album", method = RequestMethod.POST)
     public ModelAndView editarAlbunes(@RequestParam int albumId,
                                       @RequestParam String nombreNuevo) {
+        try {
+            this.servicioAl.editarAlbum((long) albumId, nombreNuevo);
+            return new ModelAndView("redirect:/configuracion-album");
+        } catch (AlbumRepetidoException albumRepetidoException) {
+            ModelMap model = new ModelMap();
+            List<Album> albunes = this.servicioAl.traerAlbunes();
+            model.put("albunes", albunes);
+            model.put("error", albumRepetidoException.getMessage());
+            return new ModelAndView("configAlbum", model);
+        }
 
-        this.servicioAl.editarAlbum((long) albumId, nombreNuevo);
-
-        return new ModelAndView("redirect:/configuracion-album");
     }
 
-    @RequestMapping(path = "/eliminar-album", method = RequestMethod.POST, params = {"album.id"})
-    public ModelAndView eliminarAlbum(@RequestParam int albumId) {
+    @RequestMapping(path = "/eliminar-album", method = RequestMethod.POST)
+    public ModelAndView eliminarAlbum(@RequestParam long albumId) {
+        System.out.println(albumId);
+        try {
+            this.servicioAl.eliminarAlbum(albumId);
+            return new ModelAndView("redirect:/configuracion-album");
+        } catch (AlbumNullDeletedException albumNullDeletedException) {
+            ModelMap model = new ModelMap();
+            List<Album> albunes = this.servicioAl.traerAlbunes();
+            model.put("albunes", albunes);
+            model.put("error", albumNullDeletedException.getMessage());
+            return new ModelAndView("configAlbum", model);
+        }
 
-        this.servicioAl.eliminarAlbum(albumId);
-
-        return new ModelAndView("redirect:/configuracion-album");
     }
 
 }

@@ -1,6 +1,5 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
-import ar.edu.unlam.tallerweb1.excepciones.AlbumRepetidoException;
 import ar.edu.unlam.tallerweb1.modelo.Album;
 
 import java.util.*;
@@ -15,7 +14,7 @@ public interface ServicioAlbum {
 
     void editarAlbum(Long albumId, String nombreNuevo);
 
-    void eliminarAlbum(long albumId);
+    void eliminarAlbum(Long albumId);
 
-    Album agarrarAlbum(Long id);
+    Album getAlbum(Long id);
 }
