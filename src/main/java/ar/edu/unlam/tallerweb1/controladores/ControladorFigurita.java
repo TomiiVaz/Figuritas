@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Controller
 public class ControladorFigurita {
@@ -226,4 +227,41 @@ public class ControladorFigurita {
 
         return new ModelAndView("redirect:/perfil");
     }
+
+    @RequestMapping(path = "/sorteo-figurita", method = RequestMethod.GET)
+    public ModelAndView verCarta(HttpServletRequest request) {
+
+
+        List<Figurita> figuritas = this.servicioFigu.traerFiguritas();
+        int indiceAleatorio = numeroAleatorioEnRango(0, figuritas.size() - 1);
+        int indiceAleatorio2 = numeroAleatorioEnRango(0, figuritas.size() - 1);
+        int indiceAleatorio3 = numeroAleatorioEnRango(0, figuritas.size() - 1);
+
+        Figurita figurita1 = figuritas.get(indiceAleatorio);
+        Figurita figurita2 = figuritas.get(indiceAleatorio2);
+        Figurita figurita3 = figuritas.get(indiceAleatorio3);
+
+        ModelMap model = new ModelMap();
+        model.put("figurita1", figurita1);
+        model.put("figurita2", figurita2);
+        model.put("figurita3", figurita3);
+
+        return new ModelAndView("sorteo", model);
+    }
+
+    private int numeroAleatorioEnRango(int minimo, int maximo) {
+        return ThreadLocalRandom.current().nextInt(minimo, maximo + 1);
+    }
+
+
+    @RequestMapping(path = "/asignar-ganador", method = RequestMethod.POST)
+    public ModelAndView AsignarFiguritaAlGanador(@ModelAttribute("figurita") Figurita figurita,HttpServletRequest request) {
+
+        Long idLogueado = (Long)request.getSession().getAttribute("ID"); //esto no anda
+        figurita.setId(idLogueado); // esto no anda
+        this.servicioFigu.agregarFigurita(figurita);
+
+        return new ModelAndView("redirect:/home");
+    }
+
 }
