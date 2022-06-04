@@ -26,15 +26,17 @@
     <div class="container d-flex justify-content-around flex-wrap mt-5">
         <!-- Figurita 1  -->
         <div>
-            <img src="img/question.svg" width="300px" height="400px" id="foto1">
+            <img src="img/question.svg" width="300px" height="350px" id="foto1">
 
-            <img src="img/${figurita1.nombre}.jpg" class="d-block img-fluid visually-hidden" width="300px" height="400px" id="foto11">
-            <form:form class='text-center d-flex flex-column px-5 px-5 py-2 bg-dark border-0 visually-hidden'
+            <img src="img/${figurita1.nombre}.jpg" class="d-block visually-hidden border border-white" width="300px" height="350px" id="foto11">
+
+            <form:form class='text-center d-flex flex-column px-5 py-2 bg-dark border-0 visually-hidden'
                        method='post'
                        action='asignar-ganador'
                        modelAttribute="figurita"
                        id='foto111'>
 
+                <h4 class="text-center text-white">${figurita1.nombre}</h4>
                 <%--    input invisible paso el nombre de la figurita para borrarla--%>
                 <input class='invisible' type="text"  name='nombre' value="${figurita1.nombre}">
 
@@ -44,14 +46,16 @@
 
         <!-- Figurita 2 -->
         <div>
-            <img src="img/question.svg" width="300px" height="400px" id="foto2">
-            <img src="img/${figurita2.nombre}.jpg" class="d-block img-fluid visually-hidden" width="300px" height="400px" id="foto22">
-            <form:form class='text-center d-flex flex-column px-5 px-5 py-2 bg-dark border-0 visually-hidden'
+            <img src="img/question.svg" width="300px" height="350px" id="foto2">
+            <img src="img/${figurita2.nombre}.jpg" class="d-block visually-hidden border border-white" width="300px" height="350px" id="foto22">
+
+            <form:form class='text-center d-flex flex-column px-5 py-2 bg-dark border-0 visually-hidden'
                        method='post'
                        action='asignar-ganador'
                        modelAttribute="figurita"
                        id='foto222'>
 
+                <h4 class="text-center text-white">${figurita2.nombre}</h4>
                 <%--    input invisible paso el nombre de la figurita para borrarla--%>
                 <input class='invisible' type="text"  name='nombre' value="${figurita2.nombre}">
 
@@ -61,18 +65,20 @@
 
         <!-- Figurita 3 -->
         <div>
-            <img src="img/question.svg" width="300px" height="400px" id="foto3">
-            <img src="img/${figurita3.nombre}.jpg" class="d-block img-fluid visually-hidden" width="300px" height="400px" id="foto33">
-            <form:form class='text-center d-flex flex-column px-5 px-5 py-2 bg-dark border-0 visually-hidden'
+            <img src="img/question.svg" width="300px" height="350px" id="foto3">
+            <img src="img/${figurita3.nombre}.jpg" class="d-block visually-hidden border border-white" width="300px" height="350px" id="foto33">
+
+            <form:form class='text-center d-flex flex-column px-5 py-2 bg-dark border-0 visually-hidden'
                        method='post'
                        action='asignar-ganador'
                        modelAttribute="figurita"
                         id='foto333'>
 
+                <h4 class="text-center text-white">${figurita3.nombre}</h4>
                 <%--    input invisible paso el nombre de la figurita para borrarla--%>
                 <input class='invisible' type="text"  name='nombre' value="${figurita3.nombre}">
 
-                <button type='submit' class='btn btn-danger my-2'>Reclamar fSigurita</button>
+                <button type='submit' class='btn btn-danger my-2'>Reclamar figurita</button>
             </form:form>
         </div>
 
