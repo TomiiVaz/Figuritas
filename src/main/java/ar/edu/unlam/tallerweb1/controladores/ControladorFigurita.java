@@ -160,7 +160,7 @@ public class ControladorFigurita {
         Figurita figurita = this.servicioFigu.buscarFigurita((long) id);
         String rol = (String)request.getSession().getAttribute("ROL");
         Long idLogueado = (Long)request.getSession().getAttribute("ID");
-        List<Comentario> comentarios= this.servicioComent.traerComentarios();
+        List<Comentario> comentariosFiltrados= this.servicioComent.traerComentariosPorID(figurita.getId());
 
         Usuario userLogueado = servicioLogin.agarrarUsuarioId((long)id);
 
@@ -169,7 +169,7 @@ public class ControladorFigurita {
         model.put("id",idLogueado);
         model.put("rol",rol);
         model.put("usuario", userLogueado);
-        model.put("comentarios", comentarios);
+        model.put("comentariosFiltrados", comentariosFiltrados);
 
         return new ModelAndView("figurita", model);
     }
@@ -231,6 +231,9 @@ public class ControladorFigurita {
     @RequestMapping(path = "/sorteo-figurita", method = RequestMethod.GET)
     public ModelAndView verCarta(HttpServletRequest request) {
 
+        String rol = (String)request.getSession().getAttribute("ROL");
+        Long id = (Long)request.getSession().getAttribute("ID");
+
 
         List<Figurita> figuritas = this.servicioFigu.traerFiguritas();
         int indiceAleatorio = numeroAleatorioEnRango(0, figuritas.size() - 1);
@@ -242,6 +245,8 @@ public class ControladorFigurita {
         Figurita figurita3 = figuritas.get(indiceAleatorio3);
 
         ModelMap model = new ModelMap();
+        model.put("id",id);
+        model.put("rol",rol);
         model.put("figurita1", figurita1);
         model.put("figurita2", figurita2);
         model.put("figurita3", figurita3);

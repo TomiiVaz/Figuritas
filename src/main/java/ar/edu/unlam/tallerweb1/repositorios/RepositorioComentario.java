@@ -11,4 +11,8 @@ public interface RepositorioComentario {
     void guardar(Comentario comentario);
 
     List<Comentario> getComentarios();
+
+    List<Comentario> getComentariosPorId(Long id);
+
+
 }

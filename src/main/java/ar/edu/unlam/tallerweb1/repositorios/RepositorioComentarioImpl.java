@@ -4,6 +4,7 @@ import ar.edu.unlam.tallerweb1.modelo.Comentario;
 import ar.edu.unlam.tallerweb1.modelo.Figurita;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -30,6 +31,14 @@ public class RepositorioComentarioImpl implements RepositorioComentario{
     public List<Comentario> getComentarios() {
         final Session session = sessionFactory.getCurrentSession();
         return (List<Comentario>) session.createCriteria(Comentario.class)
+                .list();
+    }
+
+    @Override
+    public List<Comentario> getComentariosPorId(Long id) {
+        final Session session = sessionFactory.getCurrentSession();
+        return (List<Comentario>) session.createCriteria(Comentario.class)
+                .add(Restrictions.eq("figurita.id", id))
                 .list();
     }
 }
