@@ -50,16 +50,16 @@
 
         <div class="container-fluid text-start">
             <div class="container d-flex flex-row align-baseline justify-content-start flex-wrap">
-                <c:forEach var="comentarios" items="${comentarios}">
-                    <c:if test="${comentarios.figurita.id == figurita.id}">
+                <c:forEach var="comentariosFiltrados" items="${comentariosFiltrados}">
+
                 <div class="col-2 text-center">
-                    <img src="img/${comentarios.usuario.nombre}.jpg" alt="Foto Perfil" class="rounded-circle" width="50%">
-                    <h6 class="m-1">${comentarios.usuario.nombre}</h6>
+                    <img src="img/${comentariosFiltrados.usuario.nombre}.jpg" alt="Foto Perfil" class="rounded-circle" width="50%">
+                    <h6 class="m-1">${comentariosFiltrados.usuario.nombre}</h6>
                 </div>
                 <div class="col-10 text-start">
-                    <p class="text-white">${comentarios.descripcion}</p>
+                    <p class="text-white">${comentariosFiltrados.descripcion}</p>
                 </div>
-                    </c:if>
+
                 </c:forEach>
             </div>
         </div>

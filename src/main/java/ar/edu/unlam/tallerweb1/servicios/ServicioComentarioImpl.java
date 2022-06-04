@@ -29,4 +29,9 @@ public class ServicioComentarioImpl implements ServicioComentario{
     public List<Comentario> traerComentarios() {
         return this.repoComentario.getComentarios();
     }
+
+    @Override
+    public List<Comentario> traerComentariosPorID(Long id) {
+        return this.repoComentario.getComentariosPorId(id);
+    }
 }

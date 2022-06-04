@@ -160,7 +160,7 @@ public class ControladorFigurita {
         Figurita figurita = this.servicioFigu.buscarFigurita((long) id);
         String rol = (String)request.getSession().getAttribute("ROL");
         Long idLogueado = (Long)request.getSession().getAttribute("ID");
-        List<Comentario> comentarios= this.servicioComent.traerComentarios();
+        List<Comentario> comentariosFiltrados= this.servicioComent.traerComentariosPorID(figurita.getId());
 
         Usuario userLogueado = servicioLogin.agarrarUsuarioId((long)id);
 
@@ -169,7 +169,7 @@ public class ControladorFigurita {
         model.put("id",idLogueado);
         model.put("rol",rol);
         model.put("usuario", userLogueado);
-        model.put("comentarios", comentarios);
+        model.put("comentariosFiltrados", comentariosFiltrados);
 
         return new ModelAndView("figurita", model);
     }
