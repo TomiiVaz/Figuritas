@@ -15,6 +15,8 @@
         <a href="/figus/configuracion" class="text-decoration-none">
             <button type='button' class='btn btn-warning my-2'>Volver</button>
         </a>
+
+    </div>
         <h1 class="text-white">Administrador de Figuritas</h1>
         <div class="mt-5">
             <button class="btn btn-primary me-3" type="button" data-bs-toggle="collapse"
