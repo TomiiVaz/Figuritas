@@ -33,14 +33,15 @@ public class ServicioLoginImpl implements ServicioLogin {
 
     @Override
     public void registrarUsuario(Usuario usuario) {
+        if(verificarMail(usuario.getEmail())){
+            throw new UsuarioMailExistenteException();
+        }
         repoUsuaio.guardar(usuario);
     }
 
     @Override
-    public void verificarMail(String mail) {
-        if (this.repoUsuaio.getUsuario(mail) != null) {
-                throw new UsuarioMailExistenteException("Mail ya registrado");
-        }
+    public Boolean verificarMail(String mail) {
+        return this.repoUsuaio.getUsuario(mail) != null;
     }
 
     @Override
