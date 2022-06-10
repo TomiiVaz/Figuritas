@@ -108,18 +108,24 @@ public class ControladorLogin {
 
     @RequestMapping(path = "/registrarme", method = RequestMethod.POST)
     public ModelAndView guardarUsuario(@ModelAttribute("usuario") Usuario usuario) {
+
+        ModelMap model = new ModelMap();
         try {
-            servicioLogin.verificarMail(usuario.getEmail());
             usuario.setRol("CLI");
             servicioLogin.registrarUsuario(usuario);
-            return new ModelAndView("redirect:/home");
         } catch (UsuarioMailExistenteException usuarioMailExistenteException) {
-            ModelMap model = new ModelMap();
-            model.put("error", usuarioMailExistenteException.getMessage());
-            model.put("usuario", usuario);
-            model.put("selecciones", servicioSeleccion.traerSelecciones());
-            return new ModelAndView("registroUsuario", model);
+            return registroFallido(model, "Usuario existente con mail ingresado", usuario);
         }
+        return registroExitoso();
+    }
+
+    private ModelAndView registroExitoso(){return new ModelAndView("redirect:/home");};
+
+    private ModelAndView registroFallido(ModelMap model, String mensaje, Usuario usuario){
+        model.put("error",mensaje);
+        model.put("usuario", usuario);
+        model.put("selecciones", servicioSeleccion.traerSelecciones());
+        return new ModelAndView("registroUsuario", model);
     }
 
     @RequestMapping(path = "/logout", method = RequestMethod.GET)

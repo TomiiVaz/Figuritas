@@ -9,7 +9,7 @@ public interface ServicioLogin {
 
     void registrarUsuario(Usuario usuario);
 
-    void verificarMail(String mail);
+    Boolean verificarMail(String mail);
 
     Usuario agarrarUsuarioId(Long id);
 }
