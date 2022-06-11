@@ -42,6 +42,15 @@ public class RepositorioRegistroPegadaImpl implements RepositorioRegistroPegada 
     }
 
     @Override
+    public List<RegistroPegada> traerFiguritasIntercambiables() {
+        final Session session = sessionFactory.getCurrentSession();
+
+        return (List<RegistroPegada>) session.createCriteria(RegistroPegada.class)
+                .add(Restrictions.eq("intercambiable", true))
+                .list();
+    }
+
+    @Override
     public RegistroPegada getRegistroPorId(Long id) {
         final Session session = sessionFactory.getCurrentSession();
         return (RegistroPegada) session.createCriteria(RegistroPegada.class)

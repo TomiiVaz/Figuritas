@@ -3,7 +3,7 @@ package ar.edu.unlam.tallerweb1.controladores;
 import ar.edu.unlam.tallerweb1.excepciones.ContraseñasDistintasException;
 import ar.edu.unlam.tallerweb1.excepciones.LongitudIncorrectaException;
 import ar.edu.unlam.tallerweb1.excepciones.UsuarioMailExistenteException;
-import ar.edu.unlam.tallerweb1.modelo.Figurita;
+import ar.edu.unlam.tallerweb1.modelo.RegistroPegada;
 import ar.edu.unlam.tallerweb1.modelo.Seleccion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.*;
@@ -32,11 +32,14 @@ public class ControladorLogin {
     private final ServicioSeleccion servicioSeleccion;
     private final ServicioFigurita servicioFigu;
 
+    private final ServicioRegistroPegada serviciopegada;
+
     @Autowired
-    public ControladorLogin(ServicioLogin servicioLogin, ServicioSeleccion servicioSeleccion, ServicioFigurita servicioFigu) {
+    public ControladorLogin(ServicioLogin servicioLogin, ServicioSeleccion servicioSeleccion, ServicioFigurita servicioFigu, ServicioRegistroPegada serviciopegada) {
         this.servicioLogin = servicioLogin;
         this.servicioSeleccion = servicioSeleccion;
         this.servicioFigu = servicioFigu;
+        this.serviciopegada = serviciopegada;
     }
 
     // Este metodo escucha la URL localhost:8080/NOMBRE_APP/login si la misma es invocada por metodo http GET
@@ -80,16 +83,17 @@ public class ControladorLogin {
     @RequestMapping(path = "/home", method = RequestMethod.GET)
     public ModelAndView irAHome(HttpServletRequest request) {
 
-        List<Figurita> figuritas = this.servicioFigu.traerFiguritas();
+        List<RegistroPegada> intercambiables = serviciopegada.getIntercambiables();
         String rol = (String) request.getSession().getAttribute("ROL");
         Long id = (Long) request.getSession().getAttribute("ID");
         Usuario userLogueado = (Usuario) request.getSession().getAttribute("USUARIO");
 
         ModelMap model = new ModelMap();
+        model.put("intercambiables", intercambiables);
         model.put("usuario", userLogueado);
         model.put("id", id);
         model.put("rol", rol);
-        model.put("figuritas", figuritas);
+
 
         return new ModelAndView("home", model);
     }

@@ -11,6 +11,7 @@ public interface RepositorioRegistroPegada {
     void update(RegistroPegada rp);
     List<RegistroPegada> traerFiguritasPegadasPorUsuario(Long idUsuario);
 
+    List<RegistroPegada> traerFiguritasIntercambiables();
     RegistroPegada getRegistroPorId(Long id);
 
 }

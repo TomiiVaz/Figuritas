@@ -36,6 +36,11 @@ public class ServicioRegistroPegadaImpl implements ServicioRegistroPegada{
     }
 
     @Override
+    public List<RegistroPegada> getIntercambiables() {
+        return repositorioRp.traerFiguritasIntercambiables();
+    }
+
+    @Override
     public RegistroPegada buscarRegistroId(Long id) {
         return repositorioRp.getRegistroPorId(id);
     }
