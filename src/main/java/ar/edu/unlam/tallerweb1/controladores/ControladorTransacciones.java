@@ -39,4 +39,12 @@ public class ControladorTransacciones {
         servicioRegistroPegada.pegarRegistro(rp);
         return new ModelAndView("redirect:/perfil");
     }
+
+    @RequestMapping(path = "/sacar/{pegada.id}", method = RequestMethod.GET)
+    public ModelAndView sacarFigu(@PathVariable(value = "pegada.id") Long idRegistro){
+        RegistroPegada rp = servicioRegistroPegada.buscarRegistroId(idRegistro);
+        rp.setIntercambiable(false);
+        servicioRegistroPegada.pegarRegistro(rp);
+        return new ModelAndView("redirect:/perfil");
+    }
 }
