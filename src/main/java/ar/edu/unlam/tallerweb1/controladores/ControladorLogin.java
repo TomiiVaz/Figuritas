@@ -1,5 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import ar.edu.unlam.tallerweb1.excepciones.ContraseñasDistintasException;
+import ar.edu.unlam.tallerweb1.excepciones.LongitudIncorrectaException;
 import ar.edu.unlam.tallerweb1.excepciones.UsuarioMailExistenteException;
 import ar.edu.unlam.tallerweb1.modelo.Figurita;
 import ar.edu.unlam.tallerweb1.modelo.Seleccion;
@@ -114,15 +116,19 @@ public class ControladorLogin {
             usuario.setRol("CLI");
             servicioLogin.registrarUsuario(usuario);
         } catch (UsuarioMailExistenteException usuarioMailExistenteException) {
-            return registroFallido(model, "Usuario existente con mail ingresado", usuario);
+            return registroFallido(model, "Usuario existente con mail ingresado", usuario,"registroFallido");
+        } catch (ContraseñasDistintasException e){
+            return registroFallido(model, "Las contraseñas deben ser iguales", usuario,"contrasenasDistintas");
+        } catch (LongitudIncorrectaException e){
+            return registroFallido(model, "La contraseña debe tener al menos 8 carateres", usuario, "longitudIncorrecta");
         }
         return registroExitoso();
     }
 
     private ModelAndView registroExitoso(){return new ModelAndView("redirect:/home");};
 
-    private ModelAndView registroFallido(ModelMap model, String mensaje, Usuario usuario){
-        model.put("error",mensaje);
+    private ModelAndView registroFallido(ModelMap model, String mensaje, Usuario usuario, String nombreError){
+        model.put(nombreError,mensaje);
         model.put("usuario", usuario);
         model.put("selecciones", servicioSeleccion.traerSelecciones());
         return new ModelAndView("registroUsuario", model);

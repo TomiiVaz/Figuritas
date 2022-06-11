@@ -1,5 +1,7 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import ar.edu.unlam.tallerweb1.excepciones.ContraseñasDistintasException;
+import ar.edu.unlam.tallerweb1.excepciones.LongitudIncorrectaException;
 import ar.edu.unlam.tallerweb1.excepciones.UsuarioMailExistenteException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,7 +38,21 @@ public class ServicioLoginImpl implements ServicioLogin {
         if(verificarMail(usuario.getEmail())){
             throw new UsuarioMailExistenteException();
         }
+        if(!verificarIguales(usuario.getPassword(), usuario.getPassword2())){
+            throw new ContraseñasDistintasException();
+        }
+        if(!verificarLongitud(usuario.getPassword())){
+            throw new LongitudIncorrectaException();
+        }
         repoUsuaio.guardar(usuario);
+    }
+
+    private Boolean verificarLongitud(String password) {
+        return password.length()>=8;
+    }
+
+    private Boolean verificarIguales(String password, String password2) {
+        return password.equals(password2);
     }
 
     @Override

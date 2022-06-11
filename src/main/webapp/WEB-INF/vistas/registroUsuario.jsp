@@ -18,8 +18,8 @@
             <label for="email" class="text-white mb-1">Email</label>
             <input value="${usuario.email}" path="email" id="email" name='email' class="form-control mb-3"
                    placeholder="Ingrese el mail" required/>
-            <c:if test="${not empty error}">
-                <p class="text-danger"><span>${error}</span></p>
+            <c:if test="${not empty registroFallido}">
+                <p class="text-danger"><span>${registroFallido}</span></p>
                 <br>
             </c:if>
             <label for="equipo" class="text-white mb-1">Equipo</label>
@@ -39,9 +39,19 @@
             <input path="password" type="password" id="password" name='password' class="form-control mb-3"
                    placeholder="Ingrese su clave" required/>
 
-            <label for="claveConfirm" class="text-white mb-1">Confirmar clave</label>
-            <input path="claveConfirm" type="password" id="claveConfirm" name='claveConfirm' class="form-control mb-3"
+            <c:if test="${not empty longitudIncorrecta}">
+                <p class="text-danger"><span>${longitudIncorrecta}</span></p>
+                <br>
+            </c:if>
+
+            <label for="password2" class="text-white mb-1">Confirmar clave</label>
+            <input path="password2" type="password" id="password2" name='password2' class="form-control mb-3"
                    placeholder="Confirme su clave" required/>
+
+            <c:if test="${not empty contrasenasDistintas}">
+                <p class="text-danger"><span>${contrasenasDistintas}</span></p>
+                <br>
+            </c:if>
 
             <button id="btn-registrarme" class="btn btn-lg btn-primary btn-block mt-4 mb-5 mb-5 " Type="Submit"/>
             Registrarme</button>
