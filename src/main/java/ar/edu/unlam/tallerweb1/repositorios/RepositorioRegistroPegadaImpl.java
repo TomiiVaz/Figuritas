@@ -27,6 +27,11 @@ public class RepositorioRegistroPegadaImpl implements RepositorioRegistroPegada 
     }
 
     @Override
+    public void update(RegistroPegada rp) {
+        sessionFactory.getCurrentSession().update(rp);
+    }
+
+    @Override
     public List<RegistroPegada> traerFiguritasPegadasPorUsuario(Long idUsuario) {
 
         final Session session = sessionFactory.getCurrentSession();
@@ -34,5 +39,22 @@ public class RepositorioRegistroPegadaImpl implements RepositorioRegistroPegada 
                 .createAlias("usuario","usuario")
                 .add(Restrictions.eq("usuario.id", idUsuario))
                 .list();
+    }
+
+    @Override
+    public List<RegistroPegada> traerFiguritasIntercambiables() {
+        final Session session = sessionFactory.getCurrentSession();
+
+        return (List<RegistroPegada>) session.createCriteria(RegistroPegada.class)
+                .add(Restrictions.eq("intercambiable", true))
+                .list();
+    }
+
+    @Override
+    public RegistroPegada getRegistroPorId(Long id) {
+        final Session session = sessionFactory.getCurrentSession();
+        return (RegistroPegada) session.createCriteria(RegistroPegada.class)
+                .add(Restrictions.eq("id", id))
+                .uniqueResult();
     }
 }

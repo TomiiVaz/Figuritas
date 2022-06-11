@@ -18,6 +18,16 @@ public class RegistroPegada {
     @ManyToOne
     private Usuario usuario;
 
+    private Boolean intercambiable;
+
+    public Boolean getIntercambiable() {
+        return intercambiable;
+    }
+
+    public void setIntercambiable(Boolean intercambiable) {
+        this.intercambiable = intercambiable;
+    }
+
     public Long getId() {
         return id;
     }

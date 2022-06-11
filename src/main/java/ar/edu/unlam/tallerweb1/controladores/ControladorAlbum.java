@@ -78,11 +78,11 @@ public class ControladorAlbum {
         try {
             this.servicioAl.eliminarAlbum(albumId);
             return new ModelAndView("redirect:/configuracion-album");
-        } catch (AlbumNullDeletedException albumNullDeletedException) {
+        } catch (AlbumNullDeletedException e) {
             ModelMap model = new ModelMap();
             List<Album> albunes = this.servicioAl.traerAlbunes();
             model.put("albunes", albunes);
-            model.put("error", albumNullDeletedException.getMessage());
+            model.put("error", "Para eliminar, seleccione un album");
             return new ModelAndView("configAlbum", model);
         }
 

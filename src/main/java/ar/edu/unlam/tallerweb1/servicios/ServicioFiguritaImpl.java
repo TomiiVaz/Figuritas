@@ -6,10 +6,12 @@ import ar.edu.unlam.tallerweb1.modelo.Rareza;
 import ar.edu.unlam.tallerweb1.modelo.Seleccion;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioFigurita;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioUsuario;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service("servicioFigurita")
@@ -71,8 +73,52 @@ public class ServicioFiguritaImpl implements ServicioFigurita{
 
     @Override
     public List<Figurita> buscarFiguritaPorFiltros(String nombre, Long  seleccion, Long posicion) {
-        List<Figurita> figuritas = repoFigurita.buscarFiguritaPorFiltros(nombre, seleccion, posicion);
-        return figuritas;
+        /*Cambios*/
+
+        List<Figurita> figuritasEncontradas = new ArrayList<>();
+
+        Boolean buscarNombre = (nombre != null && nombre != "");
+        Boolean buscarSeleccion = (seleccion != null && seleccion != 0);
+        Boolean buscarPosicion = (posicion != null && posicion != 0);
+
+        if(buscarNombre){
+            figuritasEncontradas = repoFigurita.findByNombre(nombre);
+        }
+        if(buscarSeleccion){
+            List<Figurita> figsPorSeleccion = repoFigurita.findBySeleccion(seleccion);
+            if(figuritasEncontradas.size() > 0){
+                for (Figurita fig : figuritasEncontradas) {
+                    if(! figsPorSeleccion.contains(fig)){ //Si las figuritas no tienen la selección, borrarla de la lista
+                        figuritasEncontradas.remove(fig);
+                    }
+                    if(figuritasEncontradas.size() <= 0) break;
+                }
+            }
+            else{
+                figuritasEncontradas = figsPorSeleccion;
+            }
+
+        }
+
+        if(buscarPosicion){
+            List<Figurita> figsPorPosicion = repoFigurita.findByPosicion(posicion);
+
+            if(figuritasEncontradas.size() > 0){
+                for (Figurita fig : figuritasEncontradas) {
+                    if(! figsPorPosicion.contains(fig)){ //Si las figuritas no tienen la selección, borrarla de la lista
+                        figuritasEncontradas.remove(fig);
+                    }
+                    if(figuritasEncontradas.size() <= 0) break;
+                }
+            }
+            else{
+                figuritasEncontradas = figsPorPosicion;
+            }
+
+        }
+        return figuritasEncontradas;
+
+        /********/
     }
 
     @Override

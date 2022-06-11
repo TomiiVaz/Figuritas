@@ -22,12 +22,27 @@ public class ServicioRegistroPegadaImpl implements ServicioRegistroPegada{
 
     @Override
     public void pegarRegistro(RegistroPegada rp) {
-        repositorioRp.pegar(rp);
+
+        if(rp.getId()!=null){
+            repositorioRp.update(rp);
+        } else{
+            repositorioRp.pegar(rp);
+        }
     }
 
     @Override
     public List<RegistroPegada> getPegadasUsuario(Long idUsuario) {
         return repositorioRp.traerFiguritasPegadasPorUsuario(idUsuario);
+    }
+
+    @Override
+    public List<RegistroPegada> getIntercambiables() {
+        return repositorioRp.traerFiguritasIntercambiables();
+    }
+
+    @Override
+    public RegistroPegada buscarRegistroId(Long id) {
+        return repositorioRp.getRegistroPorId(id);
     }
 
 
