@@ -16,7 +16,6 @@
             <button type='button' class='btn btn-warning my-2'>Volver</button>
         </a>
 
-    </div>
         <h1 class="text-white">Administrador de Figuritas</h1>
         <div class="mt-5">
             <button class="btn btn-primary me-3" type="button" data-bs-toggle="collapse"
@@ -51,6 +50,7 @@
 
                 <label for='seleccion.id' class='text-white'>Seleccion</label>
                 <select path='seleccion.id' id='seleccion.id' name='seleccion.id' class='form-control my-2'>
+                    <option value='' selected hidden>Seleccionar seleccion</option>
                     <c:forEach var="seleccion" items="${selecciones}">
 
                         <option value='${seleccion.id}'>${seleccion.nombre}</option>
@@ -59,6 +59,7 @@
 
                 <label for="posicion.id" class='text-white'>Posicion</label>
                 <select path='posicion.id' id='posicion.id' name='posicion.id' class='form-control my-2'>
+                    <option value='' selected hidden>Seleccionar posicion</option>
                     <c:forEach var="posicion" items="${posiciones}">
 
                         <option value='${posicion.id}'>${posicion.descripcion}</option>
@@ -67,6 +68,7 @@
 
                 <label for="rareza.id" class='text-white'>Rareza</label>
                 <select path='rareza.id' id='rareza.id' name='rareza.id' class='form-control my-2'>
+                    <option value='' selected hidden>Seleccionar rareza</option>
                     <c:forEach var="rareza" items="${rarezas}">
 
                         <option value='${rareza.id}'>${rareza.descripcion}</option>
@@ -75,6 +77,7 @@
 
                 <label for="album.id" class='text-white'>Album</label>
                 <select path='album.id' id='album.id' name='album.id' class='form-control my-2'>
+                    <option value='' selected hidden>Seleccionar album</option>
                     <c:forEach var="albunes" items="${albunes}">
 
                         <option value='${albunes.id}'>${albunes.nombre}</option>
@@ -103,8 +106,9 @@
                        action='editar-figurita'
                        modelAttribute="figurita">
                 <select id='figuritaId' name='figuritaId' class='form-control my-2'>
+                    <option value='Default' selected hidden>Seleccionar una figurita</option>
+
                     <c:forEach var="figurita" items="${figuritas}">
-                        <option value='Default' selected hidden>Seleccionar una figurita</option>
                         <option value='${figurita.id}'>${figurita.nombre}</option>
                     </c:forEach>
                 </select>
@@ -127,8 +131,9 @@
 
                 <label for="figuritaId" class='text-white'>Figurita</label>
                 <select path='figuritaId' id='figuritaId' name='figuritaId' class='form-control my-2'>
+                    <option value='Default' selected hidden>Seleccionar una figurita a borrar</option>
+
                     <c:forEach var="figurita" items="${figuritas}">
-                        <option value='Default' selected hidden>Seleccionar una figurita a borrar</option>
                         <option value='${figurita.id}'>${figurita.nombre}</option>
                     </c:forEach>
                 </select>
