@@ -160,9 +160,8 @@ public class ControladorFigurita {
         Figurita figurita = this.servicioFigu.buscarFigurita((long) id);
         String rol = (String)request.getSession().getAttribute("ROL");
         Long idLogueado = (Long)request.getSession().getAttribute("ID");
+        Usuario userLogueado = (Usuario)request.getSession().getAttribute("USUARIO");
         List<Comentario> comentariosFiltrados= this.servicioComent.traerComentariosPorID(figurita.getId());
-
-        Usuario userLogueado = servicioLogin.agarrarUsuarioId((long)id);
 
         ModelMap model = new ModelMap();
         model.put("figurita", figurita);
