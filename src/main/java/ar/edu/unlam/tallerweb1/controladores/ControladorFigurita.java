@@ -221,6 +221,7 @@ public class ControladorFigurita {
         rp.setFigurita(figuritaPegar);
         rp.setAlbum(albumPegar);
         rp.setUsuario(usuarioPegar);
+        rp.setIntercambiable(false);
 
         servicioRegistroPegada.pegarRegistro(rp);
 

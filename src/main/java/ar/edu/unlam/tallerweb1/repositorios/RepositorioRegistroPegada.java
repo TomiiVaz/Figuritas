@@ -8,6 +8,9 @@ import java.util.*;
 public interface RepositorioRegistroPegada {
 
     void pegar(RegistroPegada rp);
+    void update(RegistroPegada rp);
     List<RegistroPegada> traerFiguritasPegadasPorUsuario(Long idUsuario);
+
+    RegistroPegada getRegistroPorId(Long id);
 
 }

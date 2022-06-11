@@ -19,3 +19,5 @@ insert into usuario(activo, email, equipo, nombre, password, rol, seleccion_id)
 
 insert into usuario(activo, email, equipo, nombre, password, rol, seleccion_id)
                 values(true,'dami@gmail.com', 'Boca', 'Damian', '123','ADM',2);
+
+insert into estado(descripcion) values('Espera'),('Aceptado'),('Rechazado');

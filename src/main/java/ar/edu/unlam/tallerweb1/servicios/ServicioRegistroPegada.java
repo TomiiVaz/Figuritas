@@ -8,4 +8,6 @@ import java.util.List;
 public interface ServicioRegistroPegada {
     void pegarRegistro(RegistroPegada rp);
     List<RegistroPegada> getPegadasUsuario(Long idUsuario);
+
+    RegistroPegada buscarRegistroId(Long id);
 }

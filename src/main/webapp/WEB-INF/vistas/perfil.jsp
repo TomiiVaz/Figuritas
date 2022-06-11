@@ -146,7 +146,7 @@
                         </ul>
                         <div class="card-body">
                             <a href="#" class="card-link text-decoration-none me-3">Ir a la carta</a>
-                            <a href="#" class="card-link text-success text-decoration-none">Publicar</a>
+                            <a href="publicar/${pegada.id}" class="card-link text-success text-decoration-none">Publicar</a>
                         </div>
                     </div>
                 </c:forEach>
