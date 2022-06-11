@@ -21,6 +21,13 @@
 <!-- main -->
 <main>
 
+    <div class="container text-center mt-5">
+        <a href="home" class="text-decoration-none">
+            <button type='button' class='btn btn-warning my-2'>Volver</button>
+        </a>
+
+    </div>
+
         <h1 class="text-center text-white mt-5">Elegi y gana!!!</h1>
 
     <div class="container d-flex justify-content-around flex-wrap mt-5">
@@ -94,12 +101,7 @@
     </div>
 
 
-    <div class="container text-center mt-5">
-        <a href="home" class="text-decoration-none">
-            <button type='button' class='btn btn-warning my-2'>Volver</button>
-        </a>
 
-    </div>
 
 
 

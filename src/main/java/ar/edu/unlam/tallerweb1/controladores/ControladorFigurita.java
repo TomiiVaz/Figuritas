@@ -233,6 +233,7 @@ public class ControladorFigurita {
 
         String rol = (String)request.getSession().getAttribute("ROL");
         Long id = (Long)request.getSession().getAttribute("ID");
+        Usuario userLogueado = (Usuario)request.getSession().getAttribute("USUARIO");
 
 
         List<Figurita> figuritas = this.servicioFigu.traerFiguritas();
@@ -247,6 +248,7 @@ public class ControladorFigurita {
         ModelMap model = new ModelMap();
         model.put("id",id);
         model.put("rol",rol);
+        model.put("usuario", userLogueado);
         model.put("figurita1", figurita1);
         model.put("figurita2", figurita2);
         model.put("figurita3", figurita3);
