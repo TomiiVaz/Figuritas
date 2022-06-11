@@ -7,7 +7,9 @@ import ar.edu.unlam.tallerweb1.excepciones.AlbumRepetidoException;
 import ar.edu.unlam.tallerweb1.modelo.Album;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlbum;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.springframework.web.servlet.ModelAndView;
+
 import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
@@ -24,8 +26,18 @@ public class ControladorAlbumTest extends SpringTest {
 
         // Ejecucion -> when
         Album album = new Album();
-        album.setNombre("Tomas");
-        album.setId(25L);
+        mav = CA.agregarAlbum(album);
+
+        // Comprobacion -> then
+        assertThat(mav.getViewName()).isEqualTo("redirect:/configuracion-album");
+    }
+
+    @Test
+    public void agregarUnAlbumRepetidoYEsteFalle() {
+        // Preparacion -> given
+
+        // Ejecucion -> when
+        Album album = new Album();
 
         doThrow(AlbumRepetidoException.class)
                 .when(SA)
@@ -34,8 +46,7 @@ public class ControladorAlbumTest extends SpringTest {
         mav = CA.agregarAlbum(album);
 
         // Comprobacion -> then
-        assertThat(mav.getViewName()).isEqualTo("configAlbum");
-//        assertThat(mav.getModel().get("error")).isEqualTo("El nombre del album está en uso");
+        assertThat(mav.getModel().get("error")).isEqualTo("El nombre del album está en uso");
     }
 
 

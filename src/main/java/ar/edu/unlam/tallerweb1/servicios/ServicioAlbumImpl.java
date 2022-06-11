@@ -27,7 +27,7 @@ public class ServicioAlbumImpl implements ServicioAlbum {
         if (verificarAlbumExistente(album.getNombre())) {
             repoAlbum.guardar(album);
         } else {
-            throw new AlbumRepetidoException("El nombre del album está en uso");
+            throw new AlbumRepetidoException();
         }
     }
 
@@ -46,7 +46,7 @@ public class ServicioAlbumImpl implements ServicioAlbum {
     @Override
     public void editarAlbum(Long albumId, String nombreNuevo) {
         if (this.repoAlbum.getAlbum(nombreNuevo) != null) {
-            throw new AlbumRepetidoException("El nombre del album está en uso");
+            throw new AlbumRepetidoException();
         } else this.repoAlbum.editarAlbum(albumId, nombreNuevo);
     }
 
