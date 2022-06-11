@@ -134,22 +134,22 @@
                 <%--Selecciones--%>
             </div>
             <div class="d-flex flex-wrap justify-content-center">
-                <div class="card m-3" style="width: 18rem;">
-                    <img src="img/messi1.jpg" class="card-img-top" alt="Foto de jugador">
-                    <div class="card-body">
-                        <h5 class="card-title">Nombre Jugador</h5>
-                        <p class="card-text">Tipo de Carta</p>
+                <c:forEach var="pegada" items="${pegadas}">
+                    <div class="card m-3" style="width: 18rem;">
+                        <img src="img/messi1.jpg" class="card-img-top" alt="Foto de jugador">
+                        <ul class="list-group list-group-flush text-center">
+                            <h5 class="card-title">${pegada.figurita.nombre}</h5>
+                            <p class="card-text">${pegada.figurita.rareza.descripcion}</p>
+                            <li class="list-group-item">${pegada.figurita.equipo}</li>
+                            <li class="list-group-item">${pegada.figurita.posicion.descripcion}</li>
+                            <li class="list-group-item">${pegada.figurita.dorsal}</li>
+                        </ul>
+                        <div class="card-body">
+                            <a href="#" class="card-link text-decoration-none me-3">Ir a la carta</a>
+                            <a href="#" class="card-link text-success text-decoration-none">Publicar</a>
+                        </div>
                     </div>
-                    <ul class="list-group list-group-flush text-start">
-                        <li class="list-group-item">Equipo: PSG</li>
-                        <li class="list-group-item">Posicion: Delantero</li>
-                        <li class="list-group-item">Pierna Hábil: Zurda</li>
-                        <li class="list-group-item">Dorsal: 30</li>
-                    </ul>
-                    <div class="card-body">
-                        <a href="carta" class="card-link">Ir a la carta</a>
-                    </div>
-                </div>
+                </c:forEach>
             </div>
         </div>
         <!-- /Parte Album -->

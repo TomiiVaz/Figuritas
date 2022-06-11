@@ -1,14 +1,11 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
-import ar.edu.unlam.tallerweb1.modelo.Album;
-import ar.edu.unlam.tallerweb1.modelo.Figurita;
-import ar.edu.unlam.tallerweb1.modelo.Seleccion;
-import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.modelo.*;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlbum;
+import ar.edu.unlam.tallerweb1.servicios.ServicioRegistroPegada;
 import ar.edu.unlam.tallerweb1.servicios.ServicioSeleccion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,10 +20,13 @@ public class ControladorGeneral {
     private final ServicioSeleccion servicioSelec;
     private final ServicioAlbum servicioAlbum;
 
+    private final ServicioRegistroPegada servicioPegada;
+
     @Autowired
-    public ControladorGeneral(ServicioSeleccion servicioSelec, ServicioAlbum servicioAlbum) {
+    public ControladorGeneral(ServicioSeleccion servicioSelec, ServicioAlbum servicioAlbum, ServicioRegistroPegada servicioPegada) {
         this.servicioSelec = servicioSelec;
         this.servicioAlbum = servicioAlbum;
+        this.servicioPegada = servicioPegada;
     }
 
     @RequestMapping(path = "/configuracion", method = RequestMethod.GET)
@@ -64,9 +64,12 @@ public class ControladorGeneral {
         ModelMap model = new ModelMap();
         List<Album> albunes = servicioAlbum.traerAlbunes();
         List<Seleccion> selecciones = servicioSelec.traerSelecciones();
+
         String rol = (String)request.getSession().getAttribute("ROL");
         Long id = (Long)request.getSession().getAttribute("ID");
+        List<RegistroPegada> pegadas = servicioPegada.getPegadasUsuario(id);
         Usuario usuarioLogueado = (Usuario)request.getSession().getAttribute("USUARIO");
+        model.put("pegadas", pegadas);
         model.put("id",id);
         model.put("rol",rol);
         model.put("usuario",usuarioLogueado);

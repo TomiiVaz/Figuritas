@@ -37,6 +37,7 @@
                 </c:when>
                 <c:otherwise>
                     <a href="login"><button class="btn btn-primary btn-block m-2">Ingresar</button></a>
+                    <a href="registrarse"><button class="btn btn-primary btn-block m-2">Registrarse</button></a>
                 </c:otherwise>
             </c:choose>
 
