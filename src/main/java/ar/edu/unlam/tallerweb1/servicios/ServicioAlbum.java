@@ -8,7 +8,7 @@ public interface ServicioAlbum {
 
     void agregarAlbum(Album album);
 
-    void verificarAlbum(String nombre);
+    Boolean verificarAlbumExistente(String nombre);
 
     List<Album> traerAlbunes();
 

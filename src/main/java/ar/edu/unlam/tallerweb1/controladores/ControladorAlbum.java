@@ -45,14 +45,13 @@ public class ControladorAlbum {
     @RequestMapping(path = "/agregar-album", method = RequestMethod.POST)
     public ModelAndView agregarAlbum(@ModelAttribute("album") Album album) {
         try {
-            servicioAl.verificarAlbum(album.getNombre());
             servicioAl.agregarAlbum(album);
             return new ModelAndView("redirect:/configuracion-album");
-        } catch (AlbumRepetidoException albumRepetidoException) {
+        } catch (AlbumRepetidoException e) {
             ModelMap model = new ModelMap();
             List<Album> albunes = this.servicioAl.traerAlbunes();
             model.put("albunes", albunes);
-            model.put("error", albumRepetidoException.getMessage());
+            model.put("error", "El nombre del album está en uso");
             return new ModelAndView("configAlbum", model);
         }
     }
@@ -63,11 +62,11 @@ public class ControladorAlbum {
         try {
             this.servicioAl.editarAlbum((long) albumId, nombreNuevo);
             return new ModelAndView("redirect:/configuracion-album");
-        } catch (AlbumRepetidoException albumRepetidoException) {
+        } catch (AlbumRepetidoException e) {
             ModelMap model = new ModelMap();
             List<Album> albunes = this.servicioAl.traerAlbunes();
             model.put("albunes", albunes);
-            model.put("error", albumRepetidoException.getMessage());
+            model.put("error", "El nombre del album está en uso");
             return new ModelAndView("configAlbum", model);
         }
 
