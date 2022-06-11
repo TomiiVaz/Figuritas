@@ -24,14 +24,16 @@ public class ServicioAlbumImpl implements ServicioAlbum {
     //   Le habla al repo para que guarde en db el albun
     @Override
     public void agregarAlbum(Album album) {
-        repoAlbum.guardar(album);
+        if (verificarAlbumExistente(album.getNombre())) {
+            repoAlbum.guardar(album);
+        } else {
+            throw new AlbumRepetidoException("El nombre del album está en uso");
+        }
     }
 
     @Override
-    public void verificarAlbum(String nombre) {
-        if (this.repoAlbum.getAlbum(nombre) != null) {
-            throw new AlbumRepetidoException("El nombre del album está en uso");
-        }
+    public Boolean verificarAlbumExistente(String nombre) {
+        return this.repoAlbum.getAlbum(nombre) == null;
     }
 
 

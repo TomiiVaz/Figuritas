@@ -45,7 +45,6 @@ public class ControladorAlbum {
     @RequestMapping(path = "/agregar-album", method = RequestMethod.POST)
     public ModelAndView agregarAlbum(@ModelAttribute("album") Album album) {
         try {
-            servicioAl.verificarAlbum(album.getNombre());
             servicioAl.agregarAlbum(album);
             return new ModelAndView("redirect:/configuracion-album");
         } catch (AlbumRepetidoException albumRepetidoException) {
