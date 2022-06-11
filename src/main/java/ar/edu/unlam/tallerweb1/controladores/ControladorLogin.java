@@ -1,5 +1,8 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import ar.edu.unlam.tallerweb1.excepciones.ContraseñasDistintasException;
+import ar.edu.unlam.tallerweb1.excepciones.LongitudIncorrectaException;
+import ar.edu.unlam.tallerweb1.excepciones.UsuarioMailExistenteException;
 import ar.edu.unlam.tallerweb1.modelo.Figurita;
 import ar.edu.unlam.tallerweb1.modelo.Seleccion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
@@ -63,6 +66,8 @@ public class ControladorLogin {
             request.getSession().setAttribute("ROL", usuarioBuscado.getRol());
             // para guardar el id del usuario que se loguea
             request.getSession().setAttribute("ID", usuarioBuscado.getId());
+            // para guardar el objeto usario
+            request.getSession().setAttribute("USUARIO", usuarioBuscado);
             return new ModelAndView("redirect:/home");
         } else {
             // si el usuario no existe agrega un mensaje de error en el modelo.
@@ -76,14 +81,14 @@ public class ControladorLogin {
     public ModelAndView irAHome(HttpServletRequest request) {
 
         List<Figurita> figuritas = this.servicioFigu.traerFiguritas();
-        String rol = (String)request.getSession().getAttribute("ROL");
-        Long id = (Long)request.getSession().getAttribute("ID");
-        Usuario userLogueado = servicioLogin.agarrarUsuarioId(id);
+        String rol = (String) request.getSession().getAttribute("ROL");
+        Long id = (Long) request.getSession().getAttribute("ID");
+        Usuario userLogueado = (Usuario) request.getSession().getAttribute("USUARIO");
 
         ModelMap model = new ModelMap();
         model.put("usuario", userLogueado);
-        model.put("id",id);
-        model.put("rol",rol);
+        model.put("id", id);
+        model.put("rol", rol);
         model.put("figuritas", figuritas);
 
         return new ModelAndView("home", model);
@@ -92,7 +97,7 @@ public class ControladorLogin {
     // Escucha la url /, y redirige a la URL /login, es lo mismo que si se invoca la url /login directamente.
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public ModelAndView inicio() {
-        return new ModelAndView("redirect:/login");
+        return new ModelAndView("redirect:/home");
     }
 
     @RequestMapping(path = "/registrarse", method = RequestMethod.GET)
@@ -105,15 +110,28 @@ public class ControladorLogin {
 
     @RequestMapping(path = "/registrarme", method = RequestMethod.POST)
     public ModelAndView guardarUsuario(@ModelAttribute("usuario") Usuario usuario) {
-        if (servicioLogin.verificarMail(usuario.getEmail())) {
+
+        ModelMap model = new ModelMap();
+        try {
             usuario.setRol("CLI");
             servicioLogin.registrarUsuario(usuario);
-            return new ModelAndView("redirect:/home");
-        } else {
-            ModelMap model = new ModelMap();
-            model.put("error","Mail ya existente");
-            return new ModelAndView("registroUsuario", model);
+        } catch (UsuarioMailExistenteException usuarioMailExistenteException) {
+            return registroFallido(model, "Usuario existente con mail ingresado", usuario,"registroFallido");
+        } catch (ContraseñasDistintasException e){
+            return registroFallido(model, "Las contraseñas deben ser iguales", usuario,"contrasenasDistintas");
+        } catch (LongitudIncorrectaException e){
+            return registroFallido(model, "La contraseña debe tener al menos 8 carateres", usuario, "longitudIncorrecta");
         }
+        return registroExitoso();
+    }
+
+    private ModelAndView registroExitoso(){return new ModelAndView("redirect:/home");};
+
+    private ModelAndView registroFallido(ModelMap model, String mensaje, Usuario usuario, String nombreError){
+        model.put(nombreError,mensaje);
+        model.put("usuario", usuario);
+        model.put("selecciones", servicioSeleccion.traerSelecciones());
+        return new ModelAndView("registroUsuario", model);
     }
 
     @RequestMapping(path = "/logout", method = RequestMethod.GET)

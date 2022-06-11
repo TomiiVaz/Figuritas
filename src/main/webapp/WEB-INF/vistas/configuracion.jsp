@@ -10,6 +10,14 @@
 <%@include file="header.jsp" %>
 <!-- main -->
 <main>
+    
+    <div class="container text-center mt-5">
+        <a href="home" class="text-decoration-none">
+            <button type='button' class='btn btn-warning my-2'>Volver</button>
+        </a>
+
+    </div>
+
     <div class="container-fluid">
         <%--    Seccion Cuadrados--%>
         <div class="text-center mb-5">

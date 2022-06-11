@@ -12,4 +12,5 @@ public interface ServicioLogin {
     Boolean verificarMail(String mail);
 
     Usuario agarrarUsuarioId(Long id);
+
 }

@@ -25,11 +25,11 @@
             </div>
 
             <!-- Muestro si esta logueado -->
-            <c:if test="${id!=null}">
+                <c:if test="${rol.equals('ADM')}">
                 <a href="configuracion-figurita">
                     <button class="btn btn-primary mb-5 mt-3">Configuracion</button>
                 </a>
-            </c:if>
+                </c:if>
 
         </div>
         <%--        Datos--%>
@@ -49,24 +49,42 @@
         <h2 class="mb-5">Comentarios</h2>
 
         <div class="container-fluid text-start">
-            <div class="container d-flex flex-row align-baseline justify-content-start">
+            <div class="container d-flex flex-row align-baseline justify-content-start flex-wrap">
+                <c:forEach var="comentariosFiltrados" items="${comentariosFiltrados}">
+
                 <div class="col-2 text-center">
-                    <img src="img/usuarioBlanco.png" alt="Foto Perfil" class="rounded-circle" width="50%">
-                    <h6 class="m-1">Tomas</h6>
+                    <img src="img/${comentariosFiltrados.usuario.nombre}.jpg" alt="Foto Perfil" class="rounded-circle" width="50%">
+                    <h6 class="m-1">${comentariosFiltrados.usuario.nombre}</h6>
                 </div>
                 <div class="col-10 text-start">
-                    <p class="m-1 ms-s">Muy buena la quiero!</p>
+                    <p class="text-white">${comentariosFiltrados.descripcion}</p>
                 </div>
+
+                </c:forEach>
             </div>
         </div>
+
+        <%--    Solo los usuarios logueados pueden dejarle comentarios a las figuritas--%>
+        <c:if test="${id!=null}">
         <div class="container w-75">
             <h4 class="mb-4">Deja tu comentario aqui:</h4>
-            <form method="get"
-                  action="#">
-            <textarea class="form-control" id="floatingTextarea2"
-                      style="height: 100px"></textarea>
-                <button class="btn btn-primary mb-5 mt-3">Enviar</button>
-            </form>
+
+            <form:form class='text-center d-flex flex-column px-5 py-2 bg-dark border-0'
+                       method='post'
+                       action='agregar-comentario'
+                       modelAttribute="comentario">
+                <input class='my-2 form-control' type='text' path='descripcion' id='descripcion' name='descripcion' required>
+
+                <%--    input invisible paso el id de la figurita para darselo al comentario--%>
+                <input class='d-none' type="text" id='figurita.id' name='figurita.id' value="${figurita.id}">
+
+                <%--    input invisible paso el id de la usuario para darselo al comentario--%>
+                <input class='d-none' type="text" id='usuario.id' name='usuario.id' value="${id}">
+
+                <button type='submit' class='btn btn-success'>Enviar</button>
+            </form:form>
+            </c:if>
+
         </div>
         <%--        Parte comentarios--%>
 

@@ -1,7 +1,6 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
 
-import org.dom4j.rule.Mode;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
 
 //Para especificarle a Spring que esta es una clase controlador.
 @Controller
@@ -57,16 +58,6 @@ public class MiPrimerControlador {
         modelo.put("nombre", nombre);
 
         return new ModelAndView("vista2", modelo);
-    }
-
-    /* Para poder visualizar el perfil, es de uso de prueba */
-
-
-
-    @RequestMapping(path = "/nosotros", method = RequestMethod.GET)
-    public ModelAndView nosotros() {
-
-        return new ModelAndView("nosotros");
     }
 
 

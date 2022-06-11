@@ -70,6 +70,12 @@ public class ServicioFiguritaImpl implements ServicioFigurita{
     }
 
     @Override
+    public List<Figurita> buscarFiguritaPorFiltros(String nombre, Long  seleccion, Long posicion) {
+        List<Figurita> figuritas = repoFigurita.buscarFiguritaPorFiltros(nombre, seleccion, posicion);
+        return figuritas;
+    }
+
+    @Override
     public void editarFigurita(long figuritaId, String figuritaNueva) {
         this.repoFigurita.editarFigurita(figuritaId, figuritaNueva);
     }

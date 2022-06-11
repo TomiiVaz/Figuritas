@@ -13,5 +13,8 @@ public interface RepositorioUsuario {
 	void modificar(Usuario usuario);
 
 	List<String> getMailUsuario();
-	Usuario getUsuarioId(Long id);
+	Usuario getUsuario(Long id);
+
+
+	Usuario getUsuario(String mail);
 }

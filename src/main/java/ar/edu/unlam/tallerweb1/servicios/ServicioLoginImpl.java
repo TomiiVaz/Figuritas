@@ -1,5 +1,8 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import ar.edu.unlam.tallerweb1.excepciones.ContraseñasDistintasException;
+import ar.edu.unlam.tallerweb1.excepciones.LongitudIncorrectaException;
+import ar.edu.unlam.tallerweb1.excepciones.UsuarioMailExistenteException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +21,7 @@ import java.util.List;
 @Transactional
 public class ServicioLoginImpl implements ServicioLogin {
 
-    private RepositorioUsuario repoUsuaio;
+    private final RepositorioUsuario repoUsuaio;
 
     @Autowired
     public ServicioLoginImpl(RepositorioUsuario servicioLoginDao) {
@@ -32,23 +35,34 @@ public class ServicioLoginImpl implements ServicioLogin {
 
     @Override
     public void registrarUsuario(Usuario usuario) {
+        if(verificarMail(usuario.getEmail())){
+            throw new UsuarioMailExistenteException();
+        }
+        if(!verificarIguales(usuario.getPassword(), usuario.getPassword2())){
+            throw new ContraseñasDistintasException();
+        }
+        if(!verificarLongitud(usuario.getPassword())){
+            throw new LongitudIncorrectaException();
+        }
         repoUsuaio.guardar(usuario);
+    }
+
+    private Boolean verificarLongitud(String password) {
+        return password.length()>=8;
+    }
+
+    private Boolean verificarIguales(String password, String password2) {
+        return password.equals(password2);
     }
 
     @Override
     public Boolean verificarMail(String mail) {
-        List<String> mails = repoUsuaio.getMailUsuario();
-        for (String mailDeI : mails) {
-            if (mailDeI.equals(mail)) {
-                return false;
-            }
-        }
-        return true;
+        return this.repoUsuaio.getUsuario(mail) != null;
     }
 
     @Override
     public Usuario agarrarUsuarioId(Long id) {
-        return repoUsuaio.getUsuarioId(id);
+        return repoUsuaio.getUsuario(id);
     }
 
 }

@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Controller
 public class ControladorFigurita {
@@ -19,14 +20,19 @@ public class ControladorFigurita {
     private final ServicioAlbum servicioAlbum;
 
     private final ServicioLogin servicioLogin;
+    private final ServicioRegistroPegada servicioRegistroPegada;
+
+    private final ServicioComentario servicioComent;
 
     @Autowired
-    public ControladorFigurita(ServicioFigurita servicioFigu, ServicioSeleccion servicioSelec, ServicioAlbum servicioAlbum, ServicioLogin servicioLogin) {
+    public ControladorFigurita(ServicioFigurita servicioFigu, ServicioSeleccion servicioSelec, ServicioAlbum servicioAlbum, ServicioLogin servicioLogin, ServicioRegistroPegada servicioRegistroPegada, ServicioComentario servicioComent) {
 
         this.servicioFigu = servicioFigu;
         this.servicioSelec = servicioSelec;
         this.servicioAlbum = servicioAlbum;
         this.servicioLogin = servicioLogin;
+        this.servicioRegistroPegada = servicioRegistroPegada;
+        this.servicioComent = servicioComent;
     }
 
     @RequestMapping(path = "/ver-figurita", method = RequestMethod.GET)
@@ -71,14 +77,20 @@ public class ControladorFigurita {
     }
 
     @RequestMapping(path = "/configuracion-figurita", method = RequestMethod.GET)
-    public ModelAndView verVistaFiguritaConfig() {
+    public ModelAndView verVistaFiguritaConfig(HttpServletRequest request) {
         List<Seleccion> selecciones = this.servicioSelec.traerSelecciones();
         List<Posicion> posiciones = this.servicioFigu.traerPosiciones();
         List<Rareza> rarezas = this.servicioFigu.traerRarezas();
         List<Album> albunes = this.servicioAlbum.traerAlbunes();
         List<Figurita> figuritas = this.servicioFigu.traerFiguritas();
+        String rol = (String)request.getSession().getAttribute("ROL");
+        Long id = (Long)request.getSession().getAttribute("ID");
+        Usuario userLogueado = (Usuario)request.getSession().getAttribute("USUARIO");
 
         ModelMap model = new ModelMap();
+        model.put("usuario", userLogueado);
+        model.put("id",id);
+        model.put("rol",rol);
         model.put("selecciones", selecciones);
         model.put("rarezas", rarezas);
         model.put("posiciones", posiciones);
@@ -141,21 +153,6 @@ public class ControladorFigurita {
         return new ModelAndView("redirect:/configuracion-figurita");
     }
 
-    /*@RequestMapping(path = "/buscarfiguritas", method = RequestMethod.GET, params = {"busq","sel","pos"})
-    public ModelAndView buscarFiguritas(@RequestParam String busq,
-                                        @RequestParam String sel,
-                                        @RequestParam String pos){
-        ModelMap resBusqueda = new ModelMap();
-        
-        List<Figurita> figuritasEncontradas = new ArrayList<>();
-
-
-        figuritasEncontradas.add(servicioFigu.buscarFiguritaPorNombre(busq));
-
-        resBusqueda.put("figEncontradas",figuritasEncontradas);
-
-        return new ModelAndView("buscarFiguritas", resBusqueda);
-    }*/
 
     @RequestMapping(path = "/carta", method = RequestMethod.POST)
     public ModelAndView verCarta(@RequestParam int id, HttpServletRequest request) {
@@ -163,19 +160,20 @@ public class ControladorFigurita {
         Figurita figurita = this.servicioFigu.buscarFigurita((long) id);
         String rol = (String)request.getSession().getAttribute("ROL");
         Long idLogueado = (Long)request.getSession().getAttribute("ID");
-
-        Usuario userLogueado = servicioLogin.agarrarUsuarioId((long)id);
+        Usuario userLogueado = (Usuario)request.getSession().getAttribute("USUARIO");
+        List<Comentario> comentariosFiltrados= this.servicioComent.traerComentariosPorID(figurita.getId());
 
         ModelMap model = new ModelMap();
         model.put("figurita", figurita);
         model.put("id",idLogueado);
         model.put("rol",rol);
         model.put("usuario", userLogueado);
+        model.put("comentariosFiltrados", comentariosFiltrados);
 
         return new ModelAndView("figurita", model);
     }
 
-
+/*
     @RequestMapping(path = "/buscarfiguritas", method = RequestMethod.GET, params = {"busq"})
     public ModelAndView buscarFiguritas(@RequestParam String busq) {
 
@@ -185,5 +183,91 @@ public class ControladorFigurita {
         resBusqueda.put("figEncontradas", figs);
 
         return new ModelAndView("buscarFiguritas", resBusqueda);
+    }*/
+
+    @RequestMapping(path = "/buscarfiguritas", method = RequestMethod.GET, params = {"busq"})
+    public ModelAndView buscarFiguritas(@RequestParam (value = "busq") String busq,
+                                        @RequestParam (value = "selSeleccion", required = false) Long sel,
+                                        @RequestParam (value = "selPosicionJugador", required = false) Long pos,
+                                        HttpServletRequest request){
+
+        ModelMap model = new ModelMap();
+
+        List<Seleccion> selecciones = servicioSelec.traerSelecciones();
+        List<Posicion> posiciones = servicioFigu.traerPosiciones();
+        List<Figurita> figs = servicioFigu.buscarFiguritaPorFiltros(busq,sel,pos);
+        String rol = (String)request.getSession().getAttribute("ROL");
+        Long id = (Long)request.getSession().getAttribute("ID");
+        Usuario userLogueado = (Usuario)request.getSession().getAttribute("USUARIO");
+
+        model.put("usuario", userLogueado);
+        model.put("id",id);
+        model.put("rol",rol);
+        model.put("todasSelecciones", selecciones);
+        model.put("todasPosiciones", posiciones);
+        model.put("figEncontradas", figs);
+
+        return new ModelAndView("buscarFiguritas", model);
     }
+
+    @RequestMapping(path="/pegar", method = RequestMethod.POST)
+    public ModelAndView pegarFigu(@RequestParam Long albumIdd, @RequestParam Long id, HttpServletRequest request){
+        // buscar album, buscar figurita, agarrar usuario
+        Usuario usuarioPegar = (Usuario)request.getSession().getAttribute("USUARIO");
+        Figurita figuritaPegar = servicioFigu.buscarFigurita(id);
+        Album albumPegar = servicioAlbum.getAlbum(albumIdd);
+        RegistroPegada rp = new RegistroPegada();
+
+        rp.setFigurita(figuritaPegar);
+        rp.setAlbum(albumPegar);
+        rp.setUsuario(usuarioPegar);
+
+        servicioRegistroPegada.pegarRegistro(rp);
+
+        return new ModelAndView("redirect:/perfil");
+    }
+
+    @RequestMapping(path = "/sorteo-figurita", method = RequestMethod.GET)
+    public ModelAndView verCarta(HttpServletRequest request) {
+
+        String rol = (String)request.getSession().getAttribute("ROL");
+        Long id = (Long)request.getSession().getAttribute("ID");
+        Usuario userLogueado = (Usuario)request.getSession().getAttribute("USUARIO");
+
+
+        List<Figurita> figuritas = this.servicioFigu.traerFiguritas();
+        int indiceAleatorio = numeroAleatorioEnRango(0, figuritas.size() - 1);
+        int indiceAleatorio2 = numeroAleatorioEnRango(0, figuritas.size() - 1);
+        int indiceAleatorio3 = numeroAleatorioEnRango(0, figuritas.size() - 1);
+
+        Figurita figurita1 = figuritas.get(indiceAleatorio);
+        Figurita figurita2 = figuritas.get(indiceAleatorio2);
+        Figurita figurita3 = figuritas.get(indiceAleatorio3);
+
+        ModelMap model = new ModelMap();
+        model.put("id",id);
+        model.put("rol",rol);
+        model.put("usuario", userLogueado);
+        model.put("figurita1", figurita1);
+        model.put("figurita2", figurita2);
+        model.put("figurita3", figurita3);
+
+        return new ModelAndView("sorteo", model);
+    }
+
+    private int numeroAleatorioEnRango(int minimo, int maximo) {
+        return ThreadLocalRandom.current().nextInt(minimo, maximo + 1);
+    }
+
+
+    @RequestMapping(path = "/asignar-ganador", method = RequestMethod.POST)
+    public ModelAndView AsignarFiguritaAlGanador(@ModelAttribute("figurita") Figurita figurita,HttpServletRequest request) {
+
+        Long idLogueado = (Long)request.getSession().getAttribute("ID"); //esto no anda
+        figurita.setId(idLogueado); // esto no anda
+        this.servicioFigu.agregarFigurita(figurita);
+
+        return new ModelAndView("redirect:/home");
+    }
+
 }

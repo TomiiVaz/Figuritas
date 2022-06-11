@@ -20,9 +20,10 @@
             <c:choose>
                 <c:when test="${id!=null}">
                     <div class="dropdown text-end ">
-                        <a href="" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+                        <a href="" class="d-block link-dark text-decoration-none dropdown-toggle d-flex justify-content-start" id="dropdownUser1"
                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="img/messi1.jpg" alt="mdo" width="32" height="32" class="rounded-circle">
+                            <img src="img/${usuario.nombre}.jpg" alt="mdo" width="32" height="32" class="rounded-circle">
+                            <h3 class="text-white text-center ms-2">Hola ${usuario.nombre}</h3>
                         </a>
                         <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="">
                             <li><a class="dropdown-item" href="perfil">Profile</a></li>
@@ -37,9 +38,12 @@
                 </c:when>
                 <c:otherwise>
                     <a href="login"><button class="btn btn-primary btn-block m-2">Ingresar</button></a>
+                    <a href="registrarse"><button class="btn btn-warning btn-block m-2">Registrarse</button></a>
                 </c:otherwise>
             </c:choose>
 
+
+            <!-- hacer que quede bien centrado (funciona pero le falta eso) -->
 
         </div>
     </div>
