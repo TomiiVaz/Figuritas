@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import ar.edu.unlam.tallerweb1.excepciones.*;
 import ar.edu.unlam.tallerweb1.modelo.*;
 import ar.edu.unlam.tallerweb1.servicios.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -123,9 +124,57 @@ public class ControladorFigurita {
     @RequestMapping(path = "/crear-figurita", method = RequestMethod.POST)
     public ModelAndView crearFigurita(@ModelAttribute("figurita") Figurita figurita) {
 
-        this.servicioFigu.agregarFigurita(figurita);
+
+
+        try{
+            this.servicioFigu.agregarFigurita(figurita);
+        } catch (FiguritaConNombreRepetidoException figuritaConNombreRepetidoException){
+            return registroFallido(figurita,"NombreFiguritaRepetido", "El nombre de la figurita ya existe");
+
+        } catch (FiguritaConNombreNullOVacioException FiguritaConNombreNullOVacioException){
+            return registroFallido(figurita,"NombreFiguritaNullVacio", "Debe agregar un nombre, dato obligatorio");
+
+        } catch (FiguritaConSeleccionVaciaExcepition FiguritaConSeleccionVaciaExcepition){
+            return registroFallido(figurita,"SeleccionFiguritaVacia", "Debe seleccionar una seleccion, dato obligatorio");
+
+        } catch (FiguritaConPosicionVaciaExcepition FiguritaConPosicionVaciaExcepition){
+            return registroFallido(figurita,"PosicionFiguritaVacia", "Debe seleccionar una posicion, dato obligatorio");
+
+        } catch (FiguritaConRarezaVaciaExcepition FiguritaConRarezaVaciaExcepition){
+            return registroFallido(figurita,"RarezaFiguritaVacia", "Debe seleccionar una rareza, dato obligatorio");
+
+        } catch (FiguritaConAlbumVacioExcepition FiguritaConAlbumVacioExcepition){
+            return registroFallido(figurita,"AlbumFiguritaVacio", "Debe seleccionar un album, dato obligatorio");
+
+        } catch (FiguritaConDorsalValidoExcepition FiguritaConDorsalValidoExcepition){
+            return registroFallido(figurita,"DorsalFiguritaVacio", "Debe agregar un dorsal corecto mayor de 0 y menor de 99");
+
+        } catch (FiguritaConConEquipoVacioExcepition FiguritaConConEquipoVacioExcepition){
+            return registroFallido(figurita,"EquipoFiguritaVacio", "Debe agregar un equipo, dato obligatorio");
+
+
+        }
 
         return new ModelAndView("redirect:/configuracion-figurita");
+    }
+
+    private ModelAndView registroFallido(Figurita figurita, String errorNombre, String errorMensaje) {
+        ModelMap model = new ModelMap();
+
+        List<Seleccion> selecciones = this.servicioSelec.traerSelecciones();
+        List<Posicion> posiciones = this.servicioFigu.traerPosiciones();
+        List<Rareza> rarezas = this.servicioFigu.traerRarezas();
+        List<Album> albunes = this.servicioAlbum.traerAlbunes();
+        List<Figurita> figuritas = this.servicioFigu.traerFiguritas();
+
+        model.put(errorNombre,errorMensaje);
+        model.put("figurita", figurita);
+        model.put("selecciones", selecciones);
+        model.put("rarezas", rarezas);
+        model.put("posiciones", posiciones);
+        model.put("albunes", albunes);
+        model.put("figuritas", figuritas);
+        return new ModelAndView("configFigurita", model);
     }
 
     @RequestMapping(path = "/updateFalso-figurita", method = RequestMethod.POST)

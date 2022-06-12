@@ -24,6 +24,8 @@ public interface RepositorioFigurita {
 
     Figurita encontrarFigurita(Long id);
 
+    Figurita buscarFiguritaPorNombre(String nombre);
+
     List<Figurita> findBySeleccion(Long seleccion);
     List<Figurita> findByPosicion(Long posicion);
 }

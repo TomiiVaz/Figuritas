@@ -1,12 +1,8 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
-import ar.edu.unlam.tallerweb1.modelo.Figurita;
-import ar.edu.unlam.tallerweb1.modelo.Posicion;
-import ar.edu.unlam.tallerweb1.modelo.Rareza;
-import ar.edu.unlam.tallerweb1.modelo.Seleccion;
+import ar.edu.unlam.tallerweb1.excepciones.*;
+import ar.edu.unlam.tallerweb1.modelo.*;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioFigurita;
-import ar.edu.unlam.tallerweb1.repositorios.RepositorioUsuario;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,8 +24,74 @@ public class ServicioFiguritaImpl implements ServicioFigurita{
 
     @Override
     public void agregarFigurita(Figurita figurita) {
+
+        if(verificarQueElcampoNoVengaNullOVacio(figurita.getNombre())){
+            throw new FiguritaConNombreNullOVacioException();
+        }
+
+        if(verificarNombreFiguritaRepetido(figurita.getNombre())){
+            throw new FiguritaConNombreRepetidoException();
+        }
+
+        if(verificarQueSeleccionNoVengVacio(figurita.getSeleccion())){
+            throw new FiguritaConSeleccionVaciaExcepition();
+        }
+
+        if(verificarQueLaPorsicionNoVengaVacia(figurita.getPosicion())){
+            throw new FiguritaConPosicionVaciaExcepition();
+        }
+
+        if(verificarQueLaRarezaNoVengaVacia(figurita.getRareza())){
+            throw new FiguritaConRarezaVaciaExcepition();
+        }
+
+        if(verificarQueElAlbumNoVengaVacio(figurita.getAlbum())){
+            throw new FiguritaConAlbumVacioExcepition();
+        }
+
+        if(verificarQueElDorsalEnRangoValido(figurita.getDorsal())){
+            throw new FiguritaConDorsalValidoExcepition();
+        }
+
+        if(verificarQueElEquipoNoVengVacio(figurita.getEquipo())){
+            throw new FiguritaConConEquipoVacioExcepition();
+        }
+
+
         repoFigurita.guardar(figurita);
 
+    }
+
+    private boolean verificarQueElEquipoNoVengVacio(String equipo) {
+        return equipo.isEmpty();
+    }
+
+    private boolean verificarQueElDorsalEnRangoValido(byte dorsal) {
+        return !(dorsal >0 && dorsal <=99);
+    }
+
+    private boolean verificarQueElAlbumNoVengaVacio(Album album) { // no anda
+        return album.getNombre() =="";
+    }
+
+    private boolean verificarQueLaRarezaNoVengaVacia(Rareza rareza) { // no anda
+        return rareza.getDescripcion() == "";
+    }
+
+    private boolean verificarQueLaPorsicionNoVengaVacia(Posicion posicion) { // no anda
+        return posicion.getDescripcion().isEmpty();
+    }
+
+    private boolean verificarQueSeleccionNoVengVacio(Seleccion seleccion) { // no anda
+        return seleccion.getNombre().isBlank();
+    }
+
+    private boolean verificarQueElcampoNoVengaNullOVacio(String nombre) {
+        return nombre == null || nombre == "";
+    }
+
+    private boolean verificarNombreFiguritaRepetido(String nombre) {
+        return ((this.repoFigurita.buscarFiguritaPorNombre(nombre)) != null);
     }
 
     @Override
