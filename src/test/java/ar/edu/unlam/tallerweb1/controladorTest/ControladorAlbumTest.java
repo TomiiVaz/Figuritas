@@ -8,7 +8,6 @@ import ar.edu.unlam.tallerweb1.excepciones.AlbumRepetidoException;
 import ar.edu.unlam.tallerweb1.modelo.Album;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlbum;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.springframework.web.servlet.ModelAndView;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
@@ -21,15 +20,31 @@ public class ControladorAlbumTest extends SpringTest {
     private ControladorAlbum CA = new ControladorAlbum(SA);
     private ModelAndView mav;
 
+    private final String ERROR_NULO = "Para eliminar, seleccione un album";
+    private final String ERROR_REPETIDO = "El nombre del album está en uso";
+    private final String NOMBRE_ALBUM = "Prueba";
+    private final Long ID_NULO = 0L;
+    private final Long ID_NO_NULO_LONG = 1L;
+    private final Integer ID_NO_NULO_INT = 1;
+
     @Test
     public void queSePuedaAgregarUnAlbumTest() {
         // Preparacion -> given
 
         // Ejecucion -> when
         Album album = new Album();
-        mav = CA.agregarAlbum(album);
+        whenSeAgregaUnAlbum(album);
 
         // Comprobacion -> then
+        thenQueLaVistaSeaRedirect();
+
+    }
+
+    private void whenSeAgregaUnAlbum(Album album) {
+        mav = CA.agregarAlbum(album);
+    }
+
+    private void thenQueLaVistaSeaRedirect() {
         assertThat(mav.getViewName()).isEqualTo("redirect:/configuracion-album");
     }
 
@@ -44,10 +59,15 @@ public class ControladorAlbumTest extends SpringTest {
                 .when(SA)
                 .agregarAlbum(album);
 
-        mav = CA.agregarAlbum(album);
+        whenSeAgregaUnAlbum(album);
 
         // Comprobacion -> then
-        assertThat(mav.getModel().get("error")).isEqualTo("El nombre del album está en uso");
+        thenQueLaDevueltaSeaUnError(ERROR_REPETIDO);
+
+    }
+
+    private void thenQueLaDevueltaSeaUnError(String mensaje) {
+        assertThat(mav.getModel().get("error")).isEqualTo(mensaje);
     }
 
     @Test
@@ -55,11 +75,14 @@ public class ControladorAlbumTest extends SpringTest {
         // Preparacion -> given
 
         // Ejecucion -> when;
-        mav = CA.editarAlbunes(1, "Prueba");
+        whenSeEditaUnAlbum();
 
         // Comprobacion -> then
+        thenQueLaVistaSeaRedirect();
+    }
 
-        assertThat(mav.getViewName()).isEqualTo("redirect:/configuracion-album");
+    private void whenSeEditaUnAlbum() {
+        mav = CA.editarAlbunes(ID_NO_NULO_INT, NOMBRE_ALBUM);
     }
 
     @Test
@@ -67,17 +90,14 @@ public class ControladorAlbumTest extends SpringTest {
         // Preparacion -> given
 
         // Ejecucion -> when;
-
-        String nombreNuevo = "Prueba";
-
         doThrow(AlbumRepetidoException.class)
                 .when(SA)
-                .editarAlbum(1l, nombreNuevo);
+                .editarAlbum(ID_NO_NULO_LONG, NOMBRE_ALBUM);
 
-        mav = CA.editarAlbunes(1, nombreNuevo);
+        whenSeEditaUnAlbum();
 
         // Comprobacion -> then
-        assertThat(mav.getModel().get("error")).isEqualTo("El nombre del album está en uso");
+        thenQueLaDevueltaSeaUnError(ERROR_REPETIDO);
     }
 
     @Test
@@ -85,11 +105,16 @@ public class ControladorAlbumTest extends SpringTest {
         // Preparacion -> given
 
         // Ejecucion -> when;
-        mav = CA.eliminarAlbum(1L);
+        whenSeEliminaUnAlbum(ID_NO_NULO_LONG);
+
 
         // Comprobacion -> then
 
-        assertThat(mav.getViewName()).isEqualTo("redirect:/configuracion-album");
+        thenQueLaVistaSeaRedirect();
+    }
+
+    private void whenSeEliminaUnAlbum(Long id) {
+        mav = CA.eliminarAlbum(id);
     }
 
     @Test
@@ -97,17 +122,14 @@ public class ControladorAlbumTest extends SpringTest {
         // Preparacion -> given
 
         // Ejecucion -> when;
-
-        Long id = 0L;
-
         doThrow(AlbumNullDeletedException.class)
                 .when(SA)
-                .eliminarAlbum(id);
+                .eliminarAlbum(ID_NULO);
 
-        mav = CA.eliminarAlbum(id);
+        whenSeEliminaUnAlbum(ID_NULO);
 
         // Comprobacion -> then
-        assertThat(mav.getModel().get("error")).isEqualTo("Para eliminar, seleccione un album");
+        thenQueLaDevueltaSeaUnError(ERROR_NULO);
     }
 
 }
