@@ -1,7 +1,7 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
-import ar.edu.unlam.tallerweb1.modelo.Figurita;
 import ar.edu.unlam.tallerweb1.modelo.RegistroPegada;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -38,6 +38,16 @@ public class RepositorioRegistroPegadaImpl implements RepositorioRegistroPegada 
         return (List<RegistroPegada>) session.createCriteria(RegistroPegada.class)
                 .createAlias("usuario","usuario")
                 .add(Restrictions.eq("usuario.id", idUsuario))
+                .list();
+    }
+
+    @Override
+    public List<RegistroPegada> traerFiguritasIntercambiables(Usuario usuario) {
+        final Session session = sessionFactory.getCurrentSession();
+
+        return (List<RegistroPegada>) session.createCriteria(RegistroPegada.class)
+                .add(Restrictions.eq("intercambiable", true))
+                .add(Restrictions.ne("usuario.id", usuario.getId()))
                 .list();
     }
 

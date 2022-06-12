@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.modelo.Figurita;
 import ar.edu.unlam.tallerweb1.modelo.RegistroPegada;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioRegistroPegada;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,8 +37,13 @@ public class ServicioRegistroPegadaImpl implements ServicioRegistroPegada{
     }
 
     @Override
-    public List<RegistroPegada> getIntercambiables() {
-        return repositorioRp.traerFiguritasIntercambiables();
+    public List<RegistroPegada> getIntercambiables(Usuario usuario) {
+        if(usuario!= null && usuario.getId()!=null){
+            return repositorioRp.traerFiguritasIntercambiables(usuario);
+        } else {
+            return repositorioRp.traerFiguritasIntercambiables();
+        }
+
     }
 
     @Override

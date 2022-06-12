@@ -83,10 +83,12 @@ public class ControladorLogin {
     @RequestMapping(path = "/home", method = RequestMethod.GET)
     public ModelAndView irAHome(HttpServletRequest request) {
 
-        List<RegistroPegada> intercambiables = serviciopegada.getIntercambiables();
+
         String rol = (String) request.getSession().getAttribute("ROL");
         Long id = (Long) request.getSession().getAttribute("ID");
         Usuario userLogueado = (Usuario) request.getSession().getAttribute("USUARIO");
+
+        List<RegistroPegada> intercambiables = serviciopegada.getIntercambiables(userLogueado);
 
         ModelMap model = new ModelMap();
         model.put("intercambiables", intercambiables);
