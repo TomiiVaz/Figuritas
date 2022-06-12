@@ -45,6 +45,8 @@ public class RepositorioFiguritaImpl implements RepositorioFigurita{
                 .list(); // ¿para que traiga una lista?????
     }
 
+
+
     @Override
     public List<Figurita> findAllByIdEquipo(Integer idEquipo) {
         final Session session = sessionFactory.getCurrentSession();
@@ -121,6 +123,19 @@ public class RepositorioFiguritaImpl implements RepositorioFigurita{
         Figurita figurita = (Figurita) session.createCriteria(Figurita.class)
                 .add(Restrictions.eq("id",id))
                 .uniqueResult();
+
+        return figurita;
+    }
+
+    @Override
+    public Figurita buscarFiguritaPorNombre(String nombre) {
+
+        final Session session = sessionFactory.getCurrentSession();
+
+        Figurita figurita = (Figurita) session.createCriteria(Figurita.class)
+                .add(Restrictions.eq("nombre",nombre))
+                .uniqueResult();
+
 
         return figurita;
     }
