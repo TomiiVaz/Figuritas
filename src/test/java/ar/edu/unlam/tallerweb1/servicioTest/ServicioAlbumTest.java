@@ -1,17 +1,16 @@
 package ar.edu.unlam.tallerweb1.servicioTest;
 
 import ar.edu.unlam.tallerweb1.SpringTest;
+import ar.edu.unlam.tallerweb1.excepciones.AlbumNullDeletedException;
 import ar.edu.unlam.tallerweb1.excepciones.AlbumRepetidoException;
 import ar.edu.unlam.tallerweb1.modelo.Album;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioAlbum;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlbum;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlbumImpl;
 import org.junit.Test;
-import org.springframework.web.servlet.ModelAndView;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class ServicioAlbumTest extends SpringTest {
 
@@ -30,6 +29,7 @@ public class ServicioAlbumTest extends SpringTest {
         SA.agregarAlbum(album);
         // Comprobacion -> then
         assertThat(album).isNotNull();
+        verify(RA, atLeastOnce()).guardar(album);
     }
 
     @Test(expected = AlbumRepetidoException.class)
@@ -44,5 +44,57 @@ public class ServicioAlbumTest extends SpringTest {
 
         SA.agregarAlbum(album);
         // Comprobacion -> then
+        verify(RA, never()).guardar(album);
+    }
+
+    @Test
+    public void queSePuedaEditarUnAlbum() {
+        // Preparacion -> given
+
+        // Ejecucion -> when
+        String nombreAsignado = "pepe";
+        Long id = 1L;
+
+        when(RA.getAlbum(nombreAsignado)).thenReturn(null);
+
+        SA.editarAlbum(id, nombreAsignado);
+        // Comprobacion -> then
+        verify(RA, atLeastOnce()).editarAlbum(id, nombreAsignado);
+    }
+
+    @Test(expected = AlbumRepetidoException.class)
+    public void queNoSePuedaEditarUnAlbumPorNombreExistente() {
+        // Preparacion -> given
+
+        // Ejecucion -> when
+        Album album = new Album();
+        String nombre = "Aldo";
+        when(RA.getAlbum(nombre)).thenReturn(new Album());
+
+        SA.editarAlbum(1L, nombre);
+        // Comprobacion -> then
+        verify(RA, never()).editarAlbum(1L, nombre);
+    }
+
+    @Test
+    public void queSePuedaEliminarElAlbum() {
+        // Preparacion -> given
+
+        // Ejecucion -> when
+        SA.eliminarAlbum(1L);
+
+        // Comprobacion -> then
+        verify(RA, atLeastOnce()).eliminarAlbum(1L);
+    }
+
+    @Test(expected = AlbumNullDeletedException.class)
+    public void queNoSePuedaEliminarAlbumConIdCero(){
+        // Preparacion -> given
+
+        // Ejecucion -> when
+        SA.eliminarAlbum(0L);
+
+        // Comprobacion -> then
+        verify(RA, never()).eliminarAlbum(0l);
     }
 }
