@@ -71,23 +71,54 @@ public class ServicioFiguritaImpl implements ServicioFigurita{
     }
 
     private boolean verificarQueElAlbumNoVengaVacio(Album album) { // no anda
-        return album.getNombre() =="";
+        boolean respuesta = false;
+        if(album == null){
+            respuesta = true;
+        }
+
+        if(album.getId() == 0){
+            respuesta = true;
+        }
+        return respuesta;
     }
 
     private boolean verificarQueLaRarezaNoVengaVacia(Rareza rareza) { // no anda
-        return rareza.getDescripcion() == "";
+        boolean respuesta = false;
+        if(rareza == null){
+            respuesta = true;
+        }
+        if(rareza.getId() == 0){
+            respuesta = true;
+        }
+        return respuesta;
     }
 
+
     private boolean verificarQueLaPorsicionNoVengaVacia(Posicion posicion) { // no anda
-        return posicion.getDescripcion().isEmpty();
+        boolean respuesta = false;
+        if(posicion == null){
+            respuesta = true;
+        }
+        if(posicion.getId() == 0){
+            respuesta = true;
+        }
+        return respuesta;
     }
 
     private boolean verificarQueSeleccionNoVengVacio(Seleccion seleccion) { // no anda
-        return seleccion.getNombre().isBlank();
+
+        boolean respuesta = false;
+        if(seleccion == null){
+            respuesta = true;
+        }
+        if(seleccion.getId() == 0){
+            respuesta = true;
+        }
+        return respuesta;
     }
 
     private boolean verificarQueElcampoNoVengaNullOVacio(String nombre) {
-        return nombre == null || nombre == "";
+        return nombre == null || nombre.isEmpty();
     }
 
     private boolean verificarNombreFiguritaRepetido(String nombre) {

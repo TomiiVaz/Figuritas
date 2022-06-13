@@ -84,14 +84,14 @@ public class ControladorFigurita {
         List<Rareza> rarezas = this.servicioFigu.traerRarezas();
         List<Album> albunes = this.servicioAlbum.traerAlbunes();
         List<Figurita> figuritas = this.servicioFigu.traerFiguritas();
-        String rol = (String)request.getSession().getAttribute("ROL");
-        Long id = (Long)request.getSession().getAttribute("ID");
-        Usuario userLogueado = (Usuario)request.getSession().getAttribute("USUARIO");
+        String rol = (String) request.getSession().getAttribute("ROL");
+        Long id = (Long) request.getSession().getAttribute("ID");
+        Usuario userLogueado = (Usuario) request.getSession().getAttribute("USUARIO");
 
         ModelMap model = new ModelMap();
         model.put("usuario", userLogueado);
-        model.put("id",id);
-        model.put("rol",rol);
+        model.put("id", id);
+        model.put("rol", rol);
         model.put("selecciones", selecciones);
         model.put("rarezas", rarezas);
         model.put("posiciones", posiciones);
@@ -122,43 +122,42 @@ public class ControladorFigurita {
     }
 
     @RequestMapping(path = "/crear-figurita", method = RequestMethod.POST)
-    public ModelAndView crearFigurita(@ModelAttribute("figurita") Figurita figurita) {
+    public ModelAndView crearFigurita(@ModelAttribute("figurita") Figurita figurita, HttpServletRequest request) {
 
 
-
-        try{
+        try {
             this.servicioFigu.agregarFigurita(figurita);
-        } catch (FiguritaConNombreRepetidoException figuritaConNombreRepetidoException){
-            return registroFallido(figurita,"NombreFiguritaRepetido", "El nombre de la figurita ya existe");
+        } catch (FiguritaConNombreRepetidoException figuritaConNombreRepetidoException) {
+            return registroFallido(figurita, "NombreFiguritaRepetido", "El nombre de la figurita ya existe",request);
 
-        } catch (FiguritaConNombreNullOVacioException FiguritaConNombreNullOVacioException){
-            return registroFallido(figurita,"NombreFiguritaNullVacio", "Debe agregar un nombre, dato obligatorio");
+        } catch (FiguritaConNombreNullOVacioException FiguritaConNombreNullOVacioException) {
+            return registroFallido(figurita, "NombreFiguritaNullVacio", "Debe agregar un nombre, dato obligatorio", request);
 
-        } catch (FiguritaConSeleccionVaciaExcepition FiguritaConSeleccionVaciaExcepition){
-            return registroFallido(figurita,"SeleccionFiguritaVacia", "Debe seleccionar una seleccion, dato obligatorio");
+        } catch (FiguritaConSeleccionVaciaExcepition FiguritaConSeleccionVaciaExcepition) {
+            return registroFallido(figurita, "SeleccionFiguritaVacia", "Debe seleccionar una seleccion, dato obligatorio", request);
 
-        } catch (FiguritaConPosicionVaciaExcepition FiguritaConPosicionVaciaExcepition){
-            return registroFallido(figurita,"PosicionFiguritaVacia", "Debe seleccionar una posicion, dato obligatorio");
+        } catch (FiguritaConPosicionVaciaExcepition FiguritaConPosicionVaciaExcepition) {
+            return registroFallido(figurita, "PosicionFiguritaVacia", "Debe seleccionar una posicion, dato obligatorio", request);
 
-        } catch (FiguritaConRarezaVaciaExcepition FiguritaConRarezaVaciaExcepition){
-            return registroFallido(figurita,"RarezaFiguritaVacia", "Debe seleccionar una rareza, dato obligatorio");
+        } catch (FiguritaConRarezaVaciaExcepition FiguritaConRarezaVaciaExcepition) {
+            return registroFallido(figurita, "RarezaFiguritaVacia", "Debe seleccionar una rareza, dato obligatorio", request);
 
-        } catch (FiguritaConAlbumVacioExcepition FiguritaConAlbumVacioExcepition){
-            return registroFallido(figurita,"AlbumFiguritaVacio", "Debe seleccionar un album, dato obligatorio");
+        } catch (FiguritaConAlbumVacioExcepition FiguritaConAlbumVacioExcepition) {
+            return registroFallido(figurita, "AlbumFiguritaVacio", "Debe seleccionar un album, dato obligatorio", request);
 
-        } catch (FiguritaConDorsalValidoExcepition FiguritaConDorsalValidoExcepition){
-            return registroFallido(figurita,"DorsalFiguritaVacio", "Debe agregar un dorsal corecto mayor de 0 y menor de 99");
+        } catch (FiguritaConDorsalValidoExcepition FiguritaConDorsalValidoExcepition) {
+            return registroFallido(figurita, "DorsalFiguritaVacio", "Debe agregar un dorsal corecto mayor a 0 y menor igual a 99", request);
 
-        } catch (FiguritaConConEquipoVacioExcepition FiguritaConConEquipoVacioExcepition){
-            return registroFallido(figurita,"EquipoFiguritaVacio", "Debe agregar un equipo, dato obligatorio");
-
+        } catch (FiguritaConConEquipoVacioExcepition FiguritaConConEquipoVacioExcepition) {
+            return registroFallido(figurita, "EquipoFiguritaVacio", "Debe agregar un equipo, dato obligatorio", request);
 
         }
 
         return new ModelAndView("redirect:/configuracion-figurita");
+
     }
 
-    private ModelAndView registroFallido(Figurita figurita, String errorNombre, String errorMensaje) {
+    private ModelAndView registroFallido(Figurita figurita, String errorNombre, String errorMensaje, HttpServletRequest request) {
         ModelMap model = new ModelMap();
 
         List<Seleccion> selecciones = this.servicioSelec.traerSelecciones();
@@ -166,14 +165,20 @@ public class ControladorFigurita {
         List<Rareza> rarezas = this.servicioFigu.traerRarezas();
         List<Album> albunes = this.servicioAlbum.traerAlbunes();
         List<Figurita> figuritas = this.servicioFigu.traerFiguritas();
+        String rol = (String) request.getSession().getAttribute("ROL");
+        Long id = (Long) request.getSession().getAttribute("ID");
+        Usuario userLogueado = (Usuario) request.getSession().getAttribute("USUARIO");
 
-        model.put(errorNombre,errorMensaje);
+        model.put(errorNombre, errorMensaje);
         model.put("figurita", figurita);
         model.put("selecciones", selecciones);
         model.put("rarezas", rarezas);
         model.put("posiciones", posiciones);
         model.put("albunes", albunes);
         model.put("figuritas", figuritas);
+        model.put("usuario", userLogueado);
+        model.put("id", id);
+        model.put("rol", rol);
         return new ModelAndView("configFigurita", model);
     }
 
@@ -207,15 +212,15 @@ public class ControladorFigurita {
     public ModelAndView verCarta(@RequestParam int id, HttpServletRequest request) {
 
         Figurita figurita = this.servicioFigu.buscarFigurita((long) id);
-        String rol = (String)request.getSession().getAttribute("ROL");
-        Long idLogueado = (Long)request.getSession().getAttribute("ID");
-        Usuario userLogueado = (Usuario)request.getSession().getAttribute("USUARIO");
-        List<Comentario> comentariosFiltrados= this.servicioComent.traerComentariosPorID(figurita.getId());
+        String rol = (String) request.getSession().getAttribute("ROL");
+        Long idLogueado = (Long) request.getSession().getAttribute("ID");
+        Usuario userLogueado = (Usuario) request.getSession().getAttribute("USUARIO");
+        List<Comentario> comentariosFiltrados = this.servicioComent.traerComentariosPorID(figurita.getId());
 
         ModelMap model = new ModelMap();
         model.put("figurita", figurita);
-        model.put("id",idLogueado);
-        model.put("rol",rol);
+        model.put("id", idLogueado);
+        model.put("rol", rol);
         model.put("usuario", userLogueado);
         model.put("comentariosFiltrados", comentariosFiltrados);
 
@@ -235,23 +240,23 @@ public class ControladorFigurita {
     }*/
 
     @RequestMapping(path = "/buscarfiguritas", method = RequestMethod.GET, params = {"busq"})
-    public ModelAndView buscarFiguritas(@RequestParam (value = "busq") String busq,
-                                        @RequestParam (value = "selSeleccion", required = false) Long sel,
-                                        @RequestParam (value = "selPosicionJugador", required = false) Long pos,
-                                        HttpServletRequest request){
+    public ModelAndView buscarFiguritas(@RequestParam(value = "busq") String busq,
+                                        @RequestParam(value = "selSeleccion", required = false) Long sel,
+                                        @RequestParam(value = "selPosicionJugador", required = false) Long pos,
+                                        HttpServletRequest request) {
 
         ModelMap model = new ModelMap();
 
         List<Seleccion> selecciones = servicioSelec.traerSelecciones();
         List<Posicion> posiciones = servicioFigu.traerPosiciones();
-        List<Figurita> figs = servicioFigu.buscarFiguritaPorFiltros(busq,sel,pos);
-        String rol = (String)request.getSession().getAttribute("ROL");
-        Long id = (Long)request.getSession().getAttribute("ID");
-        Usuario userLogueado = (Usuario)request.getSession().getAttribute("USUARIO");
+        List<Figurita> figs = servicioFigu.buscarFiguritaPorFiltros(busq, sel, pos);
+        String rol = (String) request.getSession().getAttribute("ROL");
+        Long id = (Long) request.getSession().getAttribute("ID");
+        Usuario userLogueado = (Usuario) request.getSession().getAttribute("USUARIO");
 
         model.put("usuario", userLogueado);
-        model.put("id",id);
-        model.put("rol",rol);
+        model.put("id", id);
+        model.put("rol", rol);
         model.put("todasSelecciones", selecciones);
         model.put("todasPosiciones", posiciones);
         model.put("figEncontradas", figs);
@@ -259,10 +264,10 @@ public class ControladorFigurita {
         return new ModelAndView("buscarFiguritas", model);
     }
 
-    @RequestMapping(path="/pegar", method = RequestMethod.POST)
-    public ModelAndView pegarFigu(@RequestParam Long albumIdd, @RequestParam Long id, HttpServletRequest request){
+    @RequestMapping(path = "/pegar", method = RequestMethod.POST)
+    public ModelAndView pegarFigu(@RequestParam Long albumIdd, @RequestParam Long id, HttpServletRequest request) {
         // buscar album, buscar figurita, agarrar usuario
-        Usuario usuarioPegar = (Usuario)request.getSession().getAttribute("USUARIO");
+        Usuario usuarioPegar = (Usuario) request.getSession().getAttribute("USUARIO");
         Figurita figuritaPegar = servicioFigu.buscarFigurita(id);
         Album albumPegar = servicioAlbum.getAlbum(albumIdd);
         RegistroPegada rp = new RegistroPegada();
@@ -280,9 +285,9 @@ public class ControladorFigurita {
     @RequestMapping(path = "/sorteo-figurita", method = RequestMethod.GET)
     public ModelAndView verCarta(HttpServletRequest request) {
 
-        String rol = (String)request.getSession().getAttribute("ROL");
-        Long id = (Long)request.getSession().getAttribute("ID");
-        Usuario userLogueado = (Usuario)request.getSession().getAttribute("USUARIO");
+        String rol = (String) request.getSession().getAttribute("ROL");
+        Long id = (Long) request.getSession().getAttribute("ID");
+        Usuario userLogueado = (Usuario) request.getSession().getAttribute("USUARIO");
 
 
         List<Figurita> figuritas = this.servicioFigu.traerFiguritas();
@@ -295,8 +300,8 @@ public class ControladorFigurita {
         Figurita figurita3 = figuritas.get(indiceAleatorio3);
 
         ModelMap model = new ModelMap();
-        model.put("id",id);
-        model.put("rol",rol);
+        model.put("id", id);
+        model.put("rol", rol);
         model.put("usuario", userLogueado);
         model.put("figurita1", figurita1);
         model.put("figurita2", figurita2);
@@ -311,9 +316,9 @@ public class ControladorFigurita {
 
 
     @RequestMapping(path = "/asignar-ganador", method = RequestMethod.POST)
-    public ModelAndView AsignarFiguritaAlGanador(@ModelAttribute("figurita") Figurita figurita,HttpServletRequest request) {
+    public ModelAndView AsignarFiguritaAlGanador(@ModelAttribute("figurita") Figurita figurita, HttpServletRequest request) {
 
-        Long idLogueado = (Long)request.getSession().getAttribute("ID"); //esto no anda
+        Long idLogueado = (Long) request.getSession().getAttribute("ID"); //esto no anda
         figurita.setId(idLogueado); // esto no anda
         this.servicioFigu.agregarFigurita(figurita);
 
