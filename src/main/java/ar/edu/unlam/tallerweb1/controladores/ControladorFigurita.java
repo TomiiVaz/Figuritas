@@ -249,17 +249,19 @@ public class ControladorFigurita {
 
         List<Seleccion> selecciones = servicioSelec.traerSelecciones();
         List<Posicion> posiciones = servicioFigu.traerPosiciones();
-        List<Figurita> figs = servicioFigu.buscarFiguritaPorFiltros(busq, sel, pos);
+
         String rol = (String) request.getSession().getAttribute("ROL");
         Long id = (Long) request.getSession().getAttribute("ID");
         Usuario userLogueado = (Usuario) request.getSession().getAttribute("USUARIO");
+
+        List<RegistroPegada> registrosEncontrados = servicioRegistroPegada.getIntercambiablesPorFiltros(busq,sel,pos);
 
         model.put("usuario", userLogueado);
         model.put("id", id);
         model.put("rol", rol);
         model.put("todasSelecciones", selecciones);
         model.put("todasPosiciones", posiciones);
-        model.put("figEncontradas", figs);
+        model.put("regsEncontrados", registrosEncontrados);
 
         return new ModelAndView("buscarFiguritas", model);
     }

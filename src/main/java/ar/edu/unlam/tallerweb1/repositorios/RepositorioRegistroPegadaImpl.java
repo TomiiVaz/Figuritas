@@ -67,4 +67,36 @@ public class RepositorioRegistroPegadaImpl implements RepositorioRegistroPegada 
                 .add(Restrictions.eq("id", id))
                 .uniqueResult();
     }
+
+    @Override
+    public List<RegistroPegada> getRegistroPorNombreFigurita(String nombre){
+        final Session session = sessionFactory.getCurrentSession();
+
+        List<RegistroPegada> registroPegadas =
+                (List<RegistroPegada>) session.createCriteria(RegistroPegada.class)
+                .createAlias("figurita", "f")
+                .add(Restrictions.eq("f.nombre", nombre))
+                .list();
+        return registroPegadas;
+    }
+
+    @Override
+    public List<RegistroPegada> getRegistroPorSeleccionFigurita(Long seleccion){
+        final Session session = sessionFactory.getCurrentSession();
+        return (List<RegistroPegada>)session.createCriteria(RegistroPegada.class)
+                .createAlias("figurita", "f")
+                .createAlias("f.seleccion", "s")
+                .add(Restrictions.eq("s.id" , seleccion))
+                .list();
+    }
+
+    @Override
+    public List<RegistroPegada> getRegistroPorPosicionFigurita(Long posicion){
+        final Session session = sessionFactory.getCurrentSession();
+        return (List<RegistroPegada>)session.createCriteria(RegistroPegada.class)
+                .createAlias("figurita", "f")
+                .createAlias("f.posicion", "p")
+                .add(Restrictions.eq("p.id" , posicion))
+                .list();
+    }
 }

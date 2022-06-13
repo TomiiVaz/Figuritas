@@ -18,4 +18,9 @@ public interface RepositorioRegistroPegada {
 
     RegistroPegada getRegistroPorId(Long id);
 
+    List<RegistroPegada> getRegistroPorNombreFigurita(String nombre);
+
+    List<RegistroPegada> getRegistroPorSeleccionFigurita(Long seleccion);
+
+    List<RegistroPegada> getRegistroPorPosicionFigurita(Long posicion);
 }

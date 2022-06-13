@@ -57,12 +57,12 @@
     <div class="container bg-dark">
         <div class="row mt-4 bg-dark gx-2">
             <!-- preguntar o ver que onda porque del home se llama post y desde aca como get -->
-            <c:forEach var="item" items="${figEncontradas}">
+            <c:forEach var="item" items="${regsEncontrados}">
                 <div class="col-2 my-1">
                     <div class="figuritaEncontrada border rounded border-white">
                         <a href="carta" class="btn">
-                            <img src="img/${item.nombre}.jpg" alt="foto1" width="95% " class="rounded m-auto d-block">
-                            <div class="h4 text-center my-auto text-white">${item.nombre}</div>
+                            <img src="img/${item.figurita.nombre}.jpg" alt="foto1" width="95% " class="rounded m-auto d-block">
+                            <div class="h4 text-center my-auto text-white">${item.figurita.nombre}</div>
                         </a>
                     </div>
                 </div>
