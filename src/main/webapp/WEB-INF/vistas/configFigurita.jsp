@@ -36,159 +36,162 @@
         </div>
     </div>
 
-    <%--    Formulario Agregar--%>
-    <div class="collapse mt-5 container-fluid" id="collapseAgregar">
-        <div class="card card-body bg-dark border-0 container">
-            <h2 class="text-white text-center">Formulario agregar Figurita</h2>
-            <form:form class='text-center d-flex flex-column px-5 px-5 py-2 bg-dark border-0'
-                       method='post'
-                       action='crear-figurita'
-                       modelAttribute="figurita">
+    <div class="d-flex flex-wrap">
 
-                <label for='nombre' class='text-white'>Nombre</label>
-                <input class='my-2 form-control' type='text' path='nombre' id='nombre' name='nombre'>
+        <%--    Formulario Agregar--%>
+        <div class="collapse mt-5 container-fluid w-25" id="collapseAgregar">
+            <div class="card card-body bg-dark border-0 container">
+                <h2 class="text-white text-center">Formulario agregar Figurita</h2>
+                <form:form class='text-center d-flex flex-column px-5 px-5 py-2 bg-dark border-0'
+                           method='post'
+                           action='crear-figurita'
+                           modelAttribute="figurita">
 
-                <%--  Mensajes Error--%>
-                <c:if test="${not empty NombreFiguritaRepetido}">
-                    <p class="text-danger"><span>${NombreFiguritaRepetido}</span></p>
-                    <br>
-                </c:if>
-                <c:if test="${not empty NombreFiguritaNullVacio}">
-                    <p class="text-danger"><span>${NombreFiguritaNullVacio}</span></p>
-                    <br>
-                </c:if>
+                    <label for='nombre' class='text-white'>Nombre</label>
+                    <input class='my-2 form-control' type='text' path='nombre' id='nombre' name='nombre'>
 
-                <label for='seleccion.id' class='text-white'>Seleccion</label>
-                <select path='seleccion.id' id='seleccion.id' name='seleccion.id' class='form-control my-2'>
-                    <option value='' selected hidden>Seleccionar seleccion</option>
-                    <c:forEach var="seleccion" items="${selecciones}">
+                    <%--  Mensajes Error--%>
+                    <c:if test="${not empty NombreFiguritaRepetido}">
+                        <p class="text-danger"><span>${NombreFiguritaRepetido}</span></p>
+                        <br>
+                    </c:if>
+                    <c:if test="${not empty NombreFiguritaNullVacio}">
+                        <p class="text-danger"><span>${NombreFiguritaNullVacio}</span></p>
+                        <br>
+                    </c:if>
 
-                        <option value='${seleccion.id}'>${seleccion.nombre}</option>
-                    </c:forEach>
-                </select>
-                <%--  Mensajes Error--%>
-                <c:if test="${not empty SeleccionFiguritaVacia}">
-                    <p class="text-danger"><span>${SeleccionFiguritaVacia}</span></p>
-                    <br>
-                </c:if>
+                    <label for='seleccion.id' class='text-white'>Seleccion</label>
+                    <select path='seleccion.id' id='seleccion.id' name='seleccion.id' class='form-control my-2'>
+                        <option value='0' selected hidden>Seleccionar seleccion</option>
+                        <c:forEach var="seleccion" items="${selecciones}">
 
-                <label for="posicion.id" class='text-white'>Posicion</label>
-                <select path='posicion.id' id='posicion.id' name='posicion.id' class='form-control my-2'>
-                    <option value='' selected hidden>Seleccionar posicion</option>
-                    <c:forEach var="posicion" items="${posiciones}">
+                            <option value='${seleccion.id}'>${seleccion.nombre}</option>
+                        </c:forEach>
+                    </select>
+                    <%--  Mensajes Error--%>
+                    <c:if test="${not empty SeleccionFiguritaVacia}">
+                        <p class="text-danger"><span>${SeleccionFiguritaVacia}</span></p>
+                        <br>
+                    </c:if>
 
-                        <option value='${posicion.id}'>${posicion.descripcion}</option>
-                    </c:forEach>
-                </select>
-                <%--  Mensajes Error--%>
-                <c:if test="${not empty PosicionFiguritaVacia}">
-                    <p class="text-danger"><span>${PosicionFiguritaVacia}</span></p>
-                    <br>
-                </c:if>
+                    <label for="posicion.id" class='text-white'>Posicion</label>
+                    <select path='posicion.id' id='posicion.id' name='posicion.id' class='form-control my-2'>
+                        <option value='0' selected hidden>Seleccionar posicion</option>
+                        <c:forEach var="posicion" items="${posiciones}">
 
-                <label for="rareza.id" class='text-white'>Rareza</label>
-                <select path='rareza.id' id='rareza.id' name='rareza.id' class='form-control my-2'>
-                    <option value='' selected hidden>Seleccionar rareza</option>
-                    <c:forEach var="rareza" items="${rarezas}">
+                            <option value='${posicion.id}'>${posicion.descripcion}</option>
+                        </c:forEach>
+                    </select>
+                    <%--  Mensajes Error--%>
+                    <c:if test="${not empty PosicionFiguritaVacia}">
+                        <p class="text-danger"><span>${PosicionFiguritaVacia}</span></p>
+                        <br>
+                    </c:if>
 
-                        <option value='${rareza.id}'>${rareza.descripcion}</option>
-                    </c:forEach>
-                </select>
-                <%--  Mensajes Error--%>
-                <c:if test="${not empty RarezaFiguritaVacia}">
-                    <p class="text-danger"><span>${RarezaFiguritaVacia}</span></p>
-                    <br>
-                </c:if>
+                    <label for="rareza.id" class='text-white'>Rareza</label>
+                    <select path='rareza.id' id='rareza.id' name='rareza.id' class='form-control my-2'>
+                        <option value='0' selected hidden>Seleccionar rareza</option>
+                        <c:forEach var="rareza" items="${rarezas}">
 
-                <label for="album.id" class='text-white'>Album</label>
-                <select path='album.id' id='album.id' name='album.id' class='form-control my-2'>
-                    <option value='' selected hidden>Seleccionar album</option>
-                    <c:forEach var="albunes" items="${albunes}">
+                            <option value='${rareza.id}'>${rareza.descripcion}</option>
+                        </c:forEach>
+                    </select>
+                    <%--  Mensajes Error--%>
+                    <c:if test="${not empty RarezaFiguritaVacia}">
+                        <p class="text-danger"><span>${RarezaFiguritaVacia}</span></p>
+                        <br>
+                    </c:if>
 
-                        <option value='${albunes.id}'>${albunes.nombre}</option>
-                    </c:forEach>
-                </select>
-                <%--  Mensajes Error--%>
-                <c:if test="${not empty AlbumFiguritaVacio}">
-                    <p class="text-danger"><span>${AlbumFiguritaVacio}</span></p>
-                    <br>
-                </c:if>
+                    <label for="album.id" class='text-white'>Album</label>
+                    <select path='album.id' id='album.id' name='album.id' class='form-control my-2'>
+                        <option value='0' selected hidden>Seleccionar album</option>
+                        <c:forEach var="albunes" items="${albunes}">
 
-
-                <label for='dorsal' class='text-white'>Dorsal</label>
-                <input class='my-2 form-control' type="number"  path='dorsal' id='dorsal' name='dorsal'>
-                <%--  Mensajes Error--%>
-                <c:if test="${not empty DorsalFiguritaVacio}">
-                    <p class="text-danger"><span>${DorsalFiguritaVacio}</span></p>
-                    <br>
-                </c:if>
-
-                <label for='equipo' class='text-white'>Equipo</label>
-                <input class='my-2 form-control' type="text"  path='equipo' id='equipo' name='equipo'>
-                <%--  Mensajes Error--%>
-                <c:if test="${not empty EquipoFiguritaVacio}">
-                    <p class="text-danger"><span>${EquipoFiguritaVacio}</span></p>
-                    <br>
-                </c:if>
+                            <option value='${albunes.id}'>${albunes.nombre}</option>
+                        </c:forEach>
+                    </select>
+                    <%--  Mensajes Error--%>
+                    <c:if test="${not empty AlbumFiguritaVacio}">
+                        <p class="text-danger"><span>${AlbumFiguritaVacio}</span></p>
+                        <br>
+                    </c:if>
 
 
+                    <label for='dorsal' class='text-white'>Dorsal</label>
+                    <input class='my-2 form-control' type="number"  path='dorsal' id='dorsal' name='dorsal'>
+                    <%--  Mensajes Error--%>
+                    <c:if test="${not empty DorsalFiguritaVacio}">
+                        <p class="text-danger"><span>${DorsalFiguritaVacio}</span></p>
+                        <br>
+                    </c:if>
+
+                    <label for='equipo' class='text-white'>Equipo</label>
+                    <input class='my-2 form-control' type="text"  path='equipo' id='equipo' name='equipo'>
+                    <%--  Mensajes Error--%>
+                    <c:if test="${not empty EquipoFiguritaVacio}">
+                        <p class="text-danger"><span>${EquipoFiguritaVacio}</span></p>
+                        <br>
+                    </c:if>
 
 
-                <%--  Boton--%>
-                <button type='submit' class='btn btn-success my-2'>Agregar</button>
-            </form:form>
+                    <%--  Boton--%>
+                    <button type='submit' class='btn btn-success my-2'>Agregar</button>
+                </form:form>
+            </div>
         </div>
-    </div>
-    <%--    /Formulario Agregar--%>
+        <%--    /Formulario Agregar--%>
 
-    <%--    Formulario Editar--%>
-    <div class="collapse mt-5 container-fluid" id="collapseEditar">
-        <div class="card card-body bg-dark border-0 container">
-            <h2 class="text-white text-center">Formulario editar figurita</h2>
-            <form:form class='text-center d-flex flex-column px-5 px-5 py-2 bg-dark border-0'
-                       method='post'
-                       action='editar-figurita'
-                       modelAttribute="figurita">
-                <select id='figuritaId' name='figuritaId' class='form-control my-2'>
-                    <option value='Default' selected hidden>Seleccionar una figurita</option>
+        <%--    Formulario Editar--%>
+        <div class="collapse mt-5 container-fluid w-25" id="collapseEditar">
+            <div class="card card-body bg-dark border-0 container">
+                <h2 class="text-white text-center">Formulario editar figurita</h2>
+                <form:form class='text-center d-flex flex-column px-5 px-5 py-2 bg-dark border-0'
+                           method='post'
+                           action='editar-figurita'
+                           modelAttribute="figurita">
 
-                    <c:forEach var="figurita" items="${figuritas}">
-                        <option value='${figurita.id}'>${figurita.nombre}</option>
-                    </c:forEach>
-                </select>
+                    <label for="figuritaId" class='text-white'>Figurita</label>
+                    <select id='figuritaId' name='figuritaId' class='form-control my-2'>
+                        <option value='Default' selected hidden>Seleccionar una figurita</option>
 
-                <button type='submit' class='btn btn-success my-2'>Editar</button>
+                        <c:forEach var="figurita" items="${figuritas}">
+                            <option value='${figurita.id}'>${figurita.nombre}</option>
+                        </c:forEach>
+                    </select>
 
-            </form:form>
+                    <button type='submit' class='btn btn-success my-2'>Editar</button>
+
+                </form:form>
+            </div>
         </div>
-    </div>
-    <%--    /Formulario Editar--%>
+        <%--    /Formulario Editar--%>
 
-    <%--    Formulario Borrar--%>
-    <div class="collapse mt-5 container-fluid" id="collapseEliminar">
-        <div class="card card-body bg-dark border-0 container">
-            <h2 class="text-white text-center">Formulario eliminar figurita</h2>
-            <form:form class='text-center d-flex flex-column px-5 px-5 py-2 bg-dark border-0'
-                       method='post'
-                       action='del-figurita'
-                       modelAttribute="figurita">
+        <%--    Formulario Borrar--%>
+        <div class="collapse mt-5 container-fluid w-25" id="collapseEliminar">
+            <div class="card card-body bg-dark border-0 container">
+                <h2 class="text-white text-center">Formulario eliminar figurita</h2>
+                <form:form class='text-center d-flex flex-column px-5 px-5 py-2 bg-dark border-0'
+                           method='post'
+                           action='del-figurita'
+                           modelAttribute="figurita">
 
-                <label for="figuritaId" class='text-white'>Figurita</label>
-                <select path='figuritaId' id='figuritaId' name='figuritaId' class='form-control my-2'>
-                    <option value='Default' selected hidden>Seleccionar una figurita a borrar</option>
+                    <label for="figuritaId" class='text-white'>Figurita</label>
+                    <select path='figuritaId' id='figuritaId' name='figuritaId' class='form-control my-2'>
+                        <option value='Default' selected hidden>Seleccionar una figurita a borrar</option>
 
-                    <c:forEach var="figurita" items="${figuritas}">
-                        <option value='${figurita.id}'>${figurita.nombre}</option>
-                    </c:forEach>
-                </select>
+                        <c:forEach var="figurita" items="${figuritas}">
+                            <option value='${figurita.id}'>${figurita.nombre}</option>
+                        </c:forEach>
+                    </select>
 
-                </select>
-                <button type='submit' class='btn btn-success my-2'>Eliminar</button>
-            </form:form>
+                    </select>
+                    <button type='submit' class='btn btn-success my-2'>Eliminar</button>
+                </form:form>
+            </div>
         </div>
-    </div>
-    <%--    /Formulario Borrar--%>
+        <%--    /Formulario Borrar--%>
 
+    </div>
 </main>
 
 
