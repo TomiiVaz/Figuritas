@@ -25,7 +25,7 @@
 
             <%--Bloque que es visible si el elemento error no esta vacio	--%>
             <c:if test="${not empty error}">
-                <h4 class="text-white mb-2 mt-5"><span>${error}</span></h4>
+                <h4 class="text-danger mb-2 mt-5"><span>${error}</span></h4>
                 <br>
             </c:if>
             <button class="btn btn-lg btn-primary btn-block m-4" Type="Submit"/>

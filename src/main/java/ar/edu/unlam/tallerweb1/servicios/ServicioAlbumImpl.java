@@ -17,25 +17,18 @@ public class ServicioAlbumImpl implements ServicioAlbum {
     private final RepositorioAlbum repoAlbum;
 
     @Autowired
-    private ServicioAlbumImpl(RepositorioAlbum repoAlbum) {
+    public ServicioAlbumImpl(RepositorioAlbum repoAlbum) {
         this.repoAlbum = repoAlbum;
     }
 
     //   Le habla al repo para que guarde en db el albun
     @Override
     public void agregarAlbum(Album album) {
-        if (verificarAlbumExistente(album.getNombre())) {
-            repoAlbum.guardar(album);
-        } else {
+        if (this.repoAlbum.getAlbum(album.getNombre()) != null) {
             throw new AlbumRepetidoException();
         }
+        repoAlbum.guardar(album);
     }
-
-    @Override
-    public Boolean verificarAlbumExistente(String nombre) {
-        return this.repoAlbum.getAlbum(nombre) == null;
-    }
-
 
     //    Le pide al repo que le de los albunes
     @Override
@@ -47,14 +40,16 @@ public class ServicioAlbumImpl implements ServicioAlbum {
     public void editarAlbum(Long albumId, String nombreNuevo) {
         if (this.repoAlbum.getAlbum(nombreNuevo) != null) {
             throw new AlbumRepetidoException();
-        } else this.repoAlbum.editarAlbum(albumId, nombreNuevo);
+        }
+        this.repoAlbum.editarAlbum(albumId, nombreNuevo);
     }
 
     @Override
     public void eliminarAlbum(Long albumId) {
         if (albumId == 0) {
-            throw new AlbumNullDeletedException("Para eliminar, seleccione un album");
-        } else this.repoAlbum.eliminarAlbum(albumId);
+            throw new AlbumNullDeletedException();
+        }
+        this.repoAlbum.eliminarAlbum(albumId);
     }
 
     @Override
