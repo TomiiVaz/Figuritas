@@ -23,6 +23,7 @@ public class ServicioAlbumTest extends SpringTest {
 
         // Ejecucion -> when
         Album album = new Album();
+        album.setNombre("aa");
 
         when(repositorioAlbum.getAlbum(album.getNombre())).thenReturn(null);
 
