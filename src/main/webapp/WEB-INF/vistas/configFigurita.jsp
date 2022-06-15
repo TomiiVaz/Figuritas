@@ -34,6 +34,20 @@
                 Eliminar
             </button>
         </div>
+        <%--  Mensajes Error--%>
+        <c:if test="${not empty ErrorFigurita}">
+            <p class="text-danger"><span>${ErrorFigurita}</span></p>
+            <br>
+        </c:if>
+        <c:if test="${not empty ErrorFiguritaEditarSinSeleccionar}">
+            <p class="text-danger"><span>${ErrorFiguritaEditarSinSeleccionar}</span></p>
+            <br>
+        </c:if>
+        <c:if test="${not empty ErrorNoSeleecionoUnaFiguritaAEliminar}">
+            <p class="text-danger"><span>${ErrorNoSeleecionoUnaFiguritaAEliminar}</span></p>
+            <br>
+        </c:if>
+
     </div>
 
     <div class="d-flex flex-wrap">
@@ -152,12 +166,16 @@
 
                     <label for="figuritaId" class='text-white'>Figurita</label>
                     <select id='figuritaId' name='figuritaId' class='form-control my-2'>
-                        <option value='Default' selected hidden>Seleccionar una figurita</option>
+                        <option value='0' selected hidden>Seleccionar una figurita</option>
 
                         <c:forEach var="figurita" items="${figuritas}">
                             <option value='${figurita.id}'>${figurita.nombre}</option>
                         </c:forEach>
                     </select>
+                    <c:if test="${not empty ErrorFiguritaSinSeleccionar}">
+                        <p class="text-danger"><span>${ErrorFiguritaSinSeleccionar}</span></p>
+                        <br>
+                    </c:if>
 
                     <button type='submit' class='btn btn-success my-2'>Editar</button>
 
@@ -176,15 +194,18 @@
                            modelAttribute="figurita">
 
                     <label for="figuritaId" class='text-white'>Figurita</label>
-                    <select path='figuritaId' id='figuritaId' name='figuritaId' class='form-control my-2'>
-                        <option value='Default' selected hidden>Seleccionar una figurita a borrar</option>
+                    <select id='figuritaId' name='figuritaId' class='form-control my-2'>
+                        <option value='0' selected hidden>Seleccionar una figurita a borrar</option>
 
                         <c:forEach var="figurita" items="${figuritas}">
                             <option value='${figurita.id}'>${figurita.nombre}</option>
                         </c:forEach>
                     </select>
+                    <c:if test="${not empty ErrorFiguritaAElminarSinSeleccionar}">
+                        <p class="text-danger"><span>${ErrorFiguritaAElminarSinSeleccionar}</span></p>
+                        <br>
+                    </c:if>
 
-                    </select>
                     <button type='submit' class='btn btn-success my-2'>Eliminar</button>
                 </form:form>
             </div>
