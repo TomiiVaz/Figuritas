@@ -111,33 +111,40 @@
                 </div>
                 <%--                    El boton esta fuera del form, por lo cual no se donde me lo envia xd--%>
                 <%--                /Agregar figurita form--%>
-                    <div class="mb-3">
-                        <c:if test="${not empty errorCodigo}">
-                            <p class="text-danger"><span>${errorCodigo}</span></p>
-                            <br>
-                        </c:if>
-                    </div>
+                <div class="mb-3">
+                    <c:if test="${not empty errorCodigo}">
+                        <p class="text-danger"><span>${errorCodigo}</span></p>
+                        <br>
+                    </c:if>
+                </div>
 
-                <%--                    Albunes--%>
-                <div class="mb-1 mt-2">
-                    <select path='albumId' id='albumId' name='albumId' class='form-control my-2'>
-                        <c:forEach var="album" items="${albunes}">
-                            <option value='Default' selected hidden>Seleccionar un álbum</option>
-                            <option value='${album.id}'>${album.nombre}</option>
-                        </c:forEach>
-                    </select>
-                </div>
-                <%--                    Albunes--%>
-                <%--Selecciones--%>
-                <div class="mb-5 mt-2">
-                    <select id='seleccionId' name='seleccionId' class='form-control my-2'>
-                        <c:forEach var="seleccion" items="${selecciones}">
-                            <option value='Default' selected hidden>Seleccionar una selección</option>
-                            <option value='${seleccion.id}'>${seleccion.nombre}</option>
-                        </c:forEach>
-                    </select>
-                </div>
-                <%--Selecciones--%>
+                <form action="filtrar-figuritas" method="get">
+                    <%--                    Albunes--%>
+
+                    <div class="mb-1 mt-2">
+                        <select path='albumId' id='albumId' name='albumId' class='form-control my-2'>
+                            <c:forEach var="album" items="${albunes}">
+                                <option value='0' selected hidden>Seleccionar un álbum</option>
+                                <option value='${album.id}'>${album.nombre}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <%--                    Albunes--%>
+                    <%--Selecciones--%>
+                    <div class="mb-5 mt-2">
+                        <select id='seleccionId' name='seleccionId' class='form-control my-2'>
+                            <c:forEach var="seleccion" items="${selecciones}">
+                                <option value='0' selected hidden>Seleccionar una selección</option>
+                                <option value='${seleccion.id}'>${seleccion.nombre}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <%--Selecciones--%>
+                        <button type="submit" class="btn btn-primary">
+                            Buscar
+                        </button>
+                </form>
+
             </div>
             <div class="d-flex flex-wrap justify-content-center">
                 <c:forEach var="pegada" items="${pegadas}">

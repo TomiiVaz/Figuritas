@@ -89,6 +89,28 @@ public class ServicioRegistroPegadaImpl implements ServicioRegistroPegada{
         /********/
     }
 
+    @Override
+    public List<RegistroPegada> getIntercambiablesPerfil(Long seleccion, Long album, Long idUsuario) {
+
+        List<RegistroPegada> busqueda = new ArrayList<>();
+        Long cero = 0l;
+
+        if(seleccion!=cero){
+            busqueda.addAll(repositorioRp.getRegistroPorSeleccionFiguritaUsuario(seleccion, idUsuario));
+        }
+
+        if(album!=cero){
+            busqueda.addAll(repositorioRp.getRegistroPorAlbumFigurita(album,idUsuario));
+        }
+
+        if(seleccion==cero && seleccion==cero){
+            busqueda.clear();
+            busqueda.addAll(repositorioRp.traerFiguritasPegadasPorUsuario(idUsuario));
+        }
+
+        return busqueda;
+    }
+
     private List<RegistroPegada> hacerDiferenciaDeListas(List<RegistroPegada> aRetornar, List<RegistroPegada> deComparacion){
         if(aRetornar.size() > 0){
             for (int i = 0; i < aRetornar.size(); i++) {

@@ -91,12 +91,36 @@ public class RepositorioRegistroPegadaImpl implements RepositorioRegistroPegada 
     }
 
     @Override
+    public List<RegistroPegada> getRegistroPorAlbumFigurita(Long album, Long idUsuario) {
+        final Session session = sessionFactory.getCurrentSession();
+        return (List<RegistroPegada>)session.createCriteria(RegistroPegada.class)
+                .createAlias("figurita", "f")
+                .createAlias("f.album", "a")
+                .createAlias("usuario", "u")
+                .add(Restrictions.eq("a.id" , album))
+                .add(Restrictions.eq("u.id" , idUsuario))
+                .list();
+    }
+
+    @Override
     public List<RegistroPegada> getRegistroPorPosicionFigurita(Long posicion){
         final Session session = sessionFactory.getCurrentSession();
         return (List<RegistroPegada>)session.createCriteria(RegistroPegada.class)
                 .createAlias("figurita", "f")
                 .createAlias("f.posicion", "p")
                 .add(Restrictions.eq("p.id" , posicion))
+                .list();
+    }
+
+    @Override
+    public List<RegistroPegada> getRegistroPorSeleccionFiguritaUsuario(Long seleccion, Long idUsuario) {
+        final Session session = sessionFactory.getCurrentSession();
+        return (List<RegistroPegada>)session.createCriteria(RegistroPegada.class)
+                .createAlias("figurita", "f")
+                .createAlias("f.seleccion", "s")
+                .createAlias("usuario", "u")
+                .add(Restrictions.eq("s.id" , seleccion))
+                .add(Restrictions.eq("u.id" , idUsuario))
                 .list();
     }
 }
