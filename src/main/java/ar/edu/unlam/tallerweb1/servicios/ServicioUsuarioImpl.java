@@ -9,8 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioUsuario;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 
-import java.util.List;
-
 // Implelemtacion del Servicio de usuarios, la anotacion @Service indica a Spring que esta clase es un componente que debe
 // ser manejado por el framework, debe indicarse en applicationContext que busque en el paquete ar.edu.unlam.tallerweb1.servicios
 // para encontrar esta clase.
@@ -19,36 +17,36 @@ import java.util.List;
 // en hibernateCOntext.xml. De esta manera todos los metodos de cualquier dao invocados dentro de un servicio se ejecutan en la misma transaccion
 @Service("servicioLogin")
 @Transactional
-public class ServicioLoginImpl implements ServicioLogin {
+public class ServicioUsuarioImpl implements ServicioUsuario {
 
-    private final RepositorioUsuario repoUsuaio;
+    private final RepositorioUsuario repositorioUsuario;
 
     @Autowired
-    public ServicioLoginImpl(RepositorioUsuario servicioLoginDao) {
-        this.repoUsuaio = servicioLoginDao;
+    public ServicioUsuarioImpl(RepositorioUsuario servicioLoginDao) {
+        this.repositorioUsuario = servicioLoginDao;
     }
 
     @Override
     public Usuario consultarUsuario(String email, String password) {
-        return repoUsuaio.buscarUsuario(email, password);
+        return repositorioUsuario.buscarUsuario(email, password);
     }
 
     @Override
     public void registrarUsuario(Usuario usuario) {
-        if(verificarMail(usuario.getEmail())){
+        if (verificarMail(usuario.getEmail())) {
             throw new UsuarioMailExistenteException();
         }
-        if(!verificarIguales(usuario.getPassword(), usuario.getPassword2())){
+        if (!verificarIguales(usuario.getPassword(), usuario.getPassword2())) {
             throw new ContraseñasDistintasException();
         }
-        if(!verificarLongitud(usuario.getPassword())){
+        if (!verificarLongitud(usuario.getPassword())) {
             throw new LongitudIncorrectaException();
         }
-        repoUsuaio.guardar(usuario);
+        repositorioUsuario.guardar(usuario);
     }
 
     private Boolean verificarLongitud(String password) {
-        return password.length()>=8;
+        return password.length() >= 8;
     }
 
     private Boolean verificarIguales(String password, String password2) {
@@ -57,12 +55,22 @@ public class ServicioLoginImpl implements ServicioLogin {
 
     @Override
     public Boolean verificarMail(String mail) {
-        return this.repoUsuaio.getUsuario(mail) != null;
+        return this.repositorioUsuario.getUsuario(mail) != null;
     }
 
     @Override
     public Usuario agarrarUsuarioId(Long id) {
-        return repoUsuaio.getUsuario(id);
+        return repositorioUsuario.getUsuario(id);
     }
+
+    @Override
+    public void modificarDatosUsuario(Usuario usuario) {
+        repositorioUsuario.modificar(usuario);
+    }
+
+//    @Override
+//    public void modificarDatosUsuario(Long id, String email, String email1, Seleccion seleccion) {
+//        this.repoUsuaio.modificar();
+//    }
 
 }

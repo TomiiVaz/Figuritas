@@ -26,6 +26,8 @@ public class ControladorAlbum {
         this.servicioAl = serviciAl;
     }
 
+//    Puedo refactorear todo su interior, meterlo en getModelAndView, por las dudas que los datos que le pasamos id, rol etc no se pongan al cargar la vista?
+
     @RequestMapping(path = "/configuracion-album", method = RequestMethod.GET)
     public ModelAndView verAlbum(HttpServletRequest request) {
         List<Album> albunes = this.servicioAl.traerAlbunes();

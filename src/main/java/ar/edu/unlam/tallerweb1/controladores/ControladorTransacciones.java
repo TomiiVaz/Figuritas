@@ -22,13 +22,13 @@ public class ControladorTransacciones {
     private final ServicioSeleccion servicioSelec;
     private final ServicioAlbum servicioAlbum;
 
-    private final ServicioLogin servicioLogin;
+    private final ServicioUsuario servicioLogin;
     private final ServicioRegistroPegada servicioRegistroPegada;
 
     private final ServicioComentario servicioComent;
 
     @Autowired
-    public ControladorTransacciones(ServicioFigurita servicioFigu, ServicioSeleccion servicioSelec, ServicioAlbum servicioAlbum, ServicioLogin servicioLogin, ServicioRegistroPegada servicioRegistroPegada, ServicioComentario servicioComent) {
+    public ControladorTransacciones(ServicioFigurita servicioFigu, ServicioSeleccion servicioSelec, ServicioAlbum servicioAlbum, ServicioUsuario servicioLogin, ServicioRegistroPegada servicioRegistroPegada, ServicioComentario servicioComent) {
 
         this.servicioFigu = servicioFigu;
         this.servicioSelec = servicioSelec;
@@ -93,5 +93,31 @@ public class ControladorTransacciones {
         model.put(nombreError, error);
 
         return new ModelAndView("perfil", model);
+    }
+
+    @RequestMapping(path="filtrar-figuritas", method = RequestMethod.GET)
+    private ModelAndView filtrar(@RequestParam(value = "albumId", required = false) Long album,
+                                 @RequestParam(value="seleccionId", required=false) Long seleccion,
+                                 HttpServletRequest request){
+        ModelMap model=getModel(request);
+        List<RegistroPegada> busqueda =  servicioRegistroPegada.getIntercambiablesPerfil(seleccion, album, (Long) model.get("id"));
+        model.put("pegadas", busqueda);
+        return new ModelAndView("perfil", model);
+    }
+
+    private ModelMap getModel(HttpServletRequest request){
+        ModelMap model = new ModelMap();
+        List<Album> albunes = servicioAlbum.traerAlbunes();
+        List<Seleccion> selecciones = servicioSelec.traerSelecciones();
+        String rol = (String)request.getSession().getAttribute("ROL");
+        Long id = (Long)request.getSession().getAttribute("ID");
+        Usuario usuarioLogueado = (Usuario)request.getSession().getAttribute("USUARIO");
+
+        model.put("id",id);
+        model.put("rol",rol);
+        model.put("usuario",usuarioLogueado);
+        model.put("selecciones", selecciones);
+        model.put("albunes", albunes);
+        return model;
     }
 }
