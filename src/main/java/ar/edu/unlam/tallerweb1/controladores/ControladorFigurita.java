@@ -102,21 +102,37 @@ public class ControladorFigurita {
     }
 
     @RequestMapping(path = "/editar-figurita", method = RequestMethod.POST)
-    public ModelAndView editarFigurita(@RequestParam("figuritaId") Long figuritaId) {
+    public ModelAndView editarFigurita(@RequestParam("figuritaId") Long figuritaId,HttpServletRequest request) {
 
-        //buscarfigurita y mandar al model map
+
         Figurita figuritaEncontrada = this.servicioFigu.buscarFigurita(figuritaId);
         List<Seleccion> selecciones = this.servicioSelec.traerSelecciones();
         List<Posicion> posiciones = this.servicioFigu.traerPosiciones();
         List<Rareza> rarezas = this.servicioFigu.traerRarezas();
         List<Album> albunes = this.servicioAlbum.traerAlbunes();
+        List<Figurita> figuritas = this.servicioFigu.traerFiguritas();
+        String rol = (String) request.getSession().getAttribute("ROL");
+        Long id = (Long) request.getSession().getAttribute("ID");
+        Usuario userLogueado = (Usuario) request.getSession().getAttribute("USUARIO");
 
         ModelMap model = new ModelMap();
+
+        model.put("usuario", userLogueado);
+        model.put("id", id);
+        model.put("rol", rol);
         model.put("figuritaEncontrada", figuritaEncontrada);
         model.put("selecciones", selecciones);
         model.put("rarezas", rarezas);
         model.put("posiciones", posiciones);
         model.put("albunes", albunes);
+        model.put("figuritas", figuritas);
+
+        if(figuritaId == 0){
+
+            model.put("ErrorFigurita", "Ups! Se produjo un error. Chequear los datos ingresados");
+            model.put("ErrorFiguritaSinSeleccionar", "Debe seleccionar una figurita, dato obligatorio");
+            return new ModelAndView("configFigurita", model);
+        }
 
         return new ModelAndView("editarFigurita", model);
     }
@@ -127,29 +143,29 @@ public class ControladorFigurita {
 
         try {
             this.servicioFigu.agregarFigurita(figurita);
-        } catch (FiguritaConNombreRepetidoException figuritaConNombreRepetidoException) {
-            return registroFallido(figurita, "NombreFiguritaRepetido", "El nombre de la figurita ya existe",request);
+        } catch (FiguritaConNombreRepetidoException e) {
+            return figuritaFallida(figurita, "NombreFiguritaRepetido", "El nombre de la figurita ya existe",request);
 
-        } catch (FiguritaConNombreNullOVacioException FiguritaConNombreNullOVacioException) {
-            return registroFallido(figurita, "NombreFiguritaNullVacio", "Debe agregar un nombre, dato obligatorio", request);
+        } catch (FiguritaConNombreNullOVacioException e) {
+            return figuritaFallida(figurita, "NombreFiguritaNullVacio", "Debe agregar un nombre, dato obligatorio", request);
 
-        } catch (FiguritaConSeleccionVaciaExcepition FiguritaConSeleccionVaciaExcepition) {
-            return registroFallido(figurita, "SeleccionFiguritaVacia", "Debe seleccionar una seleccion, dato obligatorio", request);
+        } catch (FiguritaConSeleccionVaciaExcepition e) {
+            return figuritaFallida(figurita, "SeleccionFiguritaVacia", "Debe seleccionar una seleccion, dato obligatorio", request);
 
-        } catch (FiguritaConPosicionVaciaExcepition FiguritaConPosicionVaciaExcepition) {
-            return registroFallido(figurita, "PosicionFiguritaVacia", "Debe seleccionar una posicion, dato obligatorio", request);
+        } catch (FiguritaConPosicionVaciaExcepition e) {
+            return figuritaFallida(figurita, "PosicionFiguritaVacia", "Debe seleccionar una posicion, dato obligatorio", request);
 
-        } catch (FiguritaConRarezaVaciaExcepition FiguritaConRarezaVaciaExcepition) {
-            return registroFallido(figurita, "RarezaFiguritaVacia", "Debe seleccionar una rareza, dato obligatorio", request);
+        } catch (FiguritaConRarezaVaciaExcepition e) {
+            return figuritaFallida(figurita, "RarezaFiguritaVacia", "Debe seleccionar una rareza, dato obligatorio", request);
 
-        } catch (FiguritaConAlbumVacioExcepition FiguritaConAlbumVacioExcepition) {
-            return registroFallido(figurita, "AlbumFiguritaVacio", "Debe seleccionar un album, dato obligatorio", request);
+        } catch (FiguritaConAlbumVacioExcepition e) {
+            return figuritaFallida(figurita, "AlbumFiguritaVacio", "Debe seleccionar un album, dato obligatorio", request);
 
-        } catch (FiguritaConDorsalValidoExcepition FiguritaConDorsalValidoExcepition) {
-            return registroFallido(figurita, "DorsalFiguritaVacio", "Debe agregar un dorsal corecto mayor a 0 y menor igual a 99", request);
+        } catch (FiguritaConDorsalValidoExcepition e) {
+            return figuritaFallida(figurita, "DorsalFiguritaVacio", "Debe agregar un dorsal corecto mayor a 0 y menor igual a 99", request);
 
-        } catch (FiguritaConConEquipoVacioExcepition FiguritaConConEquipoVacioExcepition) {
-            return registroFallido(figurita, "EquipoFiguritaVacio", "Debe agregar un equipo, dato obligatorio", request);
+        } catch (FiguritaConConEquipoVacioExcepition e) {
+            return figuritaFallida(figurita, "EquipoFiguritaVacio", "Debe agregar un equipo, dato obligatorio", request);
 
         }
 
@@ -157,7 +173,7 @@ public class ControladorFigurita {
 
     }
 
-    private ModelAndView registroFallido(Figurita figurita, String errorNombre, String errorMensaje, HttpServletRequest request) {
+    private ModelAndView figuritaFallida(Figurita figurita, String errorNombre, String errorMensaje, HttpServletRequest request) {
         ModelMap model = new ModelMap();
 
         List<Seleccion> selecciones = this.servicioSelec.traerSelecciones();
@@ -179,13 +195,16 @@ public class ControladorFigurita {
         model.put("usuario", userLogueado);
         model.put("id", id);
         model.put("rol", rol);
+        model.put("ErrorFigurita", "Ups! Se produjo un error. Chequear los datos ingresados");
+
         return new ModelAndView("configFigurita", model);
     }
 
     @RequestMapping(path = "/updateFalso-figurita", method = RequestMethod.POST)
-    public ModelAndView crearFigurita(@ModelAttribute("figurita") Figurita figurita, @RequestParam int id) {
-        this.servicioFigu.eliminarFigurita(id);
-        this.servicioFigu.agregarFigurita(figurita);
+    public ModelAndView crearFigurita(@ModelAttribute("figurita") Figurita figurita, @RequestParam Long id) {
+
+            this.servicioFigu.eliminarFigurita(id);
+            this.servicioFigu.agregarFigurita(figurita);
 
         return new ModelAndView("redirect:/configuracion-figurita");
     }
@@ -200,13 +219,16 @@ public class ControladorFigurita {
     }
 
     @RequestMapping(path = "/del-figurita", method = RequestMethod.POST, params = {"figuritaId"})
-    public ModelAndView delFigurita(@RequestParam int figuritaId) {
+    public ModelAndView delFigurita(@RequestParam Long figuritaId, HttpServletRequest request) {
 
-        this.servicioFigu.eliminarFigurita(figuritaId);
+        try{
+            this.servicioFigu.eliminarFigurita(figuritaId);
+        }catch (FiguritaExceptionGeneral e){
+            return new ModelAndView("configFigurita");
+        }
 
-        return new ModelAndView("redirect:/configuracion-figurita");
+        return new ModelAndView("redirect:/home");
     }
-
 
     @RequestMapping(path = "/carta", method = RequestMethod.POST)
     public ModelAndView verCarta(@RequestParam int id, HttpServletRequest request) {
