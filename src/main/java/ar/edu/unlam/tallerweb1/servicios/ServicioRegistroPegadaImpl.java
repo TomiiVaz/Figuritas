@@ -103,7 +103,12 @@ public class ServicioRegistroPegadaImpl implements ServicioRegistroPegada{
             busqueda.addAll(repositorioRp.getRegistroPorAlbumFigurita(album,idUsuario));
         }
 
-        if(seleccion==cero && seleccion==cero){
+        if(seleccion!=cero && seleccion!=cero){
+            busqueda.clear();
+            busqueda.addAll(repositorioRp.getRegistroPorSeleccionAlbumUsuario(seleccion, album, idUsuario));
+        }
+
+        if(seleccion==cero && album==cero){
             busqueda.clear();
             busqueda.addAll(repositorioRp.traerFiguritasPegadasPorUsuario(idUsuario));
         }
