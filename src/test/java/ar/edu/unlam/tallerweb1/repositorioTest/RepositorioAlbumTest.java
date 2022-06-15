@@ -14,7 +14,7 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
 public class RepositorioAlbumTest extends SpringTest {
 
     @Autowired
-    private RepositorioAlbum RA;
+    private RepositorioAlbum repositorioAlbum;
 
     @Test
     @Transactional
@@ -26,7 +26,7 @@ public class RepositorioAlbumTest extends SpringTest {
         album.setNombre(nombre);
         // Ejecucion -> when
         session().save(album);
-        Album albumBuscado = RA.getAlbum(nombre);
+        Album albumBuscado = repositorioAlbum.getAlbum(nombre);
         // Comprobacion -> then
         assertThat(albumBuscado).isEqualTo(album);
         assertThat(albumBuscado).isNotNull();
@@ -54,7 +54,7 @@ public class RepositorioAlbumTest extends SpringTest {
         album.setId(id);
         // Ejecucion -> when
         session().save(album);
-        Album albumBuscado = RA.getAlbum(id);
+        Album albumBuscado = repositorioAlbum.getAlbum(id);
         // Comprobacion -> then
         assertThat(albumBuscado).isEqualTo(album);
         assertThat(albumBuscado).isNotNull();
@@ -71,8 +71,8 @@ public class RepositorioAlbumTest extends SpringTest {
 
         // Ejecucion -> when
         session().save(album);
-        RA.editarAlbum(album.getId(), nombre);
-        Album albumBuscado = RA.getAlbum("Qatar-2022");
+        repositorioAlbum.editarAlbum(album.getId(), nombre);
+        Album albumBuscado = repositorioAlbum.getAlbum("Qatar-2022");
         // Comprobacion -> then
         assertThat(albumBuscado).isNull();
         assertThat(album.getNombre()).isEqualTo(nombre);
@@ -87,8 +87,8 @@ public class RepositorioAlbumTest extends SpringTest {
         // Ejecucion -> when
         session().save(album);
 
-        RA.eliminarAlbum(album.getId());
-        Album albumBuscado = RA.getAlbum(album.getId());
+        repositorioAlbum.eliminarAlbum(album.getId());
+        Album albumBuscado = repositorioAlbum.getAlbum(album.getId());
         // Comprobacion -> then
         assertThat(albumBuscado).isNull();
     }
