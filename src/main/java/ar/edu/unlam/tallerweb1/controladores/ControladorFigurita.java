@@ -224,10 +224,34 @@ public class ControladorFigurita {
         try{
             this.servicioFigu.eliminarFigurita(figuritaId);
         }catch (FiguritaExceptionGeneral e){
-            return new ModelAndView("configFigurita");
+
+            Figurita figurita = this.servicioFigu.buscarFigurita(figuritaId);
+            List<Seleccion> selecciones = this.servicioSelec.traerSelecciones();
+            List<Posicion> posiciones = this.servicioFigu.traerPosiciones();
+            List<Rareza> rarezas = this.servicioFigu.traerRarezas();
+            List<Album> albunes = this.servicioAlbum.traerAlbunes();
+            List<Figurita> figuritas = this.servicioFigu.traerFiguritas();
+            String rol = (String) request.getSession().getAttribute("ROL");
+            Long id = (Long) request.getSession().getAttribute("ID");
+            Usuario userLogueado = (Usuario) request.getSession().getAttribute("USUARIO");
+
+
+            ModelMap model = new ModelMap();
+            model.put("figurita", figurita);
+            model.put("selecciones", selecciones);
+            model.put("rarezas", rarezas);
+            model.put("posiciones", posiciones);
+            model.put("albunes", albunes);
+            model.put("figuritas", figuritas);
+            model.put("usuario", userLogueado);
+            model.put("id", id);
+            model.put("rol", rol);
+            model.put("ErrorFiguritaAElminarSinSeleccionar", "Debe seleccionar una figurita a eliminar, dato obligatorio");
+            model.put("ErrorNoSeleecionoUnaFiguritaAEliminar", "Ups! Se produjo un error. Chequear los datos ingresados");
+            return new ModelAndView("configFigurita", model);
         }
 
-        return new ModelAndView("redirect:/home");
+        return new ModelAndView("redirect:/configuracion-figurita");
     }
 
     @RequestMapping(path = "/carta", method = RequestMethod.POST)
