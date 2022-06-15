@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import ar.edu.unlam.tallerweb1.modelo.Seleccion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 
 // Interface que define los metodos del Servicio de Usuarios.
@@ -13,7 +14,6 @@ public interface ServicioUsuario {
 
     Usuario agarrarUsuarioId(Long id);
 
-//    void modificarDatosUsuario(Long id, String email, String email1, Seleccion seleccion);
-
     void modificarDatosUsuario(Usuario usuario);
+
 }
