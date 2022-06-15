@@ -266,24 +266,6 @@ public class ControladorFigurita {
         return new ModelAndView("buscarFiguritas", model);
     }
 
-    @RequestMapping(path = "/pegar", method = RequestMethod.POST)
-    public ModelAndView pegarFigu(@RequestParam Long albumIdd, @RequestParam Long id, HttpServletRequest request) {
-        // buscar album, buscar figurita, agarrar usuario
-        Usuario usuarioPegar = (Usuario) request.getSession().getAttribute("USUARIO");
-        Figurita figuritaPegar = servicioFigu.buscarFigurita(id);
-        Album albumPegar = servicioAlbum.getAlbum(albumIdd);
-        RegistroPegada rp = new RegistroPegada();
-
-        rp.setFigurita(figuritaPegar);
-        rp.setAlbum(albumPegar);
-        rp.setUsuario(usuarioPegar);
-        rp.setIntercambiable(false);
-
-        servicioRegistroPegada.pegarRegistro(rp);
-
-        return new ModelAndView("redirect:/perfil");
-    }
-
     @RequestMapping(path = "/sorteo-figurita", method = RequestMethod.GET)
     public ModelAndView verCarta(HttpServletRequest request) {
 
