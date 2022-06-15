@@ -346,11 +346,19 @@ public class ControladorFigurita {
 
 
     @RequestMapping(path = "/asignar-ganador", method = RequestMethod.POST)
-    public ModelAndView AsignarFiguritaAlGanador(@ModelAttribute("figurita") Figurita figurita, HttpServletRequest request) {
+    public ModelAndView AsignarFiguritaAlGanador(@RequestParam Long id, @RequestParam Long album,  HttpServletRequest request) {
 
-        Long idLogueado = (Long) request.getSession().getAttribute("ID"); //esto no anda
-        figurita.setId(idLogueado); // esto no anda
-        this.servicioFigu.agregarFigurita(figurita);
+        Usuario usuarioPegar = (Usuario) request.getSession().getAttribute("USUARIO");
+        Figurita figuritaPegar = servicioFigu.buscarFigurita(id);
+        Album albumPegar = servicioAlbum.getAlbum(album);
+        RegistroPegada rp = new RegistroPegada();
+
+        rp.setFigurita(figuritaPegar);
+        rp.setAlbum(albumPegar);
+        rp.setUsuario(usuarioPegar);
+        rp.setIntercambiable(false);
+
+        this.servicioRegistroPegada.pegarRegistro(rp);
 
         return new ModelAndView("redirect:/home");
     }

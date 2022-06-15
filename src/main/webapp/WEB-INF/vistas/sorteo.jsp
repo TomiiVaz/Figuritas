@@ -44,8 +44,10 @@
                        id='foto111'>
 
                 <h4 class="text-center text-white">${figurita1.nombre}</h4>
-                <%--    input invisible paso el nombre de la figurita para borrarla--%>
-                <input class='invisible' type="text"  name='nombre' value="${figurita1.nombre}">
+
+                <%--    input invisible --%>
+                <input class='invisible' type="text"  name='id' value="${figurita1.id}">
+                <input class='invisible' type="text"  name='album' value="${figurita1.album.id}">
 
                 <button type='submit' class='btn btn-danger my-2 text-white h3'>Reclamar figurita</button>
             </form:form>
@@ -63,8 +65,10 @@
                        id='foto222'>
 
                 <h4 class="text-center text-white">${figurita2.nombre}</h4>
-                <%--    input invisible paso el nombre de la figurita para borrarla--%>
-                <input class='invisible' type="text"  name='nombre' value="${figurita2.nombre}">
+
+                <%--    input invisible --%>
+                <input class='invisible' type="text"  name='id' value="${figurita2.id}">
+                <input class='invisible' type="text"  name='album' value="${figurita2.album.id}">
 
                 <button type='submit' class='btn btn-danger my-2'>Reclamar figurita</button>
             </form:form>
@@ -82,8 +86,10 @@
                         id='foto333'>
 
                 <h4 class="text-center text-white">${figurita3.nombre}</h4>
-                <%--    input invisible paso el nombre de la figurita para borrarla--%>
-                <input class='invisible' type="text"  name='nombre' value="${figurita3.nombre}">
+
+                <%--    input invisible --%>
+                <input class='invisible' type="text"  name='id' value="${figurita3.id}">
+                <input class='invisible' type="text"  name='album' value="${figurita3.album.id}">
 
                 <button type='submit' class='btn btn-danger my-2'>Reclamar figurita</button>
             </form:form>
