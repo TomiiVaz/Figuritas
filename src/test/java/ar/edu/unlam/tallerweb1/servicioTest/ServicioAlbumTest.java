@@ -14,8 +14,8 @@ import static org.mockito.Mockito.*;
 
 public class ServicioAlbumTest extends SpringTest {
 
-    private RepositorioAlbum RA = mock(RepositorioAlbum.class);
-    private ServicioAlbum SA = new ServicioAlbumImpl(RA);
+    private RepositorioAlbum repositorioAlbum = mock(RepositorioAlbum.class);
+    private ServicioAlbum servicioAlbum = new ServicioAlbumImpl(repositorioAlbum);
 
     @Test
     public void queSePuedaAgregarUnAlbum() {
@@ -24,12 +24,12 @@ public class ServicioAlbumTest extends SpringTest {
         // Ejecucion -> when
         Album album = new Album();
 
-        when(RA.getAlbum(album.getNombre())).thenReturn(null);
+        when(repositorioAlbum.getAlbum(album.getNombre())).thenReturn(null);
 
-        SA.agregarAlbum(album);
+        servicioAlbum.agregarAlbum(album);
         // Comprobacion -> then
         assertThat(album).isNotNull();
-        verify(RA, atLeastOnce()).guardar(album);
+        verify(repositorioAlbum, atLeastOnce()).guardar(album);
     }
 
     @Test(expected = AlbumRepetidoException.class)
@@ -40,11 +40,11 @@ public class ServicioAlbumTest extends SpringTest {
         Album album = new Album();
         album.setNombre("Qatar");
 
-        when(RA.getAlbum(album.getNombre())).thenReturn(new Album());
+        when(repositorioAlbum.getAlbum(album.getNombre())).thenReturn(new Album());
 
-        SA.agregarAlbum(album);
+        servicioAlbum.agregarAlbum(album);
         // Comprobacion -> then
-        verify(RA, never()).guardar(album);
+        verify(repositorioAlbum, never()).guardar(album);
     }
 
     @Test
@@ -55,11 +55,11 @@ public class ServicioAlbumTest extends SpringTest {
         String nombreAsignado = "pepe";
         Long id = 1L;
 
-        when(RA.getAlbum(nombreAsignado)).thenReturn(null);
+        when(repositorioAlbum.getAlbum(nombreAsignado)).thenReturn(null);
 
-        SA.editarAlbum(id, nombreAsignado);
+        servicioAlbum.editarAlbum(id, nombreAsignado);
         // Comprobacion -> then
-        verify(RA, atLeastOnce()).editarAlbum(id, nombreAsignado);
+        verify(repositorioAlbum, atLeastOnce()).editarAlbum(id, nombreAsignado);
     }
 
     @Test(expected = AlbumRepetidoException.class)
@@ -69,11 +69,11 @@ public class ServicioAlbumTest extends SpringTest {
         // Ejecucion -> when
         Album album = new Album();
         String nombre = "Aldo";
-        when(RA.getAlbum(nombre)).thenReturn(new Album());
+        when(repositorioAlbum.getAlbum(nombre)).thenReturn(new Album());
 
-        SA.editarAlbum(1L, nombre);
+        servicioAlbum.editarAlbum(1L, nombre);
         // Comprobacion -> then
-        verify(RA, never()).editarAlbum(1L, nombre);
+        verify(repositorioAlbum, never()).editarAlbum(1L, nombre);
     }
 
     @Test
@@ -81,20 +81,20 @@ public class ServicioAlbumTest extends SpringTest {
         // Preparacion -> given
 
         // Ejecucion -> when
-        SA.eliminarAlbum(1L);
+        servicioAlbum.eliminarAlbum(1L);
 
         // Comprobacion -> then
-        verify(RA, atLeastOnce()).eliminarAlbum(1L);
+        verify(repositorioAlbum, atLeastOnce()).eliminarAlbum(1L);
     }
 
     @Test(expected = AlbumNullDeletedException.class)
-    public void queNoSePuedaEliminarAlbumConIdCero(){
+    public void queNoSePuedaEliminarAlbumConIdCero() {
         // Preparacion -> given
 
         // Ejecucion -> when
-        SA.eliminarAlbum(0L);
+        servicioAlbum.eliminarAlbum(0L);
 
         // Comprobacion -> then
-        verify(RA, never()).eliminarAlbum(0l);
+        verify(repositorioAlbum, never()).eliminarAlbum(0l);
     }
 }

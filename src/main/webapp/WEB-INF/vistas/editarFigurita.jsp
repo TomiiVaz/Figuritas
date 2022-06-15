@@ -12,7 +12,7 @@
 <main>
 
     <div class="container-fluid text-center mt-5">
-        <a href="/figus/configuracion" class="text-decoration-none">
+        <a href="/figus/configuracion-figurita" class="text-decoration-none">
             <button type='button' class='btn btn-warning my-2'>Volver</button>
         </a>
     </div>

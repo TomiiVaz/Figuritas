@@ -14,7 +14,7 @@ import java.util.List;
 @Transactional
 public class ServicioFiguritaImpl implements ServicioFigurita{
 
-    private RepositorioFigurita repoFigurita;
+    private final RepositorioFigurita repoFigurita;
 
     @Autowired
     public ServicioFiguritaImpl(RepositorioFigurita repoFigurita){
@@ -70,7 +70,7 @@ public class ServicioFiguritaImpl implements ServicioFigurita{
         return !(dorsal >0 && dorsal <=99);
     }
 
-    private boolean verificarQueElAlbumNoVengaVacio(Album album) { // no anda
+    private boolean verificarQueElAlbumNoVengaVacio(Album album) {
         boolean respuesta = false;
         if(album == null){
             respuesta = true;
@@ -82,7 +82,7 @@ public class ServicioFiguritaImpl implements ServicioFigurita{
         return respuesta;
     }
 
-    private boolean verificarQueLaRarezaNoVengaVacia(Rareza rareza) { // no anda
+    private boolean verificarQueLaRarezaNoVengaVacia(Rareza rareza) {
         boolean respuesta = false;
         if(rareza == null){
             respuesta = true;
@@ -94,7 +94,7 @@ public class ServicioFiguritaImpl implements ServicioFigurita{
     }
 
 
-    private boolean verificarQueLaPorsicionNoVengaVacia(Posicion posicion) { // no anda
+    private boolean verificarQueLaPorsicionNoVengaVacia(Posicion posicion) {
         boolean respuesta = false;
         if(posicion == null){
             respuesta = true;
@@ -105,7 +105,7 @@ public class ServicioFiguritaImpl implements ServicioFigurita{
         return respuesta;
     }
 
-    private boolean verificarQueSeleccionNoVengVacio(Seleccion seleccion) { // no anda
+    private boolean verificarQueSeleccionNoVengVacio(Seleccion seleccion) {
 
         boolean respuesta = false;
         if(seleccion == null){
@@ -220,7 +220,19 @@ public class ServicioFiguritaImpl implements ServicioFigurita{
     }
 
     @Override
-    public void eliminarFigurita(long figuritaId) {
+    public void eliminarFigurita(Long figuritaId) {
+//esto no me anda la exception
+        Long zero= 0L;
+        System.out.println("AAAAAAAAAAACCCCCCCCCCCAAA EEEEELLLLL EEEEERRRRRROOOOOOORRRRRR");
+        System.out.println(figuritaId);
+        System.out.println(zero);
+
+
+        if(figuritaId == zero){
+            throw new FiguritaExceptionGeneral();
+        }
+
+
 
         this.repoFigurita.eliminarFigurita(figuritaId);
 

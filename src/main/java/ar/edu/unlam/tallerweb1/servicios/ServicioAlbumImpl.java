@@ -1,7 +1,6 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
-import ar.edu.unlam.tallerweb1.excepciones.AlbumNullDeletedException;
-import ar.edu.unlam.tallerweb1.excepciones.AlbumRepetidoException;
+import ar.edu.unlam.tallerweb1.excepciones.*;
 import ar.edu.unlam.tallerweb1.modelo.Album;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioAlbum;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +26,12 @@ public class ServicioAlbumImpl implements ServicioAlbum {
         if (this.repoAlbum.getAlbum(album.getNombre()) != null) {
             throw new AlbumRepetidoException();
         }
+        if (album.getNombre().length() == 0) {
+            throw new AlbumNombreVacioException();
+        }
         repoAlbum.guardar(album);
     }
 
-    //    Le pide al repo que le de los albunes
     @Override
     public List<Album> traerAlbunes() {
         return repoAlbum.traerAlbunes();
@@ -38,8 +39,17 @@ public class ServicioAlbumImpl implements ServicioAlbum {
 
     @Override
     public void editarAlbum(Long albumId, String nombreNuevo) {
+        if (albumId == 0 && nombreNuevo.length() == 0) {
+            throw new AlbumEditarTodoNuloException();
+        }
+        if (albumId == 0) {
+            throw new AlbumIdVacioException();
+        }
         if (this.repoAlbum.getAlbum(nombreNuevo) != null) {
             throw new AlbumRepetidoException();
+        }
+        if (nombreNuevo.length() == 0) {
+            throw new AlbumNombreVacioException();
         }
         this.repoAlbum.editarAlbum(albumId, nombreNuevo);
     }

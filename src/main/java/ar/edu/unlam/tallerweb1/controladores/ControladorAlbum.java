@@ -1,7 +1,6 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
-import ar.edu.unlam.tallerweb1.excepciones.AlbumNullDeletedException;
-import ar.edu.unlam.tallerweb1.excepciones.AlbumRepetidoException;
+import ar.edu.unlam.tallerweb1.excepciones.*;
 import ar.edu.unlam.tallerweb1.modelo.Album;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlbum;
@@ -47,12 +46,10 @@ public class ControladorAlbum {
         try {
             servicioAl.agregarAlbum(album);
             return new ModelAndView("redirect:/configuracion-album");
+        } catch (AlbumNombreVacioException e) {
+            return getModelAndView("El campo de nombre está vacio");
         } catch (AlbumRepetidoException e) {
-            ModelMap model = new ModelMap();
-            List<Album> albunes = this.servicioAl.traerAlbunes();
-            model.put("albunes", albunes);
-            model.put("error", "El nombre del album está en uso");
-            return new ModelAndView("configAlbum", model);
+            return getModelAndView("El nombre del album está en uso");
         }
     }
 
@@ -62,14 +59,15 @@ public class ControladorAlbum {
         try {
             this.servicioAl.editarAlbum((long) albumId, nombreNuevo);
             return new ModelAndView("redirect:/configuracion-album");
+        } catch (AlbumEditarTodoNuloException e) {
+            return getModelAndView("Todos los campos estan vacios");
+        } catch (AlbumIdVacioException e) {
+            return getModelAndView("No ha seleccionado ningun album");
+        } catch (AlbumNombreVacioException e) {
+            return getModelAndView("El campo de nombre está vacio");
         } catch (AlbumRepetidoException e) {
-            ModelMap model = new ModelMap();
-            List<Album> albunes = this.servicioAl.traerAlbunes();
-            model.put("albunes", albunes);
-            model.put("error", "El nombre del album está en uso");
-            return new ModelAndView("configAlbum", model);
+            return getModelAndView("El nombre del album está en uso");
         }
-
     }
 
     @RequestMapping(path = "/eliminar-album", method = RequestMethod.POST)
@@ -79,13 +77,16 @@ public class ControladorAlbum {
             this.servicioAl.eliminarAlbum(albumId);
             return new ModelAndView("redirect:/configuracion-album");
         } catch (AlbumNullDeletedException e) {
-            ModelMap model = new ModelMap();
-            List<Album> albunes = this.servicioAl.traerAlbunes();
-            model.put("albunes", albunes);
-            model.put("error", "Para eliminar, seleccione un album");
-            return new ModelAndView("configAlbum", model);
+            return getModelAndView("Para eliminar, seleccione un album");
         }
+    }
 
+    private ModelAndView getModelAndView(String value) {
+        ModelMap model = new ModelMap();
+        List<Album> albunes = this.servicioAl.traerAlbunes();
+        model.put("albunes", albunes);
+        model.put("error", value);
+        return new ModelAndView("configAlbum", model);
     }
 
 }

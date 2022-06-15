@@ -27,7 +27,7 @@ public interface ServicioFigurita {
 
     void editarFigurita(long figuritaId, String figuritaNueva);
 
-    void eliminarFigurita(long figuritaId);
+    void eliminarFigurita(Long figuritaId);
 
 
 }
