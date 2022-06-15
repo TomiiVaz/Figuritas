@@ -16,9 +16,9 @@ import static org.mockito.Mockito.mock;
 
 public class ControladorAlbumTest extends SpringTest {
 
-    private ServicioAlbum SA = mock(ServicioAlbum.class);
-    private ControladorAlbum CA = new ControladorAlbum(SA);
-    private ModelAndView mav;
+    private ServicioAlbum servicioAlbum = mock(ServicioAlbum.class);
+    private ControladorAlbum controladorAlbum = new ControladorAlbum(servicioAlbum);
+    private ModelAndView modelAndView;
 
     private final String ERROR_NULO = "Para eliminar, seleccione un album";
     private final String ERROR_REPETIDO = "El nombre del album está en uso";
@@ -41,11 +41,11 @@ public class ControladorAlbumTest extends SpringTest {
     }
 
     private void whenSeAgregaUnAlbum(Album album) {
-        mav = CA.agregarAlbum(album);
+        modelAndView = controladorAlbum.agregarAlbum(album);
     }
 
     private void thenQueLaVistaSeaRedirect() {
-        assertThat(mav.getViewName()).isEqualTo("redirect:/configuracion-album");
+        assertThat(modelAndView.getViewName()).isEqualTo("redirect:/configuracion-album");
     }
 
     @Test
@@ -56,7 +56,7 @@ public class ControladorAlbumTest extends SpringTest {
         Album album = new Album();
 
         doThrow(AlbumRepetidoException.class)
-                .when(SA)
+                .when(servicioAlbum)
                 .agregarAlbum(album);
 
         whenSeAgregaUnAlbum(album);
@@ -67,7 +67,7 @@ public class ControladorAlbumTest extends SpringTest {
     }
 
     private void thenQueLaDevueltaSeaUnError(String mensaje) {
-        assertThat(mav.getModel().get("error")).isEqualTo(mensaje);
+        assertThat(modelAndView.getModel().get("error")).isEqualTo(mensaje);
     }
 
     @Test
@@ -82,7 +82,7 @@ public class ControladorAlbumTest extends SpringTest {
     }
 
     private void whenSeEditaUnAlbum() {
-        mav = CA.editarAlbunes(ID_NO_NULO_INT, NOMBRE_ALBUM);
+        modelAndView = controladorAlbum.editarAlbunes(ID_NO_NULO_INT, NOMBRE_ALBUM);
     }
 
     @Test
@@ -91,7 +91,7 @@ public class ControladorAlbumTest extends SpringTest {
 
         // Ejecucion -> when;
         doThrow(AlbumRepetidoException.class)
-                .when(SA)
+                .when(servicioAlbum)
                 .editarAlbum(ID_NO_NULO_LONG, NOMBRE_ALBUM);
 
         whenSeEditaUnAlbum();
@@ -114,7 +114,7 @@ public class ControladorAlbumTest extends SpringTest {
     }
 
     private void whenSeEliminaUnAlbum(Long id) {
-        mav = CA.eliminarAlbum(id);
+        modelAndView = controladorAlbum.eliminarAlbum(id);
     }
 
     @Test
@@ -123,7 +123,7 @@ public class ControladorAlbumTest extends SpringTest {
 
         // Ejecucion -> when;
         doThrow(AlbumNullDeletedException.class)
-                .when(SA)
+                .when(servicioAlbum)
                 .eliminarAlbum(ID_NULO);
 
         whenSeEliminaUnAlbum(ID_NULO);

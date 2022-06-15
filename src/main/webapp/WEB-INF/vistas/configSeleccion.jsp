@@ -32,6 +32,10 @@
                 Eliminar
             </button>
         </div>
+        <c:if test="${not empty error}">
+            <p class="text-danger mt-2"><span>${error}</span></p>
+            <br>
+        </c:if>
     </div>
 
     <%--    Formulario Agregar--%>
@@ -46,7 +50,7 @@
                        placeholder='Ingrese el nombre de la seleccion'>
                 <select path='album.id' id='album.id' name='album.id' class='form-control my-2'>
                     <c:forEach var="album" items="${albunes}">
-                        <option value='Default' selected hidden>Asigná un álbum</option>
+                        <option value='0' selected hidden>Asigná un álbum</option>
                         <option value='${album.id}'>${album.nombre}</option>
                     </c:forEach>
                 </select>
