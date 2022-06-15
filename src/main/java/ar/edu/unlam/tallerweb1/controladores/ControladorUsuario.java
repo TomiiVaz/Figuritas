@@ -135,8 +135,6 @@ public class ControladorUsuario {
         return new ModelAndView("redirect:/home");
     }
 
-    ;
-
     private ModelAndView registroFallido(ModelMap model, String mensaje, Usuario usuario, String nombreError) {
         model.put(nombreError, mensaje);
         model.put("usuario", usuario);

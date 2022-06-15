@@ -3,7 +3,6 @@ package ar.edu.unlam.tallerweb1.servicios;
 import ar.edu.unlam.tallerweb1.excepciones.*;
 import ar.edu.unlam.tallerweb1.modelo.Seleccion;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioSeleccion;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,7 +42,7 @@ public class ServicioSeleccionImpl implements ServicioSeleccion {
         this.repoSelec.guardar(seleccion);
     }
 
-    private Boolean isAlfabetico(@NotNull String cadena){
+    private Boolean isAlfabetico(String cadena){
         Boolean resultado = true;
         char[] nombreSelArray = cadena.toCharArray();
         for (char c: nombreSelArray) {
