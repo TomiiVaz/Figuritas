@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.controladorTest;
 
 import ar.edu.unlam.tallerweb1.SpringTest;
 import ar.edu.unlam.tallerweb1.controladores.ControladorSeleccion;
+import ar.edu.unlam.tallerweb1.excepciones.SeleccionNombreVacioException;
 import ar.edu.unlam.tallerweb1.modelo.Seleccion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlbum;
 import ar.edu.unlam.tallerweb1.servicios.ServicioSeleccion;
@@ -10,11 +11,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 
 public class ControladorSeleccionTest extends SpringTest {
 
     private final String redirectCorrectoSeleccion = "redirect:/configuracion-seleccion";
+    private final String redirectInorrectoSeleccion = "configSeleccion";
 
     private ModelAndView mav = new ModelAndView();
 
@@ -45,5 +48,27 @@ public class ControladorSeleccionTest extends SpringTest {
 
     private void thenRedirectCorrectoSeleccion() {
         assertThat(mav.getViewName()).isEqualTo(redirectCorrectoSeleccion);
+    }
+
+    @Test
+    public void queNoSePuedaCrearSeleccionSinNombreTest(){
+
+        //preparacion -> given
+        Seleccion seleccion = givenUnaSeleccion();
+        //ejecucion -> when
+
+        doThrow(SeleccionNombreVacioException.class)
+                .when(servicioSeleccion)
+                .crearSeleccion(seleccion);
+        
+        whenAgregoUnaSeleccion(seleccion);
+
+        //comprobacion -> then
+        thenRegistroFalla();
+
+    }
+
+    private void thenRegistroFalla() {
+        assertThat(mav.getViewName()).isEqualTo(redirectInorrectoSeleccion);
     }
 }
