@@ -360,7 +360,7 @@ public class ControladorFigurita {
 
         this.servicioRegistroPegada.pegarRegistro(rp);
 
-        return new ModelAndView("redirect:/home");
+        return new ModelAndView("redirect:/perfil");
     }
 
 }
