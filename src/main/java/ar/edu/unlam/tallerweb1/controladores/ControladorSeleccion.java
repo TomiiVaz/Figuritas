@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import ar.edu.unlam.tallerweb1.excepciones.SeleccionAlbumNullException;
 import ar.edu.unlam.tallerweb1.modelo.Album;
 import ar.edu.unlam.tallerweb1.modelo.Seleccion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
@@ -29,45 +30,58 @@ public class ControladorSeleccion {
         this.servicioAlbum = servicioAlbum;
     }
 
-    @RequestMapping(path = "/crear-seleccion", method = RequestMethod.POST)
-    public ModelAndView crearSeleccion(@ModelAttribute("selecciones") Seleccion seleccion) {
-        this.servicioSelec.crearSeleccion(seleccion);
-
-        return new ModelAndView("redirect:/configuracion-seleccion");
-    }
-
     @RequestMapping(path = "/configuracion-seleccion", method = RequestMethod.GET)
     public ModelAndView verVistaSeleccionConfig(HttpServletRequest request) {
         List<Seleccion> selecciones = this.servicioSelec.traerSelecciones();
         List<Album> albunes = this.servicioAlbum.traerAlbunes();
-        String rol = (String)request.getSession().getAttribute("ROL");
-        Long id = (Long)request.getSession().getAttribute("ID");
-        Usuario userLogueado = (Usuario)request.getSession().getAttribute("USUARIO");
+        String rol = (String) request.getSession().getAttribute("ROL");
+        Long id = (Long) request.getSession().getAttribute("ID");
+        Usuario userLogueado = (Usuario) request.getSession().getAttribute("USUARIO");
 
         ModelMap model = new ModelMap();
         model.put("usuario", userLogueado);
-        model.put("id",id);
-        model.put("rol",rol);
+        model.put("id", id);
+        model.put("rol", rol);
         model.put("albunes", albunes);
-        model.put("selecciones" , selecciones);
+        model.put("selecciones", selecciones);
 
         return new ModelAndView("configSeleccion", model);
     }
-    @RequestMapping(path = "/ver-selecciones" , method = RequestMethod.POST, params = {"seleccionId","nombreNuevo"})
-    public ModelAndView verSelecciones(@RequestParam int seleccionId,
-                                       @RequestParam String nombreNuevo){
 
-        this.servicioSelec.editarSeleccion((long)seleccionId, nombreNuevo);
+    @RequestMapping(path = "/crear-seleccion", method = RequestMethod.POST)
+    public ModelAndView crearSeleccion(@ModelAttribute("selecciones") Seleccion seleccion) {
+        try {
+            this.servicioSelec.crearSeleccion(seleccion);
+            return new ModelAndView("redirect:/configuracion-seleccion");
+        } catch (SeleccionAlbumNullException e) {
+            return getModelAndView("No ha seleccionado un album");
+        }
+
+    }
+
+    @RequestMapping(path = "/ver-selecciones", method = RequestMethod.POST, params = {"seleccionId", "nombreNuevo"})
+    public ModelAndView verSelecciones(@RequestParam int seleccionId,
+                                       @RequestParam String nombreNuevo) {
+
+        this.servicioSelec.editarSeleccion((long) seleccionId, nombreNuevo);
 
         return new ModelAndView("redirect:/configuracion-seleccion");
     }
 
-    @RequestMapping(path = "/del-seleccion" , method = RequestMethod.POST, params = {"seleccionId"})
-    public ModelAndView delSelecciones(@RequestParam int seleccionId){
+    @RequestMapping(path = "/del-seleccion", method = RequestMethod.POST, params = {"seleccionId"})
+    public ModelAndView delSelecciones(@RequestParam int seleccionId) {
 
-        this.servicioSelec.eliminarSeleccion((long)seleccionId);
+        this.servicioSelec.eliminarSeleccion((long) seleccionId);
 
         return new ModelAndView("redirect:/configuracion-seleccion");
+    }
+
+    private ModelAndView getModelAndView(String value) {
+        ModelMap model = new ModelMap();
+        List<Seleccion> selecciones = this.servicioSelec.traerSelecciones();
+        model.put("selecciones", selecciones);
+        model.put("error", value);
+        return new ModelAndView("configSeleccion", model);
     }
 
 }

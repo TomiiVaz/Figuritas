@@ -40,7 +40,7 @@ public class ServicioAlbumImpl implements ServicioAlbum {
     @Override
     public void editarAlbum(Long albumId, String nombreNuevo) {
         if (albumId == 0 && nombreNuevo.length() == 0) {
-            throw new AlbumEditarTodoNulo();
+            throw new AlbumEditarTodoNuloException();
         }
         if (albumId == 0) {
             throw new AlbumIdVacioException();
