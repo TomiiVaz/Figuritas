@@ -34,6 +34,14 @@ public class RepositorioSeleccionImpl implements RepositorioSeleccion {
     }
 
     @Override
+    public List<Seleccion> getSeleccionesPorNombre(String nombre){
+        final Session session = sessionFactory.getCurrentSession();
+        return (List<Seleccion>) session.createCriteria(Seleccion.class)
+                .add(Restrictions.eq("nombre",nombre))
+                .list();
+    }
+
+    @Override
     public void editarSeleccion(Long id, String nombreNuevo) {
         final Session session = sessionFactory.getCurrentSession();
 
