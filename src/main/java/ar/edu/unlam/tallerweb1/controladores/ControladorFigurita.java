@@ -20,13 +20,13 @@ public class ControladorFigurita {
     private final ServicioSeleccion servicioSelec;
     private final ServicioAlbum servicioAlbum;
 
-    private final ServicioLogin servicioLogin;
+    private final ServicioUsuario servicioLogin;
     private final ServicioRegistroPegada servicioRegistroPegada;
 
     private final ServicioComentario servicioComent;
 
     @Autowired
-    public ControladorFigurita(ServicioFigurita servicioFigu, ServicioSeleccion servicioSelec, ServicioAlbum servicioAlbum, ServicioLogin servicioLogin, ServicioRegistroPegada servicioRegistroPegada, ServicioComentario servicioComent) {
+    public ControladorFigurita(ServicioFigurita servicioFigu, ServicioSeleccion servicioSelec, ServicioAlbum servicioAlbum, ServicioUsuario servicioLogin, ServicioRegistroPegada servicioRegistroPegada, ServicioComentario servicioComent) {
 
         this.servicioFigu = servicioFigu;
         this.servicioSelec = servicioSelec;
