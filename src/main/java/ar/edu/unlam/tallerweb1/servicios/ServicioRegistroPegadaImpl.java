@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import ar.edu.unlam.tallerweb1.excepciones.CodigoIncorrectoExcepcion;
 import ar.edu.unlam.tallerweb1.modelo.Figurita;
 import ar.edu.unlam.tallerweb1.modelo.RegistroPegada;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
@@ -24,11 +25,16 @@ public class ServicioRegistroPegadaImpl implements ServicioRegistroPegada{
     @Override
     public void pegarRegistro(RegistroPegada rp) {
 
+        if(rp.getFigurita()==null) {
+            throw new CodigoIncorrectoExcepcion();
+        }
+
         if(rp.getId()!=null){
             repositorioRp.update(rp);
         } else{
             repositorioRp.pegar(rp);
         }
+
     }
 
     @Override
