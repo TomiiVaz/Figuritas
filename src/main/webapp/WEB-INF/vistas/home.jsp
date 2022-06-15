@@ -88,7 +88,7 @@
                                 <button type='submit' class='btn my-2'>
 
                                 <img src="img/${intercambiable.figurita.nombre}.jpg" alt="foto1" class="rounded img-fluid m-auto d-block">
-                                <div class="h4 text-center my-auto text-white">${figuritas.nombre}</div>
+                                <div class="h4 text-center my-auto text-white">${intercambiable.figurita.nombre}</div>
                                 <p class="text-white">Seleccion: ${intercambiable.figurita.seleccion.nombre}</p>
                                     <%--    input invisible paso el id de la figurita--%>
                                 <input class='d-none' type="text"  path='id' id='id' name='id' value="${intercambiable.figurita.id}">

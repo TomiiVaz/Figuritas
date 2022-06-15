@@ -1,12 +1,11 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
-import ar.edu.unlam.tallerweb1.modelo.Album;
-import ar.edu.unlam.tallerweb1.modelo.Figurita;
-import ar.edu.unlam.tallerweb1.modelo.RegistroPegada;
-import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.excepciones.CodigoIncorrectoExcepcion;
+import ar.edu.unlam.tallerweb1.modelo.*;
 import ar.edu.unlam.tallerweb1.servicios.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 public class ControladorTransacciones {
@@ -66,9 +66,32 @@ public class ControladorTransacciones {
         rp.setAlbum(albumPegar);
         rp.setUsuario(usuarioPegar);
         rp.setIntercambiable(false);
+        try{
+            servicioRegistroPegada.pegarRegistro(rp);
+            return new ModelAndView("redirect:/perfil");
+        } catch (CodigoIncorrectoExcepcion e ){
+            return codigoIncorrecto("errorCodigo" ,"El codigo ingresado es incorrecto", request);
+        }
 
-        servicioRegistroPegada.pegarRegistro(rp);
+    }
 
-        return new ModelAndView("redirect:/perfil");
+    private ModelAndView codigoIncorrecto(String nombreError, String error, HttpServletRequest request) {
+        ModelMap model = new ModelMap();
+        List<Album> albunes = servicioAlbum.traerAlbunes();
+        List<Seleccion> selecciones = servicioSelec.traerSelecciones();
+
+        String rol = (String)request.getSession().getAttribute("ROL");
+        Long id = (Long)request.getSession().getAttribute("ID");
+        List<RegistroPegada> pegadas = servicioRegistroPegada.getPegadasUsuario(id);
+        Usuario usuarioLogueado = (Usuario)request.getSession().getAttribute("USUARIO");
+        model.put("pegadas", pegadas);
+        model.put("id",id);
+        model.put("rol",rol);
+        model.put("usuario",usuarioLogueado);
+        model.put("selecciones", selecciones);
+        model.put("albunes", albunes);
+        model.put(nombreError, error);
+
+        return new ModelAndView("perfil", model);
     }
 }

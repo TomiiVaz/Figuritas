@@ -111,6 +111,12 @@
                 </div>
                 <%--                    El boton esta fuera del form, por lo cual no se donde me lo envia xd--%>
                 <%--                /Agregar figurita form--%>
+                    <div class="mb-3">
+                        <c:if test="${not empty errorCodigo}">
+                            <p class="text-danger"><span>${errorCodigo}</span></p>
+                            <br>
+                        </c:if>
+                    </div>
 
                 <%--                    Albunes--%>
                 <div class="mb-1 mt-2">
