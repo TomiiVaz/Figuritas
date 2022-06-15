@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import ar.edu.unlam.tallerweb1.excepciones.SeleccionAlbumNullException;
 import ar.edu.unlam.tallerweb1.modelo.Seleccion;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioSeleccion;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ public class ServicioSeleccionImpl implements ServicioSeleccion {
     @Override
     public void crearSeleccion(Seleccion seleccion) {
 
+        if(seleccion.getAlbum().getId() == 0){
+            throw new SeleccionAlbumNullException();
+        }
         this.repoSelec.guardar(seleccion);
     }
 

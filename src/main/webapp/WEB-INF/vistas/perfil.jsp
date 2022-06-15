@@ -149,7 +149,7 @@
             <div class="d-flex flex-wrap justify-content-center">
                 <c:forEach var="pegada" items="${pegadas}">
                     <div class="card m-3" style="width: 18rem;">
-                        <img src="img/messi1.jpg" class="card-img-top" alt="Foto de jugador">
+                        <img src="img/${pegada.figurita.nombre}.jpg" class="card-img-top" alt="Foto de jugador">
                         <ul class="list-group list-group-flush text-center">
                             <h5 class="card-title">${pegada.figurita.nombre}</h5>
                             <p class="card-text">${pegada.figurita.rareza.descripcion}</p>
