@@ -1,5 +1,7 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
+import ar.edu.unlam.tallerweb1.modelo.Album;
+import ar.edu.unlam.tallerweb1.modelo.Seleccion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -50,11 +52,6 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
     }
 
     @Override
-    public void modificar(Usuario usuario) {
-        sessionFactory.getCurrentSession().update(usuario);
-    }
-
-    @Override
     public List<String> getMailUsuario() {
         final Session session = sessionFactory.getCurrentSession();
 
@@ -69,6 +66,12 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
         return (Usuario) session.createCriteria(Usuario.class)
                 .add(Restrictions.eq("email", mail))
                 .uniqueResult();
+    }
+
+    @Override
+    public void modificarUsuario(Usuario usuario) {
+        final Session session = sessionFactory.getCurrentSession();
+        session.update(usuario);
     }
 
     @Override

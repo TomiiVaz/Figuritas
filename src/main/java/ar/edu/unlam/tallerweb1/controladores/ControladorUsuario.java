@@ -151,16 +151,11 @@ public class ControladorUsuario {
     }
 
     @RequestMapping(path = "/perfil-editar", method = RequestMethod.POST)
-    public ModelAndView editarPerfil(@ModelAttribute("datosModificadosUsuario") Usuario usuario) {
-//        Long id = usuario.getId();
-//        String email = usuario.getEmail();
-//        String equipo = usuario.getEquipo();
-//        Seleccion seleccion = usuario.getSeleccion();
-//
-//        servicioLogin.modificarDatosUsuario(id, email, email, seleccion);
+    public ModelAndView editarPerfil(@ModelAttribute("datosUsuario") Usuario usuario) {
 
         servicioUsuario.modificarDatosUsuario(usuario);
 
-        return new ModelAndView("perfil");
+
+        return new ModelAndView("redirect:/home");
     }
 }
