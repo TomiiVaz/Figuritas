@@ -50,7 +50,7 @@
                 <form:form class='text-center d-flex flex-column px-5 px-5 py-2 bg-dark border-0'
                            method='post'
                            action='perfil-editar'
-                           modelAttribute="datosModificadosUsuario">
+                           modelAttribute="datosUsuario">
                     <input class='form-control my-2' type='text' name='nombre' id='nombre'
                            placeholder='Nombre' value="${usuario.nombre}">
                     <input class='form-control my-2' type='text' name='email' id='email'
