@@ -70,7 +70,7 @@
                        modelAttribute="selecciones">
                 <select id='seleccionId' name='seleccionId' class='form-control my-2'>
                     <c:forEach var="seleccion" items="${selecciones}">
-                        <option value='Default' selected hidden>Seleccionar una selección</option>
+                        <option value='0' selected hidden>Seleccionar una selección</option>
                         <option value='${seleccion.id}'>${seleccion.nombre}</option>
                     </c:forEach>
                 </select>
@@ -94,7 +94,7 @@
                        modelAttribute="selecciones">
                 <select path='seleccionId' id='seleccionId' name='seleccionId' class='form-control my-2'>
                     <c:forEach var="seleccion" items="${selecciones}">
-                        <option value='Default' selected hidden>Seleccionar una selección a borrar</option>
+                        <option value='0' selected hidden>Seleccionar una selección a borrar</option>
                         <option value='${seleccion.id}'>${seleccion.nombre}</option>
                     </c:forEach>
                 </select>
