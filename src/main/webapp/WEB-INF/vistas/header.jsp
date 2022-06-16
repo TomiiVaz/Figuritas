@@ -3,7 +3,7 @@
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3">
 
             <a href="home" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-                <img class="rounded-circle me-3" src="img/favicon.ico" style="width: 32px">
+                <img class="rounded-circle me-3" src="<c:url value="/img/favicon.ico" />" style="width: 32px">
                 <span class="fs-4 text-white h2">FIGUS</span>
             </a>
 
