@@ -161,7 +161,7 @@ public class ServicioFiguritaImpl implements ServicioFigurita{
 
     @Override
     public Figurita buscarFigurita(Long id) {
-        return repoFigurita.encontrarFigurita(id);
+        return repoFigurita.buscarFiguritaPorID(id);
     }
 
     @Override

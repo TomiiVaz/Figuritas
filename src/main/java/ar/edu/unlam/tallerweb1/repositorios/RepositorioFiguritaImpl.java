@@ -116,7 +116,7 @@ public class RepositorioFiguritaImpl implements RepositorioFigurita{
     }
 
     @Override
-    public Figurita encontrarFigurita(Long id) {
+    public Figurita buscarFiguritaPorID(Long id) {
 
         final Session session = sessionFactory.getCurrentSession();
 

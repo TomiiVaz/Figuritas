@@ -18,9 +18,7 @@ import javax.servlet.http.HttpSession;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
-public class ControladorFiguritaTest extends SpringTest {
-
-
+public class ControladorFiguritaTest {
 
     private final ServicioFigurita servicioFigurita = mock(ServicioFigurita.class);
     private final ServicioSeleccion servicioSeleccion = mock(ServicioSeleccion.class);
@@ -89,12 +87,11 @@ public class ControladorFiguritaTest extends SpringTest {
 
 
     private void whenSeCreaUnaFigurita(Figurita figurita) {
-        Usuario usuario = new Usuario();
-        Long uno = 1L;
+
         when(mockRequest.getSession()).thenReturn(mockSession);
         when(mockRequest.getSession().getAttribute("ROL")).thenReturn("ADM");
-        when(mockRequest.getSession().getAttribute("ID")).thenReturn(uno);
-        when(mockRequest.getSession().getAttribute("USUARIO")).thenReturn(usuario);
+        when(mockRequest.getSession().getAttribute("ID")).thenReturn(1L);
+        when(mockRequest.getSession().getAttribute("USUARIO")).thenReturn(new Usuario());
 
         mav = this.controladorFigurita.crearFigurita(figurita, mockRequest);
     }

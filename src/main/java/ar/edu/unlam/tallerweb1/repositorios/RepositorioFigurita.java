@@ -22,7 +22,7 @@ public interface RepositorioFigurita {
 
     void eliminarFigurita(long figuritaId);
 
-    Figurita encontrarFigurita(Long id);
+    Figurita buscarFiguritaPorID(Long id);
 
     Figurita buscarFiguritaPorNombre(String nombre);
 

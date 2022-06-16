@@ -12,8 +12,7 @@ import org.junit.Test;
 
 import static org.mockito.Mockito.*;
 
-public class ServicioFiguritaTest extends SpringTest {
-
+public class ServicioFiguritaTest  {
 
     private final RepositorioFigurita repositorioFigurita = mock(RepositorioFigurita.class);
     private final ServicioFigurita servicioFigurita = new ServicioFiguritaImpl(repositorioFigurita);
