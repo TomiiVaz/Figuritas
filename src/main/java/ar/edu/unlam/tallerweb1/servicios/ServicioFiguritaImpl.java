@@ -50,7 +50,7 @@ public class ServicioFiguritaImpl implements ServicioFigurita{
         }
 
         if(verificarQueElDorsalEnRangoValido(figurita.getDorsal())){
-            throw new FiguritaConDorsalValidoExcepition();
+            throw new FiguritaConDorsalNoValidoExcepition();
         }
 
         if(verificarQueElEquipoNoVengVacio(figurita.getEquipo())){
