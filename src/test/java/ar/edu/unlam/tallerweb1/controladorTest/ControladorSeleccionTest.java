@@ -2,6 +2,9 @@ package ar.edu.unlam.tallerweb1.controladorTest;
 
 import ar.edu.unlam.tallerweb1.SpringTest;
 import ar.edu.unlam.tallerweb1.controladores.ControladorSeleccion;
+import ar.edu.unlam.tallerweb1.excepciones.SeleccionAlbumNullException;
+import ar.edu.unlam.tallerweb1.excepciones.SeleccionCamposVacíosException;
+import ar.edu.unlam.tallerweb1.excepciones.SeleccionNombreTieneNumerosOCaracteresEspecialesException;
 import ar.edu.unlam.tallerweb1.excepciones.SeleccionNombreVacioException;
 import ar.edu.unlam.tallerweb1.modelo.Seleccion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlbum;
@@ -18,6 +21,7 @@ public class ControladorSeleccionTest extends SpringTest {
 
     private final String redirectCorrectoSeleccion = "redirect:/configuracion-seleccion";
     private final String redirectInorrectoSeleccion = "configSeleccion";
+    private final String errorCaracteresNumerosSeleccion = "El nombre no puede contener números ni caracteres especiales";
 
     private ModelAndView mav = new ModelAndView();
 
@@ -71,4 +75,82 @@ public class ControladorSeleccionTest extends SpringTest {
     private void thenRegistroFalla() {
         assertThat(mav.getViewName()).isEqualTo(redirectInorrectoSeleccion);
     }
+
+    @Test
+    public void queNoSePuedaCrearSeleccionSinAlbumTest(){
+
+        //preparacion -> given
+        Seleccion seleccion = givenUnaSeleccion();
+        //ejecucion -> when
+
+        doThrow(SeleccionAlbumNullException.class)
+                .when(servicioSeleccion)
+                .crearSeleccion(seleccion);
+
+        whenAgregoUnaSeleccion(seleccion);
+
+        //comprobacion -> then
+        thenRegistroFalla();
+
+    }
+
+    @Test
+    public void queNoSePuedaCrearSeleccionConAmbosCamposVaciosTest(){
+
+        //preparacion -> given
+        Seleccion seleccion = givenUnaSeleccion();
+        //ejecucion -> when
+
+        doThrow(SeleccionCamposVacíosException.class)
+                .when(servicioSeleccion)
+                .crearSeleccion(seleccion);
+
+        whenAgregoUnaSeleccion(seleccion);
+
+        //comprobacion -> then
+        thenRegistroFalla();
+
+    }
+
+    @Test
+    public void queNoSePuedaCrearConCaracteresEspecialesONumerosTest(){
+
+        //preparacion -> given
+        Seleccion seleccion = givenUnaSeleccion();
+        //ejecucion -> when
+
+        doThrow(SeleccionNombreTieneNumerosOCaracteresEspecialesException.class)
+                .when(servicioSeleccion)
+                .crearSeleccion(seleccion);
+
+        whenAgregoUnaSeleccion(seleccion);
+
+        //comprobacion -> then
+        thenRegistroFallaMensaje(errorCaracteresNumerosSeleccion);
+
+    }
+
+    private void thenRegistroFallaMensaje(String msj) {
+        assertThat(mav.getModel().get("error")).isEqualTo(msj);
+    }
+
+//    @Test
+//    public void queSeElimineUnaSeleccionTest(){
+//
+//        //preparacion -> given
+//        Seleccion seleccion = givenUnaSeleccion();
+//        //ejecucion -> when
+//        seleccion.setId(1l);
+//        int id = (int)(long)seleccion.getId();
+//        whenEliminoUnaSeleccion(id);
+//
+//        //comprobacion -> then
+//        thenRedirectCorrectoSeleccion();
+//
+//    }
+
+//    private void whenEliminoUnaSeleccion(int id) {
+//        controladorSeleccion.delSelecciones(id);
+//    }
+
 }

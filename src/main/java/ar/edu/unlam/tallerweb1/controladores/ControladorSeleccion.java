@@ -78,7 +78,7 @@ public class ControladorSeleccion {
         } catch (SeleccionNombreEnUsoException e){
             return getModelAndView("El nombre ya está en uso.");
         } catch (SeleccionNombreTieneNumerosOCaracteresEspecialesException e){
-            return getModelAndView("El nombre no puede contener números ni caracteres especiales.");
+            return getModelAndView("El nombre no puede contener números ni caracteres especiales");
         }
     }
 
