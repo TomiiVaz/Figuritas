@@ -45,7 +45,7 @@
             <h2 class="text-white text-center">Formulario agregar</h2>
             <form:form class='text-center d-flex flex-column px-5 px-5 py-2 bg-dark border-0'
                        method='post'
-                       action='agregar-album'
+                       action='agregar'
                        modelAttribute="albunes">
                 <input class='my-2 form-control' type='text' name='nombre' id='nombre'
                        placeholder='Ingrese el nombre del álbum'>
@@ -62,7 +62,7 @@
             <h2 class="text-white text-center">Formulario editar</h2>
             <form:form class='text-center d-flex flex-column px-5 px-5 py-2 bg-dark border-0'
                        method='post'
-                       action='editar-album'
+                       action='editar'
                        modelAttribute="albunes">
                 <select path="albumId" id='albumId' name='albumId' class='form-control my-2'>
                     <c:forEach var="album" items="${albunes}">
@@ -87,7 +87,7 @@
             <h2 class="text-white text-center">Formulario eliminar</h2>
             <form:form class='text-center d-flex flex-column px-5 px-5 py-2 bg-dark border-0'
                        method='post'
-                       action='eliminar-album'
+                       action='eliminar'
                        modelAttribute="albunes">
                 <select path='albumId' id='albumId' name='albumId' class='form-control my-2'>
                     <c:forEach var="album" items="${albunes}">

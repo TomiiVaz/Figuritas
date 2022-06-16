@@ -2,13 +2,13 @@
     <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3">
 
-            <a href="home" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+            <a href="<c:url value="/home" />" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
                 <img class="rounded-circle me-3" src="<c:url value="/img/favicon.ico" />" style="width: 32px">
                 <span class="fs-4 text-white h2">FIGUS</span>
             </a>
 
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="nosotros" class="nav-link px-2 text-white h4">Nosotros</a></li>
+                <li><a href="<c:url value="/nosotros" />" class="nav-link px-2 text-white h4">Nosotros</a></li>
             </ul>
 
             <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" method="get" action="buscarfiguritas">
@@ -37,8 +37,8 @@
                     </div>
                 </c:when>
                 <c:otherwise>
-                    <a href="login"><button class="btn btn-primary btn-block m-2">Ingresar</button></a>
-                    <a href="registrarse"><button class="btn btn-warning btn-block m-2">Registrarse</button></a>
+                    <a href="<c:url value="/login" />"><button class="btn btn-primary btn-block m-2">Ingresar</button></a>
+                    <a href="<c:url value="/registrarse" />"><button class="btn btn-warning btn-block m-2">Registrarse</button></a>
                 </c:otherwise>
             </c:choose>
 

@@ -18,7 +18,7 @@
     </div>
 
     <div class="container-fluid d-flex justify-content-around mt-5 ">
-        <a href="home" class="text-decoration-none h4 me-3"><p class="text-white">FIGUS</p></a>
+        <a href="<c:url value="/home" />" class="text-decoration-none h4 me-3"><p class="text-white">FIGUS</p></a>
         <p class="text-white me-3">Derechos reservados Los Pibardos</p>
         <div>
 
