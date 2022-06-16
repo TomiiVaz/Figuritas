@@ -161,7 +161,7 @@ public class ControladorFigurita {
         } catch (FiguritaConAlbumVacioExcepition e) {
             return figuritaFallida(figurita, "AlbumFiguritaVacio", "Debe seleccionar un album, dato obligatorio", request);
 
-        } catch (FiguritaConDorsalValidoExcepition e) {
+        } catch (FiguritaConDorsalNoValidoExcepition e) {
             return figuritaFallida(figurita, "DorsalFiguritaVacio", "Debe agregar un dorsal corecto mayor a 0 y menor igual a 99", request);
 
         } catch (FiguritaConConEquipoVacioExcepition e) {
