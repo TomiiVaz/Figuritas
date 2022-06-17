@@ -26,7 +26,7 @@
                             <h3 class="text-white text-center ms-2">Hola ${usuario.nombre}</h3>
                         </a>
                         <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="">
-                            <li><a class="dropdown-item" href="perfil">Profile</a></li>
+                            <li><a class="dropdown-item" href="<c:url value="/perfil/" />">Profile</a></li>
                             <!-- modificar para que lea un controlador y no sea un href -->
                             <c:if test="${rol.equals('ADM')}">
                                 <li><a class="dropdown-item" href="configuracion">Configuracion</a></li>

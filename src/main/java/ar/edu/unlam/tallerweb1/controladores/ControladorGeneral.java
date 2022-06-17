@@ -47,7 +47,7 @@ public class ControladorGeneral {
         return new ModelAndView("configuracion", model);
     }
 
-    @RequestMapping(path = "/configuracion-usuario", method = RequestMethod.GET)
+    @RequestMapping(path = "/configuracion/usuario/", method = RequestMethod.GET)
     public ModelAndView verVistaUsuarioConfig(HttpServletRequest request) {
 
         String rol = (String)request.getSession().getAttribute("ROL");
@@ -61,7 +61,7 @@ public class ControladorGeneral {
         return new ModelAndView("configUsuario", model);
     }
 
-    @RequestMapping(path = "/perfil", method = RequestMethod.GET)
+    @RequestMapping(path = "/perfil/", method = RequestMethod.GET)
     public ModelAndView perfil(HttpServletRequest request) {
         ModelMap model = new ModelMap();
         List<Album> albunes = servicioAlbum.traerAlbunes();

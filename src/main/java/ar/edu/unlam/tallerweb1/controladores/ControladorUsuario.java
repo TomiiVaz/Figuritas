@@ -148,7 +148,7 @@ public class ControladorUsuario {
         return new ModelAndView("redirect:/home");
     }
 
-    @RequestMapping(path = "/perfil-editar", method = RequestMethod.POST)
+    @RequestMapping(path = "/perfil/editar", method = RequestMethod.POST)
     public ModelAndView editarPerfil(@ModelAttribute("datosUsuario") Usuario usuario) {
 
         servicioUsuario.modificarDatosUsuario(usuario);

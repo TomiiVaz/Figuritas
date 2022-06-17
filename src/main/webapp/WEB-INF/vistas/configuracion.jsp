@@ -32,7 +32,7 @@
                 </div>
                 <div class="col-6">
                     <h2 class="text-white">Seleccion</h2>
-                    <a href="configuracion-seleccion">
+                    <a href="configuracion/seleccion/">
                         <button class="btn btn-primary mb-5 mt-3">Ingresar</button>
                     </a>
                 </div>
@@ -48,7 +48,7 @@
                 </div>
                 <div class="col-6">
                     <h2 class="text-white">Usuario</h2>
-                    <a href="configuracion-usuario">
+                    <a href="configuracion/usuario/">
                         <button class="btn btn-primary mb-5 mt-3">Ingresar</button>
                     </a>
                 </div>

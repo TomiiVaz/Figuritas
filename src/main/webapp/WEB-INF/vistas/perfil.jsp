@@ -49,7 +49,7 @@
                 <h2 class="text-white text-center">Formulario editar</h2>
                 <form:form class='text-center d-flex flex-column px-5 px-5 py-2 bg-dark border-0'
                            method='post'
-                           action='perfil-editar'
+                           action='editar'
                            modelAttribute="datosUsuario">
                     <input class='form-control my-2' type='text' name='nombre' id='nombre'
                            placeholder='Nombre' value="${usuario.nombre}">

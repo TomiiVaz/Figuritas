@@ -30,7 +30,7 @@ public class ControladorSeleccion {
         this.servicioAlbum = servicioAlbum;
     }
 
-    @RequestMapping(path = "/configuracion-seleccion", method = RequestMethod.GET)
+    @RequestMapping(path = "/configuracion/seleccion/", method = RequestMethod.GET)
     public ModelAndView verVistaSeleccionConfig(HttpServletRequest request) {
         List<Seleccion> selecciones = this.servicioSelec.traerSelecciones();
         List<Album> albunes = this.servicioAlbum.traerAlbunes();
@@ -48,7 +48,7 @@ public class ControladorSeleccion {
         return new ModelAndView("configSeleccion", model);
     }
 
-    @RequestMapping(path = "/crear-seleccion", method = RequestMethod.POST)
+    @RequestMapping(path = "/configuracion/seleccion/agregar", method = RequestMethod.POST)
     public ModelAndView crearSeleccion(@ModelAttribute("selecciones") Seleccion seleccion) {
         try {
             this.servicioSelec.crearSeleccion(seleccion);
@@ -65,7 +65,7 @@ public class ControladorSeleccion {
 
     }
 
-    @RequestMapping(path = "/ver-selecciones", method = RequestMethod.POST, params = {"seleccionId", "nombreNuevo"})
+    @RequestMapping(path = "/configuracion/seleccion/editar", method = RequestMethod.POST, params = {"seleccionId", "nombreNuevo"})
     public ModelAndView verSelecciones(@RequestParam int seleccionId,
                                        @RequestParam String nombreNuevo) {
         try {
@@ -82,7 +82,7 @@ public class ControladorSeleccion {
         }
     }
 
-    @RequestMapping(path = "/del-seleccion", method = RequestMethod.POST, params = {"seleccionId"})
+    @RequestMapping(path = "/configuracion/seleccion/eliminar", method = RequestMethod.POST, params = {"seleccionId"})
     public ModelAndView delSelecciones(@RequestParam int seleccionId) {
         try {
             this.servicioSelec.eliminarSeleccion((long) seleccionId);
