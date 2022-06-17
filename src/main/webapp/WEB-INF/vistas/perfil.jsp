@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <%@include file="head.jsp" %>
@@ -50,7 +51,7 @@
                 <form:form class='text-center d-flex flex-column px-5 px-5 py-2 bg-dark border-0'
                            method='post'
                            action='editar'
-                           modelAttribute="datosUsuario">
+                           modelAttribute="usuario">
                     <input class='form-control my-2' type='text' name='nombre' id='nombre'
                            placeholder='Nombre' value="${usuario.nombre}">
                     <input class='form-control my-2' type='text' name='email' id='email'
@@ -58,8 +59,8 @@
                     <input class='form-control my-2' type='text' name='equipo' id='equipo'
                            placeholder='Equipo' value="${usuario.equipo}">
                     <select id='seleccionId' name='seleccionId' class='form-control my-2'>
+                        <option value='${usuario.seleccion.id}' selected hidden>${usuario.seleccion.nombre}</option>
                         <c:forEach var="seleccion" items="${selecciones}">
-                            <option value='${usuario.seleccion.id}' selected hidden>${usuario.seleccion.nombre}</option>
                             <option value='${seleccion.id}'>${seleccion.nombre}</option>
                         </c:forEach>
                     </select>

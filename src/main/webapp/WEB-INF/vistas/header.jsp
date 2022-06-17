@@ -29,7 +29,7 @@
                             <li><a class="dropdown-item" href="<c:url value="/perfil/" />">Profile</a></li>
                             <!-- modificar para que lea un controlador y no sea un href -->
                             <c:if test="${rol.equals('ADM')}">
-                                <li><a class="dropdown-item" href="configuracion">Configuracion</a></li>
+                                <li><a class="dropdown-item" href="<c:url value="/configuracion" />">Configuracion</a></li>
                             </c:if>
 
                             <li><a class="dropdown-item" href="logout">Salir</a></li>

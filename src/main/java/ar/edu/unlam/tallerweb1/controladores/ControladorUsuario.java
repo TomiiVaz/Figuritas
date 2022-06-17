@@ -30,15 +30,13 @@ public class ControladorUsuario {
     // applicationContext.xml
     private final ServicioUsuario servicioUsuario;
     private final ServicioSeleccion servicioSeleccion;
-    private final ServicioFigurita servicioFigu;
 
     private final ServicioRegistroPegada serviciopegada;
 
     @Autowired
-    public ControladorUsuario(ServicioUsuario servicioUsuario, ServicioSeleccion servicioSeleccion, ServicioFigurita servicioFigu, ServicioRegistroPegada serviciopegada) {
+    public ControladorUsuario(ServicioUsuario servicioUsuario, ServicioSeleccion servicioSeleccion, ServicioRegistroPegada serviciopegada) {
         this.servicioUsuario = servicioUsuario;
         this.servicioSeleccion = servicioSeleccion;
-        this.servicioFigu = servicioFigu;
         this.serviciopegada = serviciopegada;
     }
 
@@ -148,11 +146,17 @@ public class ControladorUsuario {
         return new ModelAndView("redirect:/home");
     }
 
+
     @RequestMapping(path = "/perfil/editar", method = RequestMethod.POST)
-    public ModelAndView editarPerfil(@ModelAttribute("datosUsuario") Usuario usuario) {
-
+    public ModelAndView editarPerfil(@ModelAttribute("usuario") Usuario usuario, HttpServletRequest request) {
+        Usuario usuarioLoggeado = (Usuario) request.getSession().getAttribute("USUARIO");
+        usuario.setId((Long) request.getSession().getAttribute("ID"));
+        usuario.setPassword(usuarioLoggeado.getPassword());
+        usuario.setPassword2(usuarioLoggeado.getPassword2());
+        usuario.setRol(usuarioLoggeado.getRol());
+        usuario.setActivo(usuarioLoggeado.getActivo());
         servicioUsuario.modificarDatosUsuario(usuario);
-
+        request.getSession().setAttribute("USUARIO", usuario);
 
         return new ModelAndView("redirect:/home");
     }
