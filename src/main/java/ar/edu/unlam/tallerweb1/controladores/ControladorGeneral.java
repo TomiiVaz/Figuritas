@@ -71,7 +71,7 @@ public class ControladorGeneral {
         String rol = (String) request.getSession().getAttribute("ROL");
         Long id = (Long) request.getSession().getAttribute("ID");
         List<RegistroPegada> pegadas = servicioPegada.getPegadasUsuario(id);
-        Usuario usuarioLogueado = (Usuario) request.getSession().getAttribute("USUARIO");
+        Usuario usuarioLogueado = servicioUsuario.getUsuario(id);
         model.put("pegadas", pegadas);
         model.put("id", id);
         model.put("rol", rol);
