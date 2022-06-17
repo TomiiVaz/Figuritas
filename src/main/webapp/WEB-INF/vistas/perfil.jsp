@@ -58,7 +58,7 @@
                            placeholder='Email' value="${usuario.email}">
                     <input class='form-control my-2' type='text' name='equipo' id='equipo'
                            placeholder='Equipo' value="${usuario.equipo}">
-                    <select id='seleccionId' name='seleccionId' class='form-control my-2'>
+                    <select id='seleccion.id' name='seleccion.id' class='form-control my-2'>
                         <option value='${usuario.seleccion.id}' selected hidden>${usuario.seleccion.nombre}</option>
                         <c:forEach var="seleccion" items="${selecciones}">
                             <option value='${seleccion.id}'>${seleccion.nombre}</option>

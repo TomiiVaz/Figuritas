@@ -32,7 +32,7 @@
                                 <li><a class="dropdown-item" href="<c:url value="/configuracion" />">Configuracion</a></li>
                             </c:if>
 
-                            <li><a class="dropdown-item" href="logout">Salir</a></li>
+                            <li><a class="dropdown-item"href="<c:url value="/logout" />">Salir</a></li>
                         </ul>
                     </div>
                 </c:when>
