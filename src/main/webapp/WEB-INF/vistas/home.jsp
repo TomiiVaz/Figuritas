@@ -56,7 +56,7 @@
         <section class="mt-5">
             <div class="container d-flex justify-content-center">
                 <form:form method='get'
-                           action='sorteo-figurita'
+                           action='sorteo'
                             class='d-flex justify-content-center'>
                 <button type="submit" class="btn btn-danger">
                     <h3 class="text-white mr-1">Ganate una figurita</h3>
