@@ -116,6 +116,10 @@
                         <p class="text-danger"><span>${errorCodigo}</span></p>
                         <br>
                     </c:if>
+                    <c:if test="${not empty errorCoincidencia}">
+                        <p class="text-danger"><span>${errorCoincidencia}</span></p>
+                        <br>
+                    </c:if>
                 </div>
                 <form action="filtrar-figuritas" method="get">
                     <%--                    Albunes--%>

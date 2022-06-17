@@ -76,25 +76,24 @@
         <div class="container bg-dark">
             <div class="row mt-4 bg-dark gx-2">
 
-                <!-- recorro todas las figuritas que esten guardas en la BBDD -->
+                <!-- recorro todas las intercambiables que esten guardas en la BBDD -->
                 <c:forEach var="intercambiable" items="${intercambiables}">
 
-                    <div class="col-2 my-1 m-3">
+                    <div class="col-2 my-1 m-3 text-center">
                         <div class="border border-white">
-                            <form:form class='text-center d-flex flex-column px-3 bg-dark border-0'
-                                       method='post'
-                                       action='carta'
-                                       modelAttribute="figurita">
-                                <button type='submit' class='btn my-2'>
-
                                 <img src="img/${intercambiable.figurita.nombre}.jpg" alt="foto1" class="rounded img-fluid m-auto d-block">
                                 <div class="h4 text-center my-auto text-white">${intercambiable.figurita.nombre}</div>
                                 <p class="text-white">Seleccion: ${intercambiable.figurita.seleccion.nombre}</p>
                                     <%--    input invisible paso el id de la figurita--%>
                                 <input class='d-none' type="text"  path='id' id='id' name='id' value="${intercambiable.figurita.id}">
 
-                                </button>
-                            </form:form>
+                            <div class="d-flex flex-row justify-content-center">
+                                <a href="#" class=""><button class="btn btn-primary btn-block m-2">Ver</button></a>
+                                <c:if test="${id!=null}">
+                                <a href="intercambiar-figurita/${intercambiable.id}"><button class="btn btn-warning btn-block m-2">Intercambiar</button></a>
+                                </c:if>
+                            </div>
+
                         </div>
                     </div>
 

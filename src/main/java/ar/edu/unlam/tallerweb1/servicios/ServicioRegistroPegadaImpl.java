@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.excepciones.CodigoIncorrectoExcepcion;
+import ar.edu.unlam.tallerweb1.excepciones.FiguritaAlbumSinCoincidenciaException;
 import ar.edu.unlam.tallerweb1.modelo.Figurita;
 import ar.edu.unlam.tallerweb1.modelo.RegistroPegada;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
@@ -27,6 +28,10 @@ public class ServicioRegistroPegadaImpl implements ServicioRegistroPegada{
 
         if(rp.getFigurita()==null) {
             throw new CodigoIncorrectoExcepcion();
+        }
+
+        if(!rp.getFigurita().getAlbum().getNombre().equals(rp.getAlbum().getNombre())){
+            throw new FiguritaAlbumSinCoincidenciaException();
         }
 
         if(rp.getId()!=null){

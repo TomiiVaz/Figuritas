@@ -1,5 +1,7 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import ar.edu.unlam.tallerweb1.excepciones.FiguritaAlbumSinCoincidenciaException;
+import ar.edu.unlam.tallerweb1.modelo.Estado;
 import ar.edu.unlam.tallerweb1.modelo.RegistroIntercambio;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioRegistroIntercambio;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioUsuario;
@@ -20,6 +22,13 @@ public class ServicioRegistroIntercambioImpl implements ServicioRegistroIntercam
 
     @Override
     public void guardarRegistro(RegistroIntercambio ri) {
+
+        if(ri.getRegistroPide().getAlbum().getId()!=ri.getRegistroDecide().getAlbum().getId()){
+            throw new FiguritaAlbumSinCoincidenciaException();
+        }
+
+        Estado estado = repoInter.getEstadoId(1l);
+        ri.setEstado(estado);
         repoInter.guardar(ri);
     }
 }
