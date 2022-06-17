@@ -157,6 +157,7 @@ public class ControladorTransacciones {
 
         try{
             servicioRegistroIntercambio.guardarRegistro(ri);
+            request.getSession().removeAttribute("IDDECIDE");
             return new ModelAndView("redirect:/home");
         } catch (FiguritaAlbumSinCoincidenciaException e){
             return falloIntercambio();
