@@ -60,7 +60,7 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
     }
 
     @Override
-    public Usuario agarrarUsuarioId(Long id) {
+    public Usuario getUsuario(Long id) {
         return repositorioUsuario.getUsuario(id);
     }
 

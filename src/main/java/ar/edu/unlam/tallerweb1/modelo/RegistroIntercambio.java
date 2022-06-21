@@ -10,10 +10,10 @@ public class RegistroIntercambio {
     private Long id;
 
     @ManyToOne
-    private RegistroPegada registroSolicitante;
+    private RegistroPegada registroPide;
 
     @ManyToOne
-    private RegistroPegada registroSolicitado;
+    private RegistroPegada registroDecide;
 
     @ManyToOne
     private Estado estado;
@@ -26,20 +26,20 @@ public class RegistroIntercambio {
         this.id = id;
     }
 
-    public RegistroPegada getRegistroSolicitante() {
-        return registroSolicitante;
+    public RegistroPegada getRegistroPide() {
+        return registroPide;
     }
 
-    public void setRegistroSolicitante(RegistroPegada registroSolicitante) {
-        this.registroSolicitante = registroSolicitante;
+    public void setRegistroPide(RegistroPegada registroPide) {
+        this.registroPide = registroPide;
     }
 
-    public RegistroPegada getRegistroSolicitado() {
-        return registroSolicitado;
+    public RegistroPegada getRegistroDecide() {
+        return registroDecide;
     }
 
-    public void setRegistroSolicitado(RegistroPegada registroSolicitado) {
-        this.registroSolicitado = registroSolicitado;
+    public void setRegistroDecide(RegistroPegada registroDecide) {
+        this.registroDecide = registroDecide;
     }
 
     public Estado getEstado() {

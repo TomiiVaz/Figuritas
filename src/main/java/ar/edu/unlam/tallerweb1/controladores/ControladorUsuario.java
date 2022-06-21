@@ -30,15 +30,13 @@ public class ControladorUsuario {
     // applicationContext.xml
     private final ServicioUsuario servicioUsuario;
     private final ServicioSeleccion servicioSeleccion;
-    private final ServicioFigurita servicioFigu;
 
     private final ServicioRegistroPegada serviciopegada;
 
     @Autowired
-    public ControladorUsuario(ServicioUsuario servicioUsuario, ServicioSeleccion servicioSeleccion, ServicioFigurita servicioFigu, ServicioRegistroPegada serviciopegada) {
+    public ControladorUsuario(ServicioUsuario servicioUsuario, ServicioSeleccion servicioSeleccion, ServicioRegistroPegada serviciopegada) {
         this.servicioUsuario = servicioUsuario;
         this.servicioSeleccion = servicioSeleccion;
-        this.servicioFigu = servicioFigu;
         this.serviciopegada = serviciopegada;
     }
 
@@ -58,7 +56,7 @@ public class ControladorUsuario {
     // Este metodo escucha la URL validar-login siempre y cuando se invoque con metodo http POST
     // El metodo recibe un objeto Usuario el que tiene los datos ingresados en el form correspondiente y se corresponde con el modelAttribute definido en el
     // tag form:form
-    @RequestMapping(path = "/validar-login", method = RequestMethod.POST)
+    @RequestMapping(path = "/validar", method = RequestMethod.POST)
     public ModelAndView validarLogin(@ModelAttribute("datosLogin") DatosLogin datosLogin, HttpServletRequest request) {
         ModelMap model = new ModelMap();
 
@@ -148,11 +146,17 @@ public class ControladorUsuario {
         return new ModelAndView("redirect:/home");
     }
 
-    @RequestMapping(path = "/perfil-editar", method = RequestMethod.POST)
-    public ModelAndView editarPerfil(@ModelAttribute("datosUsuario") Usuario usuario) {
 
+    @RequestMapping(path = "/perfil/editar", method = RequestMethod.POST)
+    public ModelAndView editarPerfil(@ModelAttribute("usuario") Usuario usuario, HttpServletRequest request) {
+        Usuario usuarioLoggeado = (Usuario) request.getSession().getAttribute("USUARIO");
+        usuario.setId((Long) request.getSession().getAttribute("ID"));
+        usuario.setPassword(usuarioLoggeado.getPassword());
+        usuario.setPassword2(usuarioLoggeado.getPassword2());
+        usuario.setRol(usuarioLoggeado.getRol());
+        usuario.setActivo(usuarioLoggeado.getActivo());
         servicioUsuario.modificarDatosUsuario(usuario);
-
+        request.getSession().setAttribute("USUARIO", usuario);
 
         return new ModelAndView("redirect:/home");
     }

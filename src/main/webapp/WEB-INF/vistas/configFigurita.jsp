@@ -58,7 +58,7 @@
                 <h2 class="text-white text-center">Formulario agregar Figurita</h2>
                 <form:form class='text-center d-flex flex-column px-5 px-5 py-2 bg-dark border-0'
                            method='post'
-                           action='crear-figurita'
+                           action='agregar'
                            modelAttribute="figurita">
 
                     <label for='nombre' class='text-white'>Nombre</label>
@@ -161,7 +161,7 @@
                 <h2 class="text-white text-center">Formulario editar figurita</h2>
                 <form:form class='text-center d-flex flex-column px-5 px-5 py-2 bg-dark border-0'
                            method='post'
-                           action='editar-figurita'
+                           action='editar'
                            modelAttribute="figurita">
 
                     <label for="figuritaId" class='text-white'>Figurita</label>
@@ -190,7 +190,7 @@
                 <h2 class="text-white text-center">Formulario eliminar figurita</h2>
                 <form:form class='text-center d-flex flex-column px-5 px-5 py-2 bg-dark border-0'
                            method='post'
-                           action='del-figurita'
+                           action='eliminar'
                            modelAttribute="figurita">
 
                     <label for="figuritaId" class='text-white'>Figurita</label>

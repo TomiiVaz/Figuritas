@@ -13,5 +13,5 @@
     <script src="js/jquery-3.6.0.min.js"></script>
 
     <!-- Favicon-->
-    <link rel="icon" href="img/favicon.ico">
+    <link rel="icon" href="<c:url value="/img/favicon.ico" />">
 </head>
