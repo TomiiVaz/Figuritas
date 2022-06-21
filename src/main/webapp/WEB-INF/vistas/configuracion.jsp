@@ -26,13 +26,13 @@
             <div class="row mb-5">
                 <div class="col-6">
                     <h2 class="text-white">Figurita</h2>
-                    <a href="configuracion-figurita">
+                    <a href="configuracion/figurita/">
                         <button class="btn btn-primary mb-5 mt-3">Ingresar</button>
                     </a>
                 </div>
                 <div class="col-6">
                     <h2 class="text-white">Seleccion</h2>
-                    <a href="configuracion-seleccion">
+                    <a href="configuracion/seleccion/">
                         <button class="btn btn-primary mb-5 mt-3">Ingresar</button>
                     </a>
                 </div>
@@ -42,13 +42,13 @@
             <div class="row mb-5">
                 <div class="col-6">
                     <h2 class="text-white">Album</h2>
-                    <a href="configuracion-album">
+                    <a href="configuracion/album/">
                         <button class="btn btn-primary mb-5 mt-3">Ingresar</button>
                     </a>
                 </div>
                 <div class="col-6">
                     <h2 class="text-white">Usuario</h2>
-                    <a href="configuracion-usuario">
+                    <a href="configuracion/usuario/">
                         <button class="btn btn-primary mb-5 mt-3">Ingresar</button>
                     </a>
                 </div>

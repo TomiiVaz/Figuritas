@@ -26,7 +26,9 @@ public class ControladorAlbum {
         this.servicioAl = serviciAl;
     }
 
-    @RequestMapping(path = "/configuracion-album", method = RequestMethod.GET)
+//    Puedo refactorear todo su interior, meterlo en getModelAndView, por las dudas que los datos que le pasamos id, rol etc no se pongan al cargar la vista?
+
+    @RequestMapping(path = "/configuracion/album/", method = RequestMethod.GET)
     public ModelAndView verAlbum(HttpServletRequest request) {
         List<Album> albunes = this.servicioAl.traerAlbunes();
         String rol = (String) request.getSession().getAttribute("ROL");
@@ -41,7 +43,7 @@ public class ControladorAlbum {
         return new ModelAndView("configAlbum", model);
     }
 
-    @RequestMapping(path = "/agregar-album", method = RequestMethod.POST)
+    @RequestMapping(path = "/configuracion/album/agregar", method = RequestMethod.POST)
     public ModelAndView agregarAlbum(@ModelAttribute("album") Album album) {
         try {
             servicioAl.agregarAlbum(album);
@@ -53,7 +55,7 @@ public class ControladorAlbum {
         }
     }
 
-    @RequestMapping(path = "/editar-album", method = RequestMethod.POST)
+    @RequestMapping(path = "/configuracion/album/editar", method = RequestMethod.POST)
     public ModelAndView editarAlbunes(@RequestParam int albumId,
                                       @RequestParam String nombreNuevo) {
         try {
@@ -70,7 +72,7 @@ public class ControladorAlbum {
         }
     }
 
-    @RequestMapping(path = "/eliminar-album", method = RequestMethod.POST)
+    @RequestMapping(path = "/configuracion/album/eliminar", method = RequestMethod.POST)
     public ModelAndView eliminarAlbum(@RequestParam long albumId) {
         System.out.println(albumId);
         try {

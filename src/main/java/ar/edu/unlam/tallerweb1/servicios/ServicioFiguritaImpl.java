@@ -50,7 +50,7 @@ public class ServicioFiguritaImpl implements ServicioFigurita{
         }
 
         if(verificarQueElDorsalEnRangoValido(figurita.getDorsal())){
-            throw new FiguritaConDorsalValidoExcepition();
+            throw new FiguritaConDorsalNoValidoExcepition();
         }
 
         if(verificarQueElEquipoNoVengVacio(figurita.getEquipo())){
@@ -161,7 +161,7 @@ public class ServicioFiguritaImpl implements ServicioFigurita{
 
     @Override
     public Figurita buscarFigurita(Long id) {
-        return repoFigurita.encontrarFigurita(id);
+        return repoFigurita.buscarFiguritaPorID(id);
     }
 
     @Override
@@ -221,18 +221,11 @@ public class ServicioFiguritaImpl implements ServicioFigurita{
 
     @Override
     public void eliminarFigurita(Long figuritaId) {
-//esto no me anda la exception
+
         Long zero= 0L;
-        System.out.println("AAAAAAAAAAACCCCCCCCCCCAAA EEEEELLLLL EEEEERRRRRROOOOOOORRRRRR");
-        System.out.println(figuritaId);
-        System.out.println(zero);
-
-
         if(figuritaId == zero){
             throw new FiguritaExceptionGeneral();
         }
-
-
 
         this.repoFigurita.eliminarFigurita(figuritaId);
 

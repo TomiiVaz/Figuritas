@@ -22,5 +22,11 @@ public interface RepositorioRegistroPegada {
 
     List<RegistroPegada> getRegistroPorSeleccionFigurita(Long seleccion);
 
+    List<RegistroPegada> getRegistroPorAlbumFigurita(Long album, Long usuario);
+
     List<RegistroPegada> getRegistroPorPosicionFigurita(Long posicion);
+
+    List<RegistroPegada> getRegistroPorSeleccionFiguritaUsuario(Long seleccion, Long idUsuario);
+
+    List<RegistroPegada> getRegistroPorSeleccionAlbumUsuario(Long seleccion, Long album, Long idUsuario);
 }

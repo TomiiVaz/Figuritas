@@ -12,7 +12,7 @@
         <%--Definicion de un form asociado a la accion /validar-login por POST. Se indica ademas que el model attribute se--%>
         <%--debe referenciar con el nombre usuario, spring mapea los elementos de la vista con los atributos de dicho objeto--%>
         <%--para eso debe coincidir el valor del elemento path de cada input con el nombre de un atributo del objeto --%>
-        <form:form action="validar-login" method="POST" modelAttribute="datosLogin">
+        <form:form action="validar" method="POST" modelAttribute="datosLogin">
             <h3 class="form-signin-heading text-white text-center m-2">Inicicar sesion</h3>
             <hr class="colorgraph">
             <br>
@@ -21,7 +21,8 @@
             <label for="email" class="text-white mb-1">Email</label>
             <form:input path="email" id="email" type="email" class="form-control m-2" placeholder="Ingrese el mail"/>
             <label for="clave" class="text-white mb-1">Clave</label>
-            <form:input path="password" type="password" id="password" class="form-control m-2" placeholder="Ingrese su clave"/>
+            <form:input path="password" type="password" id="password" class="form-control m-2"
+                        placeholder="Ingrese su clave"/>
 
             <%--Bloque que es visible si el elemento error no esta vacio	--%>
             <c:if test="${not empty error}">

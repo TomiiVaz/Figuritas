@@ -29,3 +29,4 @@ log/
 target/
 src/main/resources/hibernateContext.xml
 src/main/resources/hibernateContext.xml
+src/test/resources/test-hibernateContext.xml

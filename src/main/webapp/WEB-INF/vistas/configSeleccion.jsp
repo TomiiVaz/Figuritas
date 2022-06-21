@@ -44,7 +44,7 @@
             <h2 class="text-white text-center">Formulario agregar</h2>
             <form:form class='text-center d-flex flex-column px-5 px-5 py-2 bg-dark border-0'
                        method='post'
-                       action='crear-seleccion'
+                       action='agregar'
                        modelAttribute="selecciones">
                 <input class='my-2 form-control' type='text' name='nombre' id='nombre'
                        placeholder='Ingrese el nombre de la seleccion'>
@@ -66,11 +66,11 @@
             <h2 class="text-white text-center">Formulario editar</h2>
             <form:form class='text-center d-flex flex-column px-5 px-5 py-2 bg-dark border-0'
                        method='post'
-                       action='ver-selecciones'
+                       action='editar'
                        modelAttribute="selecciones">
                 <select id='seleccionId' name='seleccionId' class='form-control my-2'>
                     <c:forEach var="seleccion" items="${selecciones}">
-                        <option value='Default' selected hidden>Seleccionar una selección</option>
+                        <option value='0' selected hidden>Seleccionar una selección</option>
                         <option value='${seleccion.id}'>${seleccion.nombre}</option>
                     </c:forEach>
                 </select>
@@ -90,11 +90,11 @@
             <h2 class="text-white text-center">Formulario eliminar</h2>
             <form:form class='text-center d-flex flex-column px-5 px-5 py-2 bg-dark border-0'
                        method='post'
-                       action='del-seleccion'
+                       action='eliminar'
                        modelAttribute="selecciones">
                 <select path='seleccionId' id='seleccionId' name='seleccionId' class='form-control my-2'>
                     <c:forEach var="seleccion" items="${selecciones}">
-                        <option value='Default' selected hidden>Seleccionar una selección a borrar</option>
+                        <option value='0' selected hidden>Seleccionar una selección a borrar</option>
                         <option value='${seleccion.id}'>${seleccion.nombre}</option>
                     </c:forEach>
                 </select>

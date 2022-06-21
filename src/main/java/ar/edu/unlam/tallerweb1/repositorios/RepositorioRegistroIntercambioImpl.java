@@ -1,8 +1,10 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
+import ar.edu.unlam.tallerweb1.modelo.Estado;
 import ar.edu.unlam.tallerweb1.modelo.RegistroIntercambio;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -23,5 +25,13 @@ public class RepositorioRegistroIntercambioImpl implements RepositorioRegistroIn
 
         final Session session = sessionFactory.getCurrentSession();
         session.save(ri);
+    }
+
+    @Override
+    public Estado getEstadoId(Long id) {
+        final Session session = sessionFactory.getCurrentSession();
+        return (Estado) session.createCriteria(Estado.class)
+                .add(Restrictions.eq("id",id))
+                .uniqueResult();
     }
 }

@@ -1,6 +1,6 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
-import ar.edu.unlam.tallerweb1.excepciones.SeleccionAlbumNullException;
+import ar.edu.unlam.tallerweb1.excepciones.*;
 import ar.edu.unlam.tallerweb1.modelo.Album;
 import ar.edu.unlam.tallerweb1.modelo.Seleccion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
@@ -30,7 +30,7 @@ public class ControladorSeleccion {
         this.servicioAlbum = servicioAlbum;
     }
 
-    @RequestMapping(path = "/configuracion-seleccion", method = RequestMethod.GET)
+    @RequestMapping(path = "/configuracion/seleccion/", method = RequestMethod.GET)
     public ModelAndView verVistaSeleccionConfig(HttpServletRequest request) {
         List<Seleccion> selecciones = this.servicioSelec.traerSelecciones();
         List<Album> albunes = this.servicioAlbum.traerAlbunes();
@@ -48,37 +48,55 @@ public class ControladorSeleccion {
         return new ModelAndView("configSeleccion", model);
     }
 
-    @RequestMapping(path = "/crear-seleccion", method = RequestMethod.POST)
+    @RequestMapping(path = "/configuracion/seleccion/agregar", method = RequestMethod.POST)
     public ModelAndView crearSeleccion(@ModelAttribute("selecciones") Seleccion seleccion) {
         try {
             this.servicioSelec.crearSeleccion(seleccion);
             return new ModelAndView("redirect:/configuracion-seleccion");
+        } catch (SeleccionCamposVacíosException e){
+            return getModelAndView("No se ha completado ningun campo.");
         } catch (SeleccionAlbumNullException e) {
-            return getModelAndView("No ha seleccionado un album");
+            return getModelAndView("No ha seleccionado un album.");
+        } catch (SeleccionNombreVacioException e){
+            return getModelAndView("El campo nombre está vacío.");
+        } catch (SeleccionNombreTieneNumerosOCaracteresEspecialesException e){
+            return getModelAndView("El nombre no puede contener números ni caracteres especiales");
         }
 
     }
 
-    @RequestMapping(path = "/ver-selecciones", method = RequestMethod.POST, params = {"seleccionId", "nombreNuevo"})
+    @RequestMapping(path = "/configuracion/seleccion/editar", method = RequestMethod.POST, params = {"seleccionId", "nombreNuevo"})
     public ModelAndView verSelecciones(@RequestParam int seleccionId,
                                        @RequestParam String nombreNuevo) {
-
-        this.servicioSelec.editarSeleccion((long) seleccionId, nombreNuevo);
-
-        return new ModelAndView("redirect:/configuracion-seleccion");
+        try {
+            this.servicioSelec.editarSeleccion((long) seleccionId, nombreNuevo);
+            return new ModelAndView("redirect:/configuracion-seleccion");
+        } catch (SeleccionSelectorNoUsado e){
+            return getModelAndView("Elija una seleccion a editar.");
+        } catch (SeleccionNombreVacioException e){
+            return getModelAndView("El campo Nombre no puede estar vacío.");
+        } catch (SeleccionNombreEnUsoException e){
+            return getModelAndView("El nombre ya está en uso.");
+        } catch (SeleccionNombreTieneNumerosOCaracteresEspecialesException e){
+            return getModelAndView("El nombre no puede contener números ni caracteres especiales");
+        }
     }
 
-    @RequestMapping(path = "/del-seleccion", method = RequestMethod.POST, params = {"seleccionId"})
+    @RequestMapping(path = "/configuracion/seleccion/eliminar", method = RequestMethod.POST, params = {"seleccionId"})
     public ModelAndView delSelecciones(@RequestParam int seleccionId) {
-
-        this.servicioSelec.eliminarSeleccion((long) seleccionId);
-
-        return new ModelAndView("redirect:/configuracion-seleccion");
+        try {
+            this.servicioSelec.eliminarSeleccion((long) seleccionId);
+            return new ModelAndView("redirect:/configuracion-seleccion");
+        } catch (SeleccionSelectorNoUsado e){
+            return getModelAndView("Elija una selección a eliminar");
+        }
     }
 
     private ModelAndView getModelAndView(String value) {
         ModelMap model = new ModelMap();
         List<Seleccion> selecciones = this.servicioSelec.traerSelecciones();
+        List<Album> albunes = this.servicioAlbum.traerAlbunes();
+        model.put("albunes", albunes);
         model.put("selecciones", selecciones);
         model.put("error", value);
         return new ModelAndView("configSeleccion", model);

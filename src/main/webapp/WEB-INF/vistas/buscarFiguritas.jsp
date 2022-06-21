@@ -57,13 +57,26 @@
     <div class="container bg-dark">
         <div class="row mt-4 bg-dark gx-2">
             <!-- preguntar o ver que onda porque del home se llama post y desde aca como get -->
-            <c:forEach var="item" items="${regsEncontrados}">
-                <div class="col-2 my-1">
+            <c:forEach var="pegada" items="${regsEncontrados}">
+                <!--<div class="col-2 my-1">
                     <div class="figuritaEncontrada border rounded border-white">
                         <a href="carta" class="btn">
                             <img src="img/${item.figurita.nombre}.jpg" alt="foto1" width="95% " class="rounded m-auto d-block">
                             <div class="h4 text-center my-auto text-white">${item.figurita.nombre}</div>
                         </a>
+                    </div>
+                </div> -->
+                <div class="card m-3" style="width: 18rem;">
+                    <img src="img/${pegada.figurita.nombre}.jpg" class="card-img-top" alt="Foto de jugador">
+                    <ul class="list-group list-group-flush text-center">
+                        <h5 class="card-title">${pegada.figurita.nombre}</h5>
+                        <p class="card-text">${pegada.figurita.rareza.descripcion}</p>
+                        <li class="list-group-item">${pegada.figurita.equipo}</li>
+                        <li class="list-group-item">${pegada.figurita.posicion.descripcion}</li>
+                        <li class="list-group-item">${pegada.figurita.dorsal}</li>
+                    </ul>
+                    <div class="card-body">
+                        <a href="#" class="card-link text-decoration-none">Ir a la carta</a>
                     </div>
                 </div>
 

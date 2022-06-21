@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <%@include file="head.jsp" %>
@@ -49,17 +50,17 @@
                 <h2 class="text-white text-center">Formulario editar</h2>
                 <form:form class='text-center d-flex flex-column px-5 px-5 py-2 bg-dark border-0'
                            method='post'
-                           action='perfil-editar'
-                           modelAttribute="albunes">
+                           action='editar'
+                           modelAttribute="usuario">
                     <input class='form-control my-2' type='text' name='nombre' id='nombre'
-                           placeholder='Nombre'>
+                           placeholder='Nombre' value="${usuario.nombre}">
                     <input class='form-control my-2' type='text' name='email' id='email'
-                           placeholder='Email'>
+                           placeholder='Email' value="${usuario.email}">
                     <input class='form-control my-2' type='text' name='equipo' id='equipo'
-                           placeholder='Equipo'>
-                    <select id='seleccionId' name='seleccionId' class='form-control my-2'>
+                           placeholder='Equipo' value="${usuario.equipo}">
+                    <select id='seleccion.id' name='seleccion.id' class='form-control my-2'>
                         <c:forEach var="seleccion" items="${selecciones}">
-                            <option value='Default' selected hidden>Seleccionar una selección</option>
+                            <option value='${usuario.seleccion.id}' selected hidden>${usuario.seleccion.nombre}</option>
                             <option value='${seleccion.id}'>${seleccion.nombre}</option>
                         </c:forEach>
                     </select>
@@ -111,38 +112,48 @@
                 </div>
                 <%--                    El boton esta fuera del form, por lo cual no se donde me lo envia xd--%>
                 <%--                /Agregar figurita form--%>
-                    <div class="mb-3">
-                        <c:if test="${not empty errorCodigo}">
-                            <p class="text-danger"><span>${errorCodigo}</span></p>
-                            <br>
-                        </c:if>
-                    </div>
+                <div class="mb-3">
+                    <c:if test="${not empty errorCodigo}">
+                        <p class="text-danger"><span>${errorCodigo}</span></p>
+                        <br>
+                    </c:if>
+                    <c:if test="${not empty errorCoincidencia}">
+                        <p class="text-danger"><span>${errorCoincidencia}</span></p>
+                        <br>
+                    </c:if>
+                </div>
+                <form action="filtrar-figuritas" method="get">
+                    <%--                    Albunes--%>
 
-                <%--                    Albunes--%>
-                <div class="mb-1 mt-2">
-                    <select path='albumId' id='albumId' name='albumId' class='form-control my-2'>
-                        <c:forEach var="album" items="${albunes}">
-                            <option value='Default' selected hidden>Seleccionar un álbum</option>
-                            <option value='${album.id}'>${album.nombre}</option>
-                        </c:forEach>
-                    </select>
-                </div>
-                <%--                    Albunes--%>
-                <%--Selecciones--%>
-                <div class="mb-5 mt-2">
-                    <select id='seleccionId' name='seleccionId' class='form-control my-2'>
-                        <c:forEach var="seleccion" items="${selecciones}">
-                            <option value='Default' selected hidden>Seleccionar una selección</option>
-                            <option value='${seleccion.id}'>${seleccion.nombre}</option>
-                        </c:forEach>
-                    </select>
-                </div>
-                <%--Selecciones--%>
+                    <div class="mb-1 mt-2">
+                        <select path='albumId' id='albumId' name='albumId' class='form-control my-2'>
+                            <c:forEach var="album" items="${albunes}">
+                                <option value='0' selected hidden>Seleccionar un álbum</option>
+                                <option value='${album.id}'>${album.nombre}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <%--                    Albunes--%>
+                    <%--Selecciones--%>
+                    <div class="mb-5 mt-2">
+                        <select id='seleccionId' name='seleccionId' class='form-control my-2'>
+                            <c:forEach var="seleccion" items="${selecciones}">
+                                <option value='0' selected hidden>Seleccionar una selección</option>
+                                <option value='${seleccion.id}'>${seleccion.nombre}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <%--Selecciones--%>
+                        <button type="submit" class="btn btn-primary">
+                            Buscar
+                        </button>
+                </form>
+
             </div>
             <div class="d-flex flex-wrap justify-content-center">
                 <c:forEach var="pegada" items="${pegadas}">
                     <div class="card m-3" style="width: 18rem;">
-                        <img src="img/messi1.jpg" class="card-img-top" alt="Foto de jugador">
+                        <img src="img/${pegada.figurita.nombre}.jpg" class="card-img-top" alt="Foto de jugador">
                         <ul class="list-group list-group-flush text-center">
                             <h5 class="card-title">${pegada.figurita.nombre}</h5>
                             <p class="card-text">${pegada.figurita.rareza.descripcion}</p>

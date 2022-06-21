@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.excepciones.CodigoIncorrectoExcepcion;
+import ar.edu.unlam.tallerweb1.excepciones.FiguritaAlbumSinCoincidenciaException;
 import ar.edu.unlam.tallerweb1.modelo.Figurita;
 import ar.edu.unlam.tallerweb1.modelo.RegistroPegada;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
@@ -27,6 +28,10 @@ public class ServicioRegistroPegadaImpl implements ServicioRegistroPegada{
 
         if(rp.getFigurita()==null) {
             throw new CodigoIncorrectoExcepcion();
+        }
+
+        if(!rp.getFigurita().getAlbum().getNombre().equals(rp.getAlbum().getNombre())){
+            throw new FiguritaAlbumSinCoincidenciaException();
         }
 
         if(rp.getId()!=null){
@@ -87,6 +92,33 @@ public class ServicioRegistroPegadaImpl implements ServicioRegistroPegada{
         return registrosEncontrados;
 
         /********/
+    }
+
+    @Override
+    public List<RegistroPegada> getIntercambiablesPerfil(Long seleccion, Long album, Long idUsuario) {
+
+        List<RegistroPegada> busqueda = new ArrayList<>();
+        Long cero = 0l;
+
+        if(seleccion!=cero){
+            busqueda.addAll(repositorioRp.getRegistroPorSeleccionFiguritaUsuario(seleccion, idUsuario));
+        }
+
+        if(album!=cero){
+            busqueda.addAll( repositorioRp.getRegistroPorAlbumFigurita(album,idUsuario) );
+        }
+
+        if(seleccion!=cero && album!=cero){
+            busqueda.clear();
+            busqueda.addAll(repositorioRp.getRegistroPorSeleccionAlbumUsuario(seleccion, album, idUsuario));
+        }
+
+        if(seleccion==cero && album==cero){
+            busqueda.clear();
+            busqueda.addAll(repositorioRp.traerFiguritasPegadasPorUsuario(idUsuario));
+        }
+
+        return busqueda;
     }
 
     private List<RegistroPegada> hacerDiferenciaDeListas(List<RegistroPegada> aRetornar, List<RegistroPegada> deComparacion){
