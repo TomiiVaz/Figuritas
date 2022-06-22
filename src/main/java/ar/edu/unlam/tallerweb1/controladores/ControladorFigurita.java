@@ -170,7 +170,7 @@ public class ControladorFigurita {
 
     // Quien usa este metodo?
     @RequestMapping(path = "/configuracion/figurita/editar/enviar", method = RequestMethod.POST)
-    public ModelAndView crearFigurita(@ModelAttribute("figurita") Figurita figurita, @RequestParam Long id) {
+    public ModelAndView editarFiguritaAccion(@ModelAttribute("figurita") Figurita figurita, @RequestParam Long id) {
 
         this.servicioFigu.eliminarFigurita(id);
         this.servicioFigu.agregarFigurita(figurita);
