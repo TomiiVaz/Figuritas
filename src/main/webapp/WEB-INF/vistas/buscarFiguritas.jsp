@@ -81,6 +81,10 @@
                 </div>
 
             </c:forEach>
+            <c:if test="${not empty mensajeError}">
+                <p class="text-danger text-center"><span>${mensajeError}</span></p>
+                <br>
+            </c:if>
 
         </div>
     </div>
