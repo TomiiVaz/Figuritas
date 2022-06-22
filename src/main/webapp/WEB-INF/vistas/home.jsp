@@ -88,7 +88,7 @@
                                 <input class='d-none' type="text"  path='id' id='id' name='id' value="${intercambiable.figurita.id}">
 
                             <div class="d-flex flex-row justify-content-center">
-                                <a href="#" class=""><button class="btn btn-primary btn-block m-2">Ver</button></a>
+                                <a href="carta/${intercambiable.id}" class=""><button class="btn btn-primary btn-block m-2">Ver</button></a>
                                 <c:if test="${id!=null}">
                                 <a href="intercambio/${intercambiable.id}"><button class="btn btn-warning btn-block m-2">Intercambiar</button></a>
                                 </c:if>

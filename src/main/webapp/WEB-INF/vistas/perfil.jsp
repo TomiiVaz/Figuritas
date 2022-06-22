@@ -11,7 +11,7 @@
     <!-- Parte Arriba -->
     <div class="row align-items-center justify-content-center m-2">
         <div class="container-fluid text-center mt-5">
-            <a href="home" class="text-decoration-none">
+            <a href="/figus/home" class="text-decoration-none">
                 <button type='button' class='btn btn-warning my-2'>Volver</button>
             </a>
         </div>
@@ -89,7 +89,7 @@
         <div class="col mt-5">
             <h1 class="mb-4 mt-2 text-white">${usuario.nombre}</h1>
             <div class="m-0">
-                <img src="img/${usuario.nombre}.jpg" alt="Foto Perfil" class="img-thumbnail img-fluid m-0">
+                <img src="<c:url value="/img/${usuario.nombre}.jpg" />" alt="Foto Perfil" class="img-thumbnail img-fluid m-0">
             </div>
             <button class="btn btn-primary mt-4" type="button" data-bs-toggle="collapse"
                     data-bs-target="#collapseEditar"

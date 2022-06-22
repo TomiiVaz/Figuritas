@@ -190,17 +190,17 @@ public class ControladorFigurita {
 //    }
 
     // Quien usa este metodo?
-    @RequestMapping(path = "/carta", method = RequestMethod.POST)
-    public ModelAndView verCarta(@RequestParam int id, HttpServletRequest request) {
+    @RequestMapping(path = "/carta/{intercambiable.id}", method = RequestMethod.GET)
+    public ModelAndView verCarta(@PathVariable("intercambiable.id") Long id, HttpServletRequest request) {
 
-        Figurita figurita = this.servicioFigu.buscarFigurita((long) id);
+
         String rol = (String) request.getSession().getAttribute("ROL");
         Long idLogueado = (Long) request.getSession().getAttribute("ID");
         Usuario userLogueado = (Usuario) request.getSession().getAttribute("USUARIO");
-        List<Comentario> comentariosFiltrados = this.servicioComent.traerComentariosPorID(figurita.getId());
-
+        List<Comentario> comentariosFiltrados = this.servicioComent.traerComentariosPorID(id);
+        RegistroPegada rp = servicioRegistroPegada.buscarRegistroId(id);
         ModelMap model = new ModelMap();
-        model.put("figurita", figurita);
+        model.put("registro", rp);
         model.put("id", idLogueado);
         model.put("rol", rol);
         model.put("usuario", userLogueado);

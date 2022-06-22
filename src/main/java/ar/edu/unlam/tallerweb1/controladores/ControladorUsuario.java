@@ -158,6 +158,6 @@ public class ControladorUsuario {
         servicioUsuario.modificarDatosUsuario(usuario);
         request.getSession().setAttribute("USUARIO", usuario);
 
-        return new ModelAndView("redirect:/home");
+        return new ModelAndView("redirect:/perfil/");
     }
 }

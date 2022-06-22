@@ -21,7 +21,7 @@ public class ControladorComentario {
         this.servicioFigu = servicioFigu;
     }
 
-    @RequestMapping(path = "/agregar-comentario", method = RequestMethod.POST)
+    @RequestMapping(path = "/carta/agregar-comentario", method = RequestMethod.POST)
     public ModelAndView agregarComentario(@ModelAttribute("comentario") Comentario comentario) {
 
         this.servicioComent.agregarComentario(comentario);

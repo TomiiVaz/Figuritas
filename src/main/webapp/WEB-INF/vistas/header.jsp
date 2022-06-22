@@ -22,7 +22,7 @@
                     <div class="dropdown text-end ">
                         <a href="" class="d-block link-dark text-decoration-none dropdown-toggle d-flex justify-content-start" id="dropdownUser1"
                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="img/${usuario.nombre}.jpg" alt="mdo" width="32" height="32" class="rounded-circle">
+                            <img src="<c:url value="/img/${usuario.nombre}.jpg" />" alt="mdo" width="32" height="32" class="rounded-circle">
                             <h3 class="text-white text-center ms-2">Hola ${usuario.nombre}</h3>
                         </a>
                         <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="">

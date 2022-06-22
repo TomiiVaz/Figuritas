@@ -38,7 +38,7 @@ public class RepositorioComentarioImpl implements RepositorioComentario{
     public List<Comentario> getComentariosPorId(Long id) {
         final Session session = sessionFactory.getCurrentSession();
         return (List<Comentario>) session.createCriteria(Comentario.class)
-                .add(Restrictions.eq("figurita.id", id))
+                .add(Restrictions.eq("registroPegada.id", id))
                 .list();
     }
 }
