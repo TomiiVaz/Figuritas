@@ -39,20 +39,20 @@ public class ControladorTransacciones {
         this.servicioRegistroIntercambio = servicioRegistroIntercambio;
     }
 
-    @RequestMapping(path = "perfil/publicar/{pegada.id}", method = RequestMethod.GET)
+    @RequestMapping(path = "/perfil/publicar/{pegada.id}", method = RequestMethod.GET)
     public ModelAndView publicarFigu(@PathVariable(value = "pegada.id") Long idRegistro){
         RegistroPegada rp = servicioRegistroPegada.buscarRegistroId(idRegistro);
         rp.setIntercambiable(true);
         servicioRegistroPegada.pegarRegistro(rp);
-        return new ModelAndView("redirect:/perfil");
+        return new ModelAndView("redirect:/perfil/");
     }
 
-    @RequestMapping(path = "perfil/sacar/{pegada.id}", method = RequestMethod.GET)
+    @RequestMapping(path = "/perfil/sacar/{pegada.id}", method = RequestMethod.GET)
     public ModelAndView sacarFigu(@PathVariable(value = "pegada.id") Long idRegistro){
         RegistroPegada rp = servicioRegistroPegada.buscarRegistroId(idRegistro);
         rp.setIntercambiable(false);
         servicioRegistroPegada.pegarRegistro(rp);
-        return new ModelAndView("redirect:/perfil");
+        return new ModelAndView("redirect:/perfil/");
     }
 
     @RequestMapping(path = "/perfil/pegar", method = RequestMethod.POST)
@@ -166,5 +166,19 @@ public class ControladorTransacciones {
 
     private ModelAndView falloIntercambio() {
         return new ModelAndView("redirect:/configuracion-seleccion");
+    }
+
+    @RequestMapping(path = "/perfil/aceptar/{registro.id}", method = RequestMethod.GET)
+    private ModelAndView aceptar(@PathVariable("registro.id") Long idRegistro){
+        //cambiar estado del registro
+        //intercambiar los idUsuario de los registroPegada del registro intercambio
+        servicioRegistroIntercambio.aceptarIntercambio(idRegistro);
+        return new ModelAndView("redirect:/perfil/");
+    }
+
+    @RequestMapping(path = "/perfil/rechazar/{registro.id}", method = RequestMethod.GET)
+    private ModelAndView rechazar(@PathVariable("registro.id") Long idRegistro){
+        servicioRegistroIntercambio.rechazarIntercambio(idRegistro);
+        return new ModelAndView("redirect:/perfil/");
     }
 }
