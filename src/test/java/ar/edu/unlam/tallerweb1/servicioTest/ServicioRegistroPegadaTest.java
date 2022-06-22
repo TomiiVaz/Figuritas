@@ -101,7 +101,7 @@ public class ServicioRegistroPegadaTest extends SpringTest {
         thenVerificarQueSeAccedioAlRepoParaPedirRegPegadasConSesionIniciada(usuario);
     }
 
-    
+
 
     private void thenVerificarQueSeAccedioAlRepoParaPedirRegPegadasConSesionIniciada(Usuario usuario) {
         verify(repositorioRegistroPegada, atLeastOnce()).traerFiguritasIntercambiables(usuario);

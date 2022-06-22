@@ -100,7 +100,7 @@ public class ControladorFiguritaTest {
     }
 
     private void thenQueLaVistaSeaRedirect() {
-        assertThat(mav.getViewName()).isEqualTo("redirect:/configuracion-figurita");
+        assertThat(mav.getViewName()).isEqualTo("redirect:/configuracion/figurita/");
     }
 
     private void thenQueTireElmensajeDeFiguritaConNombreRepetidoException() {

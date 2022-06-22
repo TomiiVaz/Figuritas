@@ -86,7 +86,7 @@ public class RepositorioRegistroPegadaImpl implements RepositorioRegistroPegada 
         List<RegistroPegada> registroPegadas =
                 (List<RegistroPegada>) session.createCriteria(RegistroPegada.class)
                 .createAlias("figurita", "f")
-                .add(Restrictions.eq("f.nombre", nombre))
+                .add(Restrictions.like("f.nombre", "%"+nombre+"%"))
                 .list();
         return registroPegadas;
     }
