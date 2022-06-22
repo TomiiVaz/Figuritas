@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service("servicioRegistroIntercambio")
 @Transactional
 public class ServicioRegistroIntercambioImpl implements ServicioRegistroIntercambio{
@@ -30,5 +32,15 @@ public class ServicioRegistroIntercambioImpl implements ServicioRegistroIntercam
         Estado estado = repoInter.getEstadoId(1l);
         ri.setEstado(estado);
         repoInter.guardar(ri);
+    }
+
+    @Override
+    public List<RegistroIntercambio> getIntercambiosQueMePiden(Long idUser) {
+        return repoInter.traerIntercambiosQueMeHacen(idUser);
+    }
+
+    @Override
+    public List<RegistroIntercambio> getIntercambiosQueHago(Long idUser) {
+        return repoInter.traerIntercambiosQueHago(idUser);
     }
 }

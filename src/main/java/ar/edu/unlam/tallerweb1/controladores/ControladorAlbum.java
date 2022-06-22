@@ -47,7 +47,7 @@ public class ControladorAlbum {
     public ModelAndView agregarAlbum(@ModelAttribute("album") Album album) {
         try {
             servicioAl.agregarAlbum(album);
-            return new ModelAndView("redirect:/configuracion-album");
+            return new ModelAndView("redirect:/configuracion/album/");
         } catch (AlbumNombreVacioException e) {
             return getModelAndView("El campo de nombre está vacio");
         } catch (AlbumRepetidoException e) {
@@ -60,7 +60,7 @@ public class ControladorAlbum {
                                       @RequestParam String nombreNuevo) {
         try {
             this.servicioAl.editarAlbum((long) albumId, nombreNuevo);
-            return new ModelAndView("redirect:/configuracion-album");
+            return new ModelAndView("redirect:/configuracion/album/");
         } catch (AlbumEditarTodoNuloException e) {
             return getModelAndView("Todos los campos estan vacios");
         } catch (AlbumIdVacioException e) {
@@ -77,7 +77,7 @@ public class ControladorAlbum {
         System.out.println(albumId);
         try {
             this.servicioAl.eliminarAlbum(albumId);
-            return new ModelAndView("redirect:/configuracion-album");
+            return new ModelAndView("redirect:/configuracion/album/");
         } catch (AlbumNullDeletedException e) {
             return getModelAndView("Para eliminar, seleccione un album");
         }
