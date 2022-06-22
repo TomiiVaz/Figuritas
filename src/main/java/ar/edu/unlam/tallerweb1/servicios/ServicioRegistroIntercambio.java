@@ -8,4 +8,6 @@ import java.util.List;
 public interface ServicioRegistroIntercambio {
 
     void guardarRegistro(RegistroIntercambio ri);
+    List<RegistroIntercambio> getIntercambiosQueMePiden(Long idUser);
+    List<RegistroIntercambio> getIntercambiosQueHago(Long idUser);
 }
