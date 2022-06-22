@@ -55,7 +55,7 @@ public class ControladorTransacciones {
         return new ModelAndView("redirect:/perfil");
     }
 
-    @RequestMapping(path = "/pegar", method = RequestMethod.POST)
+    @RequestMapping(path = "/perfil/pegar", method = RequestMethod.POST)
     public ModelAndView pegarFigu(@RequestParam Long albumIdd, @RequestParam Long id, HttpServletRequest request) {
         // buscar album, buscar figurita, agarrar usuario
         Usuario usuarioPegar = (Usuario) request.getSession().getAttribute("USUARIO");
@@ -69,7 +69,7 @@ public class ControladorTransacciones {
         rp.setIntercambiable(false);
         try{
             servicioRegistroPegada.pegarRegistro(rp);
-            return new ModelAndView("redirect:/perfil");
+            return new ModelAndView("redirect:/perfil/");
         } catch (CodigoIncorrectoExcepcion e ){
             return codigoIncorrecto("errorCodigo" ,"El codigo ingresado es incorrecto", request);
         } catch (FiguritaAlbumSinCoincidenciaException e){

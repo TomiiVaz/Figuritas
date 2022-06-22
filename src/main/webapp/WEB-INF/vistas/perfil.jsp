@@ -41,21 +41,31 @@
                             <div class="tab-content" id="myTabContent">
                                 <div class="tab-pane fade show active" id="home" role="tabpanel"
                                      aria-labelledby="home-tab">
-                                    <c:forEach var="album" items="">
-
+                                    <c:forEach var="item" items="${pedi}">
+                                        <div class="mt-2 mb-2 p-2 bg-info bg-opacity-25 rounded">
+                                            <p>Ofreci: ${item.registroPide.figurita.nombre}</p>
+                                            <p>Pedi: ${item.registroDecide.figurita.nombre}</p>
+                                            <p>Album: ${item.registroDecide.figurita.album.nombre}</p>
+                                            <p>Estado: ${item.estado.descripcion}</p>
+                                        </div>
                                     </c:forEach>
                                 </div>
                                 <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                    <c:forEach var="album" items="${albunes}">
-                                        <div class="mt-2 mb-2 p-2 bg-info bg-opacity-25 rounded">
-                                            <p>Pepe</p>
-                                            <a href="#" class="text-decoration-none">
-                                                <button type='button' class='btn btn-success my-2'>Aceptar</button>
-                                            </a>
-                                            <a href="#" class="text-decoration-none">
-                                                <button type='button' class='btn btn-danger my-2'>Rechazar</button>
-                                            </a>
-                                        </div>
+                                    <c:forEach var="registro" items="${pidieron}">
+                                        <c:if test="${registro.estado.descripcion.equals('Espera')}">
+                                            <div class="mt-2 mb-2 p-2 bg-info bg-opacity-25 rounded">
+                                                <p>Ofrecido: ${registro.registroPide.figurita.nombre}</p>
+                                                <p>Pedido: ${registro.registroDecide.figurita.nombre}</p>
+                                                <p>Album: ${registro.registroDecide.figurita.album.nombre}</p>
+                                                <a href="#" class="text-decoration-none">
+                                                    <button type='button' class='btn btn-success my-2'>Aceptar</button>
+                                                </a>
+                                                <a href="#" class="text-decoration-none">
+                                                    <button type='button' class='btn btn-danger my-2'>Rechazar</button>
+                                                </a>
+                                            </div>
+                                        </c:if>
+
                                     </c:forEach>
                                 </div>
                             </div>
@@ -167,7 +177,7 @@
 
                                     <label for="id" class="mb-1 text-white">Ingresar código</label>
                                     <input type="text" path="id" name="id" id="id" class="form-control mt-2">
-                                    <button type="submit" class="btn btn-primary mt-3">Save changes</button>
+                                    <button type="submit" class="btn btn-primary mt-3">Pegar</button>
                                 </form>
                             </div>
                             <div class="modal-footer">
