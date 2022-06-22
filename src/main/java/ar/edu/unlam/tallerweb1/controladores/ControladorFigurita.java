@@ -93,11 +93,11 @@ public class ControladorFigurita {
 
         }
 
-        return new ModelAndView("redirect:/configuracion-figurita");
+        return new ModelAndView("redirect:/configuracion/figurita/");
 
     }
 
-    @RequestMapping(path = "/configuracion/figurita/editar", method = RequestMethod.POST)
+    @RequestMapping(path = "/configuracion/figurita/editar/", method = RequestMethod.POST)
     public ModelAndView editarFigurita(@RequestParam("figuritaId") Long figuritaId, HttpServletRequest request) {
 
 
@@ -166,28 +166,28 @@ public class ControladorFigurita {
             return new ModelAndView("configFigurita", model);
         }
 
-        return new ModelAndView("redirect:/configuracion-figurita");
+        return new ModelAndView("redirect:/configuracion/figurita/");
     }
 
     // Quien usa este metodo?
-    @RequestMapping(path = "/updateFalso-figurita", method = RequestMethod.POST)
-    public ModelAndView crearFigurita(@ModelAttribute("figurita") Figurita figurita, @RequestParam Long id) {
+    @RequestMapping(path = "/configuracion/figurita/editar/enviar", method = RequestMethod.POST)
+    public ModelAndView editarFiguritaAccion(@ModelAttribute("figurita") Figurita figurita, @RequestParam Long id) {
 
         this.servicioFigu.eliminarFigurita(id);
         this.servicioFigu.agregarFigurita(figurita);
 
-        return new ModelAndView("redirect:/configuracion-figurita");
+        return new ModelAndView("redirect:/configuracion/figurita/");
     }
 
-    // Quien usa este metodo?
-    @RequestMapping(path = "/ver-figurita", method = RequestMethod.POST, params = {"figuritaId", "figuritaNueva"})
-    public ModelAndView verFigurita(@RequestParam int figuritaId,
-                                    @ModelAttribute Figurita figurita) {
-        figurita.setId((long) figuritaId);
-        this.servicioFigu.agregarFigurita(figurita);
-
-        return new ModelAndView("redirect:/configuracion-figurita");
-    }
+//    // Quien usa este metodo?
+//    @RequestMapping(path = "/ver-figurita", method = RequestMethod.POST, params = {"figuritaId", "figuritaNueva"})
+//    public ModelAndView verFigurita(@RequestParam int figuritaId,
+//                                    @ModelAttribute Figurita figurita) {
+//        figurita.setId((long) figuritaId);
+//        this.servicioFigu.agregarFigurita(figurita);
+//
+//        return new ModelAndView("redirect:/configuracion-figurita");
+//    }
 
     // Quien usa este metodo?
     @RequestMapping(path = "/carta", method = RequestMethod.POST)
@@ -208,19 +208,6 @@ public class ControladorFigurita {
 
         return new ModelAndView("figurita", model);
     }
-
-
-    /*
-        @RequestMapping(path = "/buscarfiguritas", method = RequestMethod.GET, params = {"busq"})
-        public ModelAndView buscarFiguritas(@RequestParam String busq) {
-
-            ModelMap resBusqueda = new ModelMap();
-
-            List<Figurita> figs = servicioFigu.buscarFiguritaPorNombre(busq);
-            resBusqueda.put("figEncontradas", figs);
-
-            return new ModelAndView("buscarFiguritas", resBusqueda);
-        }*/
 
     @RequestMapping(path = "/buscarfiguritas", method = RequestMethod.GET, params = {"busq"})
     public ModelAndView buscarFiguritas(@RequestParam(value = "busq") String busq,
@@ -290,7 +277,6 @@ public class ControladorFigurita {
         return new ModelAndView("sorteo", model);
     }
 
-    // Quien usa este metodo?
     @RequestMapping(path = "/asignar-ganador", method = RequestMethod.POST)
     public ModelAndView AsignarFiguritaAlGanador(@RequestParam Long id, @RequestParam Long album, HttpServletRequest request) {
 
@@ -306,7 +292,7 @@ public class ControladorFigurita {
 
         this.servicioRegistroPegada.pegarRegistro(rp);
 
-        return new ModelAndView("redirect:/perfil");
+        return new ModelAndView("redirect:/perfil/");
     }
 
     private int numeroAleatorioEnRango(int minimo, int maximo) {
@@ -339,49 +325,6 @@ public class ControladorFigurita {
 
         return new ModelAndView("configFigurita", model);
     }
-
-    //Metodos a revisar
-
-    /*@RequestMapping(path = "/ver-figurita", method = RequestMethod.GET)
-    public ModelAndView crear() {
-
-        //servicioFigu.agregarFigurita(54);
-
-        return new ModelAndView("figurita");
-    }
-
-    @RequestMapping(path = "/agregar-figurita", method = RequestMethod.POST)
-    public ModelAndView agregarFigurita(@ModelAttribute("figurita") Figurita figurita) {
-
-        servicioFigu.agregarFigurita(figurita);
-
-        return new ModelAndView("redirect:/home");
-    }
-
-    //metodo listo para usar
-    @RequestMapping(path = "/buscar-figurita", method = RequestMethod.POST)
-    public ModelAndView buscar() {
-
-        //servicioFigu.buscarFiguritaPorNombre("messi");
-
-        return new ModelAndView("home");
-    }
-
-    @RequestMapping(path = "/buscar-figuritas-nombre-equipo", method = RequestMethod.POST)
-    public ModelAndView buscarNombreEquipo() {
-
-        //servicioFigu.buscarFiguritaNombreEquipo("messi","scaloneta");
-
-        return new ModelAndView("home");
-    }
-
-    @RequestMapping(path = "/buscar-figuritas-equipo", method = RequestMethod.POST)
-    public ModelAndView buscarEquipo() {
-
-        //servicioFigu.buscarFiguritasPorEquipo(5);
-
-        return new ModelAndView("home");
-    }*/
 
 
 }

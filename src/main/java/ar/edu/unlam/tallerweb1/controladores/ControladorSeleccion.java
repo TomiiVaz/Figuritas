@@ -52,7 +52,7 @@ public class ControladorSeleccion {
     public ModelAndView crearSeleccion(@ModelAttribute("selecciones") Seleccion seleccion) {
         try {
             this.servicioSelec.crearSeleccion(seleccion);
-            return new ModelAndView("redirect:/configuracion-seleccion");
+            return new ModelAndView("redirect:/configuracio/seleccion/");
         } catch (SeleccionCamposVacíosException e){
             return getModelAndView("No se ha completado ningun campo.");
         } catch (SeleccionAlbumNullException e) {
@@ -70,7 +70,7 @@ public class ControladorSeleccion {
                                        @RequestParam String nombreNuevo) {
         try {
             this.servicioSelec.editarSeleccion((long) seleccionId, nombreNuevo);
-            return new ModelAndView("redirect:/configuracion-seleccion");
+            return new ModelAndView("redirect:/configuracion/seleccion/");
         } catch (SeleccionSelectorNoUsado e){
             return getModelAndView("Elija una seleccion a editar.");
         } catch (SeleccionNombreVacioException e){
@@ -86,7 +86,7 @@ public class ControladorSeleccion {
     public ModelAndView delSelecciones(@RequestParam int seleccionId) {
         try {
             this.servicioSelec.eliminarSeleccion((long) seleccionId);
-            return new ModelAndView("redirect:/configuracion-seleccion");
+            return new ModelAndView("redirect:/configuracion/seleccion/");
         } catch (SeleccionSelectorNoUsado e){
             return getModelAndView("Elija una selección a eliminar");
         }

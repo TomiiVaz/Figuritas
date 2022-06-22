@@ -1,10 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.modelo.*;
-import ar.edu.unlam.tallerweb1.servicios.ServicioAlbum;
-import ar.edu.unlam.tallerweb1.servicios.ServicioRegistroPegada;
-import ar.edu.unlam.tallerweb1.servicios.ServicioSeleccion;
-import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
+import ar.edu.unlam.tallerweb1.servicios.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -24,12 +21,15 @@ public class ControladorGeneral {
     private final ServicioRegistroPegada servicioPegada;
     private final ServicioUsuario servicioUsuario;
 
+    private final ServicioRegistroIntercambio servicioRegistroIntercambio;
+
     @Autowired
-    public ControladorGeneral(ServicioSeleccion servicioSelec, ServicioAlbum servicioAlbum, ServicioRegistroPegada servicioPegada, ServicioUsuario servicioUsuario) {
+    public ControladorGeneral(ServicioSeleccion servicioSelec, ServicioAlbum servicioAlbum, ServicioRegistroPegada servicioPegada, ServicioUsuario servicioUsuario, ServicioRegistroIntercambio servicioRegistroIntercambio) {
         this.servicioSelec = servicioSelec;
         this.servicioAlbum = servicioAlbum;
         this.servicioPegada = servicioPegada;
         this.servicioUsuario = servicioUsuario;
+        this.servicioRegistroIntercambio = servicioRegistroIntercambio;
     }
 
     @RequestMapping(path = "/configuracion", method = RequestMethod.GET)
@@ -70,6 +70,12 @@ public class ControladorGeneral {
 
         String rol = (String) request.getSession().getAttribute("ROL");
         Long id = (Long) request.getSession().getAttribute("ID");
+
+        List<RegistroIntercambio> mePidieron = servicioRegistroIntercambio.getIntercambiosQueMePiden(id);
+        List<RegistroIntercambio> pedi = servicioRegistroIntercambio.getIntercambiosQueHago(id);
+
+        model.put("pidieron", mePidieron);
+        model.put("pedi", pedi);
         List<RegistroPegada> pegadas = servicioPegada.getPegadasUsuario(id);
         Usuario usuarioLogueado = servicioUsuario.getUsuario(id);
         model.put("pegadas", pegadas);

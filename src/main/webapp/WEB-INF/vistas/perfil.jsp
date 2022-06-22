@@ -15,6 +15,77 @@
                 <button type='button' class='btn btn-warning my-2'>Volver</button>
             </a>
         </div>
+        <%--        Boton de mis intercambios--%>
+        <div>
+            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
+                 aria-labelledby="offcanvasExampleLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasExampleLabel">Intercambios</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <div class="card">
+                        <div class="card-header">
+                            <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#home"
+                                       role="tab" aria-controls="home" aria-selected="true">Pedí</a>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#profile" role="tab"
+                                       aria-controls="profile" aria-selected="false">Me pidieron</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active" id="home" role="tabpanel"
+                                     aria-labelledby="home-tab">
+                                    <c:forEach var="item" items="${pedi}">
+                                        <div class="mt-2 mb-2 p-2 bg-info bg-opacity-25 rounded">
+                                            <p>Ofreci: ${item.registroPide.figurita.nombre}</p>
+                                            <p>Pedi: ${item.registroDecide.figurita.nombre}</p>
+                                            <p>Album: ${item.registroDecide.figurita.album.nombre}</p>
+                                            <p>Estado: ${item.estado.descripcion}</p>
+                                        </div>
+                                    </c:forEach>
+                                </div>
+                                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                    <c:forEach var="registro" items="${pidieron}">
+                                        <c:if test="${registro.estado.descripcion.equals('Espera')}">
+                                            <div class="mt-2 mb-2 p-2 bg-info bg-opacity-25 rounded">
+                                                <p>Ofrecido: ${registro.registroPide.figurita.nombre}</p>
+                                                <p>Pedido: ${registro.registroDecide.figurita.nombre}</p>
+                                                <p>Album: ${registro.registroDecide.figurita.album.nombre}</p>
+                                                <a href="#" class="text-decoration-none">
+                                                    <button type='button' class='btn btn-success my-2'>Aceptar</button>
+                                                </a>
+                                                <a href="#" class="text-decoration-none">
+                                                    <button type='button' class='btn btn-danger my-2'>Rechazar</button>
+                                                </a>
+                                            </div>
+                                        </c:if>
+
+                                    </c:forEach>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <%--                    <div class="dropdown mt-3">--%>
+                    <%--                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"--%>
+                    <%--                                data-bs-toggle="dropdown">--%>
+                    <%--                            Dropdown button--%>
+                    <%--                        </button>--%>
+                    <%--                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">--%>
+                    <%--                            <li><a class="dropdown-item" href="#">Action</a></li>--%>
+                    <%--                            <li><a class="dropdown-item" href="#">Another action</a></li>--%>
+                    <%--                            <li><a class="dropdown-item" href="#">Something else here</a></li>--%>
+                    <%--                        </ul>--%>
+                    <%--                    </div>--%>
+                </div>
+            </div>
+        </div>
+        <%--       /Boton de mis intercambios--%>
         <div class="col mt-5">
             <h1 class="mb-4 mt-2 text-white">${usuario.nombre}</h1>
             <div class="m-0">
@@ -72,6 +143,11 @@
 
         <!-- Parte Album -->
         <div class="container-fluid mt-5">
+            <button class="btn btn-success mb-4 mt-5" type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasExample"
+                    aria-controls="offcanvasExample">
+                Mis intercambios
+            </button>
             <h2 class="mb-3 text-white">Mi Album</h2>
             <div class="text-end container">
                 <%--                Agregar figurita form--%>
@@ -101,7 +177,7 @@
 
                                     <label for="id" class="mb-1 text-white">Ingresar código</label>
                                     <input type="text" path="id" name="id" id="id" class="form-control mt-2">
-                                    <button type="submit" class="btn btn-primary mt-3">Save changes</button>
+                                    <button type="submit" class="btn btn-primary mt-3">Pegar</button>
                                 </form>
                             </div>
                             <div class="modal-footer">
@@ -122,7 +198,7 @@
                         <br>
                     </c:if>
                 </div>
-                <form action="filtrar-figuritas" method="get">
+                <form action="filtrar" method="get">
                     <%--                    Albunes--%>
 
                     <div class="mb-1 mt-2">
@@ -144,16 +220,16 @@
                         </select>
                     </div>
                     <%--Selecciones--%>
-                        <button type="submit" class="btn btn-primary">
-                            Buscar
-                        </button>
+                    <button type="submit" class="btn btn-primary">
+                        Buscar
+                    </button>
                 </form>
 
             </div>
             <div class="d-flex flex-wrap justify-content-center">
                 <c:forEach var="pegada" items="${pegadas}">
                     <div class="card m-3" style="width: 18rem;">
-                        <img src="img/${pegada.figurita.nombre}.jpg" class="card-img-top" alt="Foto de jugador">
+                        <img src="<c:url value="/img/${pegada.figurita.nombre}.jpg" />" class="card-img-top" alt="Foto de jugador">
                         <ul class="list-group list-group-flush text-center">
                             <h5 class="card-title">${pegada.figurita.nombre}</h5>
                             <p class="card-text">${pegada.figurita.rareza.descripcion}</p>

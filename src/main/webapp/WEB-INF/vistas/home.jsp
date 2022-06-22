@@ -90,7 +90,7 @@
                             <div class="d-flex flex-row justify-content-center">
                                 <a href="#" class=""><button class="btn btn-primary btn-block m-2">Ver</button></a>
                                 <c:if test="${id!=null}">
-                                <a href="intercambiar-figurita/${intercambiable.id}"><button class="btn btn-warning btn-block m-2">Intercambiar</button></a>
+                                <a href="intercambio/${intercambiable.id}"><button class="btn btn-warning btn-block m-2">Intercambiar</button></a>
                                 </c:if>
                             </div>
 
