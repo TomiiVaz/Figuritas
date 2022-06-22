@@ -12,6 +12,6 @@ public interface ServicioRegistroPegada {
     List<RegistroPegada> getIntercambiables(Usuario usuario);
     RegistroPegada buscarRegistroId(Long id);
 
-    List<RegistroPegada> getIntercambiablesPorFiltros(String nombre, Long seleccion, Long posicion);
+    List<RegistroPegada> getIntercambiablesPorFiltros(String nombre, Long seleccion, Long posicion, Long idUsuario);
     List<RegistroPegada> getIntercambiablesPerfil(Long seleccion, Long album, Long idUsuario);
 }

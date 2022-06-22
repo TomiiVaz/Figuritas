@@ -236,7 +236,7 @@ public class ControladorFigurita {
         Long id = (Long) request.getSession().getAttribute("ID");
         Usuario userLogueado = (Usuario) request.getSession().getAttribute("USUARIO");
 
-        List<RegistroPegada> registrosEncontrados = servicioRegistroPegada.getIntercambiablesPorFiltros(busq, sel, pos);
+        List<RegistroPegada> registrosEncontrados = servicioRegistroPegada.getIntercambiablesPorFiltros(busq, sel, pos, id);
 
         model.put("usuario", userLogueado);
         model.put("id", id);

@@ -63,9 +63,9 @@ public class ServicioRegistroPegadaImpl implements ServicioRegistroPegada{
     }
 
     @Override
-    public List<RegistroPegada> getIntercambiablesPorFiltros(String nombre, Long seleccion, Long posicion) {
+    public List<RegistroPegada> getIntercambiablesPorFiltros(String nombre, Long seleccion, Long posicion, Long idUsuario) {
         List<RegistroPegada> registrosEncontrados = new ArrayList<>();
-        registrosEncontrados = repositorioRp.traerFiguritasIntercambiables();
+        registrosEncontrados = repositorioRp.traerFiguritasIntercambiablesParaBusqueda(idUsuario);
 
 
         Boolean buscarNombre = (nombre != null && nombre != "");
