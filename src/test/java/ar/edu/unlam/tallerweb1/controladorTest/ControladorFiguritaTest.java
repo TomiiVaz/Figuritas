@@ -1,19 +1,18 @@
 package ar.edu.unlam.tallerweb1.controladorTest;
 
-import ar.edu.unlam.tallerweb1.SpringTest;
 import ar.edu.unlam.tallerweb1.controladores.ControladorFigurita;
 import ar.edu.unlam.tallerweb1.excepciones.FiguritaConConEquipoVacioExcepition;
 import ar.edu.unlam.tallerweb1.excepciones.FiguritaConNombreRepetidoException;
-import ar.edu.unlam.tallerweb1.modelo.Album;
-import ar.edu.unlam.tallerweb1.modelo.Figurita;
-import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.excepciones.NoSeEncontraronFiguritasException;
+import ar.edu.unlam.tallerweb1.modelo.*;
 import ar.edu.unlam.tallerweb1.servicios.*;
 import org.junit.Test;
-import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import java.util.ArrayList;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
@@ -87,17 +86,21 @@ public class ControladorFiguritaTest {
 
 
     private void whenSeCreaUnaFigurita(Figurita figurita) {
+        definirComportamientoMocksSession();
 
-        when(mockRequest.getSession()).thenReturn(mockSession);
-        when(mockRequest.getSession().getAttribute("ROL")).thenReturn("ADM");
-        when(mockRequest.getSession().getAttribute("ID")).thenReturn(1L);
-        when(mockRequest.getSession().getAttribute("USUARIO")).thenReturn(new Usuario());
 
         mav = this.controladorFigurita.crearFigurita(figurita, mockRequest);
     }
 
+    private void definirComportamientoMocksSession() {
+        when(mockRequest.getSession()).thenReturn(mockSession);
+        when(mockRequest.getSession().getAttribute("ROL")).thenReturn("ADM");
+        when(mockRequest.getSession().getAttribute("ID")).thenReturn(1L);
+        when(mockRequest.getSession().getAttribute("USUARIO")).thenReturn(new Usuario());
+    }
+
     private void thenQueLaVistaSeaRedirect() {
-        assertThat(mav.getViewName()).isEqualTo("redirect:/configuracion-figurita");
+        assertThat(mav.getViewName()).isEqualTo("redirect:/configuracion/figurita/");
     }
 
     private void thenQueTireElmensajeDeFiguritaConNombreRepetidoException() {
@@ -109,4 +112,142 @@ public class ControladorFiguritaTest {
     }
 
 
+    @Test
+    public void queSePuedaBuscarFiguritaPorNombre(){
+        // Preparacion -> given
+        String nombreCargado = "Messi";
+
+        // Ejecucion -> when
+        whenSeBuscaUnaFiguritaPorNombre(nombreCargado);
+        // Comprobacion -> then
+        thenQueLaVistaSeaBuscarFigsConResDeBusqueda();
+
+    }
+
+    @Test
+    public void queSePuedaBuscarFiguritaPorSeleccion(){
+        // Preparacion -> given
+        Long seleccionIngresada = 1l;
+
+        // Ejecucion -> when
+        whenSeBuscaUnaFiguritaPorSeleccion(seleccionIngresada);
+        // Comprobacion -> then
+        thenQueLaVistaSeaBuscarFigsConResDeBusqueda();
+
+    }
+
+    @Test
+    public void queSePuedaBuscarFiguritaPorPosicion(){
+        // Preparacion -> given
+        Long posicionIngresada = 1l;
+        // Ejecucion -> when
+        whenSeBuscaUnaFiguritaPorPosicion(posicionIngresada);
+        // Comprobacion -> then
+        thenQueLaVistaSeaBuscarFigsConResDeBusqueda();
+
+    }
+
+    @Test
+    public void queSePuedaBuscarFiguritaPorTodosLosFiltros(){
+        // Preparacion -> given
+        Long posicionIngresada = 1l;
+        Long seleccionIngresada = 1l;
+        String nombreIngresado ="Messi";
+        // Ejecucion -> when
+        whenSeBuscaUnaFiguritaPorVariosFiltros(nombreIngresado, seleccionIngresada,posicionIngresada);
+        // Comprobacion -> then
+        thenQueLaVistaSeaBuscarFigsConResDeBusqueda();
+    }
+
+    @Test
+    public void queSeMuestreUnErrorAlNoEncontrarRegistros(){
+        // Preparacion -> given
+        Long posicionIngresada = 1l;
+        Long seleccionIngresada = 1l;
+        String nombreIngresado ="Messi";
+
+        // Ejecucion -> when
+        whenSeBuscaUnaFiguritaPorVariosFiltrosError(nombreIngresado, seleccionIngresada,posicionIngresada);
+
+
+        // Comprobacion -> then
+        thenQueLaVistaTengaUnError();
+    }
+
+    private void whenSeBuscaUnaFiguritaPorVariosFiltrosError(String nombreIngresado, Long seleccionIngresada, Long posicionIngresada) {
+        definirComportamientoMocksSession();
+
+        Long idUsuario = ( Long ) ( mockRequest.getSession().getAttribute("ID") );
+
+        when( servicioSeleccion.traerSelecciones() ).thenReturn( new ArrayList<Seleccion>() );
+        when( servicioFigurita.traerPosiciones() ).thenReturn( new ArrayList<Posicion>() );
+
+        doThrow(new NoSeEncontraronFiguritasException())
+                .when(servicioRegistroPegada)
+                .getIntercambiablesPorFiltros(nombreIngresado,posicionIngresada,seleccionIngresada,idUsuario);
+
+
+        mav = this.controladorFigurita.buscarFiguritas(nombreIngresado,seleccionIngresada,posicionIngresada,mockRequest);
+    }
+
+    private Long getIdUsuarioPorMock() {
+        definirComportamientoMocksSession();
+        return ( Long ) ( mockRequest.getSession().getAttribute("ID") );
+    }
+
+    private void thenQueLaVistaTengaUnError(){
+        assertThat(mav.getModel().get("mensajeError")).isEqualTo("No se encontraron figuritas que coincidan con lo introducido");
+    }
+
+    private void thenQueLaVistaSeaBuscarFigsConResDeBusqueda() {
+        assertThat( mav.getViewName() ).isEqualTo( "buscarFiguritas");
+    }
+
+    private void whenSeBuscaUnaFiguritaPorVariosFiltros(String nombreIngresado, Long seleccionIngresada, Long posicionIngresada) {
+        definirComportamientoMocksSession();
+
+        Long idUsuario = ( Long ) ( mockRequest.getSession().getAttribute("ID") );
+
+        when( servicioSeleccion.traerSelecciones() ).thenReturn( new ArrayList<Seleccion>() );
+        when( servicioFigurita.traerPosiciones() ).thenReturn( new ArrayList<Posicion>() );
+        when( servicioRegistroPegada.getIntercambiablesPorFiltros(nombreIngresado,seleccionIngresada,posicionIngresada, idUsuario) ).thenReturn( new ArrayList<RegistroPegada>() );
+
+        mav = this.controladorFigurita.buscarFiguritas(nombreIngresado,seleccionIngresada,posicionIngresada,mockRequest);
+    }
+
+    private void whenSeBuscaUnaFiguritaPorNombre(String nombreCargado) {
+        definirComportamientoMocksSession();
+
+        Long idUsuario = ( Long ) ( mockRequest.getSession().getAttribute("ID") );
+
+        when( servicioSeleccion.traerSelecciones() ).thenReturn( new ArrayList<Seleccion>() );
+        when( servicioFigurita.traerPosiciones() ).thenReturn( new ArrayList<Posicion>() );
+        when( servicioRegistroPegada.getIntercambiablesPorFiltros(nombreCargado,0l,0l, idUsuario) ).thenReturn( new ArrayList<RegistroPegada>() );
+
+        mav = this.controladorFigurita.buscarFiguritas(nombreCargado,0l,0l,mockRequest);
+    }
+
+    private void whenSeBuscaUnaFiguritaPorSeleccion(Long seleccionIngresada) {
+        definirComportamientoMocksSession();
+
+        Long idUsuario = ( Long ) ( mockRequest.getSession().getAttribute("ID") );
+
+        when( servicioSeleccion.traerSelecciones() ).thenReturn( new ArrayList<Seleccion>() );
+        when( servicioFigurita.traerPosiciones() ).thenReturn( new ArrayList<Posicion>() );
+        when( servicioRegistroPegada.getIntercambiablesPorFiltros("",seleccionIngresada,0l, idUsuario) ).thenReturn( new ArrayList<RegistroPegada>() );
+
+        mav = this.controladorFigurita.buscarFiguritas("",seleccionIngresada,0l,mockRequest);
+    }
+
+    private void whenSeBuscaUnaFiguritaPorPosicion(Long posicionIngresada) {
+        definirComportamientoMocksSession();
+
+        Long idUsuario = ( Long ) ( mockRequest.getSession().getAttribute("ID") );
+
+        when( servicioSeleccion.traerSelecciones() ).thenReturn( new ArrayList<Seleccion>() );
+        when( servicioFigurita.traerPosiciones() ).thenReturn( new ArrayList<Posicion>() );
+        when( servicioRegistroPegada.getIntercambiablesPorFiltros("",0l,posicionIngresada,idUsuario) ).thenReturn( new ArrayList<RegistroPegada>() );
+
+        mav = this.controladorFigurita.buscarFiguritas("",0l,posicionIngresada,mockRequest);
+    }
 }

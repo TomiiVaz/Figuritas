@@ -30,6 +30,12 @@ public class RepositorioRegistroIntercambioImpl implements RepositorioRegistroIn
     }
 
     @Override
+    public void update(RegistroIntercambio ri) {
+        final Session session = sessionFactory.getCurrentSession();
+        session.update(ri);
+    }
+
+    @Override
     public Estado getEstadoId(Long id) {
         final Session session = sessionFactory.getCurrentSession();
         return (Estado) session.createCriteria(Estado.class)
@@ -55,5 +61,13 @@ public class RepositorioRegistroIntercambioImpl implements RepositorioRegistroIn
                 .createAlias("rp.usuario","usuarioPide")
                 .add(Restrictions.eq("usuarioPide.id", idUser))
                 .list();
+    }
+
+    @Override
+    public RegistroIntercambio getRegistroIntercambioId(Long id) {
+        final Session session = sessionFactory.getCurrentSession();
+        return (RegistroIntercambio) session.createCriteria(RegistroIntercambio.class)
+                .add(Restrictions.eq("id",id))
+                .uniqueResult();
     }
 }

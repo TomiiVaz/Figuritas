@@ -57,10 +57,10 @@
                                                 <p>Ofrecido: ${registro.registroPide.figurita.nombre}</p>
                                                 <p>Pedido: ${registro.registroDecide.figurita.nombre}</p>
                                                 <p>Album: ${registro.registroDecide.figurita.album.nombre}</p>
-                                                <a href="#" class="text-decoration-none">
+                                                <a href="aceptar/${registro.id}" class="text-decoration-none">
                                                     <button type='button' class='btn btn-success my-2'>Aceptar</button>
                                                 </a>
-                                                <a href="#" class="text-decoration-none">
+                                                <a href="rechazar/${registro.id}" class="text-decoration-none">
                                                     <button type='button' class='btn btn-danger my-2'>Rechazar</button>
                                                 </a>
                                             </div>

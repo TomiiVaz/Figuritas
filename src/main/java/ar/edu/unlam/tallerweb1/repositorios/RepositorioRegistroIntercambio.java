@@ -8,10 +8,12 @@ import java.util.List;
 public interface RepositorioRegistroIntercambio {
 
     void guardar(RegistroIntercambio ri);
+    void update(RegistroIntercambio ri);
     Estado getEstadoId(Long id);
-
 
     List<RegistroIntercambio> traerIntercambiosQueMeHacen(Long idUser);
     List<RegistroIntercambio> traerIntercambiosQueHago(Long idUser);
+
+    RegistroIntercambio getRegistroIntercambioId(Long id);
 
 }
