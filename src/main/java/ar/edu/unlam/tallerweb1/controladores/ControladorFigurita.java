@@ -92,7 +92,7 @@ public class ControladorFigurita {
 
         }
 
-        return new ModelAndView("redirect:/configuracion-figurita");
+        return new ModelAndView("redirect:/configuracion/figurita/");
 
     }
 
