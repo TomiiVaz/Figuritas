@@ -140,5 +140,13 @@ public class RepositorioFiguritaImpl implements RepositorioFigurita{
         return figurita;
     }
 
+    @Override
+    public Posicion getPosicionPorId(Long id){
+        final Session session = sessionFactory.getCurrentSession();
+        return (Posicion)session.createCriteria(Posicion.class)
+                .add(Restrictions.eq("id",id))
+                .uniqueResult();
+    }
+
 
 }

@@ -14,4 +14,6 @@ public interface RepositorioSeleccion {
     void eliminarSeleccion(Long id);
 
     List<Seleccion> getSeleccionesPorNombre(String nombre);
+
+    public Seleccion getSeleccionPorId(Long id);
 }

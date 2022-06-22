@@ -51,6 +51,18 @@
 
             </div>
         </form>
+        <div>
+            <c:if test="${not empty nombreIntroducido}">
+                <span class="bg-warning text-center p-2 rounded ">${nombreIntroducido}</span>
+            </c:if>
+            <c:if test="${not empty posicionElegida}">
+                <span class="bg-warning text-center p-2 rounded ">${posicionElegida.descripcion}</span>
+            </c:if>
+            <c:if test="${not empty seleccionElegida}">
+                <span class="bg-warning text-center p-2 rounded ">${seleccionElegida.nombre}</span>
+            </c:if>
+        </div>
+
     </div>
 
     <!--listado de figuritas-->

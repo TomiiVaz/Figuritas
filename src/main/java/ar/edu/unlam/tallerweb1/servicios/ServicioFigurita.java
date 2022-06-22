@@ -11,6 +11,8 @@ public interface ServicioFigurita {
 
 
     void agregarFigurita(Figurita figurita);
+
+    Posicion getPosicionPorId(Long id);
     Figurita buscarFiguritaNombreEquipo(String nombre, String equipo);
     List<Figurita> buscarFiguritaPorNombre(String nombre);
     List<Figurita> buscarFiguritasPorEquipo(Integer idEquipo);

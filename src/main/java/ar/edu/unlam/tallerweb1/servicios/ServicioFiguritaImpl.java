@@ -62,6 +62,11 @@ public class ServicioFiguritaImpl implements ServicioFigurita{
 
     }
 
+    @Override
+    public Posicion getPosicionPorId(Long id) {
+        return repoFigurita.getPosicionPorId(id);
+    }
+
     private boolean verificarQueElEquipoNoVengVacio(String equipo) {
         return equipo.isEmpty();
     }

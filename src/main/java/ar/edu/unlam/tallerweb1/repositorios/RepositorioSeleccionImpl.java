@@ -69,4 +69,14 @@ public class RepositorioSeleccionImpl implements RepositorioSeleccion {
         session.delete(seleccion);
 
     }
+
+    @Override
+    public Seleccion getSeleccionPorId(Long id){
+        final Session session = sessionFactory.getCurrentSession();
+
+        Seleccion seleccion = (Seleccion) session.createCriteria(Seleccion.class)
+                .add(Restrictions.eq("id",id))
+                .uniqueResult();
+        return seleccion;
+    }
 }

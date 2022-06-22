@@ -86,4 +86,9 @@ public class ServicioSeleccionImpl implements ServicioSeleccion {
 
         this.repoSelec.eliminarSeleccion(id);
     }
+
+    @Override
+    public Seleccion getSeleccionPorId(Long id){
+        return repoSelec.getSeleccionPorId(id);
+    }
 }

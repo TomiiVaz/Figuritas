@@ -12,4 +12,6 @@ public interface ServicioSeleccion {
     void editarSeleccion(Long id, String nombreNuevo);
 
     public void eliminarSeleccion(Long id);
+
+    public Seleccion getSeleccionPorId(Long id);
 }

@@ -28,4 +28,6 @@ public interface RepositorioFigurita {
 
     List<Figurita> findBySeleccion(Long seleccion);
     List<Figurita> findByPosicion(Long posicion);
+
+    Posicion getPosicionPorId(Long id);
 }

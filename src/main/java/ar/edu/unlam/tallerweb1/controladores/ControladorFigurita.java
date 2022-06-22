@@ -226,11 +226,19 @@ public class ControladorFigurita {
         List<RegistroPegada> registrosEncontrados = new ArrayList<>();
         String mensajeError = "";
 
+        Seleccion seleccionElegida = servicioSelec.getSeleccionPorId(sel);
+        Posicion posicionElegida = servicioFigu.getPosicionPorId(pos);
+
         model.put("usuario", userLogueado);
         model.put("id", id);
         model.put("rol", rol);
         model.put("todasSelecciones", selecciones);
         model.put("todasPosiciones", posiciones);
+
+        model.put("nombreIntroducido", busq);
+        model.put("posicionElegida", posicionElegida);
+        model.put("seleccionElegida", seleccionElegida);
+
 
 
         try{
