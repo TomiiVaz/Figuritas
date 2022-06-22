@@ -111,6 +111,8 @@ public class ControladorFiguritaTest {
     }
 
 
+
+
     @Test
     public void queSePuedaBuscarFiguritaPorNombre(){
         // Preparacion -> given
@@ -119,8 +121,60 @@ public class ControladorFiguritaTest {
         // Ejecucion -> when
         whenSeBuscaUnaFiguritaPorNombre(nombreCargado);
         // Comprobacion -> then
-        thenQueLaVistaSeaBuscarFigsConResDeBusqueda(nombreCargado);
+        thenQueLaVistaSeaBuscarFigsConResDeBusqueda();
 
+    }
+
+    @Test
+    public void queSePuedaBuscarFiguritaPorSeleccion(){
+        // Preparacion -> given
+        Long seleccionIngresada = 1l;
+
+        // Ejecucion -> when
+        whenSeBuscaUnaFiguritaPorSeleccion(seleccionIngresada);
+        // Comprobacion -> then
+        thenQueLaVistaSeaBuscarFigsConResDeBusqueda();
+
+    }
+
+    @Test
+    public void queSePuedaBuscarFiguritaPorPosicion(){
+        // Preparacion -> given
+        Long posicionIngresada = 1l;
+        // Ejecucion -> when
+        whenSeBuscaUnaFiguritaPorPosicion(posicionIngresada);
+        // Comprobacion -> then
+        thenQueLaVistaSeaBuscarFigsConResDeBusqueda();
+
+    }
+
+    @Test
+    public void queSePuedaBuscarFiguritaPorTodosLosFiltros(){
+        // Preparacion -> given
+        Long posicionIngresada = 1l;
+        Long seleccionIngresada = 1l;
+        String nombreIngresado ="Messi";
+        // Ejecucion -> when
+        whenSeBuscaUnaFiguritaPorVariosFiltros(nombreIngresado, seleccionIngresada,posicionIngresada);
+        // Comprobacion -> then
+        thenQueLaVistaSeaBuscarFigsConResDeBusqueda();
+    }
+
+
+    private void thenQueLaVistaSeaBuscarFigsConResDeBusqueda() {
+        assertThat( mav.getViewName() ).isEqualTo( "buscarFiguritas");
+    }
+
+    private void whenSeBuscaUnaFiguritaPorVariosFiltros(String nombreIngresado, Long seleccionIngresada, Long posicionIngresada) {
+        definirComportamientoMocksSession();
+
+        Long idUsuario = ( Long ) ( mockRequest.getSession().getAttribute("ID") );
+
+        when( servicioSeleccion.traerSelecciones() ).thenReturn( new ArrayList<Seleccion>() );
+        when( servicioFigurita.traerPosiciones() ).thenReturn( new ArrayList<Posicion>() );
+        when( servicioRegistroPegada.getIntercambiablesPorFiltros(nombreIngresado,seleccionIngresada,posicionIngresada, idUsuario) ).thenReturn( new ArrayList<RegistroPegada>() );
+
+        mav = this.controladorFigurita.buscarFiguritas(nombreIngresado,seleccionIngresada,posicionIngresada,mockRequest);
     }
 
     private void whenSeBuscaUnaFiguritaPorNombre(String nombreCargado) {
@@ -134,8 +188,28 @@ public class ControladorFiguritaTest {
 
         mav = this.controladorFigurita.buscarFiguritas(nombreCargado,0l,0l,mockRequest);
     }
-    private void thenQueLaVistaSeaBuscarFigsConResDeBusqueda(String nombreCargado) {
-        assertThat( mav.getViewName() ).isEqualTo( "buscarFiguritas");
+
+    private void whenSeBuscaUnaFiguritaPorSeleccion(Long seleccionIngresada) {
+        definirComportamientoMocksSession();
+
+        Long idUsuario = ( Long ) ( mockRequest.getSession().getAttribute("ID") );
+
+        when( servicioSeleccion.traerSelecciones() ).thenReturn( new ArrayList<Seleccion>() );
+        when( servicioFigurita.traerPosiciones() ).thenReturn( new ArrayList<Posicion>() );
+        when( servicioRegistroPegada.getIntercambiablesPorFiltros("",seleccionIngresada,0l, idUsuario) ).thenReturn( new ArrayList<RegistroPegada>() );
+
+        mav = this.controladorFigurita.buscarFiguritas("",seleccionIngresada,0l,mockRequest);
     }
 
+    private void whenSeBuscaUnaFiguritaPorPosicion(Long posicionIngresada) {
+        definirComportamientoMocksSession();
+
+        Long idUsuario = ( Long ) ( mockRequest.getSession().getAttribute("ID") );
+
+        when( servicioSeleccion.traerSelecciones() ).thenReturn( new ArrayList<Seleccion>() );
+        when( servicioFigurita.traerPosiciones() ).thenReturn( new ArrayList<Posicion>() );
+        when( servicioRegistroPegada.getIntercambiablesPorFiltros("",0l,posicionIngresada,idUsuario) ).thenReturn( new ArrayList<RegistroPegada>() );
+
+        mav = this.controladorFigurita.buscarFiguritas("",0l,posicionIngresada,mockRequest);
+    }
 }
