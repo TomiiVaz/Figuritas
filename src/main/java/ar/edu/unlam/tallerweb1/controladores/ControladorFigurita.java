@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -235,8 +236,13 @@ public class ControladorFigurita {
         String rol = (String) request.getSession().getAttribute("ROL");
         Long id = (Long) request.getSession().getAttribute("ID");
         Usuario userLogueado = (Usuario) request.getSession().getAttribute("USUARIO");
-
-        List<RegistroPegada> registrosEncontrados = servicioRegistroPegada.getIntercambiablesPorFiltros(busq, sel, pos, id);
+        List<RegistroPegada> registrosEncontrados = new ArrayList<>();
+        String mensajeError = "";
+        try{
+            registrosEncontrados = servicioRegistroPegada.getIntercambiablesPorFiltros(busq, sel, pos, id);
+        }catch (NoSeEncontraronFiguritasException e){
+            mensajeError = "No se encontraron figuritas que coincidan con lo introducido";
+        }
 
         model.put("usuario", userLogueado);
         model.put("id", id);
@@ -244,6 +250,8 @@ public class ControladorFigurita {
         model.put("todasSelecciones", selecciones);
         model.put("todasPosiciones", posiciones);
         model.put("regsEncontrados", registrosEncontrados);
+        model.put("mensajeError", mensajeError);
+
 
         return new ModelAndView("buscarFiguritas", model);
     }

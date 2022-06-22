@@ -160,6 +160,19 @@ public class ControladorFiguritaTest {
         thenQueLaVistaSeaBuscarFigsConResDeBusqueda();
     }
 
+    @Test
+    public void queSeMuestreUnErrorAlNoEncontrarRegistros(){
+        // Preparacion -> given
+        Long posicionIngresada = 1l;
+        Long seleccionIngresada = 1l;
+        String nombreIngresado ="Messi";
+
+        // Ejecucion -> when
+        whenSeBuscaUnaFiguritaPorVariosFiltros(nombreIngresado, seleccionIngresada,posicionIngresada);
+
+        // Comprobacion -> then
+        thenQueLaVistaSeaBuscarFigsConResDeBusqueda();
+    }
 
     private void thenQueLaVistaSeaBuscarFigsConResDeBusqueda() {
         assertThat( mav.getViewName() ).isEqualTo( "buscarFiguritas");

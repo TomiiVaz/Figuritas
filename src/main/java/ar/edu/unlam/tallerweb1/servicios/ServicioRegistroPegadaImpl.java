@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.excepciones.CodigoIncorrectoExcepcion;
 import ar.edu.unlam.tallerweb1.excepciones.FiguritaAlbumSinCoincidenciaException;
+import ar.edu.unlam.tallerweb1.excepciones.NoSeEncontraronFiguritasException;
 import ar.edu.unlam.tallerweb1.modelo.Figurita;
 import ar.edu.unlam.tallerweb1.modelo.RegistroPegada;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
@@ -72,6 +73,8 @@ public class ServicioRegistroPegadaImpl implements ServicioRegistroPegada{
         Boolean buscarSeleccion = (seleccion != null && seleccion != 0);
         Boolean buscarPosicion = (posicion != null && posicion != 0);
 
+
+
         if(buscarNombre){
             List<RegistroPegada> regsPorNombre = repositorioRp.getRegistroPorNombreFigurita(nombre);
             
@@ -89,6 +92,9 @@ public class ServicioRegistroPegadaImpl implements ServicioRegistroPegada{
 
             hacerDiferenciaDeListas(registrosEncontrados,regsPorPosicion);
         }
+
+        if(registrosEncontrados.size() == 0) throw new NoSeEncontraronFiguritasException();
+
         return registrosEncontrados;
 
         /********/
