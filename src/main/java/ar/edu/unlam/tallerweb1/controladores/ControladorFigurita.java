@@ -238,19 +238,25 @@ public class ControladorFigurita {
         Usuario userLogueado = (Usuario) request.getSession().getAttribute("USUARIO");
         List<RegistroPegada> registrosEncontrados = new ArrayList<>();
         String mensajeError = "";
-        try{
-            registrosEncontrados = servicioRegistroPegada.getIntercambiablesPorFiltros(busq, sel, pos, id);
-        }catch (NoSeEncontraronFiguritasException e){
-            mensajeError = "No se encontraron figuritas que coincidan con lo introducido";
-        }
 
         model.put("usuario", userLogueado);
         model.put("id", id);
         model.put("rol", rol);
         model.put("todasSelecciones", selecciones);
         model.put("todasPosiciones", posiciones);
-        model.put("regsEncontrados", registrosEncontrados);
-        model.put("mensajeError", mensajeError);
+
+
+        try{
+            registrosEncontrados = servicioRegistroPegada.getIntercambiablesPorFiltros(busq, sel, pos, id);
+            model.put("regsEncontrados", registrosEncontrados);
+        }catch (NoSeEncontraronFiguritasException e){
+            mensajeError = "No se encontraron figuritas que coincidan con lo introducido";
+            model.put("regsEncontrados", registrosEncontrados);
+            model.put("mensajeError", mensajeError);
+        }
+
+
+
 
 
         return new ModelAndView("buscarFiguritas", model);

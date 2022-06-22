@@ -3,6 +3,7 @@ package ar.edu.unlam.tallerweb1.controladorTest;
 import ar.edu.unlam.tallerweb1.controladores.ControladorFigurita;
 import ar.edu.unlam.tallerweb1.excepciones.FiguritaConConEquipoVacioExcepition;
 import ar.edu.unlam.tallerweb1.excepciones.FiguritaConNombreRepetidoException;
+import ar.edu.unlam.tallerweb1.excepciones.NoSeEncontraronFiguritasException;
 import ar.edu.unlam.tallerweb1.modelo.*;
 import ar.edu.unlam.tallerweb1.servicios.*;
 import org.junit.Test;
@@ -111,8 +112,6 @@ public class ControladorFiguritaTest {
     }
 
 
-
-
     @Test
     public void queSePuedaBuscarFiguritaPorNombre(){
         // Preparacion -> given
@@ -168,10 +167,36 @@ public class ControladorFiguritaTest {
         String nombreIngresado ="Messi";
 
         // Ejecucion -> when
-        whenSeBuscaUnaFiguritaPorVariosFiltros(nombreIngresado, seleccionIngresada,posicionIngresada);
+        whenSeBuscaUnaFiguritaPorVariosFiltrosError(nombreIngresado, seleccionIngresada,posicionIngresada);
+
 
         // Comprobacion -> then
-        thenQueLaVistaSeaBuscarFigsConResDeBusqueda();
+        thenQueLaVistaTengaUnError();
+    }
+
+    private void whenSeBuscaUnaFiguritaPorVariosFiltrosError(String nombreIngresado, Long seleccionIngresada, Long posicionIngresada) {
+        definirComportamientoMocksSession();
+
+        Long idUsuario = ( Long ) ( mockRequest.getSession().getAttribute("ID") );
+
+        when( servicioSeleccion.traerSelecciones() ).thenReturn( new ArrayList<Seleccion>() );
+        when( servicioFigurita.traerPosiciones() ).thenReturn( new ArrayList<Posicion>() );
+
+        doThrow(new NoSeEncontraronFiguritasException())
+                .when(servicioRegistroPegada)
+                .getIntercambiablesPorFiltros(nombreIngresado,posicionIngresada,seleccionIngresada,idUsuario);
+
+
+        mav = this.controladorFigurita.buscarFiguritas(nombreIngresado,seleccionIngresada,posicionIngresada,mockRequest);
+    }
+
+    private Long getIdUsuarioPorMock() {
+        definirComportamientoMocksSession();
+        return ( Long ) ( mockRequest.getSession().getAttribute("ID") );
+    }
+
+    private void thenQueLaVistaTengaUnError(){
+        assertThat(mav.getModel().get("mensajeError")).isEqualTo("No se encontraron figuritas que coincidan con lo introducido");
     }
 
     private void thenQueLaVistaSeaBuscarFigsConResDeBusqueda() {
