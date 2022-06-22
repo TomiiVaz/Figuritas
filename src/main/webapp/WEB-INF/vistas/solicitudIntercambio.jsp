@@ -31,7 +31,7 @@
 <%--                    </div>--%>
                 </div>
         </div>
-        <form method="get" action="solicitar-intercambio">
+        <form method="get" action="solicitud">
             <div class="row mt-4 bg-dark gx-2">
                 <h4 class="text-center text-white mt-2">Selecciona la figurita que ofreces para el intercambio</h4>
                 <select path='idPide' id='idPide' name='idPide'>

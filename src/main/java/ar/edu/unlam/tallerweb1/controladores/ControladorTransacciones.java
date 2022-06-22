@@ -124,7 +124,7 @@ public class ControladorTransacciones {
         return model;
     }
 
-    @RequestMapping(path = "/intercambiar-figurita/{intercambiable.id}", method = RequestMethod.GET)
+    @RequestMapping(path = "/intercambio/{intercambiable.id}", method = RequestMethod.GET)
     public ModelAndView solicitarFigu(@PathVariable(value = "intercambiable.id") Long idSolicitado, HttpServletRequest request){
         ModelMap model = new ModelMap();
 
@@ -140,7 +140,7 @@ public class ControladorTransacciones {
         return new ModelAndView("solicitudIntercambio", model);
     }
 
-    @RequestMapping(path="/intercambiar-figurita/solicitar-intercambio", method=RequestMethod.GET)
+    @RequestMapping(path="/intercambio/solicitud", method=RequestMethod.GET)
     public ModelAndView solicitarIntercambio(@RequestParam(value = "idPide") Long idPide, HttpServletRequest request){
         //validar en servicio que los albunes de ambas figuritas sean los mismos
         //setear estado del ri en el servicio
