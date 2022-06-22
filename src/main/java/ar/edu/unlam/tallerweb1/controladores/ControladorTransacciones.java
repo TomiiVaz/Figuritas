@@ -39,7 +39,7 @@ public class ControladorTransacciones {
         this.servicioRegistroIntercambio = servicioRegistroIntercambio;
     }
 
-    @RequestMapping(path = "/publicar/{pegada.id}", method = RequestMethod.GET)
+    @RequestMapping(path = "perfil/publicar/{pegada.id}", method = RequestMethod.GET)
     public ModelAndView publicarFigu(@PathVariable(value = "pegada.id") Long idRegistro){
         RegistroPegada rp = servicioRegistroPegada.buscarRegistroId(idRegistro);
         rp.setIntercambiable(true);
@@ -47,7 +47,7 @@ public class ControladorTransacciones {
         return new ModelAndView("redirect:/perfil");
     }
 
-    @RequestMapping(path = "/sacar/{pegada.id}", method = RequestMethod.GET)
+    @RequestMapping(path = "perfil/sacar/{pegada.id}", method = RequestMethod.GET)
     public ModelAndView sacarFigu(@PathVariable(value = "pegada.id") Long idRegistro){
         RegistroPegada rp = servicioRegistroPegada.buscarRegistroId(idRegistro);
         rp.setIntercambiable(false);
@@ -98,7 +98,7 @@ public class ControladorTransacciones {
         return new ModelAndView("perfil", model);
     }
 
-    @RequestMapping(path="filtrar-figuritas", method = RequestMethod.GET)
+    @RequestMapping(path="perfil/filtrar", method = RequestMethod.GET)
     private ModelAndView filtrar(@RequestParam(value = "albumId", required = false) Long album,
                                  @RequestParam(value="seleccionId", required=false) Long seleccion,
                                  HttpServletRequest request){

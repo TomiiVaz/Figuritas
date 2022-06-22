@@ -292,7 +292,7 @@ public class ControladorFigurita {
 
         this.servicioRegistroPegada.pegarRegistro(rp);
 
-        return new ModelAndView("redirect:/perfil");
+        return new ModelAndView("redirect:/perfil/");
     }
 
     private int numeroAleatorioEnRango(int minimo, int maximo) {
