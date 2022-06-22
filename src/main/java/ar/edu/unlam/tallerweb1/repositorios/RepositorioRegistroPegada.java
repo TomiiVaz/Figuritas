@@ -16,6 +16,8 @@ public interface RepositorioRegistroPegada {
 
     List<RegistroPegada> traerFiguritasIntercambiables();
 
+    List<RegistroPegada> traerFiguritasIntercambiablesParaBusqueda(Long idUsuario);
+
     RegistroPegada getRegistroPorId(Long id);
 
     List<RegistroPegada> getRegistroPorNombreFigurita(String nombre);
