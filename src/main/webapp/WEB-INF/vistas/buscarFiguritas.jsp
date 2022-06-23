@@ -88,7 +88,7 @@
                         <li class="list-group-item">${pegada.figurita.dorsal}</li>
                     </ul>
                     <div class="card-body">
-                        <a href="#" class="card-link text-decoration-none">Ir a la carta</a>
+                        <a href="carta/${pegada.id}" class="card-link text-decoration-none">Ir a la carta</a>
                     </div>
                 </div>
 
