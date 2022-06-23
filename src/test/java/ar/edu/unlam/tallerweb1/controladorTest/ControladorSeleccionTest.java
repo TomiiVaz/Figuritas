@@ -19,7 +19,7 @@ import static org.mockito.Mockito.mock;
 
 public class ControladorSeleccionTest extends SpringTest {
 
-    private final String redirectCorrectoSeleccion = "redirect:/configuracion-seleccion";
+    private final String redirectCorrectoSeleccion = "redirect:/configuracion/seleccion/";
     private final String redirectInorrectoSeleccion = "configSeleccion";
     private final String errorCaracteresNumerosSeleccion = "El nombre no puede contener números ni caracteres especiales";
 
@@ -134,23 +134,23 @@ public class ControladorSeleccionTest extends SpringTest {
         assertThat(mav.getModel().get("error")).isEqualTo(msj);
     }
 
-//    @Test
-//    public void queSeElimineUnaSeleccionTest(){
-//
-//        //preparacion -> given
-//        Seleccion seleccion = givenUnaSeleccion();
-//        //ejecucion -> when
-//        seleccion.setId(1l);
-//        int id = (int)(long)seleccion.getId();
-//        whenEliminoUnaSeleccion(id);
-//
-//        //comprobacion -> then
-//        thenRedirectCorrectoSeleccion();
-//
-//    }
+    @Test
+    public void queSeElimineUnaSeleccionTest(){
 
-//    private void whenEliminoUnaSeleccion(int id) {
-//        controladorSeleccion.delSelecciones(id);
-//    }
+        //preparacion -> given
+        Seleccion seleccion = givenUnaSeleccion();
+        //ejecucion -> when
+        seleccion.setId(1l);
+        int id = (int)(long)seleccion.getId();
+        whenEliminoUnaSeleccion(id);
+
+        //comprobacion -> then
+        thenRedirectCorrectoSeleccion();
+
+    }
+
+    private void whenEliminoUnaSeleccion(int id) {
+        mav=controladorSeleccion.delSelecciones(id);
+    }
 
 }

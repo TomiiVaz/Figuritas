@@ -16,7 +16,7 @@ public class ServicioSeleccionImpl implements ServicioSeleccion {
     private RepositorioSeleccion repoSelec;
 
     @Autowired
-    private ServicioSeleccionImpl(RepositorioSeleccion repoSelec) {
+    public ServicioSeleccionImpl(RepositorioSeleccion repoSelec) {
         this.repoSelec = repoSelec;
     }
 
