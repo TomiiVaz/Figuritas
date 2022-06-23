@@ -52,7 +52,7 @@ public class ControladorSeleccion {
     public ModelAndView crearSeleccion(@ModelAttribute("selecciones") Seleccion seleccion) {
         try {
             this.servicioSelec.crearSeleccion(seleccion);
-            return new ModelAndView("redirect:/configuracio/seleccion/");
+            return new ModelAndView("redirect:/configuracion/seleccion/");
         } catch (SeleccionCamposVacíosException e){
             return getModelAndView("No se ha completado ningun campo.");
         } catch (SeleccionAlbumNullException e) {
