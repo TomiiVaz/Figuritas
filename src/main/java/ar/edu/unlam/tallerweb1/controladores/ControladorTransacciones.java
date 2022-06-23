@@ -165,7 +165,7 @@ public class ControladorTransacciones {
     }
 
     private ModelAndView falloIntercambio() {
-        return new ModelAndView("redirect:/configuracion-seleccion");
+        return new ModelAndView("redirect:/configuracion/seleccion/");
     }
 
     @RequestMapping(path = "/perfil/aceptar/{registro.id}", method = RequestMethod.GET)
