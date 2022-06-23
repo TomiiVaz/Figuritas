@@ -14,7 +14,7 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 
-public class ControladorAlbumTest extends SpringTest {
+public class ControladorAlbumTest {
 
     private ServicioAlbum servicioAlbum = mock(ServicioAlbum.class);
     private ControladorAlbum controladorAlbum = new ControladorAlbum(servicioAlbum);

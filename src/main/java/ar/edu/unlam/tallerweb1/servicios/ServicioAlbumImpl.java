@@ -39,17 +39,14 @@ public class ServicioAlbumImpl implements ServicioAlbum {
 
     @Override
     public void editarAlbum(Long albumId, String nombreNuevo) {
-        if (albumId == 0 && nombreNuevo.length() == 0) {
-            throw new AlbumEditarTodoNuloException();
-        }
         if (albumId == 0) {
             throw new AlbumIdVacioException();
         }
-        if (this.repoAlbum.getAlbum(nombreNuevo) != null) {
-            throw new AlbumRepetidoException();
-        }
         if (nombreNuevo.length() == 0) {
             throw new AlbumNombreVacioException();
+        }
+        if (this.repoAlbum.getAlbum(nombreNuevo) != null) {
+            throw new AlbumRepetidoException();
         }
         this.repoAlbum.editarAlbum(albumId, nombreNuevo);
     }

@@ -61,8 +61,6 @@ public class ControladorAlbum {
         try {
             this.servicioAl.editarAlbum((long) albumId, nombreNuevo);
             return new ModelAndView("redirect:/configuracion/album/");
-        } catch (AlbumEditarTodoNuloException e) {
-            return getModelAndView("Todos los campos estan vacios");
         } catch (AlbumIdVacioException e) {
             return getModelAndView("No ha seleccionado ningun album");
         } catch (AlbumNombreVacioException e) {

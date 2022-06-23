@@ -28,8 +28,8 @@ public class RepositorioAlbumTest extends SpringTest {
         session().save(album);
         Album albumBuscado = repositorioAlbum.getAlbum(nombre);
         // Comprobacion -> then
-        assertThat(albumBuscado).isEqualTo(album);
         assertThat(albumBuscado).isNotNull();
+        assertThat(albumBuscado).isEqualTo(album);
     }
 
     @Test

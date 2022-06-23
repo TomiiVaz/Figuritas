@@ -12,7 +12,7 @@ import org.junit.Test;
 import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
-public class ServicioAlbumTest extends SpringTest {
+public class ServicioAlbumTest {
 
     private RepositorioAlbum repositorioAlbum = mock(RepositorioAlbum.class);
     private ServicioAlbum servicioAlbum = new ServicioAlbumImpl(repositorioAlbum);
@@ -61,6 +61,7 @@ public class ServicioAlbumTest extends SpringTest {
         servicioAlbum.editarAlbum(id, nombreAsignado);
         // Comprobacion -> then
         verify(repositorioAlbum, atLeastOnce()).editarAlbum(id, nombreAsignado);
+        // times 1
     }
 
     @Test(expected = AlbumRepetidoException.class)
