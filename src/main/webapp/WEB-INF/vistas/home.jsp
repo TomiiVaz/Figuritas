@@ -33,7 +33,7 @@
                     <img style="height: 700px" src="img/Qatar.webp" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img style="height: 700px" src="img/maradonaMano.jpg" class="d-block w-100" alt="...">
+                    <img style="height: 700px" src="img/mundialbrasil.jpg" class="d-block w-100" alt="...">
                 </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
