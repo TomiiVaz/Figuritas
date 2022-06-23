@@ -27,10 +27,10 @@
             </div>
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img style="height: 700px" src="img/messi3.jpg" class="d-block w-100" alt="...">
+                    <img style="height: 700px" src="img/CA2021.jpg" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img style="height: 700px" src="img/ronaldoPR.png" class="d-block w-100" alt="...">
+                    <img style="height: 700px" src="img/Qatar.webp" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item">
                     <img style="height: 700px" src="img/maradonaMano.jpg" class="d-block w-100" alt="...">

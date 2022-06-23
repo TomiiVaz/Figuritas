@@ -45,7 +45,7 @@ public class ControladorAlbumTest extends SpringTest {
     }
 
     private void thenQueLaVistaSeaRedirect() {
-        assertThat(modelAndView.getViewName()).isEqualTo("redirect:/configuracion-album");
+        assertThat(modelAndView.getViewName()).isEqualTo("redirect:/configuracion/album/");
     }
 
     @Test

@@ -28,7 +28,6 @@
 
             <label for='seleccion.id' class='text-white'>Seleccion</label>
             <select path='seleccion.id' id='seleccion.id' name='seleccion.id' class='form-control my-2'>
-                <option value="${usuario.seleccion.id}" selected>${usuario.seleccion.nombre}</option>
                 <c:forEach var="seleccion" items="${selecciones}">
                     <option value='0' selected hidden>Seleccionar una seleccion</option>
                     <option value='${seleccion.id}'>${seleccion.nombre}</option>

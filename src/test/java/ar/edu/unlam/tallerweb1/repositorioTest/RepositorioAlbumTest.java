@@ -49,14 +49,12 @@ public class RepositorioAlbumTest extends SpringTest {
     @Rollback
     public void queSePuedaBuscarUnAlbumPorId() {
         // Preparacion -> given
-        Long id = 1L;
         Album album = new Album();
-        album.setId(id);
         // Ejecucion -> when
         session().save(album);
-        Album albumBuscado = repositorioAlbum.getAlbum(id);
+        Album albumBuscado = repositorioAlbum.getAlbum(album.getId());
         // Comprobacion -> then
-        assertThat(albumBuscado).isEqualTo(album);
+        assertThat(album).isEqualTo(albumBuscado);
         assertThat(albumBuscado).isNotNull();
     }
 
