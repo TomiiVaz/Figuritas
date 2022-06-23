@@ -97,7 +97,7 @@ public class ControladorFigurita {
 
     }
 
-    @RequestMapping(path = "/configuracion/figurita/editar/", method = RequestMethod.POST)
+    @RequestMapping(path = "/configuracion/figurita/editar", method = RequestMethod.POST)
     public ModelAndView editarFigurita(@RequestParam("figuritaId") Long figuritaId, HttpServletRequest request) {
 
 
@@ -172,7 +172,6 @@ public class ControladorFigurita {
     // Quien usa este metodo?
     @RequestMapping(path = "/configuracion/figurita/editar/enviar", method = RequestMethod.POST)
     public ModelAndView editarFiguritaAccion(@ModelAttribute("figurita") Figurita figurita, @RequestParam Long id) {
-
         this.servicioFigu.eliminarFigurita(id);
         this.servicioFigu.agregarFigurita(figurita);
 
