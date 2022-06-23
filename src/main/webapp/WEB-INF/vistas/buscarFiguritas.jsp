@@ -88,7 +88,10 @@
                         <li class="list-group-item">${pegada.figurita.dorsal}</li>
                     </ul>
                     <div class="card-body">
-                        <a href="carta/${pegada.id}" class="card-link text-decoration-none">Ir a la carta</a>
+                        <a href="carta/${pegada.id}" class="card-link text-decoration-none btn btn-secondary">Ir a la carta</a>
+                        <c:if test="${id!=null}">
+                            <a href="intercambio/${pegada.id} " class="card-link text-decoration-none btn btn-primary">Intercambiar</a>
+                        </c:if>
                     </div>
                 </div>
 
