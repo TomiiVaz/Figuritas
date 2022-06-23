@@ -238,7 +238,7 @@
                             <li class="list-group-item">${pegada.figurita.dorsal}</li>
                         </ul>
                         <div class="card-body">
-                            <a href="#" class="card-link text-decoration-none me-3">Ir a la carta</a>
+                            <a href="/figus/carta/${pegada.id}" class="card-link text-decoration-none me-3">Ir a la carta</a>
                             <c:choose>
                                 <c:when test="${pegada.intercambiable!=true}">
                                     <a href="publicar/${pegada.id}" class="card-link text-success text-decoration-none">Publicar</a>
