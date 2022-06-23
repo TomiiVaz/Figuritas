@@ -24,15 +24,6 @@ public class ServicioFiguritaImpl implements ServicioFigurita{
 
     @Override
     public void agregarFigurita(Figurita figurita) {
-
-        if(verificarQueElcampoNoVengaNullOVacio(figurita.getNombre())){
-            throw new FiguritaConNombreNullOVacioException();
-        }
-
-        if(verificarNombreFiguritaRepetido(figurita.getNombre())){
-            throw new FiguritaConNombreRepetidoException();
-        }
-
         if(verificarQueSeleccionNoVengVacio(figurita.getSeleccion())){
             throw new FiguritaConSeleccionVaciaExcepition();
         }
@@ -57,6 +48,13 @@ public class ServicioFiguritaImpl implements ServicioFigurita{
             throw new FiguritaConConEquipoVacioExcepition();
         }
 
+        if(verificarQueElcampoNoVengaNullOVacio(figurita.getNombre())){
+            throw new FiguritaConNombreNullOVacioException();
+        }
+
+        if(verificarNombreFiguritaRepetido(figurita.getNombre())){
+            throw new FiguritaConNombreRepetidoException();
+        }
 
         repoFigurita.guardar(figurita);
 
