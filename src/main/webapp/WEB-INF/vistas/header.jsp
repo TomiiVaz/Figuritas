@@ -12,8 +12,8 @@
             </ul>
 
             <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" method="get" action="<c:url value="/buscarfiguritas"/>">
-                <label for="busq"></label>
-                <input type="text" id="busq" name="busq" placeholder="Buscar Figurita/s..." class="form-control">
+                <label for="nombreIngresado"></label>
+                <input type="text" id="nombreIngresado" name="nombreIngresado" placeholder="Buscar Figurita/s..." class="form-control">
                 <button type="submit" class="invisible"></button>
             </form>
 

@@ -3,7 +3,6 @@ package ar.edu.unlam.tallerweb1.servicios;
 import ar.edu.unlam.tallerweb1.excepciones.CodigoIncorrectoExcepcion;
 import ar.edu.unlam.tallerweb1.excepciones.FiguritaAlbumSinCoincidenciaException;
 import ar.edu.unlam.tallerweb1.excepciones.NoSeEncontraronFiguritasException;
-import ar.edu.unlam.tallerweb1.modelo.Figurita;
 import ar.edu.unlam.tallerweb1.modelo.RegistroPegada;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioRegistroPegada;
@@ -64,33 +63,37 @@ public class ServicioRegistroPegadaImpl implements ServicioRegistroPegada{
     }
 
     @Override
-    public List<RegistroPegada> getIntercambiablesPorFiltros(String nombre, Long seleccion, Long posicion, Long idUsuario) {
+    public List<RegistroPegada> getIntercambiablesPorFiltros(String nombreIngresado, Long seleccionIngresada, Long posicionIngresada, Long idUsuario) {
         List<RegistroPegada> registrosEncontrados = new ArrayList<>();
-        registrosEncontrados = repositorioRp.traerFiguritasIntercambiablesParaBusqueda(idUsuario);
+        if(idUsuario == 0l){
+            registrosEncontrados = repositorioRp.traerFiguritasIntercambiables();
+        }else{
+            registrosEncontrados = repositorioRp.traerFiguritasIntercambiablesParaBusqueda(idUsuario);
+        }
 
 
-        Boolean buscarNombre = (nombre != null && nombre != "");
-        Boolean buscarSeleccion = (seleccion != null && seleccion != 0);
-        Boolean buscarPosicion = (posicion != null && posicion != 0);
+        Boolean buscarNombre = (nombreIngresado != null && nombreIngresado != "");
+        Boolean buscarSeleccion = (seleccionIngresada != null && seleccionIngresada != 0);
+        Boolean buscarPosicion = (posicionIngresada != null && posicionIngresada != 0);
 
 
 
         if(buscarNombre){
-            List<RegistroPegada> regsPorNombre = repositorioRp.getRegistroPorNombreFigurita(nombre);
+            List<RegistroPegada> regsPorNombreIngresado = repositorioRp.getRegistroPorNombreFigurita(nombreIngresado);
             
-            hacerDiferenciaDeListas(registrosEncontrados,regsPorNombre);
+            hacerDiferenciaDeListas(registrosEncontrados,regsPorNombreIngresado);
         }
 
         if(buscarSeleccion){
-            List<RegistroPegada> regsPorSeleccion = repositorioRp.getRegistroPorSeleccionFigurita(seleccion);
+            List<RegistroPegada> regsPorSeleccionIngresada = repositorioRp.getRegistroPorSeleccionFigurita(seleccionIngresada);
 
-            hacerDiferenciaDeListas(registrosEncontrados,regsPorSeleccion);
+            hacerDiferenciaDeListas(registrosEncontrados,regsPorSeleccionIngresada);
         }
 
         if(buscarPosicion){
-            List<RegistroPegada> regsPorPosicion = repositorioRp.getRegistroPorPosicionFigurita(posicion);
+            List<RegistroPegada> regsPorPosicionIngresada = repositorioRp.getRegistroPorPosicionFigurita(posicionIngresada);
 
-            hacerDiferenciaDeListas(registrosEncontrados,regsPorPosicion);
+            hacerDiferenciaDeListas(registrosEncontrados,regsPorPosicionIngresada);
         }
 
         if(registrosEncontrados.size() == 0) throw new NoSeEncontraronFiguritasException();

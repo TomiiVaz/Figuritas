@@ -212,50 +212,52 @@ public class ControladorFigurita {
         return new ModelAndView("figurita", model);
     }
 
-    @RequestMapping(path = "/buscarfiguritas", method = RequestMethod.GET, params = {"busq"})
-    public ModelAndView buscarFiguritas(@RequestParam(value = "busq") String busq,
-                                        @RequestParam(value = "selSeleccion", required = false) Long sel,
-                                        @RequestParam(value = "selPosicionJugador", required = false) Long pos,
+    @RequestMapping(path = "/buscarfiguritas", method = RequestMethod.GET, params = {"nombreIngresado"})
+    public ModelAndView buscarFiguritas(@RequestParam(value = "nombreIngresado") String nombreIngresado,
+                                        @RequestParam(value = "seleccionIngresada", required = false) Long seleccionIngresada,
+                                        @RequestParam(value = "posicionIngresada", required = false) Long posicionIngresada,
                                         HttpServletRequest request) {
 
         ModelMap model = new ModelMap();
 
-        List<Seleccion> selecciones = servicioSelec.traerSelecciones();
-        List<Posicion> posiciones = servicioFigu.traerPosiciones();
+        List<Seleccion> seleccionesParaElFormulario = servicioSelec.traerSelecciones();
+        List<Posicion> posicionesParaElFormulario = servicioFigu.traerPosiciones();
 
-        String rol = ControladorGeneral.getSessionRol(request);
-        Long id = ControladorGeneral.getSessionId(request);
+        String rolUsuario = ControladorGeneral.getSessionRol(request);
+        Long idUsuario = ControladorGeneral.getSessionId(request);
         Usuario userLogueado = ControladorGeneral.getSessionUserLog(request);
-        List<RegistroPegada> registrosEncontrados = new ArrayList<>();
-        String mensajeError = "";
 
-        Seleccion seleccionElegida = servicioSelec.getSeleccionPorId(sel);
-        Posicion posicionElegida = servicioFigu.getPosicionPorId(pos);
+
+        List<RegistroPegada> registrosEncontradosEnLaBusqueda = new ArrayList<>();
+        String mensajeDeError = "";
+
+        Seleccion seleccionBuscada = servicioSelec.getSeleccionPorId(seleccionIngresada);
+        Posicion posicionBuscada = servicioFigu.getPosicionPorId(posicionIngresada);
 
         model.put("usuario", userLogueado);
-        model.put("id", id);
-        model.put("rol", rol);
-        model.put("todasSelecciones", selecciones);
-        model.put("todasPosiciones", posiciones);
+        model.put("id", idUsuario);
+        model.put("rol", rolUsuario);
+        model.put("seleccionesParaFormulario", seleccionesParaElFormulario);
+        model.put("posicionesParaFormulario", posicionesParaElFormulario);
 
-        model.put("nombreIntroducido", busq);
-        model.put("posicionElegida", posicionElegida);
-        model.put("seleccionElegida", seleccionElegida);
-
+        model.put("nombreIntroducido", nombreIngresado);
+        model.put("posicionElegida", posicionBuscada);
+        model.put("seleccionElegida", seleccionBuscada);
 
 
         try{
-            registrosEncontrados = servicioRegistroPegada.getIntercambiablesPorFiltros(busq, sel, pos, id);
-            model.put("regsEncontrados", registrosEncontrados);
+            if(userLogueado == null)
+                registrosEncontradosEnLaBusqueda = servicioRegistroPegada.getIntercambiablesPorFiltros(nombreIngresado,seleccionIngresada,posicionIngresada,0l); //El 0 indica que no hay usuario logueado
+
+            else
+                registrosEncontradosEnLaBusqueda = servicioRegistroPegada.getIntercambiablesPorFiltros(nombreIngresado, seleccionIngresada, posicionIngresada, idUsuario);
+
+            model.put("regsEncontradosEnLaBusqueda", registrosEncontradosEnLaBusqueda);
         }catch (NoSeEncontraronFiguritasException e){
-            mensajeError = "No se encontraron figuritas que coincidan con lo introducido";
-            model.put("regsEncontrados", registrosEncontrados);
-            model.put("mensajeError", mensajeError);
+            mensajeDeError = "No se encontraron figuritas que coincidan con lo introducido";
+            model.put("regsEncontradosEnLaBusqueda", registrosEncontradosEnLaBusqueda);
+            model.put("mensajeError", mensajeDeError);
         }
-
-
-
-
 
         return new ModelAndView("buscarFiguritas", model);
     }
