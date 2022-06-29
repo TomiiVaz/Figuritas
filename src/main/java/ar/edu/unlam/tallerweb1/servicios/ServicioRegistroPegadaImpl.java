@@ -72,25 +72,25 @@ public class ServicioRegistroPegadaImpl implements ServicioRegistroPegada{
         }
 
 
-        Boolean buscarNombre = (nombreIngresado != null && nombreIngresado != "");
-        Boolean buscarSeleccion = (seleccionIngresada != null && seleccionIngresada != 0);
-        Boolean buscarPosicion = (posicionIngresada != null && posicionIngresada != 0);
+        Boolean seBuscaNombre = (nombreIngresado != null && nombreIngresado != "");
+        Boolean seBuscaSeleccion = (seleccionIngresada != null && seleccionIngresada != 0);
+        Boolean seBuscaPosicion = (posicionIngresada != null && posicionIngresada != 0);
 
 
 
-        if(buscarNombre){
+        if(seBuscaNombre){
             List<RegistroPegada> regsPorNombreIngresado = repositorioRp.getRegistroPorNombreFigurita(nombreIngresado);
             
             hacerDiferenciaDeListas(registrosEncontrados,regsPorNombreIngresado);
         }
 
-        if(buscarSeleccion){
+        if(seBuscaSeleccion){
             List<RegistroPegada> regsPorSeleccionIngresada = repositorioRp.getRegistroPorSeleccionFigurita(seleccionIngresada);
 
             hacerDiferenciaDeListas(registrosEncontrados,regsPorSeleccionIngresada);
         }
 
-        if(buscarPosicion){
+        if(seBuscaPosicion){
             List<RegistroPegada> regsPorPosicionIngresada = repositorioRp.getRegistroPorPosicionFigurita(posicionIngresada);
 
             hacerDiferenciaDeListas(registrosEncontrados,regsPorPosicionIngresada);

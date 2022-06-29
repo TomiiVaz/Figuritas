@@ -227,12 +227,12 @@ public class ControladorFigurita {
         Long idUsuario = ControladorGeneral.getSessionId(request);
         Usuario userLogueado = ControladorGeneral.getSessionUserLog(request);
 
-
         List<RegistroPegada> registrosEncontradosEnLaBusqueda = new ArrayList<>();
         String mensajeDeError = "";
 
         Seleccion seleccionBuscada = servicioSelec.getSeleccionPorId(seleccionIngresada);
         Posicion posicionBuscada = servicioFigu.getPosicionPorId(posicionIngresada);
+
 
         model.put("usuario", userLogueado);
         model.put("id", idUsuario);
@@ -247,12 +247,14 @@ public class ControladorFigurita {
 
         try{
             if(userLogueado == null)
-                registrosEncontradosEnLaBusqueda = servicioRegistroPegada.getIntercambiablesPorFiltros(nombreIngresado,seleccionIngresada,posicionIngresada,0l); //El 0 indica que no hay usuario logueado
+                registrosEncontradosEnLaBusqueda = servicioRegistroPegada.getIntercambiablesPorFiltros(nombreIngresado,seleccionIngresada,posicionIngresada,0l);
+                //El 0 indica que no hay usuario logueado
 
             else
                 registrosEncontradosEnLaBusqueda = servicioRegistroPegada.getIntercambiablesPorFiltros(nombreIngresado, seleccionIngresada, posicionIngresada, idUsuario);
 
             model.put("regsEncontradosEnLaBusqueda", registrosEncontradosEnLaBusqueda);
+
         }catch (NoSeEncontraronFiguritasException e){
             mensajeDeError = "No se encontraron figuritas que coincidan con lo introducido";
             model.put("regsEncontradosEnLaBusqueda", registrosEncontradosEnLaBusqueda);
@@ -261,6 +263,7 @@ public class ControladorFigurita {
 
         return new ModelAndView("buscarFiguritas", model);
     }
+
 
     @RequestMapping(path = "/sorteo", method = RequestMethod.GET)
     public ModelAndView verCarta(HttpServletRequest request) {
