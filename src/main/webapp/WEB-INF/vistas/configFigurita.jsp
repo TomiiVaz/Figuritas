@@ -132,7 +132,7 @@
 
 
                     <label for='dorsal' class='text-white'>Dorsal</label>
-                    <input class='my-2 form-control' type="number"  path='dorsal' id='dorsal' name='dorsal'>
+                    <input class='my-2 form-control' type="number" path='dorsal' id='dorsal' name='dorsal' value='0'>
                     <%--  Mensajes Error--%>
                     <c:if test="${not empty DorsalFiguritaVacio}">
                         <p class="text-danger"><span>${DorsalFiguritaVacio}</span></p>
