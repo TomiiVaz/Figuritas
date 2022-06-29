@@ -6,6 +6,8 @@ import ar.edu.unlam.tallerweb1.modelo.Figurita;
 import ar.edu.unlam.tallerweb1.modelo.RegistroPegada;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioRegistroPegadaImpl;
+import ar.edu.unlam.tallerweb1.repositorios.RepositorioUsuario;
+import ar.edu.unlam.tallerweb1.repositorios.RepositorioUsuarioImpl;
 import org.hibernate.SessionFactory;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,9 @@ public class RepositorioRegistroPegadaTest extends SpringTest {
 
     @Autowired
     private RepositorioRegistroPegadaImpl repositorioRegistroPegada;
+
+    @Autowired
+    private RepositorioUsuarioImpl repositorioUsuario;
 
 
     @Test
@@ -41,18 +46,7 @@ public class RepositorioRegistroPegadaTest extends SpringTest {
     @Rollback
     public void queSePuedaPegarUnaFigurita(){
         /*Preparacion*/
-        RegistroPegada registroPegada = new RegistroPegada();
-
-        Usuario usuario = new Usuario();
-        usuario.setId(1L);
-        Figurita figurita = new Figurita();
-        figurita.setId(1L);
-        Album album = new Album();
-        album.setId(1L);
-        registroPegada.setUsuario(usuario);
-        registroPegada.setFigurita(figurita);
-        registroPegada.setIntercambiable(true);
-        registroPegada.setAlbum(album);
+        RegistroPegada registroPegada = crearUnRegPegada(1l,1l,1l,true);
 
         /*Ejecucion*/
         repositorioRegistroPegada.pegar(registroPegada);
@@ -103,18 +97,7 @@ public class RepositorioRegistroPegadaTest extends SpringTest {
     @Rollback
     public void queSePuedaObtenerUnRegistroPorSuId(){
         /*Preparacion*/
-        RegistroPegada registroPegada = new RegistroPegada();
-
-        Usuario usuario = new Usuario();
-        usuario.setId(1L);
-        Figurita figurita = new Figurita();
-        figurita.setId(1L);
-        Album album = new Album();
-        album.setId(1L);
-        registroPegada.setUsuario(usuario);
-        registroPegada.setFigurita(figurita);
-        registroPegada.setIntercambiable(true);
-        registroPegada.setAlbum(album);
+        RegistroPegada registroPegada = crearUnRegPegada(1l,1l,1l,true);
 
         repositorioRegistroPegada.pegar(registroPegada);
 
@@ -123,6 +106,96 @@ public class RepositorioRegistroPegadaTest extends SpringTest {
         /*Comprobacion*/
         assertThat(registroPegada).isEqualTo(registroPegadaBuscado);
 
+    }
+
+    @Test
+    @Transactional
+    @Rollback
+    public void queSePuedaBuscarFiguritasIntercambiablesSinHaberseLogeado(){
+        /*Preparacion*/
+        RegistroPegada registroPegada_1 = crearUnRegPegada(1l,1l,1l,true);
+        RegistroPegada registroPegada_2 = crearUnRegPegada(2l,3l,1l,true);
+        RegistroPegada registroPegada_3 = crearUnRegPegada(1l,2l,1l,false);
+
+        repositorioRegistroPegada.pegar(registroPegada_1);
+        repositorioRegistroPegada.pegar(registroPegada_2);
+        //repositorioRegistroPegada.pegar(registroPegada_3);
+
+        /*Ejecucion*/
+        List<RegistroPegada> registrosPegadasEncontradas = repositorioRegistroPegada.traerFiguritasIntercambiables();
+        /*Comprobacion*/
+        assertThat( registrosPegadasEncontradas.size() ).isGreaterThanOrEqualTo(2);
+
+    }
+
+    @Test
+    @Transactional
+    @Rollback
+    public void queSePuedaBuscarMisFiguritasIntercambiablesEstandoLogueado(){
+        /*Preparacion*/
+
+        RegistroPegada registroPegada_1 = crearUnRegPegada(1l,1l,1l,true);
+        RegistroPegada registroPegada_2 = crearUnRegPegada(4l,3l,1l,true);
+        RegistroPegada registroPegada_3 = crearUnRegPegada(1l,2l,1l,false);
+
+        repositorioRegistroPegada.pegar(registroPegada_1);
+        repositorioRegistroPegada.pegar(registroPegada_2);
+        repositorioRegistroPegada.pegar(registroPegada_3);
+
+        /*Ejecucion*/
+        List<RegistroPegada> registrosPegadasEncontradas = repositorioRegistroPegada.traerFiguritasPegadasPorUsuario(registroPegada_2.getUsuario().getId());
+
+        /*Comprobacion*/
+        assertThat( registrosPegadasEncontradas.size() ).isEqualTo(1);
+    }
+
+    @Test
+    @Transactional
+    @Rollback
+    public void queSePuedaBuscarFiguritasIntercambiablesQueNoSeanDelUsuario(){
+
+        /*Preparacion*/
+        RegistroPegada registroPegada_1 = crearUnRegPegada(1l,1l,1l,true);
+        RegistroPegada registroPegada_2 = crearUnRegPegada(4l,3l,1l,true);
+        RegistroPegada registroPegada_3 = crearUnRegPegada(2l,2l,1l,false);
+        RegistroPegada registroPegada_4 = crearUnRegPegada(2l,2l,1l,true);
+
+        repositorioRegistroPegada.pegar(registroPegada_1);
+        repositorioRegistroPegada.pegar(registroPegada_2);
+        repositorioRegistroPegada.pegar(registroPegada_3);
+        repositorioRegistroPegada.pegar(registroPegada_4);
+
+
+        /*Ejecucion*/
+        List<RegistroPegada> registrosPegadasEncontradas = repositorioRegistroPegada.traerFiguritasIntercambiablesParaBusqueda(registroPegada_1.getUsuario().getId());
+
+        /*Comprobacion*/
+        assertThat( registrosPegadasEncontradas.size() ).isGreaterThanOrEqualTo(2);
+
+    }
+
+
+    private RegistroPegada crearUnRegPegada(Long idUsuario, Long idFigurita, Long idAlbum, boolean isIntercambiable){
+        RegistroPegada registroPegada = new RegistroPegada();
+
+        Usuario usuario = new Usuario();
+        Figurita figurita = new Figurita();
+        Album album = new Album();
+
+        usuario.setId(idUsuario);
+        figurita.setId(idFigurita);
+        album.setId(idAlbum);
+
+        Usuario userBuscado = repositorioUsuario.getUsuario(idUsuario);
+        if( userBuscado == null)
+            repositorioUsuario.guardar(usuario);
+
+        registroPegada.setUsuario(usuario);
+        registroPegada.setFigurita(figurita);
+        registroPegada.setIntercambiable(isIntercambiable);
+        registroPegada.setAlbum(album);
+
+        return registroPegada;
     }
 
 
