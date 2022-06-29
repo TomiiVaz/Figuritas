@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.controladorTest;
 
+import ar.edu.unlam.tallerweb1.controladores.ControladorGeneral;
 import ar.edu.unlam.tallerweb1.controladores.ControladorUsuario;
 import ar.edu.unlam.tallerweb1.modelo.Album;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
@@ -13,8 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.*;
 
 
 public class ControladorUsuarioTest {
@@ -33,15 +33,11 @@ public class ControladorUsuarioTest {
 
         // Ejecucion -> when
         Usuario user = new Usuario();
-        user.setId(1L);
-        user.setNombre("Tomas");
-        user.setRol("CLI");
-        user.setPassword("12345678");
-        user.setPassword2("12345678");
-        controladorUsuario.editarPerfil(user, mockRequest);
-        servicioUsuario.modificarDatosUsuario(user);
-        mockRequest.getSession().setAttribute("USUARIO", user);
+        when(mockRequest.getSession()).thenReturn(mockSession);
+        when(ControladorGeneral.getSessionUserLog(mockRequest)).thenReturn(new Usuario());
+        modelAndView = controladorUsuario.editarPerfil(user, mockRequest);
         // Comprobacion -> then
         assertThat(modelAndView.getViewName()).isEqualTo("redirect:/perfil/");
+        verify(servicioUsuario, times(1)).modificarDatosUsuario(user);
     }
 }
