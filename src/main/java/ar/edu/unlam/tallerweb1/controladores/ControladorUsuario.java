@@ -149,7 +149,7 @@ public class ControladorUsuario {
 
     @RequestMapping(path = "/perfil/editar", method = RequestMethod.POST)
     public ModelAndView editarPerfil(@ModelAttribute("usuario") Usuario usuario, HttpServletRequest request) {
-        Usuario usuarioLoggeado = (Usuario) request.getSession().getAttribute("USUARIO");
+        Usuario usuarioLoggeado = ControladorGeneral.getSessionUserLog(request);
         usuario.setId((Long) request.getSession().getAttribute("ID"));
         usuario.setPassword(usuarioLoggeado.getPassword());
         usuario.setPassword2(usuarioLoggeado.getPassword2());
