@@ -57,13 +57,13 @@ public class ControladorSeleccion {
         try {
             this.servicioSelec.crearSeleccion(seleccion);
             return new ModelAndView("redirect:/configuracion/seleccion/");
-        } catch (SeleccionCamposVacíosException e){
+        } catch (SeleccionCamposVacíosException e) {
             return getModelAndView("No se ha completado ningun campo.");
         } catch (SeleccionAlbumNullException e) {
             return getModelAndView("No ha seleccionado un album.");
-        } catch (SeleccionNombreVacioException e){
+        } catch (SeleccionNombreVacioException e) {
             return getModelAndView("El campo nombre está vacío.");
-        } catch (SeleccionNombreTieneNumerosOCaracteresEspecialesException e){
+        } catch (SeleccionNombreTieneNumerosOCaracteresEspecialesException e) {
             return getModelAndView("El nombre no puede contener números ni caracteres especiales");
         }
 
@@ -75,13 +75,13 @@ public class ControladorSeleccion {
         try {
             this.servicioSelec.editarSeleccion((long) seleccionId, nombreNuevo);
             return new ModelAndView("redirect:/configuracion/seleccion/");
-        } catch (SeleccionSelectorNoUsado e){
+        } catch (SeleccionSelectorNoUsado e) {
             return getModelAndView("Elija una seleccion a editar.");
-        } catch (SeleccionNombreVacioException e){
+        } catch (SeleccionNombreVacioException e) {
             return getModelAndView("El campo Nombre no puede estar vacío.");
-        } catch (SeleccionNombreEnUsoException e){
+        } catch (SeleccionNombreEnUsoException e) {
             return getModelAndView("El nombre ya está en uso.");
-        } catch (SeleccionNombreTieneNumerosOCaracteresEspecialesException e){
+        } catch (SeleccionNombreTieneNumerosOCaracteresEspecialesException e) {
             return getModelAndView("El nombre no puede contener números ni caracteres especiales");
         }
     }
@@ -91,7 +91,7 @@ public class ControladorSeleccion {
         try {
             this.servicioSelec.eliminarSeleccion((long) seleccionId);
             return new ModelAndView("redirect:/configuracion/seleccion/");
-        } catch (SeleccionSelectorNoUsado e){
+        } catch (SeleccionSelectorNoUsado e) {
             return getModelAndView("Elija una selección a eliminar");
         }
     }
