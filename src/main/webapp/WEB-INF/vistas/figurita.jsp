@@ -73,7 +73,12 @@
                        method='post'
                        action='agregar-comentario'
                        modelAttribute="comentario">
-                <input class='my-2 form-control' type='text' path='descripcion' id='descripcion' name='descripcion' required>
+                <input class='my-2 form-control' type='text' path='descripcion' id='descripcion' name='descripcion'>
+                <%--  Mensajes Error--%>
+                <c:if test="${not empty comentarioVacio}">
+                    <p class="text-danger"><span>${comentarioVacio}</span></p>
+                    <br>
+                </c:if>
 
                 <%--    input invisible paso el id de la figurita para darselo al comentario--%>
                 <input class='d-none' type="text" id='registroPegada.id' name='registroPegada.id' value="${registro.id}">
