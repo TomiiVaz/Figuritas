@@ -35,9 +35,11 @@ public class ControladorGeneral {
     @RequestMapping(path = "/configuracion", method = RequestMethod.GET)
     public ModelAndView mostrarConfiguracion(HttpServletRequest request) {
         List<Seleccion> selecciones = this.servicioSelec.traerSelecciones();
-        String rol = (String) request.getSession().getAttribute("ROL");
-        Long id = (Long) request.getSession().getAttribute("ID");
-        Usuario userLogueado = (Usuario) request.getSession().getAttribute("USUARIO");
+
+        String rol = getSessionRol(request);
+        Long id = getSessionId(request);
+
+        Usuario userLogueado = getSessionUserLog(request);
         ModelMap model = new ModelMap();
 
         model.put("usuario", userLogueado);
@@ -45,19 +47,26 @@ public class ControladorGeneral {
         model.put("rol", rol);
         model.put("selecciones", selecciones);
         model.put("figurita", new Figurita());
+        if (!rol.equals("ADM")) {
+            return new ModelAndView("redirect:/");
+        }
         return new ModelAndView("configuracion", model);
     }
 
     @RequestMapping(path = "/configuracion/usuario/", method = RequestMethod.GET)
     public ModelAndView verVistaUsuarioConfig(HttpServletRequest request) {
 
-        String rol = (String) request.getSession().getAttribute("ROL");
-        Long id = (Long) request.getSession().getAttribute("ID");
-        Usuario userLogueado = (Usuario) request.getSession().getAttribute("USUARIO");
+        String rol = getSessionRol(request);
+        Long id = getSessionId(request);
+        Usuario userLogueado = getSessionUserLog(request);
+
         ModelMap model = new ModelMap();
         model.put("usuario", userLogueado);
         model.put("id", id);
         model.put("rol", rol);
+        if (!rol.equals("ADM")) {
+            return new ModelAndView("redirect:/");
+        }
 
         return new ModelAndView("configUsuario", model);
     }
@@ -68,8 +77,8 @@ public class ControladorGeneral {
         List<Album> albunes = servicioAlbum.traerAlbunes();
         List<Seleccion> selecciones = servicioSelec.traerSelecciones();
 
-        String rol = (String) request.getSession().getAttribute("ROL");
-        Long id = (Long) request.getSession().getAttribute("ID");
+        String rol = getSessionRol(request);
+        Long id = getSessionId(request);
 
         List<RegistroIntercambio> mePidieron = servicioRegistroIntercambio.getIntercambiosQueMePiden(id);
         List<RegistroIntercambio> pedi = servicioRegistroIntercambio.getIntercambiosQueHago(id);
@@ -91,9 +100,9 @@ public class ControladorGeneral {
     @RequestMapping(path = "/nosotros", method = RequestMethod.GET)
     public ModelAndView nosotros(HttpServletRequest request) {
 
-        String rol = (String) request.getSession().getAttribute("ROL");
-        Long id = (Long) request.getSession().getAttribute("ID");
-        Usuario userLogueado = (Usuario) request.getSession().getAttribute("USUARIO");
+        String rol = getSessionRol(request);
+        Long id = getSessionId(request);
+        Usuario userLogueado = getSessionUserLog(request);
         ModelMap model = new ModelMap();
 
         model.put("usuario", userLogueado);
@@ -101,5 +110,20 @@ public class ControladorGeneral {
         model.put("rol", rol);
 
         return new ModelAndView("nosotros", model);
+    }
+
+    public static String getSessionRol(HttpServletRequest request) {
+        String rol = (String) request.getSession().getAttribute("ROL");
+        return rol;
+    }
+
+    public static Long getSessionId(HttpServletRequest request) {
+        Long id = (Long) request.getSession().getAttribute("ID");
+        return id;
+    }
+
+    public static Usuario getSessionUserLog(HttpServletRequest request) {
+        Usuario userLogueado = (Usuario) request.getSession().getAttribute("USUARIO");
+        return userLogueado;
     }
 }

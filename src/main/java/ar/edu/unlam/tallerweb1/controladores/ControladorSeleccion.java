@@ -34,9 +34,13 @@ public class ControladorSeleccion {
     public ModelAndView verVistaSeleccionConfig(HttpServletRequest request) {
         List<Seleccion> selecciones = this.servicioSelec.traerSelecciones();
         List<Album> albunes = this.servicioAlbum.traerAlbunes();
-        String rol = (String) request.getSession().getAttribute("ROL");
-        Long id = (Long) request.getSession().getAttribute("ID");
-        Usuario userLogueado = (Usuario) request.getSession().getAttribute("USUARIO");
+        String rol = ControladorGeneral.getSessionRol(request);
+        Long id = ControladorGeneral.getSessionId(request);
+        Usuario userLogueado = ControladorGeneral.getSessionUserLog(request);
+
+        if (!rol.equals("ADM")) {
+            return new ModelAndView("redirect:/");
+        }
 
         ModelMap model = new ModelMap();
         model.put("usuario", userLogueado);

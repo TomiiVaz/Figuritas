@@ -44,9 +44,13 @@ public class ControladorFigurita {
         List<Rareza> rarezas = this.servicioFigu.traerRarezas();
         List<Album> albunes = this.servicioAlbum.traerAlbunes();
         List<Figurita> figuritas = this.servicioFigu.traerFiguritas();
-        String rol = (String) request.getSession().getAttribute("ROL");
-        Long id = (Long) request.getSession().getAttribute("ID");
-        Usuario userLogueado = (Usuario) request.getSession().getAttribute("USUARIO");
+        String rol = ControladorGeneral.getSessionRol(request);
+        Long id = ControladorGeneral.getSessionId(request);
+        Usuario userLogueado = ControladorGeneral.getSessionUserLog(request);
+
+        if (!rol.equals("ADM")) {
+            return new ModelAndView("redirect:/");
+        }
 
         ModelMap model = new ModelMap();
         model.put("usuario", userLogueado);
@@ -107,9 +111,9 @@ public class ControladorFigurita {
         List<Rareza> rarezas = this.servicioFigu.traerRarezas();
         List<Album> albunes = this.servicioAlbum.traerAlbunes();
         List<Figurita> figuritas = this.servicioFigu.traerFiguritas();
-        String rol = (String) request.getSession().getAttribute("ROL");
-        Long id = (Long) request.getSession().getAttribute("ID");
-        Usuario userLogueado = (Usuario) request.getSession().getAttribute("USUARIO");
+        String rol = ControladorGeneral.getSessionRol(request);
+        Long id = ControladorGeneral.getSessionId(request);
+        Usuario userLogueado = ControladorGeneral.getSessionUserLog(request);
 
         ModelMap model = new ModelMap();
 
@@ -146,9 +150,9 @@ public class ControladorFigurita {
             List<Rareza> rarezas = this.servicioFigu.traerRarezas();
             List<Album> albunes = this.servicioAlbum.traerAlbunes();
             List<Figurita> figuritas = this.servicioFigu.traerFiguritas();
-            String rol = (String) request.getSession().getAttribute("ROL");
-            Long id = (Long) request.getSession().getAttribute("ID");
-            Usuario userLogueado = (Usuario) request.getSession().getAttribute("USUARIO");
+            String rol = ControladorGeneral.getSessionRol(request);
+            Long id = ControladorGeneral.getSessionId(request);
+            Usuario userLogueado = ControladorGeneral.getSessionUserLog(request);
 
 
             ModelMap model = new ModelMap();
@@ -193,14 +197,14 @@ public class ControladorFigurita {
     public ModelAndView verCarta(@PathVariable("intercambiable.id") Long id, HttpServletRequest request) {
 
 
-        String rol = (String) request.getSession().getAttribute("ROL");
-        Long idLogueado = (Long) request.getSession().getAttribute("ID");
-        Usuario userLogueado = (Usuario) request.getSession().getAttribute("USUARIO");
+        String rol = ControladorGeneral.getSessionRol(request);
+        Long idUserLog = ControladorGeneral.getSessionId(request);
+        Usuario userLogueado = ControladorGeneral.getSessionUserLog(request);
         List<Comentario> comentariosFiltrados = this.servicioComent.traerComentariosPorID(id);
         RegistroPegada rp = servicioRegistroPegada.buscarRegistroId(id);
         ModelMap model = new ModelMap();
         model.put("registro", rp);
-        model.put("id", idLogueado);
+        model.put("id", idUserLog);
         model.put("rol", rol);
         model.put("usuario", userLogueado);
         model.put("comentariosFiltrados", comentariosFiltrados);
@@ -219,9 +223,9 @@ public class ControladorFigurita {
         List<Seleccion> selecciones = servicioSelec.traerSelecciones();
         List<Posicion> posiciones = servicioFigu.traerPosiciones();
 
-        String rol = (String) request.getSession().getAttribute("ROL");
-        Long id = (Long) request.getSession().getAttribute("ID");
-        Usuario userLogueado = (Usuario) request.getSession().getAttribute("USUARIO");
+        String rol = ControladorGeneral.getSessionRol(request);
+        Long id = ControladorGeneral.getSessionId(request);
+        Usuario userLogueado = ControladorGeneral.getSessionUserLog(request);
         List<RegistroPegada> registrosEncontrados = new ArrayList<>();
         String mensajeError = "";
 
@@ -259,9 +263,9 @@ public class ControladorFigurita {
     @RequestMapping(path = "/sorteo", method = RequestMethod.GET)
     public ModelAndView verCarta(HttpServletRequest request) {
 
-        String rol = (String) request.getSession().getAttribute("ROL");
-        Long id = (Long) request.getSession().getAttribute("ID");
-        Usuario userLogueado = (Usuario) request.getSession().getAttribute("USUARIO");
+        String rol = ControladorGeneral.getSessionRol(request);
+        Long id = ControladorGeneral.getSessionId(request);
+        Usuario userLogueado = ControladorGeneral.getSessionUserLog(request);
 
 
         List<Figurita> figuritas = this.servicioFigu.traerFiguritas();
@@ -314,9 +318,9 @@ public class ControladorFigurita {
         List<Rareza> rarezas = this.servicioFigu.traerRarezas();
         List<Album> albunes = this.servicioAlbum.traerAlbunes();
         List<Figurita> figuritas = this.servicioFigu.traerFiguritas();
-        String rol = (String) request.getSession().getAttribute("ROL");
-        Long id = (Long) request.getSession().getAttribute("ID");
-        Usuario userLogueado = (Usuario) request.getSession().getAttribute("USUARIO");
+        String rol = ControladorGeneral.getSessionRol(request);
+        Long id = ControladorGeneral.getSessionId(request);
+        Usuario userLogueado = ControladorGeneral.getSessionUserLog(request);
 
         model.put(errorNombre, errorMensaje);
         model.put("figurita", figurita);

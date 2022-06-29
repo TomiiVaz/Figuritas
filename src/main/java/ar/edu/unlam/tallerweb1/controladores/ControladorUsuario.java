@@ -82,9 +82,9 @@ public class ControladorUsuario {
     public ModelAndView irAHome(HttpServletRequest request) {
 
 
-        String rol = (String) request.getSession().getAttribute("ROL");
-        Long id = (Long) request.getSession().getAttribute("ID");
-        Usuario userLogueado = (Usuario) request.getSession().getAttribute("USUARIO");
+        String rol = ControladorGeneral.getSessionRol(request);
+        Long id = ControladorGeneral.getSessionId(request);
+        Usuario userLogueado = ControladorGeneral.getSessionUserLog(request);
 
         List<RegistroPegada> intercambiables = serviciopegada.getIntercambiables(userLogueado);
 

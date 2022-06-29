@@ -31,9 +31,13 @@ public class ControladorAlbum {
     @RequestMapping(path = "/configuracion/album/", method = RequestMethod.GET)
     public ModelAndView verAlbum(HttpServletRequest request) {
         List<Album> albunes = this.servicioAl.traerAlbunes();
-        String rol = (String) request.getSession().getAttribute("ROL");
-        Long id = (Long) request.getSession().getAttribute("ID");
-        Usuario userLogueado = (Usuario) request.getSession().getAttribute("USUARIO");
+        String rol = ControladorGeneral.getSessionRol(request);
+        Long id = ControladorGeneral.getSessionId(request);
+        Usuario userLogueado = ControladorGeneral.getSessionUserLog(request);
+
+        if (!rol.equals("ADM")) {
+            return new ModelAndView("redirect:/");
+        }
 
         ModelMap model = new ModelMap();
         model.put("usuario", userLogueado);
