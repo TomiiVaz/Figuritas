@@ -12,9 +12,7 @@ import ar.edu.unlam.tallerweb1.servicios.ServicioSeleccion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -159,5 +157,14 @@ public class ControladorUsuario {
         request.getSession().setAttribute("USUARIO", usuario);
 
         return new ModelAndView("redirect:/perfil/");
+    }
+
+    @RequestMapping(path = "/configuracion/usuario/eliminar/{usuario.id}", method = RequestMethod.GET)
+    public ModelAndView inactivarUsuario(@PathVariable("usuario.id") Long id){
+
+        Usuario user = servicioUsuario.getUsuario(id);
+        servicioUsuario.eliminarUsuario(user);
+
+        return new ModelAndView("redirect:/configuracion/usuario/");
     }
 }

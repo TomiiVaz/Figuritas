@@ -75,6 +75,19 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
     }
 
     @Override
+    public List<Usuario> traerUsuarios() {
+        final Session session = sessionFactory.getCurrentSession();
+        return (List<Usuario>) session.createCriteria(Usuario.class)
+                .add(Restrictions.eq("activo",false))
+                .list();
+    }
+
+    @Override
+    public void delete(Usuario usuario) {
+        sessionFactory.getCurrentSession().delete(usuario);
+    }
+
+    @Override
     public Usuario getUsuario(Long id) {
         final Session session = sessionFactory.getCurrentSession();
         return (Usuario) session.createCriteria(Usuario.class)

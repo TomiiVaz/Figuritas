@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioUsuario;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 
+import java.util.List;
+
 // Implelemtacion del Servicio de usuarios, la anotacion @Service indica a Spring que esta clase es un componente que debe
 // ser manejado por el framework, debe indicarse en applicationContext que busque en el paquete ar.edu.unlam.tallerweb1.servicios
 // para encontrar esta clase.
@@ -67,6 +69,16 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
     @Override
     public void modificarDatosUsuario(Usuario usuario) {
         this.repositorioUsuario.modificarUsuario(usuario);
+    }
+
+    @Override
+    public List<Usuario> getUsuarios() {
+        return repositorioUsuario.traerUsuarios();
+    }
+
+    @Override
+    public void eliminarUsuario(Usuario usuario) {
+        repositorioUsuario.delete(usuario);
     }
 
 }
