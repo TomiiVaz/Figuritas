@@ -77,7 +77,6 @@ public class ServicioRegistroPegadaImpl implements ServicioRegistroPegada{
         Boolean seBuscaPosicion = (posicionIngresada != null && posicionIngresada != 0);
 
 
-
         if(seBuscaNombre){
             List<RegistroPegada> regsPorNombreIngresado = repositorioRp.getRegistroPorNombreFigurita(nombreIngresado);
             
