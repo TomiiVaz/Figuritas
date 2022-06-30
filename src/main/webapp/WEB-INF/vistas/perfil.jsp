@@ -63,6 +63,9 @@
                                                 <a href="rechazar/${registro.id}" class="text-decoration-none">
                                                     <button type='button' class='btn btn-danger my-2'>Rechazar</button>
                                                 </a>
+                                                <a href="ver/${registro.id}" class="text-decoration-none">
+                                                    <button type='button' class='btn btn-warning my-2'>Ver</button>
+                                                </a>
                                             </div>
                                         </c:if>
 

@@ -6,6 +6,7 @@ import ar.edu.unlam.tallerweb1.modelo.*;
 import ar.edu.unlam.tallerweb1.servicios.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -180,5 +181,18 @@ public class ControladorTransacciones {
     private ModelAndView rechazar(@PathVariable("registro.id") Long idRegistro){
         servicioRegistroIntercambio.rechazarIntercambio(idRegistro);
         return new ModelAndView("redirect:/perfil/");
+    }
+
+
+    @RequestMapping(path = "/perfil/ver/{registro.id}", method = RequestMethod.GET)
+    private ModelAndView ver(@PathVariable("registro.id") Long idRegistro){
+        //obtener registro intercambio
+        //meter en un modelo
+        ModelMap model = new ModelMap();
+
+        RegistroIntercambio registroIntercambio = servicioRegistroIntercambio.traerRegistroIntercambioId(idRegistro);
+        model.put("registroIntercambio",registroIntercambio);
+
+        return new ModelAndView("verIntercambio", model);
     }
 }
