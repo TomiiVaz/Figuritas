@@ -8,9 +8,12 @@
 <%@include file="header.jsp" %>
 
 <main class="container text-center">
+    <a href="/figus/perfil/" class="text-decoration-none">
+        <button type='button' class='btn btn-secondary mt-3'>Volver</button>
+    </a>
     <p class="h1 text-light">Intercambio</p>
-
     <div class="container row d-flex justify-content-between">
+
         <!-- TENGO/PEDIDO -->
         <div class="col-auto">
             <p class="h3 text-light">Figurita Pedida</p>
