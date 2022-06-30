@@ -17,7 +17,7 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 
-public class ControladorSeleccionTest extends SpringTest {
+public class ControladorSeleccionTest {
 
     private final String redirectCorrectoSeleccion = "redirect:/configuracion/seleccion/";
     private final String redirectInorrectoSeleccion = "configSeleccion";

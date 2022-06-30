@@ -47,7 +47,7 @@ public class ControladorGeneral {
         model.put("rol", rol);
         model.put("selecciones", selecciones);
         model.put("figurita", new Figurita());
-        if (!rol.equals("ADM")) {
+        if (rol==null || !rol.equals("ADM")) {
             return new ModelAndView("redirect:/");
         }
         return new ModelAndView("configuracion", model);

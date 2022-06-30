@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.servicioTest;
 
 import ar.edu.unlam.tallerweb1.SpringTest;
 import ar.edu.unlam.tallerweb1.excepciones.CodigoIncorrectoExcepcion;
+import ar.edu.unlam.tallerweb1.excepciones.NoSeEncontraronFiguritasException;
 import ar.edu.unlam.tallerweb1.modelo.Album;
 import ar.edu.unlam.tallerweb1.modelo.Figurita;
 import ar.edu.unlam.tallerweb1.modelo.RegistroPegada;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
-public class ServicioRegistroPegadaTest extends SpringTest {
+public class ServicioRegistroPegadaTest{
     private final RepositorioRegistroPegada repositorioRegistroPegada = mock(RepositorioRegistroPegada.class);
 
     private final ServicioRegistroPegada servicioRegistroPegada = new ServicioRegistroPegadaImpl(repositorioRegistroPegada);
@@ -101,7 +102,24 @@ public class ServicioRegistroPegadaTest extends SpringTest {
         thenVerificarQueSeAccedioAlRepoParaPedirRegPegadasConSesionIniciada(usuario);
     }
 
+    @Test(expected = NoSeEncontraronFiguritasException.class)
+    public void queSeLanceUnNoSeEncontraronFiguritasExceptionDadoElCaso(){
 
+        //preparacion -> given
+        String nombre = "";
+        Long seleccion = 0l;
+        Long posicion = 0l;
+        Long idUsuario = 0l;
+
+        //ejecucion -> when
+        when(repositorioRegistroPegada.traerFiguritasIntercambiables())
+                .thenReturn(new ArrayList<RegistroPegada>());
+
+        servicioRegistroPegada.getIntercambiablesPorFiltros(nombre,seleccion,posicion,idUsuario);
+
+        //comprobacion -> then
+
+    }
 
     private void thenVerificarQueSeAccedioAlRepoParaPedirRegPegadasConSesionIniciada(Usuario usuario) {
         verify(repositorioRegistroPegada, atLeastOnce()).traerFiguritasIntercambiables(usuario);
