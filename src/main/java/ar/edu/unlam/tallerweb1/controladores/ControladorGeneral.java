@@ -60,11 +60,14 @@ public class ControladorGeneral {
         Long id = getSessionId(request);
         Usuario userLogueado = getSessionUserLog(request);
 
+        List<Usuario> usuarios = servicioUsuario.getUsuarios();
+
         ModelMap model = new ModelMap();
         model.put("usuario", userLogueado);
         model.put("id", id);
         model.put("rol", rol);
-        if (!rol.equals("ADM")) {
+        model.put("usuarios", usuarios);
+        if (rol==null || !rol.equals("ADM")) {
             return new ModelAndView("redirect:/");
         }
 

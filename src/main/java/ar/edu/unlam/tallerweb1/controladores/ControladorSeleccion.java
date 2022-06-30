@@ -38,7 +38,7 @@ public class ControladorSeleccion {
         Long id = ControladorGeneral.getSessionId(request);
         Usuario userLogueado = ControladorGeneral.getSessionUserLog(request);
 
-        if (!rol.equals("ADM")) {
+        if (rol==null || !rol.equals("ADM")) {
             return new ModelAndView("redirect:/");
         }
 

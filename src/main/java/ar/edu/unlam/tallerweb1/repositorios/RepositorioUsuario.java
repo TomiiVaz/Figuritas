@@ -19,4 +19,8 @@ public interface RepositorioUsuario {
 	Usuario getUsuario(String mail);
 
 	void modificarUsuario(Usuario usuario);
+
+	List<Usuario> traerUsuarios();
+
+	void delete(Usuario usuario);
 }

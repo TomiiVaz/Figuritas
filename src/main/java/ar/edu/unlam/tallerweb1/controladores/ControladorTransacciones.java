@@ -185,10 +185,19 @@ public class ControladorTransacciones {
 
 
     @RequestMapping(path = "/perfil/ver/{registro.id}", method = RequestMethod.GET)
-    private ModelAndView ver(@PathVariable("registro.id") Long idRegistro){
+    private ModelAndView ver(@PathVariable("registro.id") Long idRegistro,
+                             HttpServletRequest request){
         //obtener registro intercambio
         //meter en un modelo
         ModelMap model = new ModelMap();
+
+        String rol = ControladorGeneral.getSessionRol(request);
+        Long id = ControladorGeneral.getSessionId(request);
+        Usuario userLogueado = ControladorGeneral.getSessionUserLog(request);
+
+        model.put("usuario", userLogueado);
+        model.put("id", id);
+        model.put("rol", rol);
 
         RegistroIntercambio registroIntercambio = servicioRegistroIntercambio.traerRegistroIntercambioId(idRegistro);
         model.put("registroIntercambio",registroIntercambio);
