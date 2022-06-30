@@ -61,6 +61,9 @@ public class ControladorComentarioTest {
         when(mockRequest.getSession().getAttribute("ROL")).thenReturn("ADM");
         when(mockRequest.getSession().getAttribute("ID")).thenReturn(1L);
         when(mockRequest.getSession().getAttribute("USUARIO")).thenReturn(new Usuario());
+
+
+
     }
 
     private void thenQueLaVistaSeaRedirect() {
@@ -73,9 +76,11 @@ public class ControladorComentarioTest {
 
         // Preparacion -> given
         Comentario comentario = new Comentario();
+        RegistroPegada rpfigurita = new RegistroPegada();
+        rpfigurita.setId(1L);
+        comentario.setRegistroPegada(rpfigurita); // el comentario necesita tener seteado un RegistroPegada
 
         // Ejecucion -> when
-
         doThrow(ComentarioException.class)
                 .when(servicioComentario)
                 .agregarComentario(comentario);
@@ -83,11 +88,14 @@ public class ControladorComentarioTest {
         whenSeCreaUnComentario(comentario);
 
         // Comprobacion -> then
-        assertThat(mav.getViewName()).isEqualTo("figurita");
+        thenQueLaVistaSeaFigurita();
+
 
     }
 
-
+    private void thenQueLaVistaSeaFigurita() {
+        assertThat(mav.getViewName()).isEqualTo("figurita");
+    }
 
 
 }
