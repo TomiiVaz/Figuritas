@@ -67,6 +67,7 @@ public class ControladorUsuario {
             request.getSession().setAttribute("ID", usuarioBuscado.getId());
             // para guardar el objeto usario
             request.getSession().setAttribute("USUARIO", usuarioBuscado);
+
             return new ModelAndView("redirect:/home");
         } else {
             // si el usuario no existe agrega un mensaje de error en el modelo.
@@ -86,11 +87,13 @@ public class ControladorUsuario {
 
         List<RegistroPegada> intercambiables = serviciopegada.getIntercambiables(userLogueado);
 
+        DatosUsuario du = new DatosUsuario(request);
+
         ModelMap model = new ModelMap();
         model.put("intercambiables", intercambiables);
-        model.put("usuario", userLogueado);
-        model.put("id", id);
-        model.put("rol", rol);
+        model.put("usuario", du.getUsuario());
+        model.put("id", du.getId());
+        model.put("rol", du.getRol());
 
 
         return new ModelAndView("home", model);
