@@ -234,12 +234,30 @@
             </div>
 
             <%--Barra de progreso--%>
-            <h2 class="mb-3 mt-5 text-white">Barra de completado</h2>
+            <h2 class="mb-3 mt-5 text-white">Estadisticas</h2>
+
+            <%--Barra de progreso--%>
+            <h2 class="mb-3 mt-5 text-white">Album Mundial-Qatar-2022</h2>
             <div class="container mt-5">
-                <div class="progress">
-                    <div class="progress-bar progress-bar-striped bg-success" role="progressbar" aria-valuenow="${cantidadDeFiguritasPegadas}" style="width: ${cantidadDeFiguritasPegadas}%;" aria-valuemin="0" aria-valuemax="100">${cantidadDeFiguritasPegadas}%</div>
+                <div class="progress" style="height: 40px;">
+                    <div class="progress-bar progress-bar-striped bg-success" role="progressbar" aria-valuenow="${qatar}" style="width: ${qatar}%;" aria-valuemin="0" aria-valuemax="100">${qatar}%</div>
                 </div>
             </div>
+            <%--Barra de progreso--%>
+            <h2 class="mb-3 mt-5 text-white">Album Mundial-Rusia-2018</h2>
+            <div class="container mt-5">
+                <div class="progress" style="height: 40px;">
+                    <div class="progress-bar progress-bar-striped bg-info" role="progressbar" aria-valuenow="${rusia}" style="width: ${rusia}%;" aria-valuemin="0" aria-valuemax="100">${rusia}%</div>
+                </div>
+            </div>
+            <%--Barra de progreso--%>
+            <h2 class="mb-3 mt-5 text-white">Album Mundial-Brasil-2014</h2>
+            <div class="container mt-5">
+                <div class="progress" style="height: 40px;">
+                    <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" aria-valuenow="${brasil}" style="width: ${brasil}%;" aria-valuemin="0" aria-valuemax="100">${brasil}%</div>
+                </div>
+            </div>
+
 
             <h2 class="mb-3 mt-5 text-white">Figuritas pegadas</h2>
             <div class="d-flex flex-wrap justify-content-center">

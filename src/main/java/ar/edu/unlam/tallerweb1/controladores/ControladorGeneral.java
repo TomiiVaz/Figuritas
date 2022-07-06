@@ -89,7 +89,31 @@ public class ControladorGeneral {
         model.put("pidieron", mePidieron);
         model.put("pedi", pedi);
         List<RegistroPegada> pegadas = servicioPegada.getPegadasUsuario(id);
-        Integer cantidadDeFiguritasPegadas = pegadas.size();
+
+        Integer qatar = 0;
+        Integer rusia = 0;
+        Integer brasil = 0;
+
+        //recorro la lista y saco la cantidad de fuguritas pegadas por album que tiene cada usuario
+        for (RegistroPegada item : pegadas) {
+            switch (item.getAlbum().getNombre()) {
+                case "Mundial-Qatar-2022":
+                    assert false;
+                    qatar++;
+                    break;
+                case "Mundial-Rusia-2018":
+                    assert false;
+                    rusia++;
+                    break;
+                case "Mundial-Brasil-2014":
+                    assert false;
+                    brasil++;
+                    break;
+            }
+        }
+        Integer cantidadDeFiguritasPegadas = pegadas.size(); // no lo uso mas
+
+
         Usuario usuarioLogueado = servicioUsuario.getUsuario(id);
         model.put("pegadas", pegadas);
         model.put("id", id);
@@ -97,7 +121,11 @@ public class ControladorGeneral {
         model.put("usuario", usuarioLogueado);
         model.put("selecciones", selecciones);
         model.put("albunes", albunes);
-        model.put("cantidadDeFiguritasPegadas", cantidadDeFiguritasPegadas);
+        model.put("cantidadDeFiguritasPegadas", cantidadDeFiguritasPegadas); // no lo uso mas en la vista
+        model.put("qatar", qatar);
+        model.put("rusia", rusia);
+        model.put("brasil", brasil);
+
 
         return new ModelAndView("perfil", model);
     }
