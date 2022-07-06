@@ -89,6 +89,7 @@ public class ControladorGeneral {
         model.put("pidieron", mePidieron);
         model.put("pedi", pedi);
         List<RegistroPegada> pegadas = servicioPegada.getPegadasUsuario(id);
+        Integer cantidadDeFiguritasPegadas = pegadas.size();
         Usuario usuarioLogueado = servicioUsuario.getUsuario(id);
         model.put("pegadas", pegadas);
         model.put("id", id);
@@ -96,6 +97,7 @@ public class ControladorGeneral {
         model.put("usuario", usuarioLogueado);
         model.put("selecciones", selecciones);
         model.put("albunes", albunes);
+        model.put("cantidadDeFiguritasPegadas", cantidadDeFiguritasPegadas);
 
         return new ModelAndView("perfil", model);
     }

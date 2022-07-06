@@ -228,7 +228,20 @@
                     </button>
                 </form>
 
+
+
+
             </div>
+
+            <%--Barra de progreso--%>
+            <h2 class="mb-3 mt-5 text-white">Barra de completado</h2>
+            <div class="container mt-5">
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped bg-success" role="progressbar" aria-valuenow="${cantidadDeFiguritasPegadas}" style="width: ${cantidadDeFiguritasPegadas}%;" aria-valuemin="0" aria-valuemax="100">${cantidadDeFiguritasPegadas}%</div>
+                </div>
+            </div>
+
+            <h2 class="mb-3 mt-5 text-white">Figuritas pegadas</h2>
             <div class="d-flex flex-wrap justify-content-center">
                 <c:forEach var="pegada" items="${pegadas}">
                     <div class="card m-3" style="width: 18rem;">
