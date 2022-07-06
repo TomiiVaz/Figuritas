@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashSet;
 import java.util.List;
 
 @Controller
@@ -76,7 +77,7 @@ public class ControladorGeneral {
 
     @RequestMapping(path = "/perfil/", method = RequestMethod.GET)
     public ModelAndView perfil(HttpServletRequest request) {
-        ModelMap model = new ModelMap();
+
         List<Album> albunes = servicioAlbum.traerAlbunes();
         List<Seleccion> selecciones = servicioSelec.traerSelecciones();
 
@@ -85,46 +86,42 @@ public class ControladorGeneral {
 
         List<RegistroIntercambio> mePidieron = servicioRegistroIntercambio.getIntercambiosQueMePiden(id);
         List<RegistroIntercambio> pedi = servicioRegistroIntercambio.getIntercambiosQueHago(id);
-
-        model.put("pidieron", mePidieron);
-        model.put("pedi", pedi);
+        
         List<RegistroPegada> pegadas = servicioPegada.getPegadasUsuario(id);
+        Usuario usuarioLogueado = servicioUsuario.getUsuario(id);
 
-        Integer qatar = 0;
-        Integer rusia = 0;
-        Integer brasil = 0;
+        HashSet<String> qatar = new HashSet<String>();
+        HashSet<String> rusia = new HashSet<String>();
+        HashSet<String> brasil = new HashSet<String>();
 
-        //recorro la lista y saco la cantidad de fuguritas pegadas por album que tiene cada usuario
+        //recorro la lista de figuritas pegadas, dependiendo del albun las guardo solamente el nombre en un set para que no me cuente las figuritas repetidas
         for (RegistroPegada item : pegadas) {
             switch (item.getAlbum().getNombre()) {
                 case "Mundial-Qatar-2022":
-                    assert false;
-                    qatar++;
+                  qatar.add(item.getFigurita().getNombre());
                     break;
                 case "Mundial-Rusia-2018":
-                    assert false;
-                    rusia++;
+                    rusia.add(item.getFigurita().getNombre());
                     break;
                 case "Mundial-Brasil-2014":
-                    assert false;
-                    brasil++;
+                    brasil.add(item.getFigurita().getNombre());
                     break;
             }
         }
-        Integer cantidadDeFiguritasPegadas = pegadas.size(); // no lo uso mas
 
 
-        Usuario usuarioLogueado = servicioUsuario.getUsuario(id);
+        ModelMap model = new ModelMap();
         model.put("pegadas", pegadas);
         model.put("id", id);
         model.put("rol", rol);
         model.put("usuario", usuarioLogueado);
         model.put("selecciones", selecciones);
         model.put("albunes", albunes);
-        model.put("cantidadDeFiguritasPegadas", cantidadDeFiguritasPegadas); // no lo uso mas en la vista
-        model.put("qatar", qatar);
-        model.put("rusia", rusia);
-        model.put("brasil", brasil);
+        model.put("pidieron", mePidieron);
+        model.put("pedi", pedi);
+        model.put("qatar", qatar.size());
+        model.put("rusia", rusia.size());
+        model.put("brasil", brasil.size());
 
 
         return new ModelAndView("perfil", model);
