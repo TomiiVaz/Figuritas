@@ -25,7 +25,9 @@ public class ControladorFiguritaTest {
     private final ServicioUsuario servicioUsuario = mock(ServicioUsuario.class);
     private final ServicioRegistroPegada servicioRegistroPegada = mock(ServicioRegistroPegada.class);
     private final ServicioComentario servicioComentario = mock(ServicioComentario.class);
-    private final ControladorFigurita controladorFigurita = new ControladorFigurita(servicioFigurita, servicioSeleccion, servicioAlbum, servicioUsuario, servicioRegistroPegada, servicioComentario);
+
+    private final ServicioSession servicioSession = mock(ServicioSession.class);
+    private final ControladorFigurita controladorFigurita = new ControladorFigurita(servicioFigurita, servicioSeleccion, servicioAlbum, servicioUsuario, servicioRegistroPegada, servicioComentario, servicioSession);
 
 
     private ModelAndView mav = new ModelAndView();

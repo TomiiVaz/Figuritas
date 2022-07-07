@@ -6,7 +6,6 @@ import ar.edu.unlam.tallerweb1.modelo.*;
 import ar.edu.unlam.tallerweb1.servicios.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -28,8 +27,10 @@ public class ControladorTransacciones {
 
     private final ServicioRegistroIntercambio servicioRegistroIntercambio;
 
+    private final ServicioSession servicioSession;
+
     @Autowired
-    public ControladorTransacciones(ServicioFigurita servicioFigu, ServicioSeleccion servicioSelec, ServicioAlbum servicioAlbum, ServicioUsuario servicioLogin, ServicioRegistroPegada servicioRegistroPegada, ServicioComentario servicioComent, ServicioRegistroIntercambio servicioRegistroIntercambio) {
+    public ControladorTransacciones(ServicioFigurita servicioFigu, ServicioSeleccion servicioSelec, ServicioAlbum servicioAlbum, ServicioUsuario servicioLogin, ServicioRegistroPegada servicioRegistroPegada, ServicioComentario servicioComent, ServicioRegistroIntercambio servicioRegistroIntercambio, ServicioSession servicioSession) {
 
         this.servicioFigu = servicioFigu;
         this.servicioSelec = servicioSelec;
@@ -38,6 +39,7 @@ public class ControladorTransacciones {
         this.servicioRegistroPegada = servicioRegistroPegada;
         this.servicioComent = servicioComent;
         this.servicioRegistroIntercambio = servicioRegistroIntercambio;
+        this.servicioSession = servicioSession;
     }
 
     @RequestMapping(path = "/perfil/publicar/{pegada.id}", method = RequestMethod.GET)
@@ -59,14 +61,13 @@ public class ControladorTransacciones {
     @RequestMapping(path = "/perfil/pegar", method = RequestMethod.POST)
     public ModelAndView pegarFigu(@RequestParam Long albumIdd, @RequestParam Long id, HttpServletRequest request) {
         // buscar album, buscar figurita, agarrar usuario
-        Usuario usuarioPegar = (Usuario) request.getSession().getAttribute("USUARIO");
         Figurita figuritaPegar = servicioFigu.buscarFigurita(id);
         Album albumPegar = servicioAlbum.getAlbum(albumIdd);
         RegistroPegada rp = new RegistroPegada();
 
         rp.setFigurita(figuritaPegar);
         rp.setAlbum(albumPegar);
-        rp.setUsuario(usuarioPegar);
+        rp.setUsuario(servicioSession.getUser(request));
         rp.setIntercambiable(false);
         try{
             servicioRegistroPegada.pegarRegistro(rp);
@@ -84,14 +85,12 @@ public class ControladorTransacciones {
         List<Album> albunes = servicioAlbum.traerAlbunes();
         List<Seleccion> selecciones = servicioSelec.traerSelecciones();
 
-        String rol = (String)request.getSession().getAttribute("ROL");
-        Long id = (Long)request.getSession().getAttribute("ID");
-        List<RegistroPegada> pegadas = servicioRegistroPegada.getPegadasUsuario(id);
-        Usuario usuarioLogueado = (Usuario)request.getSession().getAttribute("USUARIO");
+        List<RegistroPegada> pegadas = servicioRegistroPegada.getPegadasUsuario(servicioSession.getId(request));
+
         model.put("pegadas", pegadas);
-        model.put("id",id);
-        model.put("rol",rol);
-        model.put("usuario",usuarioLogueado);
+        model.put("usuario", servicioSession.getUser(request));
+        model.put("id", servicioSession.getId(request));
+        model.put("rol", servicioSession.getRol(request));
         model.put("selecciones", selecciones);
         model.put("albunes", albunes);
         model.put(nombreError, error);
@@ -113,13 +112,10 @@ public class ControladorTransacciones {
         ModelMap model = new ModelMap();
         List<Album> albunes = servicioAlbum.traerAlbunes();
         List<Seleccion> selecciones = servicioSelec.traerSelecciones();
-        String rol = (String)request.getSession().getAttribute("ROL");
-        Long id = (Long)request.getSession().getAttribute("ID");
-        Usuario usuarioLogueado = (Usuario)request.getSession().getAttribute("USUARIO");
 
-        model.put("id",id);
-        model.put("rol",rol);
-        model.put("usuario",usuarioLogueado);
+        model.put("usuario", servicioSession.getUser(request));
+        model.put("id", servicioSession.getId(request));
+        model.put("rol", servicioSession.getRol(request));
         model.put("selecciones", selecciones);
         model.put("albunes", albunes);
         return model;
@@ -129,12 +125,11 @@ public class ControladorTransacciones {
     public ModelAndView solicitarFigu(@PathVariable(value = "intercambiable.id") Long idSolicitado, HttpServletRequest request){
         ModelMap model = new ModelMap();
 
-        Usuario usuarioLogueado = (Usuario)request.getSession().getAttribute("USUARIO");
-        List<RegistroPegada> registrosUsuarioLog = servicioRegistroPegada.getPegadasUsuario(usuarioLogueado.getId());
+        List<RegistroPegada> registrosUsuarioLog = servicioRegistroPegada.getPegadasUsuario(servicioSession.getId(request));
         RegistroPegada rp = servicioRegistroPegada.buscarRegistroId(idSolicitado);
-        model.put("id",usuarioLogueado.getId());
-        model.put("rol",usuarioLogueado.getRol());
-        model.put("usuario",usuarioLogueado);
+        model.put("usuario", servicioSession.getUser(request));
+        model.put("id", servicioSession.getId(request));
+        model.put("rol", servicioSession.getRol(request));
         model.put("rpsolicitado", rp);
         model.put("pegadasofrecidas", registrosUsuarioLog);
         request.getSession().setAttribute("IDDECIDE",idSolicitado);
@@ -191,13 +186,9 @@ public class ControladorTransacciones {
         //meter en un modelo
         ModelMap model = new ModelMap();
 
-        String rol = ControladorGeneral.getSessionRol(request);
-        Long id = ControladorGeneral.getSessionId(request);
-        Usuario userLogueado = ControladorGeneral.getSessionUserLog(request);
-
-        model.put("usuario", userLogueado);
-        model.put("id", id);
-        model.put("rol", rol);
+        model.put("usuario", servicioSession.getUser(request));
+        model.put("id", servicioSession.getId(request));
+        model.put("rol", servicioSession.getRol(request));
 
         RegistroIntercambio registroIntercambio = servicioRegistroIntercambio.traerRegistroIntercambioId(idRegistro);
         model.put("registroIntercambio",registroIntercambio);

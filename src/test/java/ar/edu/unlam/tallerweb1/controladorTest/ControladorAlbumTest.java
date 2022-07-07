@@ -1,12 +1,12 @@
 package ar.edu.unlam.tallerweb1.controladorTest;
 
 
-import ar.edu.unlam.tallerweb1.SpringTest;
 import ar.edu.unlam.tallerweb1.controladores.ControladorAlbum;
 import ar.edu.unlam.tallerweb1.excepciones.AlbumNullDeletedException;
 import ar.edu.unlam.tallerweb1.excepciones.AlbumRepetidoException;
 import ar.edu.unlam.tallerweb1.modelo.Album;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlbum;
+import ar.edu.unlam.tallerweb1.servicios.ServicioSession;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -17,7 +17,9 @@ import static org.mockito.Mockito.mock;
 public class ControladorAlbumTest {
 
     private ServicioAlbum servicioAlbum = mock(ServicioAlbum.class);
-    private ControladorAlbum controladorAlbum = new ControladorAlbum(servicioAlbum);
+
+    private ServicioSession servicioSession = mock(ServicioSession.class);
+    private ControladorAlbum controladorAlbum = new ControladorAlbum(servicioAlbum, servicioSession);
     private ModelAndView modelAndView;
 
     private final String ERROR_NULO = "Para eliminar, seleccione un album";

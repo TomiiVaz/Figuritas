@@ -6,6 +6,7 @@ import ar.edu.unlam.tallerweb1.modelo.Seleccion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlbum;
 import ar.edu.unlam.tallerweb1.servicios.ServicioSeleccion;
+import ar.edu.unlam.tallerweb1.servicios.ServicioSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -24,10 +25,13 @@ public class ControladorSeleccion {
     private final ServicioSeleccion servicioSelec;
     private final ServicioAlbum servicioAlbum;
 
+    private final ServicioSession servicioSession;
+
     @Autowired
-    public ControladorSeleccion(ServicioSeleccion servicioSelec, ServicioAlbum servicioAlbum) {
+    public ControladorSeleccion(ServicioSeleccion servicioSelec, ServicioAlbum servicioAlbum, ServicioSession servicioSession) {
         this.servicioSelec = servicioSelec;
         this.servicioAlbum = servicioAlbum;
+        this.servicioSession = servicioSession;
     }
 
     @RequestMapping(path = "/configuracion/seleccion/", method = RequestMethod.GET)
@@ -38,14 +42,14 @@ public class ControladorSeleccion {
         Long id = ControladorGeneral.getSessionId(request);
         Usuario userLogueado = ControladorGeneral.getSessionUserLog(request);
 
-        if (rol==null || !rol.equals("ADM")) {
+        if (servicioSession.getRol(request)==null || !servicioSession.getRol(request).equals("ADM")) {
             return new ModelAndView("redirect:/");
         }
 
         ModelMap model = new ModelMap();
-        model.put("usuario", userLogueado);
-        model.put("id", id);
-        model.put("rol", rol);
+        model.put("usuario", servicioSession.getUser(request));
+        model.put("id", servicioSession.getId(request));
+        model.put("rol", servicioSession.getRol(request));
         model.put("albunes", albunes);
         model.put("selecciones", selecciones);
 
