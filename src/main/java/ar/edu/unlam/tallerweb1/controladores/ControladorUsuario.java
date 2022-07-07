@@ -31,11 +31,14 @@ public class ControladorUsuario {
 
     private final ServicioRegistroPegada serviciopegada;
 
+    private final ServicioSession servicioSession;
+
     @Autowired
-    public ControladorUsuario(ServicioUsuario servicioUsuario, ServicioSeleccion servicioSeleccion, ServicioRegistroPegada serviciopegada) {
+    public ControladorUsuario(ServicioUsuario servicioUsuario, ServicioSeleccion servicioSeleccion, ServicioRegistroPegada serviciopegada, ServicioSession servicioSession) {
         this.servicioUsuario = servicioUsuario;
         this.servicioSeleccion = servicioSeleccion;
         this.serviciopegada = serviciopegada;
+        this.servicioSession = servicioSession;
     }
 
     // Este metodo escucha la URL localhost:8080/NOMBRE_APP/login si la misma es invocada por metodo http GET
@@ -78,22 +81,46 @@ public class ControladorUsuario {
 
     // Escucha la URL /home por GET, y redirige a una vista.
     @RequestMapping(path = "/home", method = RequestMethod.GET)
-    public ModelAndView irAHome(HttpServletRequest request) {
+    public ModelAndView irAHome(HttpServletRequest request) throws Exception {
+
+        /*try {
+            URL url = new URL("https://api.aerisapi.com/conditions/doha,q?format=json&plimit=1&filter=1min&client_id=ogykAgfXtV3bP7KbuSv6B&client_secret=M1NBiAXEBMIxWlsrPhHNwkddXnmpSUESIkRYDY2f");
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("GET");
+            con.connect();
+            Integer responseCode = con.getResponseCode();
+            if (responseCode != 200) {
+                System.out.println("error");
+            } else {
+                StringBuilder info = new StringBuilder();
+                Scanner scanner = new Scanner(url.openStream());
+                while (scanner.hasNextLine()) {
+                    info.append(scanner.nextLine());
+                }
+                scanner.close();
+
+                JSONArray jarray = new JSONArray(info.toString());
+                JSONObject jobject = jarray.getJSONObject(0);
+                // ver por que no imprime nada en la consola
+                //System.out.println(jobject);
+            }
 
 
-        String rol = ControladorGeneral.getSessionRol(request);
+        } catch (Exception e) {
+
+        }*/
+
+        /*String rol = ControladorGeneral.getSessionRol(request);
         Long id = ControladorGeneral.getSessionId(request);
-        Usuario userLogueado = ControladorGeneral.getSessionUserLog(request);
+        Usuario userLogueado = ControladorGeneral.getSessionUserLog(request);*/
 
-        List<RegistroPegada> intercambiables = serviciopegada.getIntercambiables(userLogueado);
-
-        DatosUsuario du = new DatosUsuario(request);
+        List<RegistroPegada> intercambiables = serviciopegada.getIntercambiables(servicioSession.getUser(request));
 
         ModelMap model = new ModelMap();
         model.put("intercambiables", intercambiables);
-        model.put("usuario", du.getUsuario());
-        model.put("id", du.getId());
-        model.put("rol", du.getRol());
+        model.put("usuario", servicioSession.getUser(request));
+        model.put("id", servicioSession.getId(request));
+        model.put("rol", servicioSession.getRol(request));
 
 
         return new ModelAndView("home", model);
@@ -163,7 +190,7 @@ public class ControladorUsuario {
     }
 
     @RequestMapping(path = "/configuracion/usuario/eliminar/{usuario.id}", method = RequestMethod.GET)
-    public ModelAndView inactivarUsuario(@PathVariable("usuario.id") Long id){
+    public ModelAndView inactivarUsuario(@PathVariable("usuario.id") Long id) {
 
         Usuario user = servicioUsuario.getUsuario(id);
         servicioUsuario.eliminarUsuario(user);
