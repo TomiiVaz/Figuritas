@@ -11,4 +11,6 @@ public interface ServicioComentario {
     void agregarComentario(Comentario comentario);
 
     List<Comentario> traerComentarios();
+
+    List<Comentario> traerComentariosPorID(Long id);
 }

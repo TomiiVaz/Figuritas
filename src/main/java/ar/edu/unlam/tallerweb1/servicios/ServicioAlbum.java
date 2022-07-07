@@ -8,13 +8,11 @@ public interface ServicioAlbum {
 
     void agregarAlbum(Album album);
 
-    Boolean verificarAlbum(String nombre);
-
     List<Album> traerAlbunes();
 
     void editarAlbum(Long albumId, String nombreNuevo);
 
-    void eliminarAlbum(long albumId);
+    void eliminarAlbum(Long albumId);
 
-    Album agarrarAlbum(Long id);
+    Album getAlbum(Long id);
 }

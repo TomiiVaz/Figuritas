@@ -17,11 +17,17 @@ public interface RepositorioFigurita {
 
     List<Figurita> getFiguritas();
 
-    List<Figurita> buscarFiguritaPorFiltros(String nombre, Long seleccion, Long posicion);
 
     void editarFigurita(long figuritaId, String figuritaNueva);
 
     void eliminarFigurita(long figuritaId);
 
-    Figurita encontrarFigurita(Long id);
+    Figurita buscarFiguritaPorID(Long id);
+
+    Figurita buscarFiguritaPorNombre(String nombre);
+
+    List<Figurita> findBySeleccion(Long seleccion);
+    List<Figurita> findByPosicion(Long posicion);
+
+    Posicion getPosicionPorId(Long id);
 }

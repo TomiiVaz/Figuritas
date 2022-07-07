@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import ar.edu.unlam.tallerweb1.excepciones.*;
 import ar.edu.unlam.tallerweb1.modelo.Album;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioAlbum;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,52 +13,55 @@ import java.util.List;
 @Transactional
 public class ServicioAlbumImpl implements ServicioAlbum {
 
-    private RepositorioAlbum repoAlbum;
+    private final RepositorioAlbum repoAlbum;
 
     @Autowired
-    private ServicioAlbumImpl(RepositorioAlbum repoAlbum) {
+    public ServicioAlbumImpl(RepositorioAlbum repoAlbum) {
         this.repoAlbum = repoAlbum;
     }
 
     //   Le habla al repo para que guarde en db el albun
     @Override
     public void agregarAlbum(Album album) {
+        if (this.repoAlbum.getAlbum(album.getNombre()) != null) {
+            throw new AlbumRepetidoException();
+        }
+        if (album.getNombre().length() == 0) {
+            throw new AlbumNombreVacioException();
+        }
         repoAlbum.guardar(album);
     }
 
     @Override
-    public Boolean verificarAlbum(String nombre) {
-        List<Album> albunesList = traerAlbunes();
-        for (Album albun : albunesList) {
-            if (albun.getNombre().equals(nombre)) {
-                return false;
-            }
-        }
-        return true;
-
-    }
-
-
-    //    Le pide al repo que le de los albunes
-    @Override
     public List<Album> traerAlbunes() {
-        List<Album> albunes = repoAlbum.traerAlbunes();
-        return albunes;
+        return repoAlbum.traerAlbunes();
     }
 
     @Override
     public void editarAlbum(Long albumId, String nombreNuevo) {
+        if (albumId == 0) {
+            throw new AlbumIdVacioException();
+        }
+        if (nombreNuevo.length() == 0) {
+            throw new AlbumNombreVacioException();
+        }
+        if (this.repoAlbum.getAlbum(nombreNuevo) != null) {
+            throw new AlbumRepetidoException();
+        }
         this.repoAlbum.editarAlbum(albumId, nombreNuevo);
     }
 
     @Override
-    public void eliminarAlbum(long albumId) {
+    public void eliminarAlbum(Long albumId) {
+        if (albumId == 0) {
+            throw new AlbumNullDeletedException();
+        }
         this.repoAlbum.eliminarAlbum(albumId);
     }
 
     @Override
-    public Album agarrarAlbum(Long id) {
-        return repoAlbum.getAlgum(id);
+    public Album getAlbum(Long id) {
+        return repoAlbum.getAlbum(id);
     }
 
 }

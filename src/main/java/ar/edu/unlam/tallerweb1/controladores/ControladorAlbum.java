@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import ar.edu.unlam.tallerweb1.excepciones.*;
 import ar.edu.unlam.tallerweb1.modelo.Album;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlbum;
@@ -22,58 +23,74 @@ public class ControladorAlbum {
 
     @Autowired
     public ControladorAlbum(ServicioAlbum serviciAl) {
-
         this.servicioAl = serviciAl;
     }
 
+//    Puedo refactorear todo su interior, meterlo en getModelAndView, por las dudas que los datos que le pasamos id, rol etc no se pongan al cargar la vista?
 
-    //    Para poder agregar un album a la base de datos
-    @RequestMapping(path = "/agregar-album", method = RequestMethod.POST)
-    public ModelAndView agregarAlbum(@ModelAttribute("album") Album album) {
-        if (servicioAl.verificarAlbum(album.getNombre())) {
-            servicioAl.agregarAlbum(album);
-            return new ModelAndView("redirect:/configuracion-album");
-        } else {
-            ModelMap model = new ModelMap();
-            List<Album> albunes = this.servicioAl.traerAlbunes();
-            model.put("albunes", albunes);
-            model.put("error", "Album ya existente");
-            return new ModelAndView("configAlbum", model);
-        }
-    }
-
-
-    //    Para que me traiga todos los albunes de la base de datos
-    @RequestMapping(path = "/configuracion-album", method = RequestMethod.GET)
+    @RequestMapping(path = "/configuracion/album/", method = RequestMethod.GET)
     public ModelAndView verAlbum(HttpServletRequest request) {
         List<Album> albunes = this.servicioAl.traerAlbunes();
-        String rol = (String)request.getSession().getAttribute("ROL");
-        Long id = (Long)request.getSession().getAttribute("ID");
-        Usuario userLogueado = (Usuario)request.getSession().getAttribute("USUARIO");
+        String rol = ControladorGeneral.getSessionRol(request);
+        Long id = ControladorGeneral.getSessionId(request);
+        Usuario userLogueado = ControladorGeneral.getSessionUserLog(request);
+
+        if (rol==null || !rol.equals("ADM")) {
+            return new ModelAndView("redirect:/");
+        }
 
         ModelMap model = new ModelMap();
-        model.put("albunes", albunes);
         model.put("usuario", userLogueado);
-        model.put("id",id);
-        model.put("rol",rol);
+        model.put("id", id);
+        model.put("rol", rol);
+        model.put("albunes", albunes);
         return new ModelAndView("configAlbum", model);
     }
 
-    @RequestMapping(path = "/editar-album", method = RequestMethod.POST, params = {"album.id", "nombreNuevo"})
-    public ModelAndView editarAlbunes(@RequestParam int albumId,
-                                      @RequestParam String nombreNuevo) {
-
-        this.servicioAl.editarAlbum((long) albumId, nombreNuevo);
-
-        return new ModelAndView("redirect:/configuracion-album");
+    @RequestMapping(path = "/configuracion/album/agregar", method = RequestMethod.POST)
+    public ModelAndView agregarAlbum(@ModelAttribute("album") Album album) {
+        try {
+            servicioAl.agregarAlbum(album);
+            return new ModelAndView("redirect:/configuracion/album/");
+        } catch (AlbumNombreVacioException e) {
+            return getModelAndView("El campo de nombre está vacio");
+        } catch (AlbumRepetidoException e) {
+            return getModelAndView("El nombre del album está en uso");
+        }
     }
 
-    @RequestMapping(path = "/eliminar-album", method = RequestMethod.POST, params = {"album.id"})
-    public ModelAndView eliminarAlbum(@RequestParam int albumId) {
+    @RequestMapping(path = "/configuracion/album/editar", method = RequestMethod.POST)
+    public ModelAndView editarAlbunes(@RequestParam int albumId,
+                                      @RequestParam String nombreNuevo) {
+        try {
+            this.servicioAl.editarAlbum((long) albumId, nombreNuevo);
+            return new ModelAndView("redirect:/configuracion/album/");
+        } catch (AlbumIdVacioException e) {
+            return getModelAndView("No ha seleccionado ningun album");
+        } catch (AlbumNombreVacioException e) {
+            return getModelAndView("El campo de nombre está vacio");
+        } catch (AlbumRepetidoException e) {
+            return getModelAndView("El nombre del album está en uso");
+        }
+    }
 
-        this.servicioAl.eliminarAlbum( albumId);
+    @RequestMapping(path = "/configuracion/album/eliminar", method = RequestMethod.POST)
+    public ModelAndView eliminarAlbum(@RequestParam long albumId) {
+        System.out.println(albumId);
+        try {
+            this.servicioAl.eliminarAlbum(albumId);
+            return new ModelAndView("redirect:/configuracion/album/");
+        } catch (AlbumNullDeletedException e) {
+            return getModelAndView("Para eliminar, seleccione un album");
+        }
+    }
 
-        return new ModelAndView("redirect:/configuracion-album");
+    private ModelAndView getModelAndView(String value) {
+        ModelMap model = new ModelMap();
+        List<Album> albunes = this.servicioAl.traerAlbunes();
+        model.put("albunes", albunes);
+        model.put("error", value);
+        return new ModelAndView("configAlbum", model);
     }
 
 }

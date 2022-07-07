@@ -2,8 +2,10 @@ package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 
+import java.util.List;
+
 // Interface que define los metodos del Servicio de Usuarios.
-public interface ServicioLogin {
+public interface ServicioUsuario {
 
 	Usuario consultarUsuario(String email, String password);
 
@@ -11,5 +13,13 @@ public interface ServicioLogin {
 
     Boolean verificarMail(String mail);
 
-    Usuario agarrarUsuarioId(Long id);
+    Usuario getUsuario(Long id);
+
+    void modificarDatosUsuario(Usuario usuario);
+
+
+    List<Usuario> getUsuarios();
+
+    void eliminarUsuario(Usuario usuario);
+
 }

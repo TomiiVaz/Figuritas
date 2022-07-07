@@ -12,7 +12,7 @@ import java.util.List;
 @Repository("repositorioAlbum")
 public class RepositorioAlbumImpl implements RepositorioAlbum {
 
-    private SessionFactory sessionFactory;
+    private final SessionFactory sessionFactory;
 
     @Autowired
     public RepositorioAlbumImpl(SessionFactory sessionFactory) {
@@ -46,7 +46,6 @@ public class RepositorioAlbumImpl implements RepositorioAlbum {
 
         //Lo pongo en la db
         session.update(album);
-
     }
 
     @Override
@@ -61,10 +60,18 @@ public class RepositorioAlbumImpl implements RepositorioAlbum {
     }
 
     @Override
-    public Album getAlgum(Long id) {
+    public Album getAlbum(Long id) {
         final Session session = sessionFactory.getCurrentSession();
         return (Album) session.createCriteria(Album.class)
                 .add(Restrictions.eq("id", id))
+                .uniqueResult();
+    }
+
+    @Override
+    public Album getAlbum(String nombre) {
+        final Session session = sessionFactory.getCurrentSession();
+        return (Album) session.createCriteria(Album.class)
+                .add(Restrictions.eq("nombre", nombre))
                 .uniqueResult();
     }
 

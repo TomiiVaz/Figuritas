@@ -15,5 +15,7 @@ public interface RepositorioAlbum {
 
     void eliminarAlbum(long albumId);
 
-    Album getAlgum(Long id);
+    Album getAlbum(Long id);
+
+    Album getAlbum(String nombre);
 }

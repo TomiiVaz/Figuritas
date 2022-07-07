@@ -11,7 +11,7 @@ public class Comentario {
     private String descripcion;
 
     @OneToOne
-    private Figurita figurita;
+    private RegistroPegada registroPegada;
 
     @OneToOne
     private Usuario usuario;
@@ -28,12 +28,12 @@ public class Comentario {
         this.descripcion = descripcion;
     }
 
-    public Figurita getFigurita() {
-        return figurita;
+    public RegistroPegada getRegistroPegada() {
+        return registroPegada;
     }
 
-    public void setFigurita(Figurita figurita) {
-        this.figurita = figurita;
+    public void setRegistroPegada(RegistroPegada registroPegada) {
+        this.registroPegada = registroPegada;
     }
 
     public Usuario getUsuario() {
