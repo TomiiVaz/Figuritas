@@ -1,0 +1,50 @@
+drop schema if exists db;
+create schema  if not exists db;
+use db;
+
+
+/*Posiciones*/
+    INSERT INTO db.posicion (descripcion) VALUES ('arquero');
+    INSERT INTO db.posicion (descripcion) VALUES ('defensor');
+    INSERT INTO db.posicion (descripcion) VALUES ('mediocampista');
+    INSERT INTO db.posicion (descripcion) VALUES ('delantero');
+/*Rarezas*/
+    INSERT INTO db.rareza (descripcion) VALUES ('comun');
+    INSERT INTO db.rareza (descripcion) VALUES ('rara');
+    INSERT INTO db.rareza (descripcion) VALUES ('legendaria');
+/*un usuario sin seleccion*/
+    insert into usuario (activo, email, equipo, nombre, password, password2, rol)
+    values(true, 'admin@admin.com', 'Bokita', 'admin','admin', 'admin','ADM');
+
+    INSERT INTO db.album (nombre, usuario_id) VALUES ('Mundial Qatar 2022', 1);
+
+    INSERT INTO db.seleccion (nombre, album_id) VALUES ('Argentina', 1);
+
+/* actualizo el usuario sin selección */
+    UPDATE db.usuario
+        SET activo = true, email = 'admin@admin.com', equipo = 'Bokita', nombre = 'admin', password = 'admin', password2 = 'admin', rol = 'ADM', seleccion_id = 1 WHERE id = 1;
+
+/*Albumes*/
+INSERT INTO db.album (nombre, usuario_id) VALUES ('Mundial-Qatar-2022', null);
+INSERT INTO db.album (nombre, usuario_id) VALUES ('Mundial-Rusia-2018', null);
+INSERT INTO db.album (nombre, usuario_id) VALUES ('Mundial-Brasil-2014', null);
+
+/*Selecciones*/
+INSERT INTO db.seleccion (nombre, album_id) VALUES ('Argentina', null);
+INSERT INTO db.seleccion (nombre, album_id) VALUES ('Brazil', null);
+INSERT INTO db.seleccion (nombre, album_id) VALUES ('Italia', null);
+INSERT INTO db.seleccion (nombre, album_id) VALUES ('Francia', null);
+
+/*agrego otros usuarios*/
+INSERT INTO db.usuario (activo, email, equipo, nombre, password, password2, rol, seleccion_id) VALUES (true, 'dami@gmail.com', 'Boca', 'Damian', '123', null, 'ADM', 2);
+INSERT INTO db.usuario (activo, email, equipo, nombre, password, password2, rol, seleccion_id) VALUES (false, 'manuel@manuel.com', 'A', 'manuel', '12345678', '12345678', 'CLI', 1);
+INSERT INTO db.usuario (activo, email, equipo, nombre, password, password2, rol, seleccion_id) VALUES (true, 'juan@juan.com', 'a', 'juan', 'juan', 'juan', 'CLI', 1);
+INSERT INTO db.usuario (activo, email, equipo, nombre, password, password2, rol, seleccion_id) VALUES (true, 'tomas@tomas.com', 'a', 'tomas', 'tomas', 'tomas', 'CLI', 1);
+INSERT INTO db.usuario (activo, email, equipo, nombre, password, password2, rol, seleccion_id) VALUES (true, 'profes@profes.com', 'a', 'profes', 'profes', 'profes', 'CLI', 1);
+
+
+/*Figuritas*/
+INSERT INTO db.figurita (dorsal, equipo, nombre, album_id, posicion_id, rareza_id, seleccion_id) VALUES (19, 'Boca', 'Batistuta', 1, 4, 3, 1);
+INSERT INTO db.figurita (dorsal, equipo, nombre, album_id, posicion_id, rareza_id, seleccion_id) VALUES (10, 'Juventus', 'Zidane', 2, 4, 3, 4);
+INSERT INTO db.figurita (dorsal, equipo, nombre, album_id, posicion_id, rareza_id, seleccion_id) VALUES (9, 'Inter', 'Ronaldo', 3, 4, 3, 2);
+INSERT INTO db.figurita (dorsal, equipo, nombre, album_id, posicion_id, rareza_id, seleccion_id) VALUES (5, 'PSG', 'Leandro Paredes', 1, 3, 3, 1);
