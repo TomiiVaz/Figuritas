@@ -6,13 +6,17 @@ import ar.edu.unlam.tallerweb1.excepciones.UsuarioMailExistenteException;
 import ar.edu.unlam.tallerweb1.modelo.RegistroPegada;
 import ar.edu.unlam.tallerweb1.modelo.Seleccion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
-import ar.edu.unlam.tallerweb1.servicios.*;
-import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
+import ar.edu.unlam.tallerweb1.servicios.ServicioRegistroPegada;
 import ar.edu.unlam.tallerweb1.servicios.ServicioSeleccion;
+import ar.edu.unlam.tallerweb1.servicios.ServicioSession;
+import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -154,10 +158,13 @@ public class ControladorUsuario {
         } catch (LongitudIncorrectaException e) {
             return registroFallido(model, "La contraseña debe tener al menos 8 carateres", usuario, "longitudIncorrecta");
         }
-        return registroExitoso();
+        return registroExitoso(usuario);
     }
 
-    private ModelAndView registroExitoso() {
+    private ModelAndView registroExitoso(Usuario usuario) {
+
+        servicioUsuario.mandarMailDeRegistracion(usuario.getEmail(), usuario.getNombre()); // aca mando el mail al usuario que se registró
+
         return new ModelAndView("redirect:/home");
     }
 
