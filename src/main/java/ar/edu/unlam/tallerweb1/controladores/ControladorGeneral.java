@@ -88,22 +88,22 @@ public class ControladorGeneral {
 
         Usuario usuarioLogueado = servicioUsuario.getUsuario(id);
 
-        int qatar = 0;
-        int rusia = 0;
-        int brasil = 0;
+        int userQatar = 0;
+        int userRusia = 0;
+        int userBrasil = 0;
 
 
         //recorro la lista de figuritas pegadas, dependiendo del albun las guardo solamente el nombre en un set para que no me cuente las figuritas repetidas
         for (RegistroPegada item : pegadasSinRepetidas) {
             switch (item.getAlbum().getNombre()) {
                 case "Mundial-Qatar-2022":
-                    qatar++;
+                    userQatar++;
                     break;
                 case "Mundial-Rusia-2018":
-                    rusia++;
+                    userRusia++;
                     break;
                 case "Mundial-Brasil-2014":
-                    brasil++;
+                    userBrasil++;
                     break;
             }
         }
@@ -112,9 +112,9 @@ public class ControladorGeneral {
         int totalFigsRusia = servicioAlbum.getCantidadDeFiguritasDeUnAlbum("Mundial-Rusia-2018");
         int totalFigsBrasil = servicioAlbum.getCantidadDeFiguritasDeUnAlbum("Mundial-Brasil-2014");
 
-        int porcentajeQatar = qatar*100 / totalFigsQatar;
-        int porcentajeRusia = rusia*100 / totalFigsRusia;
-        int porcentajeBrasil = brasil*100 / totalFigsBrasil;
+        int porcentajeQatar = userQatar*100 / totalFigsQatar;
+        int porcentajeRusia = userRusia*100 / totalFigsRusia;
+        int porcentajeBrasil = userBrasil*100 / totalFigsBrasil;
 
 
 
