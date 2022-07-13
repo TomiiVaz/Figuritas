@@ -29,8 +29,10 @@ public class ControladorTransacciones {
 
     private final ServicioSession servicioSession;
 
+    private final ServicioRegistroPegada servicioPegada;
+
     @Autowired
-    public ControladorTransacciones(ServicioFigurita servicioFigu, ServicioSeleccion servicioSelec, ServicioAlbum servicioAlbum, ServicioUsuario servicioLogin, ServicioRegistroPegada servicioRegistroPegada, ServicioComentario servicioComent, ServicioRegistroIntercambio servicioRegistroIntercambio, ServicioSession servicioSession) {
+    public ControladorTransacciones(ServicioFigurita servicioFigu, ServicioSeleccion servicioSelec, ServicioAlbum servicioAlbum, ServicioUsuario servicioLogin, ServicioRegistroPegada servicioRegistroPegada, ServicioComentario servicioComent, ServicioRegistroIntercambio servicioRegistroIntercambio, ServicioSession servicioSession, ServicioRegistroPegada servicioPegada) {
 
         this.servicioFigu = servicioFigu;
         this.servicioSelec = servicioSelec;
@@ -40,6 +42,7 @@ public class ControladorTransacciones {
         this.servicioComent = servicioComent;
         this.servicioRegistroIntercambio = servicioRegistroIntercambio;
         this.servicioSession = servicioSession;
+        this.servicioPegada = servicioPegada;
     }
 
     @RequestMapping(path = "/perfil/publicar/{pegada.id}", method = RequestMethod.GET)
@@ -161,7 +164,8 @@ public class ControladorTransacciones {
     }
 
     private ModelAndView falloIntercambio() {
-        return new ModelAndView("redirect:/configuracion/seleccion/");
+
+        return new ModelAndView("redirect:/home");
     }
 
     @RequestMapping(path = "/perfil/aceptar/{registro.id}", method = RequestMethod.GET)

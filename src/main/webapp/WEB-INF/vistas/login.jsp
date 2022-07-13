@@ -37,6 +37,11 @@
         ${msg}
     </div>
 </div>
+<div class="container-fluid text-center mt-5">
+    <a href="/figus/home" class="text-decoration-none">
+        <button type='button' class='btn btn-warning my-2'>Volver</button>
+    </a>
+</div>
 
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

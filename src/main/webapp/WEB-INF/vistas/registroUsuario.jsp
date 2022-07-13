@@ -57,6 +57,11 @@
         </form:form>
     </div>
 </div>
+<div class="container-fluid text-center mt-5">
+    <a href="/figus/home" class="text-decoration-none">
+        <button type='button' class='btn btn-warning my-2'>Volver</button>
+    </a>
+</div>
 
 <%@include file="footer.jsp" %>
 </body>

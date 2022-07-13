@@ -19,7 +19,7 @@
 
     <div class="container-fluid d-flex justify-content-around mt-5 ">
         <a href="<c:url value="/home" />" class="text-decoration-none h4 me-3"><p class="text-white">FIGUS</p></a>
-        <p class="text-white me-3">Derechos reservados Los Pibardos</p>
+        <p class="text-white me-3">&copy; Los Pibardos 2022</p>
         <div>
 
             <a href="#"><img src="<c:url value="/img/facebookBlanco.png"/>" alt="" width="40" class="me-3"></a>
