@@ -112,11 +112,21 @@ public class ControladorGeneral {
         int totalFigsRusia = servicioAlbum.getCantidadDeFiguritasDeUnAlbum("Mundial-Rusia-2018");
         int totalFigsBrasil = servicioAlbum.getCantidadDeFiguritasDeUnAlbum("Mundial-Brasil-2014");
 
-        int porcentajeQatar = userQatar*100 / totalFigsQatar;
-        int porcentajeRusia = userRusia*100 / totalFigsRusia;
-        int porcentajeBrasil = userBrasil*100 / totalFigsBrasil;
+        int porcentajeQatar = 0;
+        int porcentajeRusia = 0;
+        int porcentajeBrasil = 0;
 
+        if(totalFigsQatar != 0){
+            porcentajeQatar = userQatar*100 / totalFigsQatar;
+        }
 
+        if(totalFigsRusia  != 0){
+            porcentajeRusia = userRusia*100 / totalFigsRusia;
+        }
+
+        if(totalFigsBrasil != 0){
+            porcentajeBrasil = userBrasil*100 / totalFigsBrasil;
+        }
 
         ModelMap model = new ModelMap();
         model.put("pegadas", pegadas);
