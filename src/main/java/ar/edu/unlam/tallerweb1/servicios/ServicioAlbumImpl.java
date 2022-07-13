@@ -64,4 +64,8 @@ public class ServicioAlbumImpl implements ServicioAlbum {
         return repoAlbum.getAlbum(id);
     }
 
+    @Override
+    public int getCantidadDeFiguritasDeUnAlbum(String nombreAlbum){
+        return repoAlbum.getCantidadDeFiguritaDeUnAlbum(nombreAlbum);
+    }
 }

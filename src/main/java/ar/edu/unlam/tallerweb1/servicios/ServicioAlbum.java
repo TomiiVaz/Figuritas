@@ -15,4 +15,5 @@ public interface ServicioAlbum {
     void eliminarAlbum(Long albumId);
 
     Album getAlbum(Long id);
+    int getCantidadDeFiguritasDeUnAlbum(String nombreAlbum);
 }

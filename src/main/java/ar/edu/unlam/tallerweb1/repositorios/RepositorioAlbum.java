@@ -18,4 +18,6 @@ public interface RepositorioAlbum {
     Album getAlbum(Long id);
 
     Album getAlbum(String nombre);
+
+    int getCantidadDeFiguritaDeUnAlbum(String nombreAlbum);
 }

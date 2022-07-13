@@ -14,4 +14,6 @@ public interface ServicioRegistroPegada {
 
     List<RegistroPegada> getIntercambiablesPorFiltros(String nombre, Long seleccion, Long posicion, Long idUsuario);
     List<RegistroPegada> getIntercambiablesPerfil(Long seleccion, Long album, Long idUsuario);
+
+    List<RegistroPegada> getPegadasUsuarioSinRepetidas(Long idUsuario);
 }

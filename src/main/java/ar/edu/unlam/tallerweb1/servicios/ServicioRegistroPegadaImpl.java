@@ -48,6 +48,20 @@ public class ServicioRegistroPegadaImpl implements ServicioRegistroPegada{
     }
 
     @Override
+    public List<RegistroPegada> getPegadasUsuarioSinRepetidas(Long idUsuario) {
+        List<RegistroPegada> registros = repositorioRp.traerFiguritasPegadasPorUsuario(idUsuario);
+        for (int i = 0; i < registros.size(); i++) {
+            for (int j = i+1; j < registros.size(); j++) {
+                if(registros.get(i) != null && registros.get(j) != null &&
+                        registros.get(i).getFigurita().equals( registros.get(j).getFigurita() ) ){
+                    registros.remove(j);
+                }
+            }
+        }
+        return registros;
+    }
+
+    @Override
     public List<RegistroPegada> getIntercambiables(Usuario usuario) {
         if(usuario!= null && usuario.getId()!=null){
             return repositorioRp.traerFiguritasIntercambiables(usuario);

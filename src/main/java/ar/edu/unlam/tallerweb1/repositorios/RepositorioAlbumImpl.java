@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
 import ar.edu.unlam.tallerweb1.modelo.Album;
+import ar.edu.unlam.tallerweb1.modelo.Figurita;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -73,6 +74,17 @@ public class RepositorioAlbumImpl implements RepositorioAlbum {
         return (Album) session.createCriteria(Album.class)
                 .add(Restrictions.eq("nombre", nombre))
                 .uniqueResult();
+    }
+
+    @Override
+    public int getCantidadDeFiguritaDeUnAlbum(String nombreAlbum){
+        final Session session = sessionFactory.getCurrentSession();
+        List<Figurita> figuritas = (List<Figurita>) session.createCriteria(Figurita.class)
+                .createAlias("album","a")
+                .add(Restrictions.eq("a.nombre",nombreAlbum))
+                .list();
+
+        return figuritas.size();
     }
 
 }

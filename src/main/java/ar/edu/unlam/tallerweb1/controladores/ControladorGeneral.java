@@ -70,46 +70,68 @@ public class ControladorGeneral {
         return new ModelAndView("configUsuario", model);
     }
 
+
     @RequestMapping(path = "/perfil/", method = RequestMethod.GET)
     public ModelAndView perfil(HttpServletRequest request) {
 
         List<Album> albunes = servicioAlbum.traerAlbunes();
         List<Seleccion> selecciones = servicioSelec.traerSelecciones();
-        List<RegistroIntercambio> mePidieron = servicioRegistroIntercambio.getIntercambiosQueMePiden(servicioSession.getId(request));
-        List<RegistroIntercambio> pedi = servicioRegistroIntercambio.getIntercambiosQueHago(servicioSession.getId(request));
-        List<RegistroPegada> pegadas = servicioPegada.getPegadasUsuario(servicioSession.getId(request));
 
-        HashSet<String> qatar = new HashSet<String>();
-        HashSet<String> rusia = new HashSet<String>();
-        HashSet<String> brasil = new HashSet<String>();
+        String rol = getSessionRol(request);
+        Long id = getSessionId(request);
+
+        List<RegistroIntercambio> mePidieron = servicioRegistroIntercambio.getIntercambiosQueMePiden(id);
+        List<RegistroIntercambio> pedi = servicioRegistroIntercambio.getIntercambiosQueHago(id);
+
+        List<RegistroPegada> pegadas = servicioPegada.getPegadasUsuario(id);
+        List<RegistroPegada> pegadasSinRepetidas = servicioPegada.getPegadasUsuarioSinRepetidas(id);
+
+        Usuario usuarioLogueado = servicioUsuario.getUsuario(id);
+
+        int qatar = 0;
+        int rusia = 0;
+        int brasil = 0;
+
 
         //recorro la lista de figuritas pegadas, dependiendo del albun las guardo solamente el nombre en un set para que no me cuente las figuritas repetidas
-        for (RegistroPegada item : pegadas) {
+        for (RegistroPegada item : pegadasSinRepetidas) {
             switch (item.getAlbum().getNombre()) {
                 case "Mundial-Qatar-2022":
-                  qatar.add(item.getFigurita().getNombre());
+                    qatar++;
                     break;
                 case "Mundial-Rusia-2018":
-                    rusia.add(item.getFigurita().getNombre());
+                    rusia++;
                     break;
                 case "Mundial-Brasil-2014":
-                    brasil.add(item.getFigurita().getNombre());
+                    brasil++;
                     break;
             }
         }
 
+        int totalFigsQatar = servicioAlbum.getCantidadDeFiguritasDeUnAlbum("Mundial-Qatar-2022");
+        int totalFigsRusia = servicioAlbum.getCantidadDeFiguritasDeUnAlbum("Mundial-Rusia-2018");
+        int totalFigsBrasil = servicioAlbum.getCantidadDeFiguritasDeUnAlbum("Mundial-Brasil-2014");
+
+        int porcentajeQatar = qatar*100 / totalFigsQatar;
+        int porcentajeRusia = rusia*100 / totalFigsRusia;
+        int porcentajeBrasil = brasil*100 / totalFigsBrasil;
+
+
+
         ModelMap model = new ModelMap();
         model.put("pegadas", pegadas);
-        model.put("usuario", servicioSession.getUser(request));
-        model.put("id", servicioSession.getId(request));
-        model.put("rol", servicioSession.getRol(request));
+        model.put("id", id);
+        model.put("rol", rol);
+        model.put("usuario", usuarioLogueado);
         model.put("selecciones", selecciones);
         model.put("albunes", albunes);
         model.put("pidieron", mePidieron);
         model.put("pedi", pedi);
-        model.put("qatar", qatar.size());
-        model.put("rusia", rusia.size());
-        model.put("brasil", brasil.size());
+        model.put("qatar", porcentajeQatar);
+        model.put("rusia", porcentajeRusia);
+        model.put("brasil", porcentajeBrasil);
+
+
 
         return new ModelAndView("perfil", model);
     }
