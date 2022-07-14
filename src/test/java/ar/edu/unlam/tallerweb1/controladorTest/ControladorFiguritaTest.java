@@ -186,7 +186,7 @@ public class ControladorFiguritaTest {
 
         doThrow(new NoSeEncontraronFiguritasException())
                 .when(servicioRegistroPegada)
-                .getIntercambiablesPorFiltros(nombreIngresado,posicionIngresada,seleccionIngresada,idUsuario);
+                .getIntercambiablesPorFiltros(nombreIngresado,seleccionIngresada,posicionIngresada,0l);
 
 
         mav = this.controladorFigurita.buscarFiguritas(nombreIngresado,seleccionIngresada,posicionIngresada,mockRequest);

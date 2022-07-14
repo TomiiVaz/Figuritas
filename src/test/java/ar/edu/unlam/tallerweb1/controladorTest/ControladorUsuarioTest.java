@@ -32,9 +32,21 @@ public class ControladorUsuarioTest {
     @Test
     public void queSePuedaEditarUnPerfil() {
         // Preparacion -> given
-
-        // Ejecucion -> when
         Usuario user = new Usuario();
+        user.setPassword("a");
+        user.setPassword2("a");
+        user.setRol("ADM");
+        user.setActivo(true);
+
+        Usuario user2 = new Usuario();
+        user2.setPassword("a");
+        user2.setPassword2("a");
+        user2.setRol("ADM");
+        user2.setActivo(true);
+        // Ejecucion -> when
+
+
+        when( servicioSession.getUser(mockRequest) ).thenReturn(user2);
         when(mockRequest.getSession()).thenReturn(mockSession);
         when(ControladorGeneral.getSessionUserLog(mockRequest)).thenReturn(new Usuario());
         modelAndView = controladorUsuario.editarPerfil(user, mockRequest);
