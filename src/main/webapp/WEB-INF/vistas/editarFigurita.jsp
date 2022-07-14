@@ -25,7 +25,9 @@
                        method='post'
                        action='editar/enviar'
                        modelAttribute="figurita">
-
+                <div class="w-100 d-flex justify-content-center">
+                    <img src="<c:url value="/img/${figuritaEncontrada.nombre}.jpg" />" class="w-25" alt="Foto de jugador">
+                </div>
                 <label for='nombre' class='text-white'>Nombre</label>
                 <input class='my-2 form-control' type='text' path='nombre' id='nombre' name='nombre' value="${figuritaEncontrada.nombre}">
 
