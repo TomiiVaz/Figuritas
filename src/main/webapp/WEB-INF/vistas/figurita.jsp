@@ -40,6 +40,7 @@
                 <h4><span class="text-secondary">Seleccion:</span> ${registro.figurita.seleccion.nombre}</h4>
                 <h4><span class="text-secondary">Posicion:</span> ${registro.figurita.posicion.descripcion}</h4>
                 <h4><span class="text-secondary">Dorsal:</span> ${registro.figurita.dorsal}</h4>
+                <h4><span class="text-secondary">Album:</span> ${registro.figurita.album.nombre}</h4>
             </div>
             <%--        /Datos--%>
         </div>

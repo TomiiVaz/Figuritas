@@ -79,6 +79,7 @@
                         <li class="list-group-item">${pegada.figurita.equipo}</li>
                         <li class="list-group-item">${pegada.figurita.posicion.descripcion}</li>
                         <li class="list-group-item">${pegada.figurita.dorsal}</li>
+                        <li class="list-group-item">${pegada.figurita.album.nombre}</li>
                     </ul>
                     <div class="card-body">
                         <a href="carta/${pegada.id}" class="card-link text-decoration-none btn btn-secondary">Ir a la carta</a>

@@ -25,6 +25,7 @@
                         <li class="list-group-item">${rpsolicitado.figurita.equipo}</li>
                         <li class="list-group-item">${rpsolicitado.figurita.posicion.descripcion}</li>
                         <li class="list-group-item">${rpsolicitado.figurita.dorsal}</li>
+                        <li class="list-group-item">${rpsolicitado.figurita.album.nombre}</li>
                     </ul>
 <%--                    <div class="card-body">--%>
 <%--                        <a href="#" class="card-link text-decoration-none">Ir a la carta</a>--%>

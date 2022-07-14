@@ -270,6 +270,7 @@
                             <li class="list-group-item">${pegada.figurita.equipo}</li>
                             <li class="list-group-item">${pegada.figurita.posicion.descripcion}</li>
                             <li class="list-group-item">${pegada.figurita.dorsal}</li>
+                            <li class="list-group-item">${pegada.figurita.album.nombre}</li>
                         </ul>
                         <div class="card-body">
                             <a href="/figus/carta/${pegada.id}" class="card-link text-decoration-none me-3">Ir a la carta</a>
