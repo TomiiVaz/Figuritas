@@ -20,11 +20,14 @@ public class ControladorComentario {
     private final ServicioFigurita servicioFigu;
     private final ServicioRegistroPegada servicioRP;
 
+    private final ServicioSession servicioSession;
+
     @Autowired
-    public ControladorComentario(ServicioComentario servicioComent, ServicioFigurita servicioFigu, ServicioRegistroPegada servicioRP) {
+    public ControladorComentario(ServicioComentario servicioComent, ServicioFigurita servicioFigu, ServicioRegistroPegada servicioRP, ServicioSession servicioSession) {
         this.servicioComent = servicioComent;
         this.servicioFigu = servicioFigu;
         this.servicioRP = servicioRP;
+        this.servicioSession = servicioSession;
     }
 
     @RequestMapping(path = "/carta/agregar-comentario", method = RequestMethod.POST)
@@ -44,16 +47,13 @@ public class ControladorComentario {
 
     private ModelAndView ComentarioFallido(RegistroPegada rpfigurita, HttpServletRequest request, String errorNombre, String errorMensaje) {
 
-        String rol = ControladorGeneral.getSessionRol(request);
-        Long idUserLog = ControladorGeneral.getSessionId(request);
-        Usuario userLogueado = ControladorGeneral.getSessionUserLog(request);
         List<Comentario> comentariosFiltrados = this.servicioComent.traerComentariosPorID(rpfigurita.getId());
         RegistroPegada rp = servicioRP.buscarRegistroId(rpfigurita.getId());
         ModelMap model = new ModelMap();
         model.put("registro", rp);
-        model.put("id", idUserLog);
-        model.put("rol", rol);
-        model.put("usuario", userLogueado);
+        model.put("usuario", servicioSession.getUser(request));
+        model.put("id", servicioSession.getId(request));
+        model.put("rol", servicioSession.getRol(request));
         model.put("comentariosFiltrados", comentariosFiltrados);
 
         model.put(errorNombre, errorMensaje);

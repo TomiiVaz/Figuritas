@@ -26,8 +26,10 @@ public class ControladorFigurita {
 
     private final ServicioComentario servicioComent;
 
+    private final ServicioSession servicioSession;
+
     @Autowired
-    public ControladorFigurita(ServicioFigurita servicioFigu, ServicioSeleccion servicioSelec, ServicioAlbum servicioAlbum, ServicioUsuario servicioLogin, ServicioRegistroPegada servicioRegistroPegada, ServicioComentario servicioComent) {
+    public ControladorFigurita(ServicioFigurita servicioFigu, ServicioSeleccion servicioSelec, ServicioAlbum servicioAlbum, ServicioUsuario servicioLogin, ServicioRegistroPegada servicioRegistroPegada, ServicioComentario servicioComent, ServicioSession servicioSession) {
 
         this.servicioFigu = servicioFigu;
         this.servicioSelec = servicioSelec;
@@ -35,6 +37,7 @@ public class ControladorFigurita {
         this.servicioLogin = servicioLogin;
         this.servicioRegistroPegada = servicioRegistroPegada;
         this.servicioComent = servicioComent;
+        this.servicioSession = servicioSession;
     }
 
     @RequestMapping(path = "/configuracion/figurita/", method = RequestMethod.GET)
@@ -44,18 +47,15 @@ public class ControladorFigurita {
         List<Rareza> rarezas = this.servicioFigu.traerRarezas();
         List<Album> albunes = this.servicioAlbum.traerAlbunes();
         List<Figurita> figuritas = this.servicioFigu.traerFiguritas();
-        String rol = ControladorGeneral.getSessionRol(request);
-        Long id = ControladorGeneral.getSessionId(request);
-        Usuario userLogueado = ControladorGeneral.getSessionUserLog(request);
 
-        if (rol==null || !rol.equals("ADM")) {
+        if (servicioSession.getRol(request)==null || !servicioSession.getRol(request).equals("ADM")) {
             return new ModelAndView("redirect:/");
         }
 
         ModelMap model = new ModelMap();
-        model.put("usuario", userLogueado);
-        model.put("id", id);
-        model.put("rol", rol);
+        model.put("usuario", servicioSession.getUser(request));
+        model.put("id", servicioSession.getId(request));
+        model.put("rol", servicioSession.getRol(request));
         model.put("selecciones", selecciones);
         model.put("rarezas", rarezas);
         model.put("posiciones", posiciones);
@@ -111,15 +111,12 @@ public class ControladorFigurita {
         List<Rareza> rarezas = this.servicioFigu.traerRarezas();
         List<Album> albunes = this.servicioAlbum.traerAlbunes();
         List<Figurita> figuritas = this.servicioFigu.traerFiguritas();
-        String rol = ControladorGeneral.getSessionRol(request);
-        Long id = ControladorGeneral.getSessionId(request);
-        Usuario userLogueado = ControladorGeneral.getSessionUserLog(request);
 
         ModelMap model = new ModelMap();
 
-        model.put("usuario", userLogueado);
-        model.put("id", id);
-        model.put("rol", rol);
+        model.put("usuario", servicioSession.getUser(request));
+        model.put("id", servicioSession.getId(request));
+        model.put("rol", servicioSession.getRol(request));
         model.put("figuritaEncontrada", figuritaEncontrada);
         model.put("selecciones", selecciones);
         model.put("rarezas", rarezas);
@@ -150,10 +147,6 @@ public class ControladorFigurita {
             List<Rareza> rarezas = this.servicioFigu.traerRarezas();
             List<Album> albunes = this.servicioAlbum.traerAlbunes();
             List<Figurita> figuritas = this.servicioFigu.traerFiguritas();
-            String rol = ControladorGeneral.getSessionRol(request);
-            Long id = ControladorGeneral.getSessionId(request);
-            Usuario userLogueado = ControladorGeneral.getSessionUserLog(request);
-
 
             ModelMap model = new ModelMap();
             model.put("figurita", figurita);
@@ -162,9 +155,9 @@ public class ControladorFigurita {
             model.put("posiciones", posiciones);
             model.put("albunes", albunes);
             model.put("figuritas", figuritas);
-            model.put("usuario", userLogueado);
-            model.put("id", id);
-            model.put("rol", rol);
+            model.put("usuario", servicioSession.getUser(request));
+            model.put("id", servicioSession.getId(request));
+            model.put("rol", servicioSession.getRol(request));
             model.put("ErrorFiguritaAElminarSinSeleccionar", "Debe seleccionar una figurita a eliminar, dato obligatorio");
             model.put("ErrorNoSeleecionoUnaFiguritaAEliminar", "Ups! Se produjo un error. Chequear los datos ingresados");
             return new ModelAndView("configFigurita", model);
@@ -196,17 +189,13 @@ public class ControladorFigurita {
     @RequestMapping(path = "/carta/{intercambiable.id}", method = RequestMethod.GET)
     public ModelAndView verCarta(@PathVariable("intercambiable.id") Long id, HttpServletRequest request) {
 
-
-        String rol = ControladorGeneral.getSessionRol(request);
-        Long idUserLog = ControladorGeneral.getSessionId(request);
-        Usuario userLogueado = ControladorGeneral.getSessionUserLog(request);
         List<Comentario> comentariosFiltrados = this.servicioComent.traerComentariosPorID(id);
         RegistroPegada rp = servicioRegistroPegada.buscarRegistroId(id);
         ModelMap model = new ModelMap();
         model.put("registro", rp);
-        model.put("id", idUserLog);
-        model.put("rol", rol);
-        model.put("usuario", userLogueado);
+        model.put("usuario", servicioSession.getUser(request));
+        model.put("id", servicioSession.getId(request));
+        model.put("rol", servicioSession.getRol(request));
         model.put("comentariosFiltrados", comentariosFiltrados);
 
         return new ModelAndView("figurita", model);
@@ -223,9 +212,6 @@ public class ControladorFigurita {
         List<Seleccion> seleccionesParaElFormulario = servicioSelec.traerSelecciones();
         List<Posicion> posicionesParaElFormulario = servicioFigu.traerPosiciones();
 
-        String rolUsuario = ControladorGeneral.getSessionRol(request);
-        Long idUsuario = ControladorGeneral.getSessionId(request);
-        Usuario userLogueado = ControladorGeneral.getSessionUserLog(request);
 
         List<RegistroPegada> registrosEncontradosEnLaBusqueda = new ArrayList<>();
         String mensajeDeError = "";
@@ -234,9 +220,9 @@ public class ControladorFigurita {
         Posicion posicionBuscada = servicioFigu.getPosicionPorId(posicionIngresada);
 
 
-        model.put("usuario", userLogueado);
-        model.put("id", idUsuario);
-        model.put("rol", rolUsuario);
+        model.put("usuario", servicioSession.getUser(request));
+        model.put("id", servicioSession.getId(request));
+        model.put("rol", servicioSession.getRol(request));
         model.put("seleccionesParaFormulario", seleccionesParaElFormulario);
         model.put("posicionesParaFormulario", posicionesParaElFormulario);
 
@@ -246,12 +232,12 @@ public class ControladorFigurita {
 
 
         try{
-            if(userLogueado == null)
+            if(servicioSession.getUser(request) == null)
                 registrosEncontradosEnLaBusqueda = servicioRegistroPegada.getIntercambiablesPorFiltros(nombreIngresado,seleccionIngresada,posicionIngresada,0l);
                 //El 0 indica que no hay usuario logueado
 
             else
-                registrosEncontradosEnLaBusqueda = servicioRegistroPegada.getIntercambiablesPorFiltros(nombreIngresado, seleccionIngresada, posicionIngresada, idUsuario);
+                registrosEncontradosEnLaBusqueda = servicioRegistroPegada.getIntercambiablesPorFiltros(nombreIngresado, seleccionIngresada, posicionIngresada, servicioSession.getId(request));
 
             model.put("regsEncontradosEnLaBusqueda", registrosEncontradosEnLaBusqueda);
 
@@ -268,11 +254,6 @@ public class ControladorFigurita {
     @RequestMapping(path = "/sorteo", method = RequestMethod.GET)
     public ModelAndView verCarta(HttpServletRequest request) {
 
-        String rol = ControladorGeneral.getSessionRol(request);
-        Long id = ControladorGeneral.getSessionId(request);
-        Usuario userLogueado = ControladorGeneral.getSessionUserLog(request);
-
-
         List<Figurita> figuritas = this.servicioFigu.traerFiguritas();
         int indiceAleatorio = numeroAleatorioEnRango(0, figuritas.size() - 1);
         int indiceAleatorio2 = numeroAleatorioEnRango(0, figuritas.size() - 1);
@@ -283,9 +264,9 @@ public class ControladorFigurita {
         Figurita figurita3 = figuritas.get(indiceAleatorio3);
 
         ModelMap model = new ModelMap();
-        model.put("id", id);
-        model.put("rol", rol);
-        model.put("usuario", userLogueado);
+        model.put("usuario", servicioSession.getUser(request));
+        model.put("id", servicioSession.getId(request));
+        model.put("rol", servicioSession.getRol(request));
         model.put("figurita1", figurita1);
         model.put("figurita2", figurita2);
         model.put("figurita3", figurita3);
@@ -323,9 +304,6 @@ public class ControladorFigurita {
         List<Rareza> rarezas = this.servicioFigu.traerRarezas();
         List<Album> albunes = this.servicioAlbum.traerAlbunes();
         List<Figurita> figuritas = this.servicioFigu.traerFiguritas();
-        String rol = ControladorGeneral.getSessionRol(request);
-        Long id = ControladorGeneral.getSessionId(request);
-        Usuario userLogueado = ControladorGeneral.getSessionUserLog(request);
 
         model.put(errorNombre, errorMensaje);
         model.put("figurita", figurita);
@@ -334,9 +312,9 @@ public class ControladorFigurita {
         model.put("posiciones", posiciones);
         model.put("albunes", albunes);
         model.put("figuritas", figuritas);
-        model.put("usuario", userLogueado);
-        model.put("id", id);
-        model.put("rol", rol);
+        model.put("usuario", servicioSession.getUser(request));
+        model.put("id", servicioSession.getId(request));
+        model.put("rol", servicioSession.getRol(request));
         model.put("ErrorFigurita", "Ups! Se produjo un error. Chequear los datos ingresados");
 
         return new ModelAndView("configFigurita", model);

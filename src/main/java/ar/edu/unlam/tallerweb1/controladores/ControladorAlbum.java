@@ -4,6 +4,7 @@ import ar.edu.unlam.tallerweb1.excepciones.*;
 import ar.edu.unlam.tallerweb1.modelo.Album;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlbum;
+import ar.edu.unlam.tallerweb1.servicios.ServicioSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -21,9 +22,12 @@ public class ControladorAlbum {
 
     private final ServicioAlbum servicioAl;
 
+    private final ServicioSession servicioSession;
+
     @Autowired
-    public ControladorAlbum(ServicioAlbum serviciAl) {
+    public ControladorAlbum(ServicioAlbum serviciAl, ServicioSession servicioSession) {
         this.servicioAl = serviciAl;
+        this.servicioSession = servicioSession;
     }
 
 //    Puedo refactorear todo su interior, meterlo en getModelAndView, por las dudas que los datos que le pasamos id, rol etc no se pongan al cargar la vista?
@@ -31,18 +35,15 @@ public class ControladorAlbum {
     @RequestMapping(path = "/configuracion/album/", method = RequestMethod.GET)
     public ModelAndView verAlbum(HttpServletRequest request) {
         List<Album> albunes = this.servicioAl.traerAlbunes();
-        String rol = ControladorGeneral.getSessionRol(request);
-        Long id = ControladorGeneral.getSessionId(request);
-        Usuario userLogueado = ControladorGeneral.getSessionUserLog(request);
 
-        if (rol==null || !rol.equals("ADM")) {
+        if (servicioSession.getRol(request)==null || !servicioSession.getRol(request).equals("ADM")) {
             return new ModelAndView("redirect:/");
         }
 
         ModelMap model = new ModelMap();
-        model.put("usuario", userLogueado);
-        model.put("id", id);
-        model.put("rol", rol);
+        model.put("usuario", servicioSession.getUser(request));
+        model.put("id", servicioSession.getId(request));
+        model.put("rol", servicioSession.getRol(request));
         model.put("albunes", albunes);
         return new ModelAndView("configAlbum", model);
     }

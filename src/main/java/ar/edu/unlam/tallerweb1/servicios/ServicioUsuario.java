@@ -22,4 +22,6 @@ public interface ServicioUsuario {
 
     void eliminarUsuario(Usuario usuario);
 
+    void mandarMailDeRegistracion(String mail, String nombre);
+
 }

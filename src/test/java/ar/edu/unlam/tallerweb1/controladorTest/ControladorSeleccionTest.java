@@ -1,6 +1,5 @@
 package ar.edu.unlam.tallerweb1.controladorTest;
 
-import ar.edu.unlam.tallerweb1.SpringTest;
 import ar.edu.unlam.tallerweb1.controladores.ControladorSeleccion;
 import ar.edu.unlam.tallerweb1.excepciones.SeleccionAlbumNullException;
 import ar.edu.unlam.tallerweb1.excepciones.SeleccionCamposVacíosException;
@@ -9,6 +8,7 @@ import ar.edu.unlam.tallerweb1.excepciones.SeleccionNombreVacioException;
 import ar.edu.unlam.tallerweb1.modelo.Seleccion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlbum;
 import ar.edu.unlam.tallerweb1.servicios.ServicioSeleccion;
+import ar.edu.unlam.tallerweb1.servicios.ServicioSession;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -27,7 +27,9 @@ public class ControladorSeleccionTest {
 
     private ServicioSeleccion servicioSeleccion = mock(ServicioSeleccion.class);
     private ServicioAlbum servicioAlbum = mock(ServicioAlbum.class);
-    private ControladorSeleccion controladorSeleccion = new ControladorSeleccion(servicioSeleccion, servicioAlbum);
+
+    private ServicioSession servicioSession = mock(ServicioSession.class);
+    private ControladorSeleccion controladorSeleccion = new ControladorSeleccion(servicioSeleccion, servicioAlbum, servicioSession);
     
     @Test
     public void queSePuedaAgregarUnaSeleccionTest(){

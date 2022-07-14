@@ -2,22 +2,18 @@ package ar.edu.unlam.tallerweb1.controladorTest;
 
 import ar.edu.unlam.tallerweb1.controladores.ControladorComentario;
 import ar.edu.unlam.tallerweb1.excepciones.ComentarioException;
-import ar.edu.unlam.tallerweb1.excepciones.FiguritaConConEquipoVacioExcepition;
 import ar.edu.unlam.tallerweb1.modelo.*;
 import ar.edu.unlam.tallerweb1.servicios.ServicioComentario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioFigurita;
 import ar.edu.unlam.tallerweb1.servicios.ServicioRegistroPegada;
+import ar.edu.unlam.tallerweb1.servicios.ServicioSession;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;
 
 public class ControladorComentarioTest {
@@ -26,7 +22,9 @@ public class ControladorComentarioTest {
     private final ServicioFigurita servicioFigurita = mock(ServicioFigurita.class);
     private final ServicioRegistroPegada servicioRegistroPegada = mock(ServicioRegistroPegada.class);
 
-    private final ControladorComentario controladorComentario = new ControladorComentario(servicioComentario, servicioFigurita, servicioRegistroPegada);
+    private final ServicioSession servicioSession = mock(ServicioSession.class);
+
+    private final ControladorComentario controladorComentario = new ControladorComentario(servicioComentario, servicioFigurita, servicioRegistroPegada, servicioSession);
 
 
     private ModelAndView mav = new ModelAndView();

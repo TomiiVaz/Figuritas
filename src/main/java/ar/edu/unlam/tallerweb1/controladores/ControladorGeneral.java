@@ -24,31 +24,30 @@ public class ControladorGeneral {
 
     private final ServicioRegistroIntercambio servicioRegistroIntercambio;
 
+    private final ServicioSession servicioSession;
+
     @Autowired
-    public ControladorGeneral(ServicioSeleccion servicioSelec, ServicioAlbum servicioAlbum, ServicioRegistroPegada servicioPegada, ServicioUsuario servicioUsuario, ServicioRegistroIntercambio servicioRegistroIntercambio) {
+    public ControladorGeneral(ServicioSeleccion servicioSelec, ServicioAlbum servicioAlbum, ServicioRegistroPegada servicioPegada, ServicioUsuario servicioUsuario, ServicioRegistroIntercambio servicioRegistroIntercambio, ServicioSession servicioSession) {
         this.servicioSelec = servicioSelec;
         this.servicioAlbum = servicioAlbum;
         this.servicioPegada = servicioPegada;
         this.servicioUsuario = servicioUsuario;
         this.servicioRegistroIntercambio = servicioRegistroIntercambio;
+        this.servicioSession = servicioSession;
     }
 
     @RequestMapping(path = "/configuracion", method = RequestMethod.GET)
     public ModelAndView mostrarConfiguracion(HttpServletRequest request) {
         List<Seleccion> selecciones = this.servicioSelec.traerSelecciones();
 
-        String rol = getSessionRol(request);
-        Long id = getSessionId(request);
-
-        Usuario userLogueado = getSessionUserLog(request);
         ModelMap model = new ModelMap();
 
-        model.put("usuario", userLogueado);
-        model.put("id", id);
-        model.put("rol", rol);
+        model.put("usuario", servicioSession.getUser(request));
+        model.put("id", servicioSession.getId(request));
+        model.put("rol", servicioSession.getRol(request));
         model.put("selecciones", selecciones);
         model.put("figurita", new Figurita());
-        if (rol==null || !rol.equals("ADM")) {
+        if (servicioSession.getRol(request)==null || !servicioSession.getRol(request).equals("ADM")) {
             return new ModelAndView("redirect:/");
         }
         return new ModelAndView("configuracion", model);
@@ -57,23 +56,20 @@ public class ControladorGeneral {
     @RequestMapping(path = "/configuracion/usuario/", method = RequestMethod.GET)
     public ModelAndView verVistaUsuarioConfig(HttpServletRequest request) {
 
-        String rol = getSessionRol(request);
-        Long id = getSessionId(request);
-        Usuario userLogueado = getSessionUserLog(request);
-
         List<Usuario> usuarios = servicioUsuario.getUsuarios();
 
         ModelMap model = new ModelMap();
-        model.put("usuario", userLogueado);
-        model.put("id", id);
-        model.put("rol", rol);
+        model.put("usuario", servicioSession.getUser(request));
+        model.put("id", servicioSession.getId(request));
+        model.put("rol", servicioSession.getRol(request));
         model.put("usuarios", usuarios);
-        if (rol==null || !rol.equals("ADM")) {
+        if (servicioSession.getRol(request)==null || !servicioSession.getRol(request).equals("ADM")) {
             return new ModelAndView("redirect:/");
         }
 
         return new ModelAndView("configUsuario", model);
     }
+
 
     @RequestMapping(path = "/perfil/", method = RequestMethod.GET)
     public ModelAndView perfil(HttpServletRequest request) {
@@ -86,29 +82,51 @@ public class ControladorGeneral {
 
         List<RegistroIntercambio> mePidieron = servicioRegistroIntercambio.getIntercambiosQueMePiden(id);
         List<RegistroIntercambio> pedi = servicioRegistroIntercambio.getIntercambiosQueHago(id);
-        
+
         List<RegistroPegada> pegadas = servicioPegada.getPegadasUsuario(id);
+        List<RegistroPegada> pegadasSinRepetidas = servicioPegada.getPegadasUsuarioSinRepetidas(id);
+
         Usuario usuarioLogueado = servicioUsuario.getUsuario(id);
 
-        HashSet<String> qatar = new HashSet<String>();
-        HashSet<String> rusia = new HashSet<String>();
-        HashSet<String> brasil = new HashSet<String>();
+        int userQatar = 0;
+        int userRusia = 0;
+        int userBrasil = 0;
+
 
         //recorro la lista de figuritas pegadas, dependiendo del albun las guardo solamente el nombre en un set para que no me cuente las figuritas repetidas
-        for (RegistroPegada item : pegadas) {
+        for (RegistroPegada item : pegadasSinRepetidas) {
             switch (item.getAlbum().getNombre()) {
                 case "Mundial-Qatar-2022":
-                  qatar.add(item.getFigurita().getNombre());
+                    userQatar++;
                     break;
                 case "Mundial-Rusia-2018":
-                    rusia.add(item.getFigurita().getNombre());
+                    userRusia++;
                     break;
                 case "Mundial-Brasil-2014":
-                    brasil.add(item.getFigurita().getNombre());
+                    userBrasil++;
                     break;
             }
         }
 
+        int totalFigsQatar = servicioAlbum.getCantidadDeFiguritasDeUnAlbum("Mundial-Qatar-2022");
+        int totalFigsRusia = servicioAlbum.getCantidadDeFiguritasDeUnAlbum("Mundial-Rusia-2018");
+        int totalFigsBrasil = servicioAlbum.getCantidadDeFiguritasDeUnAlbum("Mundial-Brasil-2014");
+
+        int porcentajeQatar = 0;
+        int porcentajeRusia = 0;
+        int porcentajeBrasil = 0;
+
+        if(totalFigsQatar != 0){
+            porcentajeQatar = userQatar*100 / totalFigsQatar;
+        }
+
+        if(totalFigsRusia  != 0){
+            porcentajeRusia = userRusia*100 / totalFigsRusia;
+        }
+
+        if(totalFigsBrasil != 0){
+            porcentajeBrasil = userBrasil*100 / totalFigsBrasil;
+        }
 
         ModelMap model = new ModelMap();
         model.put("pegadas", pegadas);
@@ -119,9 +137,10 @@ public class ControladorGeneral {
         model.put("albunes", albunes);
         model.put("pidieron", mePidieron);
         model.put("pedi", pedi);
-        model.put("qatar", qatar.size());
-        model.put("rusia", rusia.size());
-        model.put("brasil", brasil.size());
+        model.put("qatar", porcentajeQatar);
+        model.put("rusia", porcentajeRusia);
+        model.put("brasil", porcentajeBrasil);
+
 
 
         return new ModelAndView("perfil", model);
@@ -130,14 +149,11 @@ public class ControladorGeneral {
     @RequestMapping(path = "/nosotros", method = RequestMethod.GET)
     public ModelAndView nosotros(HttpServletRequest request) {
 
-        String rol = getSessionRol(request);
-        Long id = getSessionId(request);
-        Usuario userLogueado = getSessionUserLog(request);
         ModelMap model = new ModelMap();
 
-        model.put("usuario", userLogueado);
-        model.put("id", id);
-        model.put("rol", rol);
+        model.put("usuario", servicioSession.getUser(request));
+        model.put("id", servicioSession.getId(request));
+        model.put("rol", servicioSession.getRol(request));
 
         return new ModelAndView("nosotros", model);
     }

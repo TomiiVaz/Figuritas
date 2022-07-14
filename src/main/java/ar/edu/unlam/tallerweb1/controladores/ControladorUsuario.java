@@ -6,13 +6,17 @@ import ar.edu.unlam.tallerweb1.excepciones.UsuarioMailExistenteException;
 import ar.edu.unlam.tallerweb1.modelo.RegistroPegada;
 import ar.edu.unlam.tallerweb1.modelo.Seleccion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
-import ar.edu.unlam.tallerweb1.servicios.*;
-import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
+import ar.edu.unlam.tallerweb1.servicios.ServicioRegistroPegada;
 import ar.edu.unlam.tallerweb1.servicios.ServicioSeleccion;
+import ar.edu.unlam.tallerweb1.servicios.ServicioSession;
+import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,11 +35,14 @@ public class ControladorUsuario {
 
     private final ServicioRegistroPegada serviciopegada;
 
+    private final ServicioSession servicioSession;
+
     @Autowired
-    public ControladorUsuario(ServicioUsuario servicioUsuario, ServicioSeleccion servicioSeleccion, ServicioRegistroPegada serviciopegada) {
+    public ControladorUsuario(ServicioUsuario servicioUsuario, ServicioSeleccion servicioSeleccion, ServicioRegistroPegada serviciopegada, ServicioSession servicioSession) {
         this.servicioUsuario = servicioUsuario;
         this.servicioSeleccion = servicioSeleccion;
         this.serviciopegada = serviciopegada;
+        this.servicioSession = servicioSession;
     }
 
     // Este metodo escucha la URL localhost:8080/NOMBRE_APP/login si la misma es invocada por metodo http GET
@@ -78,22 +85,46 @@ public class ControladorUsuario {
 
     // Escucha la URL /home por GET, y redirige a una vista.
     @RequestMapping(path = "/home", method = RequestMethod.GET)
-    public ModelAndView irAHome(HttpServletRequest request) {
+    public ModelAndView irAHome(HttpServletRequest request) throws Exception {
+
+        /*try {
+            URL url = new URL("https://api.aerisapi.com/conditions/doha,q?format=json&plimit=1&filter=1min&client_id=ogykAgfXtV3bP7KbuSv6B&client_secret=M1NBiAXEBMIxWlsrPhHNwkddXnmpSUESIkRYDY2f");
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("GET");
+            con.connect();
+            Integer responseCode = con.getResponseCode();
+            if (responseCode != 200) {
+                System.out.println("error");
+            } else {
+                StringBuilder info = new StringBuilder();
+                Scanner scanner = new Scanner(url.openStream());
+                while (scanner.hasNextLine()) {
+                    info.append(scanner.nextLine());
+                }
+                scanner.close();
+
+                JSONArray jarray = new JSONArray(info.toString());
+                JSONObject jobject = jarray.getJSONObject(0);
+                // ver por que no imprime nada en la consola
+                //System.out.println(jobject);
+            }
 
 
-        String rol = ControladorGeneral.getSessionRol(request);
+        } catch (Exception e) {
+
+        }*/
+
+        /*String rol = ControladorGeneral.getSessionRol(request);
         Long id = ControladorGeneral.getSessionId(request);
-        Usuario userLogueado = ControladorGeneral.getSessionUserLog(request);
+        Usuario userLogueado = ControladorGeneral.getSessionUserLog(request);*/
 
-        List<RegistroPegada> intercambiables = serviciopegada.getIntercambiables(userLogueado);
-
-        DatosUsuario du = new DatosUsuario(request);
+        List<RegistroPegada> intercambiables = serviciopegada.getIntercambiables(servicioSession.getUser(request));
 
         ModelMap model = new ModelMap();
         model.put("intercambiables", intercambiables);
-        model.put("usuario", du.getUsuario());
-        model.put("id", du.getId());
-        model.put("rol", du.getRol());
+        model.put("usuario", servicioSession.getUser(request));
+        model.put("id", servicioSession.getId(request));
+        model.put("rol", servicioSession.getRol(request));
 
 
         return new ModelAndView("home", model);
@@ -127,10 +158,13 @@ public class ControladorUsuario {
         } catch (LongitudIncorrectaException e) {
             return registroFallido(model, "La contraseña debe tener al menos 8 carateres", usuario, "longitudIncorrecta");
         }
-        return registroExitoso();
+        return registroExitoso(usuario);
     }
 
-    private ModelAndView registroExitoso() {
+    private ModelAndView registroExitoso(Usuario usuario) {
+
+        servicioUsuario.mandarMailDeRegistracion(usuario.getEmail(), usuario.getNombre()); // aca mando el mail al usuario que se registró
+
         return new ModelAndView("redirect:/home");
     }
 
@@ -150,8 +184,8 @@ public class ControladorUsuario {
 
     @RequestMapping(path = "/perfil/editar", method = RequestMethod.POST)
     public ModelAndView editarPerfil(@ModelAttribute("usuario") Usuario usuario, HttpServletRequest request) {
-        Usuario usuarioLoggeado = ControladorGeneral.getSessionUserLog(request);
-        usuario.setId((Long) request.getSession().getAttribute("ID"));
+        Usuario usuarioLoggeado = servicioSession.getUser(request);
+        usuario.setId(servicioSession.getId(request));
         usuario.setPassword(usuarioLoggeado.getPassword());
         usuario.setPassword2(usuarioLoggeado.getPassword2());
         usuario.setRol(usuarioLoggeado.getRol());
@@ -163,7 +197,7 @@ public class ControladorUsuario {
     }
 
     @RequestMapping(path = "/configuracion/usuario/eliminar/{usuario.id}", method = RequestMethod.GET)
-    public ModelAndView inactivarUsuario(@PathVariable("usuario.id") Long id){
+    public ModelAndView inactivarUsuario(@PathVariable("usuario.id") Long id) {
 
         Usuario user = servicioUsuario.getUsuario(id);
         servicioUsuario.eliminarUsuario(user);
