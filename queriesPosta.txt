@@ -8,10 +8,19 @@ use db;
     INSERT INTO db.posicion (descripcion) VALUES ('defensor');
     INSERT INTO db.posicion (descripcion) VALUES ('mediocampista');
     INSERT INTO db.posicion (descripcion) VALUES ('delantero');
+
+/*Estados*/
+INSERT INTO db.estado (descripcion) VALUES ('Espera');
+INSERT INTO db.estado (descripcion) VALUES ('Aceptado');
+INSERT INTO db.estado (descripcion) VALUES ('Rechazado');
+
+
 /*Rarezas*/
     INSERT INTO db.rareza (descripcion) VALUES ('comun');
     INSERT INTO db.rareza (descripcion) VALUES ('rara');
     INSERT INTO db.rareza (descripcion) VALUES ('legendaria');
+
+
 /*un usuario sin seleccion*/
     insert into usuario (activo, email, equipo, nombre, password, password2, rol)
     values(true, 'admin@admin.com', 'Bokita', 'admin','admin', 'admin','ADM');
@@ -20,14 +29,17 @@ use db;
 
     INSERT INTO db.seleccion (nombre, album_id) VALUES ('Argentina', 1);
 
+
 /* actualizo el usuario sin selección */
     UPDATE db.usuario
         SET activo = true, email = 'admin@admin.com', equipo = 'Bokita', nombre = 'admin', password = 'admin', password2 = 'admin', rol = 'ADM', seleccion_id = 1 WHERE id = 1;
+
 
 /*Albumes*/
 INSERT INTO db.album (nombre, usuario_id) VALUES ('Mundial-Qatar-2022', null);
 INSERT INTO db.album (nombre, usuario_id) VALUES ('Mundial-Rusia-2018', null);
 INSERT INTO db.album (nombre, usuario_id) VALUES ('Mundial-Brasil-2014', null);
+
 
 /*Selecciones*/
 INSERT INTO db.seleccion (nombre, album_id) VALUES ('Argentina', null);
@@ -35,12 +47,12 @@ INSERT INTO db.seleccion (nombre, album_id) VALUES ('Brazil', null);
 INSERT INTO db.seleccion (nombre, album_id) VALUES ('Italia', null);
 INSERT INTO db.seleccion (nombre, album_id) VALUES ('Francia', null);
 
+
 /*agrego otros usuarios*/
 INSERT INTO db.usuario (activo, email, equipo, nombre, password, password2, rol, seleccion_id) VALUES (true, 'dami@gmail.com', 'Boca', 'Damian', '123', null, 'ADM', 2);
 INSERT INTO db.usuario (activo, email, equipo, nombre, password, password2, rol, seleccion_id) VALUES (false, 'manuel@manuel.com', 'A', 'manuel', '12345678', '12345678', 'CLI', 1);
-INSERT INTO db.usuario (activo, email, equipo, nombre, password, password2, rol, seleccion_id) VALUES (true, 'juan@juan.com', 'a', 'juan', 'juan', 'juan', 'CLI', 1);
-INSERT INTO db.usuario (activo, email, equipo, nombre, password, password2, rol, seleccion_id) VALUES (true, 'tomas@tomas.com', 'a', 'tomas', 'tomas', 'tomas', 'CLI', 1);
-INSERT INTO db.usuario (activo, email, equipo, nombre, password, password2, rol, seleccion_id) VALUES (true, 'profes@profes.com', 'a', 'profes', 'profes', 'profes', 'CLI', 1);
+INSERT INTO db.usuario (activo, email, equipo, nombre, password, password2, rol, seleccion_id) VALUES (false, 'profes@gmail.com', 'ProfesFC', 'Elon', '12345678', '12345678', 'CLI', 1);
+INSERT INTO db.usuario (activo, email, equipo, nombre, password, password2, rol, seleccion_id) VALUES (false, 'matias.cascini@hotmail.com', 'PSG', 'Jeff', '11223333', '11223333', 'CLI', 2);
 
 
 /*Figuritas*/
@@ -74,3 +86,25 @@ INSERT INTO db.figurita (dorsal, equipo, nombre, album_id, posicion_id, rareza_i
 INSERT INTO db.figurita (dorsal, equipo, nombre, album_id, posicion_id, rareza_id, seleccion_id) VALUES (7, 'Zenit', 'Hulk', 3, 4, 1, 2);
 INSERT INTO db.figurita (dorsal, equipo, nombre, album_id, posicion_id, rareza_id, seleccion_id) VALUES (16, 'Roma', 'De Rossi', 3, 3, 3, 3);
 INSERT INTO db.figurita (dorsal, equipo, nombre, album_id, posicion_id, rareza_id, seleccion_id) VALUES (5, 'PSG', 'Thiago Motta', 3, 3, 2, 3);
+
+
+/*Registros Pegada*/
+INSERT INTO db.registropegada (intercambiable, album_id, figurita_id, usuario_id) VALUES (false, 1, 1, 2);
+INSERT INTO db.registropegada (intercambiable, album_id, figurita_id, usuario_id) VALUES (true, 2, 2, 1);
+INSERT INTO db.registropegada (intercambiable, album_id, figurita_id, usuario_id) VALUES (false, 3, 3, 1);
+INSERT INTO db.registropegada (intercambiable, album_id, figurita_id, usuario_id) VALUES (false, 1, 1, 1);
+INSERT INTO db.registropegada (intercambiable, album_id, figurita_id, usuario_id) VALUES (true, 3, 3, 2);
+INSERT INTO db.registropegada (intercambiable, album_id, figurita_id, usuario_id) VALUES (false, 1, 4, 1);
+INSERT INTO db.registropegada (intercambiable, album_id, figurita_id, usuario_id) VALUES (false, 3, 3, 2);
+INSERT INTO db.registropegada (intercambiable, album_id, figurita_id, usuario_id) VALUES (false, 1, 4, 2);
+INSERT INTO db.registropegada (intercambiable, album_id, figurita_id, usuario_id) VALUES (true, 3, 25, 2);
+INSERT INTO db.registropegada (intercambiable, album_id, figurita_id, usuario_id) VALUES (false, 1, 5, 2);
+INSERT INTO db.registropegada (intercambiable, album_id, figurita_id, usuario_id) VALUES (true, 1, 10, 3);
+INSERT INTO db.registropegada (intercambiable, album_id, figurita_id, usuario_id) VALUES (true, 2, 16, 3);
+INSERT INTO db.registropegada (intercambiable, album_id, figurita_id, usuario_id) VALUES (true, 2, 19, 3);
+INSERT INTO db.registropegada (intercambiable, album_id, figurita_id, usuario_id) VALUES (true, 3, 25, 3);
+INSERT INTO db.registropegada (intercambiable, album_id, figurita_id, usuario_id) VALUES (false, 3, 26, 1);
+INSERT INTO db.registropegada (intercambiable, album_id, figurita_id, usuario_id) VALUES (false, 3, 29, 1);
+INSERT INTO db.registropegada (intercambiable, album_id, figurita_id, usuario_id) VALUES (true, 1, 1, 70);
+INSERT INTO db.registropegada (intercambiable, album_id, figurita_id, usuario_id) VALUES (true, 1, 5, 71);
+INSERT INTO db.registropegada (intercambiable, album_id, figurita_id, usuario_id) VALUES (false, 1, 7, 70);
